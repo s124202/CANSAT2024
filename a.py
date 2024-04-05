@@ -3,3 +3,4 @@
 print("2")
 
 master = 1
+utility = 2

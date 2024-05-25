@@ -1,6 +1,6 @@
 import bluetooth
 
-bd_addr = "14:18:C3:A4:CC:65"
+bd_addr = "B8:27:EB:AD:E6:38"
 port = 1
 
 sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)

@@ -47,25 +47,25 @@ def main():
         # 赤色検出
         mask = red_detect(frame)
 
-        # 最大の赤色物体の中心を取得
-        center = get_largest_red_object(mask)
-        if center is not None:
-            cv2.circle(frame, (int(center[0]), int(center[1])), 5, (255, 0, 0), -1)
-            if center[0] < 200:
-                width = 'left'
-            elif center[0] < 440:
-                width = 'center'
-            else:
-                width = 'right'
-            cv2.putText(frame, width, (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+        # # 最大の赤色物体の中心を取得
+        # center = get_largest_red_object(mask)
+        # if center is not None:
+        #     cv2.circle(frame, (int(center[0]), int(center[1])), 5, (255, 0, 0), -1)
+        #     if center[0] < 200:
+        #         width = 'left'
+        #     elif center[0] < 440:
+        #         width = 'center'
+        #     else:
+        #         width = 'right'
+        #     cv2.putText(frame, width, (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
-        # 結果表示
-        #cv2.imshow("Frame", frame)
-        #cv2.imshow("Mask", mask)
+        # # 結果表示
+        # cv2.imshow("Frame", frame)
+        # cv2.imshow("Mask", mask)
 
-        # qキーが押されたら途中終了
-        if cv2.waitKey(25) & 0xFF == ord('q'):
-            break
+        # # qキーが押されたら途中終了
+        # if cv2.waitKey(25) & 0xFF == ord('q'):
+        #     break
 
     cap.release()
     cv2.destroyAllWindows()

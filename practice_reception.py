@@ -14,12 +14,16 @@ try:
         client_sock, client_info = sock.accept()
         print("Accepted connection from", client_info)
 
-        # データを受信
-        data = client_sock.recv(1024)
-        print("Received:", data)
-
-        # クライアントソケットをクローズ
-        client_sock.close()
+        try:
+            while True:
+                # データを受信
+                data = client_sock.recv(1024)
+                print("Received:", data)
+        except bluetooth.btcommon.BluetoothError as error:
+            print("BluetoothError:", error)
+        finally:
+            # クライアントソケットをクローズ
+            client_sock.close()
 except KeyboardInterrupt:
     print("Interrupted by user, closing socket...")
 

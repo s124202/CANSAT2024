@@ -76,10 +76,10 @@ def blt_send():
 
     bd_addr = "B8:27:EB:A9:5B:64"
     port = 1
-    while True:
-        sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-        sock.connect((bd_addr, port))
+    sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+    sock.connect((bd_addr, port))
 
+    while True:
         if center is not None:
             data = '1'
         else:

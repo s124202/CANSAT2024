@@ -14,6 +14,3 @@ while True:
         print("Accepted connection from", client_info)
         data = client_sock.recv(1024)
         print("Received:", data)
-        
-        client_sock.close()
-        sock.close()

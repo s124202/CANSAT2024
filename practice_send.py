@@ -79,15 +79,19 @@ def blt_send():
     sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
     sock.connect((bd_addr, port))
 
-    while True:
-        if center is not None:
-            data = '1'
-        else:
-            data = '0'
+    try:
+        while True:
+            if center is not None:
+                data = '1'
+            else:
+                data = '0'
 
-        sock.send(data.encode())  # 文字列をバイト列に変換してから送信
+            sock.send(data.encode())  # 文字列をバイト列に変換してから送信
+    except KeyboardInterrupt:
+        print("Interrupted by user, closing socket...")
 
-        sock.close()
+    sock.close()  # ソケットをループの外で閉じる
+
 
 if __name__ == '__main__':
     global center

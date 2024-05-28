@@ -1,7 +1,7 @@
 import time
 
 def a():
-    x = 0
+    x = 1
     while True:
         print(x)
         time.sleep(1)

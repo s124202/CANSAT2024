@@ -9,8 +9,7 @@ sock.bind(("", port))
 sock.listen(1)
 print("Waiting for connection...")
 
-try:
-    while True:
+while True:
         client_sock, client_info = sock.accept()
         print("Accepted connection from", client_info)
 
@@ -24,8 +23,6 @@ try:
         finally:
             # クライアントソケットをクローズ
             client_sock.close()
-except KeyboardInterrupt:
-    print("Interrupted by user, closing socket...")
 
 # ソケットをクローズ
 sock.close()

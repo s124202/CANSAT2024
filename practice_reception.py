@@ -12,15 +12,8 @@ print("Waiting for connection...")
 while True:
         client_sock, client_info = sock.accept()
         print("Accepted connection from", client_info)
-
-        try:
-            while True:
-                # データを受信
-                data = client_sock.recv(1024)
-                print("Received:", data)
-        except bluetooth.btcommon.BluetoothError as error:
-            print("BluetoothError:", error)
-
-# ソケットをクローズ
-client_sock.close()
-sock.close()
+        data = client_sock.recv(1024)
+        print("Received:", data)
+        
+        client_sock.close()
+        sock.close()

@@ -20,9 +20,7 @@ while True:
                 print("Received:", data)
         except bluetooth.btcommon.BluetoothError as error:
             print("BluetoothError:", error)
-        finally:
-            # クライアントソケットをクローズ
-            client_sock.close()
 
 # ソケットをクローズ
+client_sock.close()
 sock.close()

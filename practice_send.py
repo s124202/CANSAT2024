@@ -81,13 +81,13 @@ def blt_send():
         sock.connect((bd_addr, port))
 
         if center is not None:
-            data = 1
+            data = '1'
         else:
-            data = 0
+            data = '0'
 
-        sock.send(data)
+        sock.send(data.encode())  # 文字列をバイト列に変換してから送信
 
-        sock.close()    
+        sock.close()
 
 if __name__ == '__main__':
     global center

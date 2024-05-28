@@ -48,7 +48,7 @@ def main():
         mask = red_detect(frame)
 
         # # 最大の赤色物体の中心を取得
-        # center = get_largest_red_object(mask)
+        center = get_largest_red_object(mask)
         # if center is not None:
         #     cv2.circle(frame, (int(center[0]), int(center[1])), 5, (255, 0, 0), -1)
         #     if center[0] < 200:
@@ -79,18 +79,12 @@ def blt_send():
     sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
     sock.connect((bd_addr, port))
 
-    try:
-        while True:
-            if center is not None:
-                data = '1'
-            else:
-                data = '0'
-
-            sock.send(data.encode())  # 文字列をバイト列に変換してから送信
-    except KeyboardInterrupt:
-        print("Interrupted by user, closing socket...")
-
-    sock.close()  # ソケットをループの外で閉じる
+    while True:
+         if center is not None:
+             data = '1'
+         else:
+             data = '0'
+         sock.send(data.encode())  # 文字列をバイト列に変換してから送信
 
 
 if __name__ == '__main__':

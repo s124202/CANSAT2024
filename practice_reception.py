@@ -7,10 +7,17 @@ port = 1
 sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 sock.bind(("", port))
 sock.listen(1)
-print("Waiting for connection...")
+client_sock, client_info = sock.accept()
+print("Accepted connection from", client_info)
 
+# データを受信
 while True:
-        client_sock, client_info = sock.accept()
-        print("Accepted connection from", client_info)
-        data = client_sock.recv(1024)
-        print("Received:", data)
+    data = client_sock.recv(1024)
+    print("Received:", data)
+
+    if data == "15":
+        break
+
+# ソケットをクローズ
+client_sock.close()
+sock.close()

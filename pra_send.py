@@ -1,3 +1,6 @@
+# カメラによる色検知
+# 色検知できたらbluetoothで1を送信、できなかったら0を送信
+
 import numpy as np
 import time
 import threading

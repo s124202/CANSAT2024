@@ -1,3 +1,5 @@
+# 常にbluetooth通信にて受信する
+
 import bluetooth
 
 # Bluetoothポート番号

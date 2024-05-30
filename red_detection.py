@@ -1,5 +1,5 @@
-# 赤色検知をして青い点で追従
-# 左右中央のどこにあるかを同時に表示
+# カメラによる色検知
+# 出力画面あり
 
 import cv2
 import numpy as np
@@ -22,16 +22,17 @@ def red_detect(img):
 
 def get_largest_red_object(mask):
     # 最小領域の設定
-    minarea = 10
+    minarea = 100
     nlabels, labels, stats, centroids = cv2.connectedComponentsWithStats(mask)
     if nlabels > 1:
         largest_label = 1 + np.argmax(stats[1:, cv2.CC_STAT_AREA])
         center = centroids[largest_label]
-        if stats[largest_label,cv2.CC_STAT_AREA] > minarea:
-            return center
-        return None
+        size = stats[largest_label,cv2.CC_STAT_AREA]
+        if size > minarea:
+            return center, size
+        return None, 0
     else:
-        return None
+        return None, 0
 
 def main():
     # カメラのキャプチャ
@@ -45,16 +46,11 @@ def main():
         mask = red_detect(frame)
 
         # 最大の赤色物体の中心を取得
-        center = get_largest_red_object(mask)
+        center, size = get_largest_red_object(mask)
+
         if center is not None:
             cv2.circle(frame, (int(center[0]), int(center[1])), 5, (255, 0, 0), -1)
-            if center[0] < 200:
-                width = 'left'
-            elif center[0] < 440:
-                width = 'center'
-            else:
-                width = 'right'
-            cv2.putText(frame, width, (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+            cv2.putText(frame, str(int(size)) + "," + str(int(center[0]) - 320), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
         # 結果表示
         cv2.imshow("Frame", frame)

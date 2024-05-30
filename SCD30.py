@@ -19,3 +19,4 @@ while True:
         time.sleep(2)
     else:
         time.sleep(0.2)
+#...

@@ -1,3 +1,4 @@
+//config
 const int ledPin = 48;
 
 void setup() {

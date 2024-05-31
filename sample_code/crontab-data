@@ -1,0 +1,1 @@
+@reboot bash /home/pi/sample_code/tempdata_send.sh

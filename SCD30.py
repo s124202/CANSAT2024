@@ -4,7 +4,7 @@
 import time
 from scd30_i2c import SCD30
 
-scd30 = SCD30()
+scd30 = SCD30(0X61)
 
 scd30.set_measurement_interval(2)
 scd30.start_periodic_measurement()

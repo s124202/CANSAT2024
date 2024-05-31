@@ -1,5 +1,8 @@
 #scd30_sample.py
 
+#input : none
+#output : [CO2,temp,rh(hum?)]
+
 #config
 import time
 from scd30_i2c import SCD30
@@ -19,4 +22,3 @@ while True:
         time.sleep(2)
     else:
         time.sleep(0.2)
-#...

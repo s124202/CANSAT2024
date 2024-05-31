@@ -18,7 +18,8 @@ while True:
     if scd30.get_data_ready():
         m = scd30.read_measurement()
         if m is not None:
-            print(f"CO2: {m[0]:.2f}ppm, temp: {m[1]:.2f}'C, rh: {m[2]:.2f}%")
+            #print(f"CO2: {m[0]:.2f}ppm, temp: {m[1]:.2f}'C, rh: {m[2]:.2f}%")
+            print(f"CO2: {m[0]:.2f}ppm")
         time.sleep(2)
     else:
         time.sleep(0.2)

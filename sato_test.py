@@ -1,8 +1,7 @@
-import BME280
-
-BME280.bme280_calib_param()
-BME280.bme280_setup()
-
-a = BME280.bme280_read()
-
-print(a)
+def measure_index(
+        self, temperature: float = 25, relative_humidity: float = 50
+    ) -> int:
+        
+        raw = self.measure_raw(temperature, relative_humidity)
+        if raw < 0:
+            return -1

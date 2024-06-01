@@ -9,14 +9,14 @@ BME280.bme280_calib_param()
 BME280.bme280_setup()
 
 while True:
-    a = BME280.bme280_read()
-    temperature = a[0]
-    humidity = a[3]
+	data = BME280.bme280_read()
+	temperature = data[0]
+	humidity = data[3]
 
-    compensated_raw_gas = sgp.measure_raw(
-        temperature=temperature, relative_humidity=humidity
-    )
-    
-    print("Raw Data:", compensated_raw_gas)
-    print("")
-    time.sleep(1)
+	compensated_raw_gas = sgp.measure_raw(
+		temperature=temperature, relative_humidity=humidity
+	)
+	
+	print("Raw Data:", compensated_raw_gas)
+	print("")
+	time.sleep(1)

@@ -5,7 +5,7 @@ import adafruit_bme280
 
 i2c = board.I2C()  # uses board.SCL and board.SDA
 sgp = adafruit_sgp40.SGP40(i2c)
-bme280 = adafruit_bme280.Adafruit_BME280_I2C(i2c)
+bme280 = adafruit_bme280.Adafruit_BME280(i2c)
 
 while True:
     temperature = bme280.temperature

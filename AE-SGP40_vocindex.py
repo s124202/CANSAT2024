@@ -7,7 +7,7 @@ sgp = adafruit_sgp40.SGP40(i2c)
 
 while True:
     raw = sgp.raw
-    voc_index = vocalgorithm_process(raw)
+    voc_index = _voc_algorithm.vocalgorithm_process(raw)
 
     print("VOC Index:", voc_index)
     print("")

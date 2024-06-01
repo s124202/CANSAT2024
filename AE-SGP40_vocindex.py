@@ -6,7 +6,8 @@ i2c = board.I2C()
 sgp = adafruit_sgp40.SGP40(i2c)
 
 while True:
-    voc_index = sgp.measure_index()
+    raw = sgp.raw
+    voc_index = vocalgorithm_process(raw)
 
     print("VOC Index:", voc_index)
     print("")

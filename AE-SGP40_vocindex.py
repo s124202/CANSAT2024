@@ -13,8 +13,7 @@ _voc_algorithm.vocalgorithm_init()
 
 while True:
     raw = sgp.raw
-    voc_index = _voc_algorithm.vocalgorithm_process(raw)
 
-    print("VOC Index:", voc_index)
+    print("VOC Index:", raw)
     print("")
     time.sleep(1)

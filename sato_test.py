@@ -19,7 +19,7 @@ def measure_index(
         temperature: float = 25, relative_humidity: float = 50
     ) -> int:
         
-        raw = sgp.measure_raw(temperature, relative_humidity)
+        raw = measure_raw(temperature, relative_humidity)
         if raw < 0:
             return -1
         else:
@@ -30,8 +30,6 @@ if __name__ == '__main__':
         a = measure_index()
         print(a)
 
-    except KeyboardInterrupt:
-        print()
     except Exception as e:
         print()
         print(e.message)

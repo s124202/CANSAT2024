@@ -13,9 +13,10 @@ while True:
     temperature = a[0]
     humidity = a[3]
 
-    voc_index = sgp.measure_index(
-    temperature=temperature, relative_humidity=humidity)
-
-    print("VOC Index:", voc_index)
+    compensated_raw_gas = sgp.measure_raw(
+        temperature=temperature, relative_humidity=humidity
+    )
+    
+    print("Raw Data:", compensated_raw_gas)
     print("")
     time.sleep(1)

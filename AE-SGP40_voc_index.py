@@ -15,9 +15,6 @@ def measure_index(
         from adafruit_sgp40.voc_algorithm import (
             VOCAlgorithm,
         )
-        
-        _voc_algorithm = VOCAlgorithm()
-        _voc_algorithm.vocalgorithm_init()
 
         sraw = sgp.measure_raw(temperature, relative_humidity)
         if sraw < 0:

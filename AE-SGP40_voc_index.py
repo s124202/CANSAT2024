@@ -22,7 +22,7 @@ def measure_index(
         sraw = sgp.measure_raw(temperature, relative_humidity)
         if sraw < 0:
             return -1
-        voc_index = _voc_algorithm.vocalgorithm_process(raw)
+        voc_index = _voc_algorithm.vocalgorithm_process(sraw)
         return voc_index
 
 while True:

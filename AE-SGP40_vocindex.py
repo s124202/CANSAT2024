@@ -9,8 +9,8 @@ bme280 = BME280
 bme280.bme280_read()
 
 while True:
-    temperature = bme280.value[2]
-    humidity = bme280.value[3]
+    temperature = value[2]
+    humidity = value[3]
 
     voc_index = sgp.measure_index(
     temperature=temperature, relative_humidity=humidity)

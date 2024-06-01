@@ -5,4 +5,4 @@ BME280.bme280_setup()
 
 a = BME280.bme280_read()
 
-print(a)
+print(a[2] , a[3])

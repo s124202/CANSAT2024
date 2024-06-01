@@ -5,12 +5,13 @@ import BME280
 
 i2c = board.I2C()  # uses board.SCL and board.SDA
 sgp = adafruit_sgp40.SGP40(i2c)
-bme280 = BME280
-bme280.bme280_read()
+BME280.bme280_calib_param()
+BME280.bme280_setup()
 
 while True:
-    temperature = value[2]
-    humidity = value[3]
+    a = BME280.bme280_read()
+    temperature = a[0]
+    humidity = a[3]
 
     voc_index = sgp.measure_index(
     temperature=temperature, relative_humidity=humidity)

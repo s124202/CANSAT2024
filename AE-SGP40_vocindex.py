@@ -1,19 +1,19 @@
 import time
 import board
 import adafruit_sgp40
-from adafruit_sgp40.voc_algorithm import (
-            VOCAlgorithm,
-        )
+import adafruit_bme280
 
-i2c = board.I2C()
+i2c = board.I2C()  # uses board.SCL and board.SDA
 sgp = adafruit_sgp40.SGP40(i2c)
-
-_voc_algorithm = VOCAlgorithm()
-_voc_algorithm.vocalgorithm_init()
+bme280 = adafruit_bme280.Adafruit_BME280_I2C(i2c)
 
 while True:
-    raw = sgp.raw
+    temperature = bme280.temperature
+    humidity = bme280.relative_humidity
 
-    print("VOC Index:", raw)
+    voc_index = sgp.measure_index(
+    temperature=temperature, relative_humidity=humidity)
+
+    print("VOC Index:", voc_index)
     print("")
     time.sleep(1)

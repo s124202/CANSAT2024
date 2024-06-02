@@ -165,7 +165,7 @@ if __name__ == '__main__':
 	try:
 		while 1:
 			temp,pres,hum,alt = bme280_read()
-			print("temp: ", str(temp), "pres: ", str(pres), "hum: ", str(hum), "alt: ", str(alt))
+			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
 			time.sleep(0.8)
 	except KeyboardInterrupt:
 		print("\r\n")

@@ -295,7 +295,7 @@ if __name__ == '__main__':
 			time.sleep(1)
 	except KeyboardInterrupt:
 		close_gps()
-		print("\r\nKeyboard Intruppted, Serial Closed")
+		print("Keyboard Intruppted, Serial Closed")
 	except:
 		close_gps()
 		print(traceback.format_exc())

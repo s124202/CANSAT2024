@@ -165,11 +165,9 @@ if __name__ == '__main__':
 	try:
 		while 1:
 			temp,pres,hum,alt = bme280_read()
-			print(str(pres) + "\t" + str(alt) + "\t" + str(temp) + "\t" + str(hum))
-			#with open("preslog.txt","w")as f:
-			#	f.write(str(pres)+ "\t" + str(alt) + "\t"+str(temp) + "\t" + str(hum) + "\n")
+			print("temp: ", str(temp), "pres: ", str(pres), "hum: ", str(hum), "alt: ", str(alt))
 			time.sleep(0.8)
 	except KeyboardInterrupt:
 		print("\r\n")
 	except Exception as e:
-		print(e.message())
+		print(e)

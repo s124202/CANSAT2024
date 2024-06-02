@@ -3,7 +3,7 @@ import board
 import adafruit_sgp40
 import BME280
 
-i2c = board.I2C()  # uses board.SCL and board.SDA
+i2c = board.I2C() 
 sgp = adafruit_sgp40.SGP40(i2c)
 BME280.bme280_calib_param()
 BME280.bme280_setup()

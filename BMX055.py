@@ -172,7 +172,7 @@ if __name__ == '__main__':
 			time.sleep(1)
 
 	except KeyboardInterrupt:
-		print()
+		print("\r\n")
 	except Exception as e:
 		print()
-		print(e.message)
+		print(e)

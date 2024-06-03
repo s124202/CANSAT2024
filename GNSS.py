@@ -291,7 +291,7 @@ if __name__ == '__main__':
 					print("Status V")
 			else:
 				# pass
-				print(utc, lat, lon, sHeight, gHeight)
+				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
 			time.sleep(1)
 	except KeyboardInterrupt:
 		close_gps()

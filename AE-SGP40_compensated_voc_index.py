@@ -12,7 +12,7 @@ try:
 	while True:
 		data = BME280.bme280_read()
 		temperature = data[0]
-		humidity = data[3]
+		humidity = data[2]
 
 		compensated_raw_gas = sgp.measure_raw(
 			temperature=temperature, relative_humidity=humidity

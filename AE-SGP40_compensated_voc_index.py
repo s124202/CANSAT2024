@@ -14,10 +14,14 @@ try:
 		temperature = data[0]
 		humidity = data[3]
 
+		compensated_raw_gas = sgp.measure_raw(
+			temperature=temperature, relative_humidity=humidity
+		)
+
 		voc_index = sgp.measure_index(
 		temperature=temperature, relative_humidity=humidity)
 
-		print("VOC Index:", voc_index)
+		print("voc_index:" + str(voc_index) + "\t" + "raw_gas:" + str(compensated_raw_gas) + "\t" + "tem:" + str(temperature) + "\t" + "hum: " + str(humidity))
 		print("")
 		time.sleep(1)
 except KeyboardInterrupt:

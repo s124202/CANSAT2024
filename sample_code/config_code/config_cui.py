@@ -189,8 +189,8 @@ def main():
 
             TRANSMIT_POWER = REG1 & 0b0000_0011
             transmit_power_setting = {
-                0b00: "13dBm",
-                0b01: "12dBm",
+                0b00: "Unavailable",
+                0b01: "13dBm",
                 0b10: "7dBm",
                 0b11: "0dBm",
             }
@@ -241,7 +241,9 @@ def main():
                 0b010: "1500ms",
                 0b011: "2000ms",
                 0b100: "2500ms",
-                0b101: "3000ms"
+                0b101: "3000ms",
+                0b110: "3500ms",
+                0b111: "4000ms",
             }
             print(f"WOR Cycle           : {wor_cycle_setting[WOR_CYCLE]}")
 
@@ -383,7 +385,7 @@ def main():
             # transmitting_power
             transmitting_power = int(transmitting_power)
 
-            transmitting_power_bit = {13: 0b00, 12: 0b01, 7: 0b10, 0: 0b11}
+            transmitting_power_bit = {13: 0b01, 7: 0b10, 0: 0b11}
 
             if transmitting_power in transmitting_power_bit:
                 transmitting_power = transmitting_power_bit[transmitting_power]
@@ -471,7 +473,9 @@ def main():
                 1500: 0b010,
                 2000: 0b011,
                 2500: 0b100,
-                3000: 0b101
+                3000: 0b101,
+                3500: 0b110,
+                4000: 0b111,
             }
 
             if wor_cycle in wor_cycle_bit:

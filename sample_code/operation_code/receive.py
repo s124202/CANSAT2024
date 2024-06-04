@@ -31,7 +31,7 @@ def main():
                 if ser.in_waiting != 0:
                     payload = payload + ser.read()
                 elif ser.in_waiting == 0 and len(payload) != 0:
-                    time.sleep(0.200)
+                    time.sleep(0.030)
                     if ser.in_waiting == 0:
                         print("recv data hex dump:")
                         hexdump.hexdump(payload)

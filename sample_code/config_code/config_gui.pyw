@@ -11,9 +11,9 @@ bw_values = ["125", "250", "500"]
 sf_values = ["5", "6", "7", "8", "9", "10", "11"]
 sub_packet_values = ["200", "128", "64", "32"]
 on_off_values = ["有効", "無効"]
-transmitting_power_values = ["13", "12", "7", "0"]
+transmitting_power_values = ["Unavailable", "13", "7", "0"]
 transmission_method_values = ["トランスペアレント送信モード", "固定送信モード"]
-wor_cycle_values = ["500", "1000", "1500", "2000", "2500", "3000"]
+wor_cycle_values = ["500", "1000", "1500", "2000", "2500", "3000", "3500", "4000"]
 
 
 def serial_ports():
@@ -296,7 +296,7 @@ def reset_parameters(window: sg.Window):
     window["sub_packet_combo"].update(sub_packet_values[0])
     window["rssi_ambient_combo"].update(on_off_values[1])
     # window["transmission_pause_combo"].update(on_off_values[0])
-    window["transmitting_power_combo"].update(transmitting_power_values[0])
+    window["transmitting_power_combo"].update(transmitting_power_values[1])
     window["channel"].update(0)
     frequency = 920.6 + 0 * 0.2
     window["freq"].update(f"Frequency: {frequency:.1f}MHz")

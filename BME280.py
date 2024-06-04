@@ -11,7 +11,7 @@ bus_number  = 1
 i2c_address = 0x76
 
 bus = SMBus(bus_number)
-
+#1
 digT = []
 digP = []
 digH = []

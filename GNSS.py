@@ -2,7 +2,6 @@ import math
 import time
 import pigpio
 import numpy as np
-import traceback
 
 RX = 15
 pi = pigpio.pi()

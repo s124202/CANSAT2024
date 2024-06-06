@@ -54,7 +54,6 @@ def move(strength_l, strength_r, t_moving):
     一定時間モータを動かすための関数
     strengthは-100~100
     t_movingはモータを動かす時間
-    ueは機体が逆さまかどうか判断するのをmotor関数内で行うかどうか(True/False)
     """
     motor_move(strength_l, strength_r, t_moving)
     if abs(strength_l) == abs(strength_r) and strength_l * strength_r < 0:

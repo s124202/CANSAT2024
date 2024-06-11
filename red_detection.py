@@ -53,8 +53,8 @@ def main():
             cv2.putText(frame, str(int(size)) + "," + str(int(center[0]) - 320), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
         # 結果表示
-        #cv2.imshow("Frame", frame)
-        #cv2.imshow("Mask", mask)
+        cv2.imshow("Frame", frame)
+        cv2.imshow("Mask", mask)
 
         # qキーが押されたら途中終了
         if cv2.waitKey(25) & 0xFF == ord('q'):

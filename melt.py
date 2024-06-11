@@ -3,7 +3,7 @@ import pigpio
 
 pi = pigpio.pi()
 
-meltPin = 11
+meltPin = 17
 
 def melt_down(meltPin, t_melt = 4.0):
 	"""
@@ -17,4 +17,4 @@ def melt_down(meltPin, t_melt = 4.0):
 	time.sleep(1)
 
 if __name__ == "__main__":
-	melt_down(meltPin=11, t_melt = 4.0)
+	melt_down(meltPin=17, t_melt = 4.0)

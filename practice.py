@@ -37,8 +37,8 @@ def get_largest_red_object(mask):
 def main():
     # カメラのキャプチャ
     cap = cv2.VideoCapture(0)
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 320)  # 幅を320ピクセルに設定
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)  # 高さを240ピクセルに設定
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 160)  # 幅を320ピクセルに設定
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 120)  # 高さを240ピクセルに設定
 
     while(cap.isOpened()):
         # フレームを取得

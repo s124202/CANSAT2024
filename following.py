@@ -73,7 +73,7 @@ def move():
     """
     time_start = time.time()
 
-    while():
+    while True:
         motor_move()
         time_finish = time.time()
         if time_finish - time_start > 30:

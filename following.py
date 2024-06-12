@@ -1,4 +1,6 @@
 from gpiozero import Motor
+#今のところ前進のみ
+
 import time
 import cv2
 import numpy as np
@@ -58,7 +60,9 @@ def deceleration():
     for i in range(10):
         coefficient_power = 10 - i
         coefficient_power /= 10
-        motor_move(local_strength_l * coefficient_power, local_strength_r * coefficient_power, 0.1)
+        motor_r.forward(local_strength_r)
+        motor_l.forward(local_strength_l)
+        time.sleep(0.1)
         if i == 9:
         	motor_stop(0.1)
 

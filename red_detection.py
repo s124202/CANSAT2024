@@ -42,6 +42,11 @@ def main():
         # フレームを取得
         ret, frame = cap.read()
 
+        # フレームが正しく読み込まれていることを確認
+        if frame is None:
+            print("Failed to capture frame")
+            break
+
         # 赤色検出
         mask = red_detect(frame)
 
@@ -62,6 +67,7 @@ def main():
 
     cap.release()
     cv2.destroyAllWindows()
+
     
 
 if __name__ == '__main__':

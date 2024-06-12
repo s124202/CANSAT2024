@@ -134,6 +134,9 @@ def main_detect():
             cv2.circle(frame, (int(center[0]), int(center[1])), 5, (255, 0, 0), -1)
             cv2.putText(frame, str(int(size)) + "," + str(int(center[0]) - 320), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
         
+        else:
+             center[0] = 320
+        
         #-100 ~ 100 の範囲で設定
         strength = (int(center[0]) - 320) / 3.2
         

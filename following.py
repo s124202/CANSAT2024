@@ -1,5 +1,4 @@
 from gpiozero import Motor
-#今のところ前進のみ
 
 import time
 import cv2

@@ -60,8 +60,8 @@ def deceleration():
     for i in range(10):
         coefficient_power = 10 - i
         coefficient_power /= 10
-        motor_r.forward(local_strength_r)
-        motor_l.forward(local_strength_l)
+        motor_r.forward(local_strength_r * coefficient_power)
+        motor_l.forward(local_strength_l * coefficient_power)
         time.sleep(0.1)
         if i == 9:
         	motor_stop(0.1)

@@ -96,11 +96,16 @@ def main():
 
             ser.flush()
             time.sleep(1)
+            response_count = 0
 
             while ser.in_waiting:
                 value = ser.read()
                 data = struct.unpack("B", value)
                 response.append("0x" + format(data[0], "02x"))
+                response_count += 1
+
+                if response_count == 11:
+                        break
 
             print("# Command Response")
             print(response)
@@ -506,11 +511,16 @@ def main():
             time.sleep(1)
 
             response = []
+            response_count = 0
 
             while ser.in_waiting:
                 value = ser.read()
                 data = struct.unpack("B", value)
                 response.append("0x" + format(data[0], "02x"))
+                response_count += 1
+
+                if response_count == 11:
+                    break
 
             print("# Command Response")
             print(response)

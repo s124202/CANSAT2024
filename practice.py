@@ -1,70 +1,88 @@
-# カメラによる色検知
-# 出力画面あり
+from gpiozero import Motor
+import time
 
-import cv2
-import numpy as np
+def setup():
+	"""
+	motorを使うときに必要な初期化を行う関数
+	"""
+	global motor_r, motor_l
+	Rpin1, Rpin2 = 23, 18
+	Lpin1, Lpin2 = 16, 26
+	motor_r = Motor(Rpin1, Rpin2)
+	motor_l = Motor(Lpin1, Lpin2)
 
-def red_detect(img):
-    # HSV色空間に変換
-    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+def motor_move(strength_l, strength_r, t_moving):
+	"""
+	引数は左のmotorの強さ、右のmotorの強さ、走る時間。
+	strength_l、strength_rは-1~1で表す。負の値だったら後ろ走行。
+	必ずmotor_stop()セットで用いる。めんどくさかったら下にあるmotor()を使用
+	"""
+	strength_l = strength_l / 100
+	strength_r = strength_r / 100
+	# 前進するときのみスタック判定
+	if strength_r >= 0 and strength_l >= 0:
+		motor_r.forward(strength_r)
+		motor_l.forward(strength_l)
+		time.sleep(t_moving)
+	# 後進
+	elif strength_r < 0 and strength_l < 0:
+		motor_r.backward(abs(strength_r))
+		motor_l.backward(abs(strength_l))
+		time.sleep(t_moving)
 
-    # 赤色のHSVの値域1
-    hsv_min = np.array([0,100,100])
-    hsv_max = np.array([5,255,255])
-    mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+def motor_stop(x=1):
+	"""
+	motor_move()とセットで使用
+	"""
+	motor_r.stop()
+	motor_l.stop()
+	time.sleep(x)
 
-    # 赤色のHSVの値域2
-    hsv_min = np.array([174,100,100])
-    hsv_max = np.array([179,255,255])
-    mask2 = cv2.inRange(hsv, hsv_min, hsv_max)
+def deceleration(strength_l, strength_r):
+	"""
+	穏やかに減速するための関数
+	"""
+	for i in range(10):
+		coefficient_power = 10 - i
+		coefficient_power /= 10
+		motor_move(strength_l * coefficient_power, strength_r * coefficient_power, 0.1)
+		if i == 9:
+			motor_stop(0.1)
 
-    return mask1 + mask2
-
-def get_largest_red_object(mask):
-    # 最小領域の設定
-    minarea = 100
-    nlabels, labels, stats, centroids = cv2.connectedComponentsWithStats(mask)
-    if nlabels > 1:
-        largest_label = 1 + np.argmax(stats[1:, cv2.CC_STAT_AREA])
-        center = centroids[largest_label]
-        size = stats[largest_label,cv2.CC_STAT_AREA]
-        if size > minarea:
-            return center, size
-        return None, 0
-    else:
-        return None, 0
-
-def main():
-    # カメラのキャプチャ
-    cap = cv2.VideoCapture(0)
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 320)  # 幅を320ピクセルに設定
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)  # 高さを240ピクセルに設定
-
-    while(cap.isOpened()):
-        # フレームを取得
-        ret, frame = cap.read()
-
-        # 赤色検出
-        mask = red_detect(frame)
-
-        # 最大の赤色物体の中心を取得
-        center, size = get_largest_red_object(mask)
-
-        if center is not None:
-            cv2.circle(frame, (int(center[0]), int(center[1])), 5, (255, 0, 0), -1)
-            cv2.putText(frame, str(int(size)) + "," + str(int(center[0]) - 320), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
-
-        # 結果表示
-        cv2.imshow("Frame", frame)
-        cv2.imshow("Mask", mask)
-
-        # qキーが押されたら途中終了
-        if cv2.waitKey(25) & 0xFF == ord('q'):
-            break
-
-    cap.release()
-    cv2.destroyAllWindows()
-    
+def move(strength_l, strength_r, t_moving):
+	"""
+	一定時間モータを動かすための関数
+	strengthは-100~100
+	t_movingはモータを動かす時間
+	"""
+	motor_move(strength_l, strength_r, t_moving)
+	if abs(strength_l) == abs(strength_r) and strength_l * strength_r < 0:
+		motor_stop(0.1)
+	else:
+		deceleration(strength_l, strength_r)
 
 if __name__ == '__main__':
-    main()
+	setup()
+	try:
+		while 1:
+			command = input('操作\t')
+			if command == 'a':
+				move(10, 30, 2)
+			elif command == 'w':
+				move(40, 40, 2)
+			elif command == 'd':
+				move(30, 10, 2)
+			elif command == 's':
+				move(-20, -20, 2)
+			elif command == 'manual':
+				l = float(input('左の出力は？'))
+				r = float(input('右の出力は？'))
+				t = float(input('移動時間は？'))
+				time.sleep(0.8)
+				move(l, r, t)
+			else:
+				print('もう一度入力してください')
+	except KeyboardInterrupt:
+		print("\r\n")
+	except Exception as e:
+		print(e)

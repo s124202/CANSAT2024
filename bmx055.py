@@ -14,85 +14,72 @@ i2c = SMBus(1)
 def bmx055_setup():
 	# --- BMX055ãSetup --- #
 	#Initialize ACC
-	try:
-		i2c.write_byte_data(ACC_ADDRESS, 0x0F, 0x03)	#Acc Scale  datasheet p57
-		time.sleep(0.1)
-		i2c.write_byte_data(ACC_ADDRESS, 0x10, 0x0F)	#Acc PMU  datasheet p57
-		time.sleep(0.1)
-		i2c.write_byte_data(ACC_ADDRESS, 0x11, 0x00)	#datasheet p58
-		time.sleep(0.1)
-	except:
-		time.sleep(0.1)
-		print("BMX055 Setup Error")
-		i2c.write_byte_data(ACC_ADDRESS, 0x0F, 0x03)	#Acc Scale  datasheet p57
-		time.sleep(0.1)
-		i2c.write_byte_data(ACC_ADDRESS, 0x10, 0x0F)	#Acc PMU  datasheet p57
-		time.sleep(0.1)
-		i2c.write_byte_data(ACC_ADDRESS, 0x11, 0x00)	#datasheet p58
-		time.sleep(0.1)
+	
+	for i in range (5):
+		try:
+			i2c.write_byte_data(ACC_ADDRESS, 0x0F, 0x03)	#Acc Scale  datasheet p57
+			time.sleep(0.1)
+			i2c.write_byte_data(ACC_ADDRESS, 0x10, 0x0F)	#Acc PMU  datasheet p57
+			time.sleep(0.1)
+			i2c.write_byte_data(ACC_ADDRESS, 0x11, 0x00)	#datasheet p58
+			time.sleep(0.1)
+			break
+		except:
+			time.sleep(0.1)
+			print("BMX055 Setup Error")
 
 	#Initialize GYR
-	try:
-		i2c.write_byte_data(GYR_ADDRESS, 0x0F, 0x00)	#Gyro Scale  datasheet p99
-		time.sleep(0.1)
-		i2c.write_byte_data(GYR_ADDRESS, 0x10, 0x07)	#Acc PMU  datasheet p100
-		time.sleep(0.1)
-		i2c.write_byte_data(GYR_ADDRESS, 0x11, 0x00)	#datasheet p100
-		time.sleep(0.1)
-	except:
-		time.sleep(0.1)
-		print("BMX055 Setup Error")
-		i2c.write_byte_data(GYR_ADDRESS, 0x0F, 0x00)	#Gyro Scale  datasheet p99
-		time.sleep(0.1)
-		i2c.write_byte_data(GYR_ADDRESS, 0x10, 0x07)	#Acc PMU  datasheet p100
-		time.sleep(0.1)
-		i2c.write_byte_data(GYR_ADDRESS, 0x11, 0x00)	#datasheet p100
-		time.sleep(0.1)
+	for i in range (5):
+		try:
+			i2c.write_byte_data(GYR_ADDRESS, 0x0F, 0x00)	#Gyro Scale  datasheet p99
+			time.sleep(0.1)
+			i2c.write_byte_data(GYR_ADDRESS, 0x10, 0x07)	#Acc PMU  datasheet p100
+			time.sleep(0.1)
+			i2c.write_byte_data(GYR_ADDRESS, 0x11, 0x00)	#datasheet p100
+			time.sleep(0.1)
+			break
+		except:
+			time.sleep(0.1)
+			print("BMX055 Setup Error")
 
 	#Initialize MAG
-	try:
-		data = i2c.read_byte_data(MAG_ADDRESS, 0x4B)	#datasheet p134
-		if(data == 0):
-			i2c.write_byte_data(MAG_ADDRESS, 0x4B, 0x83)
+
+	for i in range (5):
+		count = 0
+		try:
+			data = i2c.read_byte_data(MAG_ADDRESS, 0x4B)	#datasheet p134
+			if(data == 0):
+				i2c.write_byte_data(MAG_ADDRESS, 0x4B, 0x83)
+				time.sleep(0.1)
+			i2c.write_byte_data(MAG_ADDRESS, 0x4B, 0x01)	#datasheet p134
 			time.sleep(0.1)
-		i2c.write_byte_data(MAG_ADDRESS, 0x4B, 0x01)	#datasheet p134
-		time.sleep(0.1)
-		i2c.write_byte_data(MAG_ADDRESS, 0x4C, 0x38)	#datasheet p135
-		time.sleep(0.1)
-		i2c.write_byte_data(MAG_ADDRESS, 0x4E, 0x84)	#datasheet p137
-		time.sleep(0.1)
-		i2c.write_byte_data(MAG_ADDRESS, 0x51, 0x04)	#datasheet p139
-		time.sleep(0.1)
-		i2c.write_byte_data(MAG_ADDRESS, 0x52, 0x0F)	#datasheet p139
-		time.sleep(0.1)
-	except:
-		time.sleep(0.1)
-		print("BMX055 Setup Error")
-		data = i2c.read_byte_data(MAG_ADDRESS, 0x4B)	#datasheet p134
-		if(data == 0):
-			i2c.write_byte_data(MAG_ADDRESS, 0x4B, 0x83)
+			i2c.write_byte_data(MAG_ADDRESS, 0x4C, 0x38)	#datasheet p135
 			time.sleep(0.1)
-		i2c.write_byte_data(MAG_ADDRESS, 0x4B, 0x01)	#datasheet p134
-		time.sleep(0.1)
-		i2c.write_byte_data(MAG_ADDRESS, 0x4C, 0x38)	#datasheet p135
-		time.sleep(0.1)
-		i2c.write_byte_data(MAG_ADDRESS, 0x4E, 0x84)	#datasheet p137
-		time.sleep(0.1)
-		i2c.write_byte_data(MAG_ADDRESS, 0x51, 0x04)	#datasheet p139
-		time.sleep(0.1)
-		i2c.write_byte_data(MAG_ADDRESS, 0x52, 0x0F)	#datasheet p139
-		time.sleep(0.1)
+			i2c.write_byte_data(MAG_ADDRESS, 0x4E, 0x84)	#datasheet p137
+			time.sleep(0.1)
+			i2c.write_byte_data(MAG_ADDRESS, 0x51, 0x04)	#datasheet p139
+			time.sleep(0.1)
+			i2c.write_byte_data(MAG_ADDRESS, 0x52, 0x0F)	#datasheet p139
+			time.sleep(0.1)
+			break
+		except:
+			time.sleep(0.1)
+			print("BMX055 Setup Error")
+
+	
+
 
 def acc_dataRead():
 	# --- Read Acc Data --- #
 	accData = [0, 0, 0, 0, 0, 0]
 	value = [0.0, 0.0, 0.0]
 	for i in range(6):
-		try:
-			accData[i] = i2c.read_byte_data(ACC_ADDRESS, ACC_REGISTER_ADDRESS+i)
-		except:
-			pass
-			#print("error")
+		for k in range (5):
+			try:
+				accData[i] = i2c.read_byte_data(ACC_ADDRESS, ACC_REGISTER_ADDRESS+i)
+				break
+			except:
+				pass
 
 	for i in range(3):
 		value[i] = (accData[2*i+1] * 16) + (int(accData[2*i] & 0xF0) / 16)
@@ -106,11 +93,12 @@ def gyr_dataRead():
 	gyrData = [0, 0, 0, 0, 0, 0]
 	value = [0.0, 0.0, 0.0]
 	for i in range(6):
-		try:
-			gyrData[i] = i2c.read_byte_data(GYR_ADDRESS, GYR_REGISTER_ADDRESS+i)
-		except:
-			pass
-			#print("error")
+		for i in range (5):
+			try:
+				gyrData[i] = i2c.read_byte_data(GYR_ADDRESS, GYR_REGISTER_ADDRESS+i)
+				break
+			except:
+				pass
 
 	for i in range(3):
 		value[i] = (gyrData[2*i+1] * 256) + gyrData[i]
@@ -124,11 +112,12 @@ def mag_dataRead():
 	magData = [0, 0, 0, 0, 0, 0, 0, 0]
 	value = [0.0, 0.0, 0.0]
 	for i in range(8):
-		try:
-			magData[i] = i2c.read_byte_data(MAG_ADDRESS, MAG_REGISTER_ADDRESS + i)
-		except:
-			pass
-			#print("error")
+		for k in range (5):
+			try:
+				magData[i] = i2c.read_byte_data(MAG_ADDRESS, MAG_REGISTER_ADDRESS + i)
+				break
+			except:
+				pass
 
 	for i in range(3):
 		if i != 2:
@@ -169,7 +158,7 @@ if __name__ == '__main__':
 		while 1:
 			bmxData = bmx055_read()
 			print(bmxData)
-			time.sleep(1)
+			time.sleep(2)
 
 	except KeyboardInterrupt:
 		print("\r\n")

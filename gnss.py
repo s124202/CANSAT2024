@@ -26,14 +26,14 @@ ITERATION_LIMIT = 1000
 
 
 def open_gps():
-	try:
-		pi.set_mode(RX, pigpio.INPUT)
-		pi.bb_serial_read_open(RX, 9600, 8)
-	except pigpio.error as e:
-		#print("Open gps Error")
-		pi.set_mode(RX, pigpio.INPUT)
-		pi.bb_serial_read_close(RX)
-		pi.bb_serial_read_open(RX, 9600, 8)
+	for i in range (5):
+		try:
+			pi.set_mode(RX, pigpio.INPUT)
+			pi.bb_serial_read_open(RX, 9600, 8)
+			break
+		except pigpio.error as e:
+			#print("Open gps Error")
+			pass
 
 
 def read_gps():

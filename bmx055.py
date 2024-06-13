@@ -45,7 +45,6 @@ def bmx055_setup():
 	#Initialize MAG
 
 	for i in range (5):
-		count = 0
 		try:
 			data = i2c.read_byte_data(MAG_ADDRESS, 0x4B)	#datasheet p134
 			if(data == 0):

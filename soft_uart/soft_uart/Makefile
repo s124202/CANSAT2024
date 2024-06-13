@@ -6,10 +6,10 @@ RELEASE = $(shell uname -r)
 LINUX = /usr/src/linux-headers-$(RELEASE)
 
 all:
-	$(MAKE) -C $(LINUX) M=$(PWD) modules
+	$(MAKE) -C $(LINUX) M=$(shell pwd) modules
 
 clean:
-	$(MAKE) -C $(LINUX) M=$(PWD) clean
+	$(MAKE) -C $(LINUX) M=$(shell pwd) clean
 
 install:
 	sudo install -m 644 -c soft_uart.ko /lib/modules/$(RELEASE)

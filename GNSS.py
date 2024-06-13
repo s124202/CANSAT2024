@@ -278,7 +278,6 @@ def location():
 if __name__ == '__main__':
 	try:
 		open_gps()
-		t_start = time.time()
 		while True:
 			utc, lat, lon, sHeight, gHeight = read_gps()
 			if utc == -1.0:

@@ -109,3 +109,11 @@ def vincenty_inverse(lat1, lon1, lat2, lon2, ellipsoid=None):
         'azimuth1': degrees(α1), # 方位角(始点→終点)
         'azimuth2': degrees(α2), # 方位角(終点→始点)
     }
+
+if __name__ == '__main__':
+    lat1 = float(input('lat1'))
+    lon1 = float(input('lon1'))
+    lat2 = float(input('lat2'))
+    lon2 = float(input('lon2'))
+
+    print(vincenty_inverse(lat1,lon1,lat2,lon2))

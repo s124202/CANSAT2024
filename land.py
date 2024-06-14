@@ -8,7 +8,7 @@ def land_main():
     time_start = time.time()
     time_timeout = 60
 
-    press_thd = 10
+    press_thd = 0.01
     gyr_thd = 10
 
     ##気圧によるチェック
@@ -37,14 +37,13 @@ def land_main():
             break
 
     #角速度によるチェック
-    gyr_array = [0,0,0]
+    gyr_array = [0]
     gyr_array.append(bmx055.gyr_dataRead())
     while True:
         gyr_count = 0
 
         for i in range(5):
-            for k in range(3):
-                gyr_array.pop(0)
+            gyr_array.pop(0)
             time.sleep(0.2)
             gyr_array.append(bmx055.gyr_dataRead())
             print(gyr_array)

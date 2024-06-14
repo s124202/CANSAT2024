@@ -63,3 +63,16 @@ def land_main():
         if time.time() - time_start > time_timeout:
             print("gyr_timeout")
             break
+
+if __name__ == "__main__":
+    bme280.bme280_setup()
+    bme280.bme280_calib_param()
+    bmx055.bmx055_setup()
+
+    try:
+        land_main()
+
+    except KeyboardInterrupt:
+        print("\r\n")
+    except Exception as e:
+        print(e)

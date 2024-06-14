@@ -8,7 +8,7 @@ def land_main():
     time_timeout = 15
 
     press_thd = 0.5
-    gyr_thd = 10
+    gyr_thd = 1
 
     #気圧によるチェック
     press_array = [0]

@@ -6,7 +6,7 @@ import bmx055
 
 def land_main():
     time_start = time.time()
-    time_timeout = 60
+    time_timeout = 15
 
     press_thd = 0.5
     gyr_thd = 10

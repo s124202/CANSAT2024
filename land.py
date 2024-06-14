@@ -8,13 +8,12 @@ def land_main():
     time_start = time.time()
     time_timeout = 60
 
-    press_thd = 0.01
+    press_thd = 0.5
     gyr_thd = 10
 
     ##気圧によるチェック
     press_array = [0]
     press_array.append(bme280.bme280_read()[1])
-    print(press_array)
     while True:
         press_count = 0
 
@@ -40,6 +39,7 @@ def land_main():
     #角速度によるチェック
     gyr_array = [0]
     gyr_array.append(bmx055.gyr_dataRead())
+    print(gyr_array)
     while True:
         gyr_count = 0
 

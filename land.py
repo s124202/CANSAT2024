@@ -51,7 +51,7 @@ def land_main():
             gyr_y_gap = abs(gyr_array[0][1] - gyr_array[1][1])
             gyr_z_gap = abs(gyr_array[0][2] - gyr_array[1][2])
 
-            if gyr_x_gap < gyr_thd & gyr_y_gap < gyr_thd & gyr_z_gap < gyr_thd:
+            if gyr_x_gap < gyr_thd and gyr_y_gap < gyr_thd and gyr_z_gap < gyr_thd:
                 gyr_count += 1
             else:
                 break

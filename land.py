@@ -11,7 +11,7 @@ def land_main():
     press_thd = 0.5
     gyr_thd = 10
 
-    ##気圧によるチェック
+    #気圧によるチェック
     press_array = [0]
     press_array.append(bme280.bme280_read()[1])
     while True:

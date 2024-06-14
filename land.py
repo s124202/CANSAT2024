@@ -14,6 +14,7 @@ def land_main():
     ##気圧によるチェック
     press_array = [0]
     press_array.append(bme280.bme280_read()[1])
+    print(press_array)
     while True:
         press_count = 0
 

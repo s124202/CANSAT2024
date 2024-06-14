@@ -21,7 +21,7 @@ def land_main():
             press_array.pop(0)
             time.sleep(0.2)
             press_array.append(bme280.bme280_read()[1])
-            pritn(press_array)
+            print(press_array)
             press_gap = abs(press_array[0] - press_array[1])
 
             if press_gap < press_thd:

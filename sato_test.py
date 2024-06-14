@@ -1,8 +1,8 @@
-import BME280
+import bme280
 
-BME280.bme280_calib_param()
-BME280.bme280_setup()
+bme280.bme280_calib_param()
+bme280.bme280_setup()
 
-a = BME280.bme280_read()
+a = bme280.bme280_read()
 
 print(a)

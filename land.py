@@ -39,7 +39,6 @@ def land_main():
     #角速度によるチェック
     gyr_array = [0]
     gyr_array.append(bmx055.gyr_dataRead())
-    print(gyr_array)
     while True:
         gyr_count = 0
 
@@ -48,9 +47,9 @@ def land_main():
             time.sleep(0.2)
             gyr_array.append(bmx055.gyr_dataRead())
             print(gyr_array)
-            gyr_x_gap = abs(gyr_array[0] - gyr_array[3])
-            gyr_y_gap = abs(gyr_array[1] - gyr_array[4])
-            gyr_z_gap = abs(gyr_array[2] - gyr_array[5])
+            gyr_x_gap = abs(gyr_array[0][0] - gyr_array[1][0])
+            gyr_y_gap = abs(gyr_array[0][1] - gyr_array[1][1])
+            gyr_z_gap = abs(gyr_array[0][2] - gyr_array[1][2])
 
             if gyr_x_gap < gyr_thd & gyr_y_gap < gyr_thd & gyr_z_gap < gyr_thd:
                 gyr_count += 1

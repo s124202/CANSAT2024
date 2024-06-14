@@ -21,7 +21,7 @@ def land_main():
             press_array.pop(0)
             time.sleep(0.2)
             press_array.append(bme280.bme280_read()[1])
-            #pritn(press_array)
+            pritn(press_array)
             press_gap = abs(press_array[0] - press_array[1])
 
             if press_gap < press_thd:
@@ -38,7 +38,7 @@ def land_main():
 
     #角速度によるチェック
     gyr_array = [0,0,0]
-    gyr_array.append(bmx055.bme280_gyr_dataRead())
+    gyr_array.append(bmx055.gyr_dataRead())
     while True:
         gyr_count = 0
 
@@ -46,8 +46,8 @@ def land_main():
             for k in range(3):
                 gyr_array.pop(0)
             time.sleep(0.2)
-            gyr_array.append(bmx055.bme280_read())
-            #pritn(gyr_array)
+            gyr_array.append(bmx055.gyr_dataRead())
+            print(gyr_array)
             gyr_x_gap = abs(gyr_array[0] - gyr_array[3])
             gyr_y_gap = abs(gyr_array[1] - gyr_array[4])
             gyr_z_gap = abs(gyr_array[2] - gyr_array[5])

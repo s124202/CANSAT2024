@@ -6,7 +6,7 @@ import pra_send
 import send
 
 thread1 = threading.Thread(target = gps.test)
-thread2 = threading.Thread(target = pra_send.blt)
+thread2 = threading.Thread(target = pra_send.test)
 #thread3 = threading.Thread(target = send.main)
 
 

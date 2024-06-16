@@ -2,7 +2,7 @@ import serial
 import sys
 import argparse
 import hexdump
-import time  # 追加
+
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -61,12 +61,11 @@ def main():
 
         with serial.Serial(args.serial_port, int(args.baud), timeout=None) as ser:
             while True:
-                time.sleep(5)  # 5秒待つ
                 if ser.out_waiting == 0:
                     break
-                ser.write(payload)
-                ser.flush()
-                print("SENT")
+            ser.write(payload)
+            ser.flush()
+            print("SENT")
     else:
         print("INVALID")
         return
@@ -74,3 +73,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

@@ -1,10 +1,10 @@
 import threading
 
 import gps
-import send
+import pra_send
 
 
-thread1 = threading.Thread(target = gps.test)
+thread1 = threading.Thread(target = pra_send.test)
 thread2 = threading.Thread(target = send.main)
 
 

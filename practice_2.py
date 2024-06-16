@@ -1,6 +1,6 @@
 import threading
 
-import gps
+import send
 import pra_send
 
 

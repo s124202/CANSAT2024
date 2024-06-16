@@ -274,8 +274,7 @@ def location():
 		close_gps()
 		print("\r\nKeyboard Intruppted, Serial Closed")
 
-
-if __name__ == '__main__':
+def test():
 	try:
 		open_gps()
 		while True:
@@ -297,3 +296,7 @@ if __name__ == '__main__':
 	except:
 		close_gps()
 		print(traceback.format_exc())
+
+
+if __name__ == '__main__':
+	test()

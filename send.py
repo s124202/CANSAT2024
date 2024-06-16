@@ -7,7 +7,7 @@ import hexdump
 def get_args():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("serial_port", default="/dev/ttyAMA0")
+    parser.add_argument("serial_port", default="/dev/ttyAMA0", nargs='?')
     parser.add_argument("-b", "--baud", default="9600")
     parser.add_argument("-m", "--model", default="E220-900JP")
     parser.add_argument("-p", "--payload_length")

@@ -288,6 +288,8 @@ def test():
 				else:
 					# pass
 					print("Status V")
+					print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
+
 			else:
 				# pass
 				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))

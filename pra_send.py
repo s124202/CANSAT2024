@@ -98,9 +98,7 @@ def blt():
     
     sock.close()
 
-
-if __name__ == "__main__":
-
+def test():
     thread1 = threading.Thread(target = main)
     thread2 = threading.Thread(target = blt)
 
@@ -109,3 +107,8 @@ if __name__ == "__main__":
 
     thread1.join()
     thread2.join()
+
+
+if __name__ == "__main__":
+
+    test()

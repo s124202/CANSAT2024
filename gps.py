@@ -282,6 +282,8 @@ def test():
 			if utc == -1.0:
 				if lat == -1.0:
 					print("Reading gps Error")
+					print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
+
 					# pass
 				else:
 					# pass

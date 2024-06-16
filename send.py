@@ -61,7 +61,6 @@ def main():
 
         with serial.Serial(args.serial_port, int(args.baud), timeout=None) as ser:
             while True:
-                time.sleep(5)  # 5秒待つ
                 if ser.out_waiting == 0:
                     break
                 ser.write(payload)

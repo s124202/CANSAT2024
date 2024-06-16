@@ -5,7 +5,7 @@ import bmx055
 
 def land_main():
     time_start = time.time()
-    time_timeout = 15
+    time_timeout = 60
 
     press_thd = 0.5
     gyr_thd = 1
@@ -18,7 +18,7 @@ def land_main():
 
         for i in range(5):
             press_array.pop(0)
-            time.sleep(0.2)
+            time.sleep(1)
             press_array.append(bme280.bme280_read()[1])
             print(press_array)
             press_gap = abs(press_array[0] - press_array[1])
@@ -43,7 +43,7 @@ def land_main():
 
         for i in range(5):
             gyr_array.pop(0)
-            time.sleep(0.2)
+            time.sleep(1)
             gyr_array.append(bmx055.gyr_dataRead())
             print(gyr_array)
             gyr_x_gap = abs(gyr_array[0][0] - gyr_array[1][0])

@@ -2,6 +2,7 @@ import serial
 import sys
 import argparse
 import hexdump
+import time
 
 
 def get_args():
@@ -69,6 +70,12 @@ def main():
     else:
         print("INVALID")
         return
+
+def test():
+    for i in range(10):
+        main()
+        time.sleep(3)
+
 
 
 if __name__ == "__main__":

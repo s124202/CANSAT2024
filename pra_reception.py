@@ -14,9 +14,11 @@ print("Accepted connection from", client_info)
 
 # データを受信
 while True:
-    data = client_sock.recv(1024)
-    print("Received:", data)
-    
-# ソケットをクローズ
-client_sock.close()
-sock.close()
+    try:
+        data = client_sock.recv(1024)
+        print("Received:", data)
+
+    except KeyboardInterrupt:
+		# ソケットをクローズ
+        client_sock.close()
+        sock.close()

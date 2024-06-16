@@ -16,10 +16,7 @@ print("Accepted connection from", client_info)
 while True:
     data = client_sock.recv(1024)
     print("Received:", data)
-
-    if data == "15":
-        break
-
+    
 # ソケットをクローズ
 client_sock.close()
 sock.close()

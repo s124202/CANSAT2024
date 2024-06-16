@@ -88,7 +88,7 @@ def blt():
     sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
     sock.connect((bd_addr, port))
 
-    for i in range (30):
+    for i in range (300):
         if center is not None:
             sock.send("1")
         else:

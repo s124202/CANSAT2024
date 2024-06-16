@@ -2,7 +2,7 @@ import serial
 import sys
 import argparse
 import hexdump
-
+import time  # 追加
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -50,7 +50,7 @@ def main():
         elif args.ascii_text != None:
             payload = payload + args.ascii_text.encode()
         else:
-            with open('ascii_data.txt', 'rb') as f:
+            with open('ascii_data.tx', 'rb') as f:
                 payload = payload + f.read()
 
         print("serial port:")
@@ -61,11 +61,12 @@ def main():
 
         with serial.Serial(args.serial_port, int(args.baud), timeout=None) as ser:
             while True:
+                time.sleep(5)  # 5秒待つ
                 if ser.out_waiting == 0:
                     break
-            ser.write(payload)
-            ser.flush()
-            print("SENT")
+                ser.write(payload)
+                ser.flush()
+                print("SENT")
     else:
         print("INVALID")
         return

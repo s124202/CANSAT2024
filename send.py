@@ -50,7 +50,7 @@ def main():
         elif args.ascii_text != None:
             payload = payload + args.ascii_text.encode()
         else:
-            with open('ascii_data.tx', 'rb') as f:
+            with open('ascii_data.txt', 'rb') as f:
                 payload = payload + f.read()
 
         print("serial port:")

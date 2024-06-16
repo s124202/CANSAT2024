@@ -5,7 +5,7 @@ import pra_send
 
 
 thread1 = threading.Thread(target = pra_send.test)
-thread2 = threading.Thread(target = send.main)
+thread2 = threading.Thread(target = send.test)
 
 
 thread1.start()

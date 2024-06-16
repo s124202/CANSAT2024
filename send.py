@@ -7,14 +7,14 @@ import hexdump
 def get_args():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("serial_port", default="/dev/ttyAMA0")
+    parser.add_argument("serial_port")
     parser.add_argument("-b", "--baud", default="9600")
     parser.add_argument("-m", "--model", default="E220-900JP")
     parser.add_argument("-p", "--payload_length")
     parser.add_argument("-a", "--ascii_text")
-    parser.add_argument("-f", "--fixed_mode", action="store_true", default=True)
-    parser.add_argument("--target_address", default="2")
-    parser.add_argument("--target_channel", default="0")
+    parser.add_argument("-f", "--fixed_mode", action="store_true")
+    parser.add_argument("--target_address")
+    parser.add_argument("--target_channel")
 
     args = parser.parse_args()
 
@@ -50,8 +50,7 @@ def main():
         elif args.ascii_text != None:
             payload = payload + args.ascii_text.encode()
         else:
-            with open('ascii_data.txt', 'rb') as f:
-                payload = payload + f.read()
+            payload = payload + sys.stdin.buffer.read()
 
         print("serial port:")
         print(args.serial_port)

@@ -161,7 +161,7 @@ def bmx055_csv():
 
 		while 1:
 			bmxData = bmx055_read()
-			#print(bmxData)
+			print(bmxData)
 			writer.writerows([[time.time(),bmxData]])
 			time.sleep(0.5)
 	except KeyboardInterrupt:

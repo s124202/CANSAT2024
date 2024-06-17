@@ -27,12 +27,12 @@ def release_main():
 
 				if delta_press > release_press_thd:
 					press_count += 1
+				
+				else:
+					break
 	
 			elif press_array[0] == 0 or press_array[1] == 0:
 				print('Reading Press Again')
-				break
-
-			else:
 				break
 
 		if press_count == release_judge_count:

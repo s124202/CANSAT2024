@@ -15,7 +15,6 @@ def release_main():
 
 	while True:
 		press_count = 0
-
 		press_array.pop(0)
 		time.sleep(release_judge_time)
 		press_array.append(bme280.bme280_read()[1])

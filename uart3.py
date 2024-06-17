@@ -386,6 +386,8 @@ def gps_test():
 	try:
 		open_gps()
 		for i in range(60):
+			mode_reset()
+			time.sleep(0.1)
 			utc, lat, lon, sHeight, gHeight = read_gps()
 			if utc == -1.0:
 				if lat == -1.0:

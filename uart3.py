@@ -12,6 +12,24 @@ import threading
 import RPi.GPIO as GPIO
 import cv2
 
+RX = 15
+pi = pigpio.pi()
+ELLIPSOID_GRS80 = 1  # GRS80
+ELLIPSOID_WGS84 = 2  # WGS84
+# Long Axis Radius and Flat Rate
+GEODETIC_DATUM = {
+	ELLIPSOID_GRS80: [
+		6378137.0,         # [GRS80] Long Axis Radius
+		1 / 298.257222101,  # [GRS80] Flat Rate
+	],
+	ELLIPSOID_WGS84: [
+		6378137.0,         # [WGS84] Long Axis Radius
+		1 / 298.257223563,  # [WGS84] Flat Rate
+	],
+}
+# Limited times of Itereation
+ITERATION_LIMIT = 1000
+
 def red_detect(img):
     # HSV色空間に変換
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
@@ -508,26 +526,6 @@ def main_more():
 	
 
 if __name__ == "__main__":
-	RX = 15
-	pi = pigpio.pi()
-
-	ELLIPSOID_GRS80 = 1  # GRS80
-	ELLIPSOID_WGS84 = 2  # WGS84
-
-    # Long Axis Radius and Flat Rate
-	GEODETIC_DATUM = {
-    	ELLIPSOID_GRS80: [
-    		6378137.0,         # [GRS80] Long Axis Radius
-    		1 / 298.257222101,  # [GRS80] Flat Rate
-    	],
-    	ELLIPSOID_WGS84: [
-    		6378137.0,         # [WGS84] Long Axis Radius
-    		1 / 298.257223563,  # [WGS84] Flat Rate
-    	],
-    }
-
-    # Limited times of Itereation
-	ITERATION_LIMIT = 1000
 
 	thread1 = threading.Thread(target = blt_test)
 	thread2 = threading.Thread(target = main_more)

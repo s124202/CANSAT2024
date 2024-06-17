@@ -11,6 +11,24 @@ import numpy as np
 import threading
 import RPi.GPIO as GPIO
 
+RX = 15
+pi = pigpio.pi()
+ELLIPSOID_GRS80 = 1  # GRS80
+ELLIPSOID_WGS84 = 2  # WGS84
+# Long Axis Radius and Flat Rate
+GEODETIC_DATUM = {
+	ELLIPSOID_GRS80: [
+		6378137.0,         # [GRS80] Long Axis Radius
+		1 / 298.257222101,  # [GRS80] Flat Rate
+	],
+	ELLIPSOID_WGS84: [
+		6378137.0,         # [WGS84] Long Axis Radius
+		1 / 298.257223563,  # [WGS84] Flat Rate
+	],
+}
+# Limited times of Itereation
+ITERATION_LIMIT = 1000
+
 def main_blt():
     # Bluetoothポート番号
     port = 1
@@ -434,26 +452,6 @@ def main_more():
 	
 
 if __name__ == "__main__":
-	RX = 15
-	pi = pigpio.pi()
-
-	ELLIPSOID_GRS80 = 1  # GRS80
-	ELLIPSOID_WGS84 = 2  # WGS84
-
-    # Long Axis Radius and Flat Rate
-	GEODETIC_DATUM = {
-    	ELLIPSOID_GRS80: [
-    		6378137.0,         # [GRS80] Long Axis Radius
-    		1 / 298.257222101,  # [GRS80] Flat Rate
-    	],
-    	ELLIPSOID_WGS84: [
-    		6378137.0,         # [WGS84] Long Axis Radius
-    		1 / 298.257223563,  # [WGS84] Flat Rate
-    	],
-    }
-
-    # Limited times of Itereation
-	ITERATION_LIMIT = 1000
 
 	thread1 = threading.Thread(target = main_blt)
 	thread2 = threading.Thread(target = main_more)

@@ -3,6 +3,8 @@
 
 from smbus import SMBus
 import time
+import csv
+
 
 bus_number  = 1
 i2c_address = 0x76	#16進数76番でi2c通信
@@ -159,6 +161,27 @@ def bme280_read():
 
 	return value
 
+def bme280_csv():
+	bme280_setup()
+	bme280_calib_param()
+
+	f = open("bme280_save.csv","w")
+	writer = csv.writer(f)
+
+	try:
+		while 1:
+			temp,pres,hum,alt = bme280_read()
+			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
+			writer.writerows(time.time(),pres)
+			time.sleep(0.5)
+	except KeyboardInterrupt:
+		print("\r\n")
+		f.close()
+	except Exception as e:
+		print(e)
+
+	
+	
 if __name__ == '__main__':
 	bme280_setup()
 	bme280_calib_param()

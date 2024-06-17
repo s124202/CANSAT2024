@@ -514,12 +514,12 @@ def main_more():
     mode0()
 	
     print("lora start")
-    for i in range (10):
+    for i in range (5):
         lora_main()
         time.sleep(5)
 	
-    #print("mode reset")
-    #mode_reset()
+    print("mode reset")
+    mode_reset()
 	
     print("gps test start")
     gps_test()

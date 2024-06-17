@@ -412,26 +412,6 @@ def mode_reset():
     GPIO.output(M1_pin, True)
 
 def main_more():
-    RX = 15
-    pi = pigpio.pi()
-
-    ELLIPSOID_GRS80 = 1  # GRS80
-    ELLIPSOID_WGS84 = 2  # WGS84
-
-    # Long Axis Radius and Flat Rate
-    GEODETIC_DATUM = {
-    	ELLIPSOID_GRS80: [
-    		6378137.0,         # [GRS80] Long Axis Radius
-    		1 / 298.257222101,  # [GRS80] Flat Rate
-    	],
-    	ELLIPSOID_WGS84: [
-    		6378137.0,         # [WGS84] Long Axis Radius
-    		1 / 298.257223563,  # [WGS84] Flat Rate
-    	],
-    }
-
-    # Limited times of Itereation
-    ITERATION_LIMIT = 1000
 	
     print("mode reset")
     mode_reset()
@@ -454,14 +434,34 @@ def main_more():
 	
 
 if __name__ == "__main__":
+	RX = 15
+	pi = pigpio.pi()
 
-    thread1 = threading.Thread(target = main_blt)
-    thread2 = threading.Thread(target = main_more)
+	ELLIPSOID_GRS80 = 1  # GRS80
+	ELLIPSOID_WGS84 = 2  # WGS84
+
+    # Long Axis Radius and Flat Rate
+	GEODETIC_DATUM = {
+    	ELLIPSOID_GRS80: [
+    		6378137.0,         # [GRS80] Long Axis Radius
+    		1 / 298.257222101,  # [GRS80] Flat Rate
+    	],
+    	ELLIPSOID_WGS84: [
+    		6378137.0,         # [WGS84] Long Axis Radius
+    		1 / 298.257223563,  # [WGS84] Flat Rate
+    	],
+    }
+
+    # Limited times of Itereation
+	ITERATION_LIMIT = 1000
+
+	thread1 = threading.Thread(target = main_blt)
+	thread2 = threading.Thread(target = main_more)
 
 
-    thread1.start()
-    thread2.start()
+	thread1.start()
+	thread2.start()
 
 
-    thread1.join()
-    thread2.join()
+	thread1.join()
+	thread2.join()

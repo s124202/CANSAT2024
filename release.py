@@ -16,28 +16,27 @@ def release_main():
 	while True:
 		press_count = 0
 
-		for i in range(5):
-			press_array.pop(0)
-			time.sleep(release_judge_time)
-			press_array.append(bme280.bme280_read()[1])
-			print(press_array)
+		press_array.pop(0)
+		time.sleep(release_judge_time)
+		press_array.append(bme280.bme280_read()[1])
+		print(press_array)
+		if press_array[0] != 0 and press_array[1] != 0:
+			delta_press = press_array[1] - press_array[0]
 
-			if press_array[0] != 0 and press_array[1] != 0:
-				delta_press = press_array[1] - press_array[0]
+			if delta_press > release_press_thd:
+				press_count += 1
+			
+			else:
+				continue
 
-				if delta_press > release_press_thd:
-					press_count += 1
-				
-				else:
-					break
-	
-			elif press_array[0] == 0 or press_array[1] == 0:
-				print('Reading Press Again')
-				break
+		elif press_array[0] == 0 or press_array[1] == 0:
+			print('Reading Press Again')
+			continue
 
 		if press_count == release_judge_count:
 			print("press_ok")
 			break
+
 		if time.time() - time_start > time_timeout:
 			print("press_timeout")
 			break

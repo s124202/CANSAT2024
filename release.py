@@ -1,50 +1,57 @@
 import time
 import bme280
 
+#気圧による放出判定
 def release_main():
-	#time_start = time.time()
-	#time_timeout = 15
+    time_start = time.time()
+    time_timeout = 15
+    
+    release_press_thd = 1.5 
+    release_judge_count = 5
+    release_judge_time = 10
 
-	
-	
-	release_press_thd = 
-	release_judge_count = 
-	release_judge_time = 
+    press_array = [0]
+    press_array.append(bme280.bme280_read()[1])
 
-	press_array = [0]
-	press_array.append(bme280.bme280_read()[1])
-	while True:
-		press_count = 0
+    while True:
+        press_count = 0
 
-		for i in range(5):
-			press_array.pop(0)
-			time.sleep(0.2)
-			press_array.append(bme280.bme280_read()[1])
-			print(press_array)
-			press_gap = abs(press_array[0] - press_array[1])
+        for i in range(5):
+            press_array.pop(0)
+            time.sleep(release_judge_time)
+            press_array.append(bme280.bme280_read()[1])
+            print(press_array)
 
-			if press_gap < press_thd:
-				press_count += 1
-			else:
-				break
+            if press_array[0] != 0 and press_array[1] != 0:
+                delta_press = press_array[1] - press_array[0]
 
-		if press_count == 5:
-			print("press_ok")
-			break
-		if time.time() - time_start > time_timeout:
-			print("press_timeout")
-			break
+                if delta_press > release_press_thd:
+                    press_count += 1
+    
+            elif press_array[0] == 0 or press_array[1] == 0:
+                print('Reading Press Again')
+                break
+
+            else:
+                break
+
+        if press_count == release_judge_count:
+            print("press_ok")
+            break
+        if time.time() - time_start > time_timeout:
+            print("press_timeout")
+            break
 
 
 
 if __name__ == "__main__":
-	bme280.bme280_setup()
-	bme280.bme280_calib_param()
+    bme280.bme280_setup()
+    bme280.bme280_calib_param()
 
-	try:
-		land_main()
+    try:
+        release_main()
 
-	except KeyboardInterrupt:
-		print("\r\n")
-	except Exception as e:
-		print(e)
+    except KeyboardInterrupt:
+        print("\r\n")
+    except Exception as e:
+        print(e)

@@ -29,7 +29,7 @@ ax.set_ylabel('press[hpa]')
 # ax.legend()
 # ax.set_xscale('log')
 # ax.set_yscale('log')
-ax.set_ylim([950,1050])
+ax.set_ylim([1003,1008])
 
 # plt.savefig('.png', dpi=300)
 plt.show()

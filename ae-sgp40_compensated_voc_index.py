@@ -3,6 +3,7 @@ import board
 import adafruit_sgp40
 import bme280
 import csv
+import datetime
 
 i2c = board.I2C() 
 sgp = adafruit_sgp40.SGP40(i2c)
@@ -44,7 +45,7 @@ def voc_index_csv():
 			temperature=temperature, relative_humidity=humidity)
 
 			print("voc_index:" + str(voc_index) + "\t" + "raw_gas:" + str(compensated_raw_gas) + "\t" + "tem:" + str(temperature) + "\t" + "hum: " + str(humidity))
-			writer.writerows([[time.time(),voc_index]])
+			writer.writerows([[datetime.datetime(),voc_index]])
 			time.sleep(1)
 	
 	except KeyboardInterrupt:

@@ -20,7 +20,7 @@ def land_main():
             press_array.pop(0)
             time.sleep(1)
             press_array.append(bme280.bme280_read()[1])
-            print(press_array)
+            print(press_array,press_count)
             press_gap = abs(press_array[0] - press_array[1])
 
             if press_gap < press_thd:
@@ -36,36 +36,36 @@ def land_main():
             break
 
     #角速度によるチェック
-    gyr_array = [0]
-    gyr_array.append(bmx055.gyr_dataRead())
-    while True:
-        gyr_count = 0
-
-        for i in range(5):
-            gyr_array.pop(0)
-            time.sleep(1)
-            gyr_array.append(bmx055.gyr_dataRead())
-            print(gyr_array)
-            gyr_x_gap = abs(gyr_array[0][0] - gyr_array[1][0])
-            gyr_y_gap = abs(gyr_array[0][1] - gyr_array[1][1])
-            gyr_z_gap = abs(gyr_array[0][2] - gyr_array[1][2])
-
-            if gyr_x_gap < gyr_thd and gyr_y_gap < gyr_thd and gyr_z_gap < gyr_thd:
-                gyr_count += 1
-            else:
-                break
-
-        if gyr_count == 5:
-            print("gyr_ok")
-            break
-        if time.time() - time_start > time_timeout:
-            print("gyr_timeout")
-            break
+    #gyr_array = [0]
+    #gyr_array.append(bmx055.gyr_dataRead())
+    #while True:
+    #    gyr_count = 0
+#
+    #    for i in range(5):
+    #        gyr_array.pop(0)
+    #        time.sleep(1)
+    #        gyr_array.append(bmx055.gyr_dataRead())
+    #        print(gyr_array)
+    #        gyr_x_gap = abs(gyr_array[0][0] - gyr_array[1][0])
+    #        gyr_y_gap = abs(gyr_array[0][1] - gyr_array[1][1])
+    #        gyr_z_gap = abs(gyr_array[0][2] - gyr_array[1][2])
+#
+    #        if gyr_x_gap < gyr_thd and gyr_y_gap < gyr_thd and gyr_z_gap < gyr_thd:
+    #            gyr_count += 1
+    #        else:
+    #            break
+#
+    #    if gyr_count == 5:
+    #        print("gyr_ok")
+    #        break
+    #    if time.time() - time_start > time_timeout:
+    #        print("gyr_timeout")
+    #        break
 
 if __name__ == "__main__":
     bme280.bme280_setup()
     bme280.bme280_calib_param()
-    bmx055.bmx055_setup()
+    #bmx055.bmx055_setup()
 
     try:
         land_main()

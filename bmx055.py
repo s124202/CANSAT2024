@@ -92,7 +92,7 @@ def gyr_dataRead():
 	gyrData = [0, 0, 0, 0, 0, 0]
 	value = [0.0, 0.0, 0.0]
 	for i in range(6):
-		for i in range (5):
+		for k in range (5):
 			try:
 				gyrData[i] = i2c.read_byte_data(GYR_ADDRESS, GYR_REGISTER_ADDRESS+i)
 				break

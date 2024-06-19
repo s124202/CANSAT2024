@@ -2,7 +2,6 @@
 from smbus import SMBus
 import time
 import csv
-import datetime
 
 ACC_ADDRESS = 0x19
 ACC_REGISTER_ADDRESS = 0x02
@@ -163,7 +162,7 @@ def bmx055_csv():
 		for i in range(120):
 			bmxData = bmx055_read()
 			print(bmxData)
-			writer.writerows([[datetime.datetime(),bmxData]])
+			writer.writerows([[time.time(),bmxData]])
 			time.sleep(0.5)
 	except KeyboardInterrupt:
 		print("\r\n")

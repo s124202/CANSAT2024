@@ -4,7 +4,6 @@
 from smbus import SMBus
 import time
 import csv
-import datetime
 
 
 bus_number  = 1
@@ -174,7 +173,7 @@ def bme280_csv():
 		for i in range(120):
 			temp,pres,hum,alt = bme280_read()
 			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
-			writer.writerows([[datetime.datetime(),pres]])
+			writer.writerows([[time.time(),pres]])
 			time.sleep(0.5)
 	except KeyboardInterrupt:
 		print("\r\n")

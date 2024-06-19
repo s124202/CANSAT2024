@@ -10,15 +10,15 @@ def release_main():
 	release_judge_count = 3
 	release_judge_time = 3
 
+	press_count = 0
 	press_array = [0]
 	press_array.append(bme280.bme280_read()[1])
 
 	while True:
-		press_count = 0
 		press_array.pop(0)
 		time.sleep(release_judge_time)
 		press_array.append(bme280.bme280_read()[1])
-		print(press_array)
+		print(press_array, press_count)
 		if press_array[0] != 0 and press_array[1] != 0:
 			delta_press = press_array[1] - press_array[0]
 
@@ -26,11 +26,11 @@ def release_main():
 				press_count += 1
 			
 			else:
-				continue
+				press_count = 0
 
 		elif press_array[0] == 0 or press_array[1] == 0:
 			print('Reading Press Again')
-			continue
+
 
 		if press_count == release_judge_count:
 			print("press_ok")

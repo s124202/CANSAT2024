@@ -6,9 +6,9 @@ def release_main():
 	time_start = time.time()
 	time_timeout = 400
 	
-	release_press_thd = 1.0 
+	release_press_thd = 0.3 
 	release_judge_count = 5
-	release_judge_time = 5
+	release_judge_time = 10
 
 	press_array = [0]
 	press_array.append(bme280.bme280_read()[1])

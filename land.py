@@ -7,7 +7,7 @@ def land_main():
     time_start = time.time()
     time_timeout = 60
 
-    press_thd = 0.5
+    press_thd = 0.01
     gyr_thd = 1
 
     #気圧によるチェック

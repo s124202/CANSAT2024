@@ -329,7 +329,7 @@ def bme280_csv():
 	bme280_setup()
 	bme280_calib_param()
 
-	filename = "bme280_data_" + time.strftime("%Y%m%d-%H%M%S") + ".csv"
+	filename = "bme280_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 	f = open(filename,"w")
 	writer = csv.writer(f)
 
@@ -347,22 +347,6 @@ def bme280_csv():
 
 
 	
-	
-if __name__ == '__main__':
-	#bme280_csv()
-
-	bme280_setup()
-	bme280_calib_param()
-	try:
-		while 1:
-			temp,pres,hum,alt = bme280_read()
-			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
-			time.sleep(0.1)
-	except KeyboardInterrupt:
-		print("\r\n")
-	except Exception as e:
-		print(e)
-
 
 	
 	

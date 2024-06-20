@@ -164,7 +164,7 @@ def bmx055_csv():
 			bmxData = bmx055_read()
 			print(bmxData)
 			writer.writerows([[time.time(),bmxData]])
-			time.sleep(0.5)
+			time.sleep(0.1)
 	except KeyboardInterrupt:
 		print("\r\n")
 	except Exception as e:

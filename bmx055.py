@@ -153,7 +153,8 @@ def bmx055_read():
 
 def bmx055_csv():
 
-	f = open("bmx055_save.csv","w")
+	filename = "bmx055_data_" + time.strftime("%Y%m%d-%H%M%S") + ".csv"
+	f = open(filename,"w")
 	writer = csv.writer(f)
 	try:
 		bmx055_setup()

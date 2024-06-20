@@ -37,11 +37,11 @@ def get_largest_red_object(mask):
 def main():
     # カメラのキャプチャ
     cap = cv2.VideoCapture(0)
-    cap = cv2.rotate(cap, cv2.ROTATE_90_COUNTERCLOCKWISE)
 
     while(cap.isOpened()):
         # フレームを取得
         ret, frame = cap.read()
+        frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
 
         # フレームが正しく読み込まれていることを確認
         if frame is None:

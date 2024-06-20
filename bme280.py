@@ -367,16 +367,16 @@ if __name__ == '__main__':
 	
 	
 if __name__ == '__main__':
-	#bme280_csv()
+	bme280_csv()
 
-	bme280_setup()
-	bme280_calib_param()
-	try:
-		while 1:
-			temp,pres,hum,alt = bme280_read()
-			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
-			time.sleep(0.8)
-	except KeyboardInterrupt:
-		print("\r\n")
-	except Exception as e:
-		print(e)
+	#bme280_setup()
+	#bme280_calib_param()
+	#try:
+	#	while 1:
+	#		temp,pres,hum,alt = bme280_read()
+	#		print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
+	#		time.sleep(0.8)
+	#except KeyboardInterrupt:
+	#	print("\r\n")
+	#except Exception as e:
+	#	print(e)

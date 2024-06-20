@@ -22,7 +22,7 @@ def get_args():
     return args
 
 
-def main():
+def send_main(result=None):
     args = get_args()
 
     if args.model == "E220-900JP":
@@ -38,6 +38,9 @@ def main():
                 return
         else:
             payload = bytes([])
+
+        if result is not None:
+            payload += result.encode()  # resultをバイト形式にエンコードして追加
 
         if args.payload_length != None:
             count = int(args.payload_length) // 256
@@ -70,11 +73,7 @@ def main():
     else:
         print("INVALID")
         return
-
-def test():
-    for i in range(10):
-        main()
-        time.sleep(3)
+    
 
 if __name__ == "__main__":
-    main()
+    send_main()

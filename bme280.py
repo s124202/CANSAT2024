@@ -357,7 +357,7 @@ if __name__ == '__main__':
 		while 1:
 			temp,pres,hum,alt = bme280_read()
 			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
-			time.sleep(0.8)
+			time.sleep(0.1)
 	except KeyboardInterrupt:
 		print("\r\n")
 	except Exception as e:

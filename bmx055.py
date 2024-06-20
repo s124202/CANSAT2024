@@ -160,7 +160,7 @@ def bmx055_csv():
 		bmx055_setup()
 		time.sleep(0.2)
 
-		while True:
+		for i in range(300):
 			bmxData = bmx055_read()
 			print(bmxData)
 			writer.writerows([[time.time(),bmxData]])

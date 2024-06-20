@@ -334,7 +334,7 @@ def bme280_csv():
 	writer = csv.writer(f)
 
 	try:
-		while True:
+		for i in range(300):
 			temp,pres,hum,alt = bme280_read()
 			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
 			writer.writerows([[time.time(),pres]])

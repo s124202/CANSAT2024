@@ -291,7 +291,7 @@ def gps_main():
 			else:
 				# pass
 				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
-				data_string = f"utc:{utc}\tlat:{lat}\tlon:{lon}\tsHeight: {sHeight}\tgHeight: {gHeight}"
+				data_string = f"utc:{utc}\nlat:{lat}\nlon:{lon}\nsHeight: {sHeight}\ngHeight: {gHeight}"
 			time.sleep(1)
 	except KeyboardInterrupt:
 		close_gps()

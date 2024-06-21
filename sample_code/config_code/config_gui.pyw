@@ -76,16 +76,21 @@ def load_parameters(ser: serial.Serial, window: sg.Window):
 
         ser.flush()
         time.sleep(1)
-        response_count = 0
+        #response_count = 0
 
+        #while ser.in_waiting:
+        #    value = ser.read()
+        #    data = struct.unpack("B", value)
+        #    response.append("0x" + format(data[0], "02x"))
+        #    response_count += 1
+#
+        #    if response_count == 11:
+        #        break
+        
         while ser.in_waiting:
             value = ser.read()
             data = struct.unpack("B", value)
             response.append("0x" + format(data[0], "02x"))
-            response_count += 1
-
-            if response_count == 11:
-                break
 
         print("# Command Response")
         print(response)
@@ -180,7 +185,7 @@ def write_parameters(ser: serial.Serial, window: sg.Window, values):
     try:
         command = [0xC0, 0x00, 0x08]
         response = []
-        response_count = 0
+        #response_count = 0
 
         # 読み込み
         address = int(values["addr"])
@@ -281,14 +286,19 @@ def write_parameters(ser: serial.Serial, window: sg.Window, values):
         ser.flush()
         time.sleep(1)
 
+        #while ser.in_waiting:
+        #    value = ser.read()
+        #    data = struct.unpack("B", value)
+        #    response.append("0x" + format(data[0], "02x"))
+        #    response_count += 1
+#
+        #    if response_count == 11:
+        #        break
+
         while ser.in_waiting:
             value = ser.read()
             data = struct.unpack("B", value)
             response.append("0x" + format(data[0], "02x"))
-            response_count += 1
-
-            if response_count == 11:
-                break
 
         print("# Command Response")
         print(response)

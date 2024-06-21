@@ -1,15 +1,20 @@
 import RPi.GPIO as GPIO
 
-M0_pin = 5
-M1_pin = 6
+def mode3_change():
 
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
+    M0_pin = 5
+    M1_pin = 6
 
-# set output
-GPIO.setup(M0_pin, GPIO.OUT)
-GPIO.setup(M1_pin, GPIO.OUT)
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)
 
-# set M0=high,M1=high
-GPIO.output(M0_pin, True)
-GPIO.output(M1_pin, True)
+    # set output
+    GPIO.setup(M0_pin, GPIO.OUT)
+    GPIO.setup(M1_pin, GPIO.OUT)
+
+    # set M0=high,M1=high
+    GPIO.output(M0_pin, True)
+    GPIO.output(M1_pin, True)
+
+if __name__ == '__main__':
+	mode3_change()

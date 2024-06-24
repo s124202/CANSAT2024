@@ -35,3 +35,6 @@ print("aux_pin is",read_aux)
 
 #send
 send.send_main(result)
+
+read_aux = GPIO.input(aux)
+print("aux_pin is",read_aux)

@@ -20,7 +20,7 @@ mode0.mode0_change()
 #debug
 GPIO.setup(aux, GPIO.OUT)
 read_aux = GPIO.input(aux)
-print(read_aux)
+print("aux_pin is",read_aux)
 
 time.sleep(0.5)
 

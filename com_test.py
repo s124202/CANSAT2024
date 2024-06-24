@@ -18,6 +18,7 @@ result = gps.gps_main()
 mode0.mode0_change()
 
 #debug
+GPIO.setup(aux, GPIO.OUT)
 read_aux = GPIO.input(aux)
 print(read_aux)
 

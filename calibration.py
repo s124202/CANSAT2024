@@ -3,28 +3,18 @@ import numpy as np
 import math
 import time
 import traceback
-import numpy as np
 
 import bmx055
 import gps
 import gps_navigate
-#from other import print_im920sl
 import motor
 import stuck
 
 
-# path_log = '/home/dendenmushi/cansat2023/sequence/calibration.txt'
-
-
-# filecount = len(glob.glob1(path_log, '*' + '.txt'))
-
-# Calibration_rotate_controlLog = '/home/dendenmushi/pi/log/Calibration_rotate_controlLog.txt'
-
-
 def get_data():
     """
-        MBC050からデータを得る
-        """
+     MBC050からデータを得る
+    """
     try:
         magData = bmx055.mag_dataRead()
     except KeyboardInterrupt:
@@ -80,42 +70,6 @@ def magdata_matrix(l, r, n):
         print('Interrupt')
 #    except Exception as e:
 #        print(e.message())
-
-    return magdata
-
-def magdata_matrix_v2(l, r, n):
-    """
-        キャリブレーション用の地磁気データを得るための関数。
-        モータを連続的に動かして回転して地磁気データを得る。
-        エラーが発生したときに再度キャリブレーションをさせるように、改善したバージョン
-        """
-    
-    count = 0
-
-    while True:
-
-        try:
-            stuck.ue_jug()
-            magx, magy, magz = get_data()
-            magdata = np.array([[magx, magy, magz]])
-            for _ in range(n - 1):
-                motor.motor_continue(l, r)
-                magx, magy, magz = get_data()
-                print(magx, magy)
-                # --- multi dimention matrix ---#
-                magdata = np.append(magdata, np.array(
-                    [[magx, magy, magz]]), axis=0)
-                time.sleep(0.03)
-                # time.sleep(0.1)
-            motor.deceleration(l, r)
-        except KeyboardInterrupt:
-            print('Interrupt')
-        except Exception as e:
-            print(e.message())
-            count  += 1
-
-        if count == 0:
-            break
 
     return magdata
 
@@ -185,10 +139,6 @@ def calculate_offset(magdata):
     magy_off = (magy_max + magy_min) / 2
     magz_off = (magz_max + magz_min) / 2
 
-    # --- save offset --- #
-    # other.log('../../logs/backup_logs/calibrationLog.txt',
-    #           datetime.datetime.now(), magx_off, magy_off)
-
     return magx_array, magy_array, magz_array, magx_off, magy_off, magz_off
 
 
@@ -234,10 +184,10 @@ def calculate_direction(lon2, lat2):
         lon1 = lon
     except KeyboardInterrupt:
         gps.close_gps()
-        print_im920sl("\r\nKeyboard Intruppted, Serial Closed")
+        print("\r\nKeyboard Intruppted, Serial Closed")
     except:
         gps.close_gps()
-        print_im920sl(traceback.format_exc())
+        print(traceback.format_exc())
     # --- calculate angle to goal ---#
     direction = gps_navigate.vincenty_inverse(lat1, lon1, lat2, lon2)
     return direction

@@ -91,26 +91,6 @@ def get_theta_dest(target_azimuth, magx_off, magy_off):
 theta_array = []
 theta_differential_array = []
 
-# class PID_Controller:
-#     def __init__(self, kp, ki, kd, target, num_log, validate_ki):
-#         self.kp = kp
-#         self.ki = ki
-#         self.kd = kd
-#         self.target = target
-#         self.num_log = num_log
-#         self.validate_ki = validate_ki
-#         self.error = deque([0] * num_log, maxlen=num_log)
-#         self.integral = 0
-#         self.derivative = 0
-#         self.output = 0
-#         self.count = 0
-#     def get_output(self, measured, ):
-#         self.error.append(measured - self.target)
-#         self.integral += self.error[-1] 
-#         self.derivative = (self.error[-1] - self.error[-2]) 
-#         self.output = self.kp * self.error[-1] + self.ki * self.integral*(self.count >= self.validate_ki) + self.kd * self.derivative
-#         self.count += 1
-#         return self.output
     
 def make_theta_array(array: list, array_num: int):
     '''
@@ -381,21 +361,6 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 
     return control
 
-        #-----角度の取得-----#
-        # error_theta = get_theta_dest(target_azimuth, magx_off, magy_off)
-
-    #     check = 0
-    #     bool_com = True
-    #     for i in range(len(theta_array)):
-    #         if abs(theta_array[i]) > 15:
-    #             bool_com = False
-    #             break
-    #     if bool_com:
-    #         break
-
-    #     count += 1
-
-    # motor.motor_stop(1)
 
 def drive3(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loop_num: int, report_log):
     '''
@@ -430,8 +395,6 @@ def drive3(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, lo
     isReach_dest = 0
     report_count = 0
     control = 0
-    #-----上向き判定-----#
-    stuck.ue_jug()
 
     #-----キャリブレーション-----#
     time.sleep(1)
@@ -462,13 +425,6 @@ def drive3(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, lo
         direction = gps_navigate.vincenty_inverse(lat_now, lon_now, lat_dest, lon_dest)
         distance_to_dest, target_azimuth = direction["distance"], direction["azimuth1"]
         print(lat_now, lon_now)
-
-        # #-Log-#
-        # if report_count % 30 == 0:
-        #     report_log.save_log(lat_now, lon_now, target_azimuth)
-
-        # #-----スタックチェック用の変数の更新-----#
-        # lat_new, lon_new = lat_now, lon_now
 
         #-----スタックチェック-----#
         if stuck_count % 25 == 0:

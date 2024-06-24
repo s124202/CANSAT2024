@@ -3,7 +3,7 @@ import gps_navigate
 import gps as gps
 import calibration
 import bmx055
-import stuck2
+import stuck
 import motor
 import time
 #import send
@@ -239,7 +239,7 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
             break
         elif time.time() - t_adj_start > 1 and error_theta > 75: #スタック回避を行う
             print('Stuck Avoid')
-            stuck2.stuck_avoid()
+            stuck.stuck_avoid()
 
         if count < 25:
             Ki = 0
@@ -431,7 +431,7 @@ def drive3(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, lo
     report_count = 0
     control = 0
     #-----上向き判定-----#
-    stuck2.ue_jug()
+    stuck.ue_jug()
 
     #-----キャリブレーション-----#
     time.sleep(1)
@@ -473,10 +473,10 @@ def drive3(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, lo
         #-----スタックチェック-----#
         if stuck_count % 25 == 0:
             lat_new, lon_new = lat_now, lon_now
-            if stuck2.stuck_jug(lat_old, lon_old, lat_new, lon_new, thd=STUCK_JUDGE_THD_DISTANCE):
+            if stuck.stuck_jug(lat_old, lon_old, lat_new, lon_new, thd=STUCK_JUDGE_THD_DISTANCE):
                 pass
             else:
-                stuck2.stuck_avoid()
+                stuck.stuck_avoid()
                 pass
             lat_old, lon_old = gps.location()
 

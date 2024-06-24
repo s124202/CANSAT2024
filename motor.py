@@ -29,6 +29,16 @@ def motor_move(strength_l, strength_r, t_moving):
 		motor_r.backward(abs(strength_r))
 		motor_l.backward(abs(strength_l))
 		time.sleep(t_moving)
+	# 右回転
+	elif strength_r >= 0 and strength_l < 0:
+		motor_r.forward(abs(strength_r))
+		motor_l.backward(abs(strength_l))
+		time.sleep(t_moving)
+    # 左回転
+	elif strength_r < 0 and strength_l >= 0:
+		motor_r.backward(abs(strength_r))
+		motor_l.forward(abs(strength_l))
+		time.sleep(t_moving)
 
 def motor_stop(x=1):
 	"""
@@ -60,6 +70,30 @@ def move(strength_l, strength_r, t_moving):
 		motor_stop(0.1)
 	else:
 		deceleration(strength_l, strength_r)
+
+def motor_continue(strength_l, strength_r):
+    """
+    モータを連続的に動かすための関数
+    引数は-100~100
+    """
+    strength_l = strength_l / 100
+    strength_r = strength_r / 100
+    if strength_r >= 0 and strength_l >= 0:
+        motor_r.forward(strength_r)
+        motor_l.forward(strength_l)
+    # 後進
+    elif strength_r < 0 and strength_l < 0:
+        motor_r.backward(abs(strength_r))
+        motor_l.backward(abs(strength_l))
+    # 右回転
+    elif strength_r >= 0 and strength_l < 0:
+        motor_r.forward(abs(strength_r))
+        motor_l.backward(abs(strength_l))
+    # 左回転
+    elif strength_r < 0 and strength_l >= 0:
+        motor_r.backward(abs(strength_r))
+        motor_l.forward(abs(strength_l))
+
 
 if __name__ == '__main__':
 	setup()

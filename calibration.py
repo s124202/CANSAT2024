@@ -10,7 +10,7 @@ import gps
 import gps_navigate
 #from other import print_im920sl
 import motor
-import stuck2
+import stuck
 
 
 # path_log = '/home/dendenmushi/cansat2023/sequence/calibration.txt'
@@ -63,7 +63,7 @@ def magdata_matrix(l, r, n):
         モータを連続的に動かして回転して地磁気データを得る。
         """
     try:
-        stuck2.ue_jug()
+        stuck.ue_jug()
         magx, magy, magz = get_data()
         magdata = np.array([[magx, magy, magz]])
         for _ in range(n - 1):
@@ -95,7 +95,7 @@ def magdata_matrix_v2(l, r, n):
     while True:
 
         try:
-            stuck2.ue_jug()
+            stuck.ue_jug()
             magx, magy, magz = get_data()
             magdata = np.array([[magx, magy, magz]])
             for _ in range(n - 1):

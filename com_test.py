@@ -38,3 +38,8 @@ send.send_main(result)
 
 read_aux = GPIO.input(aux)
 print("aux_pin is",read_aux)
+
+while True:
+    if GPIO.input(aux) == True:
+        print("finish")
+        break

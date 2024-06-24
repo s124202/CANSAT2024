@@ -6,6 +6,8 @@ import send
 import mode0
 import mode3
 
+aux = 25
+
 #change_mode3
 mode3.mode3_change()
 

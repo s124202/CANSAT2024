@@ -41,7 +41,7 @@ def main():
     while(cap.isOpened()):
         # フレームを取得
         ret, frame = cap.read()
-        frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
+        #frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
 
         # フレームが正しく読み込まれていることを確認
         if frame is None:

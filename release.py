@@ -4,7 +4,7 @@ import bme280
 #気圧による放出判定
 def release_main():
 	time_start = time.time()
-	time_timeout = 400
+	time_timeout = 30
 	
 	release_press_thd = 0.2
 	release_judge_count = 3

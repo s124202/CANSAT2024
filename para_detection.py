@@ -67,3 +67,6 @@ def detect_para():
 
     cap.release()
     cv2.destroyAllWindows()
+
+if __name__ == '__main__':
+    detect_para()

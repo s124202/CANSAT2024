@@ -59,6 +59,7 @@ def detect_para():
 
         # 結果表示
         cv2.imshow("Frame", frame)
+        cv2.imshow("Mask", mask)
 
         # qキーが押されたら途中終了
         if cv2.waitKey(25) & 0xFF == ord('q'):

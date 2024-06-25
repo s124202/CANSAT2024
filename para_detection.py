@@ -31,8 +31,7 @@ def get_largest_red_object(mask):
     else:
         return None, 0
 
-
-def detect_para():
+def main():
     # カメラのキャプチャ
     cap = cv2.VideoCapture(0)
 
@@ -68,5 +67,7 @@ def detect_para():
     cap.release()
     cv2.destroyAllWindows()
 
+    
+
 if __name__ == '__main__':
-    detect_para()
+    main()

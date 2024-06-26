@@ -1,46 +1,59 @@
-#import threading
-#
-#import com_test
-#import motor
-#
-#
-#thread1 = threading.Thread(target = com_test.main)
-#thread2 = threading.Thread(target = motor.motor_test)
-#
-#
-#thread1.start()
-#thread2.start()
-#
-#
-#thread1.join()
-#thread2.join()
-
-import RPi.GPIO as GPIO
+import threading
 
 import gps
+import motor
 import send
 import mode0
 import mode3
-import motor
 
-def main():
-    #motor
-    motor.motor_test()
-    
-    #change_mode3
-    mode3.mode3_change()
+kari = "message"
 
-    #Get_Gps
-    result = gps.gps_main()
+thread1 = threading.Thread(target = gps.gps_test)
+thread2 = threading.Thread(target = motor.motor_test)
 
-    #change_mode0
-    mode0.mode0_change()
+#change_mode3
+mode3.mode3_change()
 
-    #send
-    send.send_main(result)
+#gps_motor_start_10sec
+thread1.start()
+thread2.start()
 
-    #motor
-    motor.motor_test()
+thread1.join()
+thread2.join()
 
-if __name__ == '__main__':
-	main()
+#change_mode0
+mode0.mode0_change()
+
+#send
+send.send_main(kari)
+
+#import RPi.GPIO as GPIO
+#
+#import gps
+#import send
+#import mode0
+#import mode3
+#import motor
+#
+#def main():
+#    #motor
+#    motor.setup()
+#    motor.motor_test()
+#
+#    #change_mode3
+#    mode3.mode3_change()
+#
+#    #Get_Gps
+#    result = gps.gps_main()
+#
+#    #change_mode0
+#    mode0.mode0_change()
+#
+#    #send
+#    send.send_main(result)
+#
+#    #motor
+#    motor.motor_test()
+#
+#if __name__ == '__main__':
+#	main()

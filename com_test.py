@@ -10,7 +10,7 @@ def main():
     mode3.mode3_change()
 
     #Get_Gps
-    result = gps.gps_main()
+    result = gps.gps_test()# 10sec
 
     #change_mode0
     mode0.mode0_change()

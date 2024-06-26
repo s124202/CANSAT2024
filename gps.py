@@ -302,6 +302,42 @@ def gps_main():
 		print(traceback.format_exc())
 		return data_string
 
+def gps_test():
+
+	time_start = time.time()
+	timer = 10
+	data_string = ""  # 初期化
+
+	try:
+		open_gps()
+		while True:
+			utc, lat, lon, sHeight, gHeight = read_gps()
+			if utc == -1.0:
+				if lat == -1.0:
+					print("Reading gps Error")
+					# pass
+				else:
+					# pass
+					print("Status V")
+
+			else:
+				# pass
+				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
+				data_string = f"utc:{utc}\nlat:{lat}\nlon:{lon}\nsHeight: {sHeight}\ngHeight: {gHeight}"
+			time.sleep(1)
+
+			if time.time() - time_start > timer:
+				print("press_timeout")
+				break
+
+	except KeyboardInterrupt:
+		close_gps()
+		print("\r\nKeyboard Intruppted, Serial Closed")
+		return data_string
+	except:
+		close_gps()
+		print(traceback.format_exc())
+		return data_string
 
 if __name__ == '__main__':
 	gps_main()

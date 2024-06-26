@@ -94,8 +94,7 @@ def motor_continue(strength_l, strength_r):
         motor_r.backward(abs(strength_r))
         motor_l.forward(abs(strength_l))
 
-def motor_test(strength_l=10, strength_r=10, t_moving=5):
-	setup()
+def motor_test(strength_l=10, strength_r=10, t_moving=10):
 	motor_move(strength_l, strength_r, t_moving)
 	if abs(strength_l) == abs(strength_r) and strength_l * strength_r < 0:
 		motor_stop(0.1)

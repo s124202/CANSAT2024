@@ -16,7 +16,7 @@ mode3.mode3_change()
 motor.setup()
 
 #gps_motor_start_10sec
-result = thread1.start()
+gps_data = thread1.start()
 thread2.start()
 
 thread1.join()
@@ -26,35 +26,4 @@ thread2.join()
 mode0.mode0_change()
 
 #send
-send.send_main(result)
-
-#import RPi.GPIO as GPIO
-#
-#import gps
-#import send
-#import mode0
-#import mode3
-#import motor
-#
-#def main():
-#    #motor
-#    motor.setup()
-#    motor.motor_test()
-#
-#    #change_mode3
-#    mode3.mode3_change()
-#
-#    #Get_Gps
-#    result = gps.gps_main()
-#
-#    #change_mode0
-#    mode0.mode0_change()
-#
-#    #send
-#    send.send_main(result)
-#
-#    #motor
-#    motor.motor_test()
-#
-#if __name__ == '__main__':
-#	main()
+send.send_main(gps_data)

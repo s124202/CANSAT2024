@@ -2,6 +2,7 @@ import math
 import time
 import pigpio
 import numpy as np
+import traceback
 
 RX = 15
 pi = pigpio.pi()
@@ -329,16 +330,16 @@ def gps_test():
 			if time.time() - time_start > timer:
 				print("end_gps")
 				data_string = "Fin:GPS"
-				return data_string
+				break
 
 	except KeyboardInterrupt:
-		close_gps()
 		print("\r\nKeyboard Intruppted, Serial Closed")
-		return data_string
 	except:
-		close_gps()
 		print(traceback.format_exc())
-		return data_string
+	finally:
+		close_gps()
+
+	return data_string
 
 if __name__ == '__main__':
 	gps_main()

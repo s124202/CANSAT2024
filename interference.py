@@ -24,6 +24,9 @@ import mode3
 import motor
 
 def main():
+    #motor
+    motor.motor_test()
+    
     #change_mode3
     mode3.mode3_change()
 

@@ -51,7 +51,7 @@ def send_main(result=None):
                 payload = payload + bytes(range(int(args.payload_length) % 256))
             else:
                 payload = payload + bytes(range(int(args.payload_length)))
-        elif args.ascii_text != None:
+        elif args.payload_length == None:
             payload = payload + args.ascii_text.encode()
         else:
             with open('ascii_data.txt', 'rb') as f:

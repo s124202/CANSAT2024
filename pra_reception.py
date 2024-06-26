@@ -24,3 +24,6 @@ def main():
     # ソケットをクローズ
     client_sock.close()
     sock.close()
+
+if __name__ == "__main__":
+    main()

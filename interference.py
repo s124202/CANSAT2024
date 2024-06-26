@@ -16,7 +16,7 @@ mode3.mode3_change()
 motor.setup()
 
 #gps_motor_start_10sec
-thread1.start()
+result = thread1.start()
 thread2.start()
 
 thread1.join()
@@ -26,7 +26,7 @@ thread2.join()
 mode0.mode0_change()
 
 #send
-send.send_main()
+send.send_main(result)
 
 #import RPi.GPIO as GPIO
 #

@@ -327,7 +327,7 @@ def gps_test():
 			time.sleep(1)
 
 			if time.time() - time_start > timer:
-				print("press_timeout")
+				print("end_gps")
 				break
 
 	except KeyboardInterrupt:

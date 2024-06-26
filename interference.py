@@ -1,32 +1,16 @@
-import RPi.GPIO as GPIO
-import time
+import threading
 
-import gps
-import send
-import mode0
-import mode3
+import com_test
 import motor
 
-counter = 0
 
-for i in range(3):
+thread1 = threading.Thread(target = com_test.main)
+thread2 = threading.Thread(target = motor.motor_test)
 
-    counter += 1
 
-    #change_mode3
-    mode3.mode3_change()
+thread1.start()
+thread2.start()
 
-    #Get_Gps
-    gps_data = gps.gps_main()
 
-    #change_mode0
-    mode0.mode0_change()
-
-    #send
-    send.send_main(gps_data)
-
-    #motor
-    motor.setup()
-    motor.move(10, 10, 5)
-
-    print(counter, "回目終了")
+thread1.join()
+thread2.join()

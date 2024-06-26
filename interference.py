@@ -6,13 +6,14 @@ import send
 import mode0
 import mode3
 
-kari = "message"
-
 thread1 = threading.Thread(target = gps.gps_test)
 thread2 = threading.Thread(target = motor.motor_test)
 
 #change_mode3
 mode3.mode3_change()
+
+#motor_setup
+motor.setup()
 
 #gps_motor_start_10sec
 thread1.start()
@@ -25,7 +26,7 @@ thread2.join()
 mode0.mode0_change()
 
 #send
-send.send_main(kari)
+send.send_main()
 
 #import RPi.GPIO as GPIO
 #

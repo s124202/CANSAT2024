@@ -39,7 +39,7 @@ def send_main(result=None):
         else:
             payload = bytes([])
 
-        if result is not None:
+        if result != None:
             payload += result.encode()  # resultをバイト形式にエンコードして追加
 
         if args.payload_length != None:
@@ -51,9 +51,9 @@ def send_main(result=None):
                 payload = payload + bytes(range(int(args.payload_length) % 256))
             else:
                 payload = payload + bytes(range(int(args.payload_length)))
-        elif args.payload_length == None:
+        elif args.ascii_text != None:
             payload = payload + args.ascii_text.encode()
-        else:
+        elif result == None:
             with open('ascii_data.txt', 'rb') as f:
                 payload = payload + f.read()
 

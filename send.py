@@ -40,7 +40,7 @@ def send_main(result=None):
             payload = bytes([])
 
         if result != None:
-            payload += result.encode()  # resultをバイト形式にエンコードして追加
+            payload += result.encode('utf-8')  # resultをバイト形式にエンコードして追加
 
         if args.payload_length != None:
             count = int(args.payload_length) // 256
@@ -52,7 +52,7 @@ def send_main(result=None):
             else:
                 payload = payload + bytes(range(int(args.payload_length)))
         elif args.ascii_text != None:
-            payload = payload + args.ascii_text.encode()
+            payload = payload + args.ascii_text.encode('utf-8')
         elif result == None:
             with open('ascii_data.txt', 'rb') as f:
                 payload = payload + f.read()
@@ -61,7 +61,7 @@ def send_main(result=None):
         print(args.serial_port)
 
         print("send data hex dump:")
-        hexdump.hexdump(payload)
+        hexdump.hexdump(payload, result='print')
 
         with serial.Serial(args.serial_port, int(args.baud), timeout=None) as ser:
             while True:

@@ -34,7 +34,7 @@ def main():
                     time.sleep(0.030)
                     if ser.in_waiting == 0:
                         print("recv data hex dump:")
-                        hexdump.hexdump(payload)
+                        hexdump.hexdump(payload, result='print')
                         if args.rssi:
                             rssi = int(payload[-1]) - 256
                             print(f"RSSI: {rssi} dBm")

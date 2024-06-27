@@ -25,6 +25,7 @@ def main():
 
     #send
     send.send_main(result)
+    GPIO.cleanup()
 
 if __name__ == '__main__':
 	main()

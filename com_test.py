@@ -4,6 +4,10 @@ import gps
 import send
 import mode0
 import mode3
+import pullD
+
+send_pin = 14
+receive_pin = 15
 
 def main():
     #change_mode3
@@ -14,6 +18,10 @@ def main():
 
     #change_mode0
     mode0.mode0_change()
+
+    #setup
+    pullD.setup_gpio_out(send_pin)
+    pullD.setup_gpio_in(receive_pin)
 
     #send
     send.send_main(result)

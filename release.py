@@ -34,11 +34,11 @@ def release_main():
 		print(press_array, press_count)
 
 		if press_count == release_judge_count:
-			print("press_ok")
+			print("Release Detected")
 			break
 
 		if time.time() - time_start > time_timeout:
-			print("press_timeout")
+			print("Release Timeout")
 			break
 
 

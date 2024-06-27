@@ -9,7 +9,7 @@ def setup_gpio_out(pin_number):
     GPIO.setup(pin_number, GPIO.OUT)
 
     #pull_down
-    GPIO.setup(pin_number, GPIO.OUT, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(pin_number, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 def setup_gpio_in(pin_number):
     GPIO.setmode(GPIO.BCM)

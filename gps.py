@@ -345,7 +345,7 @@ def gps_test():
 def gps_csv():
 	#setup
 	time_start = time.time()
-	timer = 600
+	timer = 10
 	data_string = ""  # 初期化
 
 	#csv_setup

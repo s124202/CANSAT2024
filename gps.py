@@ -3,6 +3,7 @@ import time
 import pigpio
 import numpy as np
 import traceback
+import csv
 
 RX = 15
 pi = pigpio.pi()
@@ -325,6 +326,50 @@ def gps_test():
 				# pass
 				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
 				data_string = f"utc:{utc}\nlat:{lat}\nlon:{lon}\nsHeight: {sHeight}\ngHeight: {gHeight}"
+			time.sleep(1)
+
+			if time.time() - time_start > timer:
+				print("end_gps")
+				#data_string = "Fin:GPS"
+				break
+
+	except KeyboardInterrupt:
+		print("\r\nKeyboard Intruppted, Serial Closed")
+	except:
+		print(traceback.format_exc())
+	finally:
+		close_gps()
+
+	return data_string
+
+def gps_csv():
+	#setup
+	time_start = time.time()
+	timer = 600
+	data_string = ""  # 初期化
+
+	#csv_setup
+	filename = "gps_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	f = open(filename,"w")
+	writer = csv.writer(f)
+
+	try:
+		open_gps()
+		while True:
+			utc, lat, lon, sHeight, gHeight = read_gps()
+			if utc == -1.0:
+				if lat == -1.0:
+					print("Reading gps Error")
+					# pass
+				else:
+					# pass
+					print("Status V")
+
+			else:
+				# pass
+				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
+				writer.writerows([[time.time(),utc,lat,lon,sHeight,gHeight]])
+				data_string = f"utc:{utc} lat:{lat} lon:{lon} sHeight:{sHeight} gHeight:{gHeight}"
 			time.sleep(1)
 
 			if time.time() - time_start > timer:

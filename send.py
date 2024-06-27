@@ -74,7 +74,7 @@ def send_main(result=None):
     else:
         print("INVALID")
         return
-    
+
 
 if __name__ == "__main__":
     send_main()

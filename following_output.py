@@ -127,8 +127,12 @@ def main_detect():
         # 最大の赤色物体の中心を取得
         center, size = get_largest_red_object(mask)
 
-        if center is None:
-            center = [320, 0]
+        if center is not None:
+            cv2.circle(frame, (int(center[0]), int(center[1])), 5, (255, 0, 0), -1)
+            cv2.putText(frame, str(int(size)) + "," + str(int(center[0]) - 320), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+        
+        else:
+             center = [320, 0]
         
         if size is None:
              size = 100000
@@ -147,6 +151,10 @@ def main_detect():
         
         strength_l = default + strength / 5
         strength_r = default - strength / 5
+
+        # 結果表示
+        cv2.imshow("Frame", frame)
+        cv2.imshow("Mask", mask)
 
         # qキーが押されたら途中終了
         if cv2.waitKey(25) & 0xFF == ord('q'):

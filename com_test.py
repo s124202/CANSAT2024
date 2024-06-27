@@ -20,12 +20,12 @@ def main():
     mode0.mode0_change()
 
     #setup
-    pullD.setup_gpio_out(send_pin)
-    pullD.setup_gpio_in(receive_pin)
+    #pullD.setup_gpio_out(send_pin)
+    #pullD.setup_gpio_in(receive_pin)
 
     #send
     send.send_main(result)
-    GPIO.cleanup()
+    #GPIO.cleanup()
 
 if __name__ == '__main__':
 	main()

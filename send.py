@@ -63,17 +63,13 @@ def send_main(result=None):
         print("send data hex dump:")
         hexdump.hexdump(payload, result='print')
 
-        #with serial.Serial(args.serial_port, int(args.baud), timeout=None) as ser:
-        #    while True:
-        #        if ser.out_waiting == 0:
-        #            break
-        #    ser.write(payload)
-        #    ser.flush()
-        #    print("SENT")
-
-        # データを直接 PC に出力
-        print("Data sent to PC:")
-        hexdump.hexdump(payload, result='print')
+        with serial.Serial(args.serial_port, int(args.baud), timeout=None) as ser:
+            while True:
+                if ser.out_waiting == 0:
+                    break
+            ser.write(payload)
+            ser.flush()
+            print("SENT")
 
     else:
         print("INVALID")

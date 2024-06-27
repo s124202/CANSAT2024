@@ -329,7 +329,7 @@ def gps_test():
 
 			if time.time() - time_start > timer:
 				print("end_gps")
-				data_string = "Fin:GPS"
+				#data_string = "Fin:GPS"
 				break
 
 	except KeyboardInterrupt:

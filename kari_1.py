@@ -1,23 +1,30 @@
 import bluetooth
 import time
 
-# デバイス2のBluetoothアドレス
-bd_addr = "B8:27:EB:AD:E6:38"
+# デバイス1のBluetoothアドレス
+bd_addr = "B8:27:EB:A9:5B:64"
 
 port = 1
 
 sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-sock.connect((bd_addr, port))
 
-while True:
-    # データを送信
-    sock.send("1")
-    print("Sent 1")
+try:
+    sock.connect((bd_addr, port))
 
-    # データを受信
-    data = sock.recv(1024)
-    print("Received: ", data)
+    while True:
+        # データを受信
+        data = sock.recv(1024)
+        print("Received: ", data)
 
-    time.sleep(1)
+        # データを送信
+        sock.send("1")
+        print("Sent 1")
 
-sock.close()
+        time.sleep(1)
+
+except bluetooth.btcommon.BluetoothError as error:
+    print(f"Bluetooth connection error: {error}")
+    sock.close()  # ソケットを閉じる
+
+finally:
+    sock.close()

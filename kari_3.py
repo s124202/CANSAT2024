@@ -6,7 +6,7 @@ import time
 def blt_send():
     
     bd_addr = "B8:27:EB:A9:5B:64"
-    port = 1
+    port = 3
 
     sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
     sock.connect((bd_addr, port))

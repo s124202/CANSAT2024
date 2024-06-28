@@ -19,7 +19,7 @@ def blt_send():
     
 def blt_receive():
     # Bluetoothポート番号
-    port = 1
+    port = 3
     
     # Bluetoothソケットを作成して接続を待機
     sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)

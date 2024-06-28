@@ -4,6 +4,18 @@ import time
 import cv2
 import numpy as np
 import threading
+import bluetooth
+
+def blt(state):
+    bd_addr = "B8:27:EB:A9:5B:64"
+    port = 1
+
+    sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+    sock.connect((bd_addr, port))
+
+    sock.send(str(state))
+    
+    sock.close()
 
 def motor_setup():
 	"""
@@ -112,6 +124,9 @@ def main_detect():
 
     global strength_l
     global strength_r
+
+    lose = 0
+    discover = 1
     # カメラのキャプチャ
     cap = cv2.VideoCapture(0)
 
@@ -129,6 +144,11 @@ def main_detect():
 
         if center is None:
             center = [320, 0]
+            lose += 1
+            discover = 1
+        else:
+             discover += 1
+             lose = 0
         
         if size is None:
              size = 100000
@@ -147,6 +167,16 @@ def main_detect():
         
         strength_l = default + strength / 5
         strength_r = default - strength / 5
+
+        if lose == 90:
+             deceleration()
+             blt(1)
+             break
+        
+        elif discover % 30 == 0:
+             blt(0)
+             discover = 1        
+
 
         # qキーが押されたら途中終了
         if cv2.waitKey(25) & 0xFF == ord('q'):

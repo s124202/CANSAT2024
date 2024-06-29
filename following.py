@@ -122,6 +122,8 @@ def get_largest_red_object(mask):
 
 def main_detect():
 
+    global blt_send
+
     global strength_l
     global strength_r
 
@@ -170,11 +172,11 @@ def main_detect():
 
         if lose == 90:
              deceleration()
-             blt(1)
+             blt_send = 1
              break
         
         elif discover % 30 == 0:
-             blt(0)
+             blt_send = 0
              discover = 1        
 
 
@@ -188,6 +190,8 @@ def main_detect():
     
 
 if __name__ == '__main__':
+
+    blt_send = 0
 	
     strength_l = 30
     strength_r = 30

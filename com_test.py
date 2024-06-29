@@ -22,7 +22,7 @@ def main():
     time.sleep(3)
 
     #test
-    result = 20030127
+    result = "20030127"
 
     #send
     send.send_log(result)

@@ -21,7 +21,7 @@ while True:
 
         # クライアントにデータを送信
         if count == 3:
-            time.sleep(0.1)
+            time.sleep(0.5)
             client_sock.send("Message from server!")
             coutn = 0
     except KeyboardInterrupt:

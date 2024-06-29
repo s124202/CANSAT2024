@@ -10,7 +10,7 @@ sock.connect((bd_addr, port))
 while True:
 
     try:
-        time.sleep(5)
+        time.sleep(2)
         sock.send("hello world!")
         # サーバーからのデータを受信
         data = sock.recv(1024)

@@ -277,7 +277,7 @@ def location():
 
 
 if __name__ == '__main__':
-	f = open("gnss_move_save.csv","w")
+	f = open("gnss_stop_save.csv","w")
 	writer = csv.writer(f)
 
 	try:

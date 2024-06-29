@@ -1,3 +1,5 @@
+#設定モード
+
 import RPi.GPIO as GPIO
 
 def mode3_change():

@@ -276,6 +276,7 @@ def location():
 		close_gps()
 		print("\r\nKeyboard Intruppted, Serial Closed")
 
+#無限にGPS取得
 def gps_main():
 	data_string = ""  # 初期化
 	try:
@@ -304,10 +305,11 @@ def gps_main():
 		print(traceback.format_exc())
 		return data_string
 
-def gps_test():
+#入力secGPS取得
+def gps_test(reset_time = 10):
 
 	time_start = time.time()
-	timer = 10
+	timer = reset_time
 	data_string = ""  # 初期化
 
 	try:
@@ -342,6 +344,7 @@ def gps_test():
 
 	return data_string
 
+#入力秒数だけGPS取得+csv書き出し
 def gps_csv(reset_time = 10):
 	#setup
 	time_start = time.time()

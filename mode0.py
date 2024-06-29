@@ -1,3 +1,5 @@
+#送受信モード
+
 import RPi.GPIO as GPIO
 
 def mode0_change():

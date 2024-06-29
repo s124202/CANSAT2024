@@ -1,3 +1,5 @@
+#モーターとgps>送信の並列
+
 import threading
 
 import com_test

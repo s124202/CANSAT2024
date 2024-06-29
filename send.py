@@ -22,7 +22,7 @@ def get_args():
     return args
 
 
-def send_main(result=None):
+def send_log(result=None):
     args = get_args()
 
     if args.model == "E220-900JP":
@@ -77,4 +77,4 @@ def send_main(result=None):
 
 
 if __name__ == "__main__":
-    send_main()
+    send_log()

@@ -23,7 +23,7 @@ while True:
         if count == 3:
             time.sleep(0.5)
             client_sock.send("Message from server!")
-            coutn = 0
+            count = 0
     except KeyboardInterrupt:
         print("finish")
         break

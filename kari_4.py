@@ -8,10 +8,15 @@ sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 sock.connect((bd_addr, port))
 
 while True:
-    time.sleep(5)
-    sock.send("hello world!")
-    # サーバーからのデータを受信
-    data = sock.recv(1024)
-    print("received [%s]" % data)
+
+    try:
+        time.sleep(5)
+        sock.send("hello world!")
+        # サーバーからのデータを受信
+        data = sock.recv(1024)
+        print("received [%s]" % data)
+    except KeyboardInterrupt:
+        print("finish")
+        break
 
 sock.close()

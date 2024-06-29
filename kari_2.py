@@ -12,12 +12,16 @@ print("Accepted connection from ",address)
 
 while True:
 
-    data = client_sock.recv(1024)
-    print("received [%s]" % data)
-    # クライアントにデータを送信
+    try:
+        data = client_sock.recv(1024)
+        print("received [%s]" % data)
+        # クライアントにデータを送信
 
-    time.sleep(5)
-    client_sock.send("Message from server!")
+        time.sleep(5)
+        client_sock.send("Message from server!")
+    except KeyboardInterrupt:
+        print("finish")
+        break
 
 client_sock.close()
 server_sock.close()

@@ -1,9 +1,9 @@
 import time
-import gps_navigate
+import run.gps_navigate as gps_navigate
 import gps as gps
-import calibration
-import bmx055
-import stuck
+import run.calibration as calibration
+import detection.bmx055 as bmx055
+import run.stuck as stuck
 import motor
 import time
 #import send

@@ -4,11 +4,11 @@ import math
 import time
 import traceback
 
-import bmx055
+import detection.bmx055 as bmx055
 import gps
-import gps_navigate
+import run.gps_navigate as gps_navigate
 import motor
-import stuck
+import run.stuck as stuck
 
 
 def get_data():

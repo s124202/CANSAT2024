@@ -342,10 +342,10 @@ def gps_test():
 
 	return data_string
 
-def gps_csv():
+def gps_csv(reset_time = 10):
 	#setup
 	time_start = time.time()
-	timer = 10
+	timer = reset_time
 	data_string = ""  # 初期化
 
 	#csv_setup

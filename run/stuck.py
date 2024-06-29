@@ -2,9 +2,9 @@ import time
 import random
 
 import motor
-import gps_navigate
+import run.gps_navigate as gps_navigate
 import gps
-import bmx055
+import detection.bmx055 as bmx055
 
 
 def ue_jug():

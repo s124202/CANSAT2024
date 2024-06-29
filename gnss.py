@@ -2,6 +2,7 @@ import math
 import time
 import pigpio
 import numpy as np
+import csv
 
 RX = 15
 pi = pigpio.pi()
@@ -276,6 +277,9 @@ def location():
 
 
 if __name__ == '__main__':
+	f = open("gnss_save.csv","w")
+	writer = csv.writer(f)
+
 	try:
 		open_gps()
 		while True:
@@ -290,10 +294,12 @@ if __name__ == '__main__':
 			else:
 				# pass
 				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
+			writer.writerows([[time.time(),lat,lon]])
 			time.sleep(1)
 	except KeyboardInterrupt:
 		close_gps()
-		print("\r\nKeyboard Intruppted, Serial Closed")
+		print("\r\n")
+		f.close()
 	except:
 		close_gps()
 		print(traceback.format_exc())

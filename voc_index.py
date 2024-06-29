@@ -27,7 +27,7 @@ bme280.bme280_setup()
 #		time.sleep(1)
 
 def voc_index_csv():
-	f = open("voc_index_outside_save.csv","w")
+	f = open("voc_index_inside_save.csv","w")
 	writer = csv.writer(f)
 
 	try:

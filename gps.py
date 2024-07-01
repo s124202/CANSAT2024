@@ -2,6 +2,8 @@ import math
 import time
 import pigpio
 import numpy as np
+import traceback
+import csv
 
 RX = 15
 pi = pigpio.pi()
@@ -26,6 +28,8 @@ ITERATION_LIMIT = 1000
 
 
 def open_gps():
+	pi = pigpio.pi()
+	
 	for i in range (5):
 		try:
 			pi.set_mode(RX, pigpio.INPUT)
@@ -37,6 +41,8 @@ def open_gps():
 
 
 def read_gps():
+	pi = pigpio.pi()
+
 	utc = -1.0
 	Lat = -1.0
 	Lon = 0.0
@@ -152,6 +158,7 @@ def read_gps():
 
 
 def close_gps():
+	pi = pigpio.pi()
 	pi.bb_serial_read_close(RX)
 	pi.stop()
 
@@ -274,7 +281,9 @@ def location():
 		close_gps()
 		print("\r\nKeyboard Intruppted, Serial Closed")
 
-def test():
+#無限にGPS取得
+def gps_main():
+	data_string = ""  # 初期化
 	try:
 		open_gps()
 		while True:
@@ -290,14 +299,104 @@ def test():
 			else:
 				# pass
 				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
+				data_string = f"utc:{utc}\nlat:{lat}\nlon:{lon}\nsHeight: {sHeight}\ngHeight: {gHeight}"
 			time.sleep(1)
 	except KeyboardInterrupt:
 		close_gps()
 		print("\r\nKeyboard Intruppted, Serial Closed")
+		return data_string
 	except:
 		close_gps()
 		print(traceback.format_exc())
+		return data_string
 
+#入力secGPS取得
+def gps_test(reset_time = 10):
+
+	time_start = time.time()
+	timer = reset_time
+	data_string = ""  # 初期化
+
+	try:
+		open_gps()
+		while True:
+			utc, lat, lon, sHeight, gHeight = read_gps()
+			if utc == -1.0:
+				if lat == -1.0:
+					print("Reading gps Error")
+					data_string = "GPS cannot be read"
+					# pass
+				else:
+					# pass
+					print("Status V")
+					data_string = "GPS cannot be read"
+
+			else:
+				# pass
+				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
+				data_string = f"utc:{utc}\nlat:{lat}\nlon:{lon}\nsHeight: {sHeight}\ngHeight: {gHeight}"
+			time.sleep(1)
+
+			if time.time() - time_start > timer:
+				print("end_gps")
+				#data_string = "Fin:GPS"
+				break
+	except KeyboardInterrupt:
+		print("\r\nKeyboard Intruppted, Serial Closed")
+	except:
+		print(traceback.format_exc())
+	finally:
+		close_gps()
+
+	return data_string
+
+#入力秒数だけGPS取得+csv書き出し
+def gps_csv(reset_time = 10):
+	#setup
+	time_start = time.time()
+	timer = reset_time
+	data_string = ""  # 初期化
+
+	#csv_setup
+	filename = "gps_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	f = open(filename,"w")
+	writer = csv.writer(f)
+
+	try:
+		open_gps()
+		while True:
+			utc, lat, lon, sHeight, gHeight = read_gps()
+			if utc == -1.0:
+				if lat == -1.0:
+					print("Reading gps Error")
+					# pass
+				else:
+					# pass
+					print("Status V")
+
+			else:
+				# pass
+				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
+				writer.writerows([[time.time(),utc,lat,lon,sHeight,gHeight]])
+				data_string = f"utc:{utc} lat:{lat} lon:{lon} sHeight:{sHeight} gHeight:{gHeight}"
+			time.sleep(1)
+
+			if time.time() - time_start > timer:
+				print("end_gps")
+				#data_string = "Fin:GPS"
+				break
+
+	except KeyboardInterrupt:
+		print("\r\nKeyboard Intruppted, Serial Closed")
+	except:
+		print(traceback.format_exc())
+	finally:
+		close_gps()
+
+	return data_string
 
 if __name__ == '__main__':
-	test()
+	#gps_main()
+
+	for i in range(3):
+		gps_test(5)

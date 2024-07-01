@@ -156,18 +156,20 @@ def angle(magx, magy, magx_off=0, magy_off=0):
 
     if magy - magy_off == 0:
         magy += 0.000001
-    if magx - magx_off == 0: #わからないけどたぶんいる？？
+    if magx - magx_off == 0:
         magx += 0.000001
     theta = math.degrees(math.atan((magy - magy_off) / (magx - magx_off)))
 
     if magx - magx_off > 0 and magy - magy_off > 0:  # First quadrant
         pass  # 0 <= theta <= 90
     elif magx - magx_off < 0 and magy - magy_off > 0:  # Second quadrant
-        theta = 180 + theta  # 90 <= theta <= 180
+        theta = theta + 180  # 90 <= theta <= 180
     elif magx - magx_off < 0 and magy - magy_off < 0:  # Third quadrant
         theta = theta + 180  # 180 <= theta <= 270
     elif magx - magx_off > 0 and magy - magy_off < 0:  # Fourth quadrant
-        theta = 360 + theta  # 270 <= theta <= 360
+        theta = theta + 360  # 270 <= theta <= 360
+
+        
 
     theta += 180 #センサの傾きを考慮する場合？？
     theta  = theta % 360

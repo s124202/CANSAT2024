@@ -28,6 +28,8 @@ ITERATION_LIMIT = 1000
 
 
 def open_gps():
+	pi = pigpio.pi()
+	
 	for i in range (5):
 		try:
 			pi.set_mode(RX, pigpio.INPUT)

@@ -324,12 +324,12 @@ def gps_test(reset_time = 10):
 			if utc == -1.0:
 				if lat == -1.0:
 					print("Reading gps Error")
-					data_string = "Cannot GPS read"
+					data_string = "GPS cannot be read"
 					# pass
 				else:
 					# pass
 					print("Status V")
-					data_string = "Cannot GPS read"
+					data_string = "GPS cannot be read"
 
 			else:
 				# pass

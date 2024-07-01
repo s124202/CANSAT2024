@@ -23,6 +23,8 @@ def main():
     if args.model == "E220-900JP":
         print("serial port:")
         print(args.serial_port)
+        print("周波数：")
+        print(920.6 + args.target_channel * 0.2)
 
         print("receive waiting...")
         with serial.Serial(args.serial_port, int(args.baud), timeout=None) as ser:

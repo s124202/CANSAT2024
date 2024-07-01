@@ -30,7 +30,6 @@ ITERATION_LIMIT = 1000
 def open_gps():
 	for i in range (5):
 		try:
-			pi.set_mode(RX, pigpio.INPUT)
 			pi.bb_serial_read_open(RX, 9600, 8)
 			break
 		except pigpio.error as e:
@@ -334,7 +333,6 @@ def gps_test(reset_time = 10):
 				print("end_gps")
 				#data_string = "Fin:GPS"
 				break
-
 	except KeyboardInterrupt:
 		print("\r\nKeyboard Intruppted, Serial Closed")
 	except:
@@ -392,5 +390,6 @@ def gps_csv(reset_time = 10):
 if __name__ == '__main__':
 	#gps_main()
 
+	pi.set_mode(RX, pigpio.INPUT)
 	for i in range(3):
 		gps_test(5)

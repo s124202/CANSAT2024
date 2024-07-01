@@ -5,31 +5,31 @@ import numpy as np
 import traceback
 import csv
 
-def setup_gps():
+RX = 15
+pi = pigpio.pi()
 
-	RX = 15
-	pi = pigpio.pi()
+ELLIPSOID_GRS80 = 1  # GRS80
+ELLIPSOID_WGS84 = 2  # WGS84
 
-	ELLIPSOID_GRS80 = 1  # GRS80
-	ELLIPSOID_WGS84 = 2  # WGS84
+# Long Axis Radius and Flat Rate
+GEODETIC_DATUM = {
+	ELLIPSOID_GRS80: [
+		6378137.0,         # [GRS80] Long Axis Radius
+		1 / 298.257222101,  # [GRS80] Flat Rate
+	],
+	ELLIPSOID_WGS84: [
+		6378137.0,         # [WGS84] Long Axis Radius
+		1 / 298.257223563,  # [WGS84] Flat Rate
+	],
+}
 
-	# Long Axis Radius and Flat Rate
-	GEODETIC_DATUM = {
-		ELLIPSOID_GRS80: [
-			6378137.0,         # [GRS80] Long Axis Radius
-			1 / 298.257222101,  # [GRS80] Flat Rate
-		],
-		ELLIPSOID_WGS84: [
-			6378137.0,         # [WGS84] Long Axis Radius
-			1 / 298.257223563,  # [WGS84] Flat Rate
-		],
-	}
-
-	# Limited times of Itereation
-	ITERATION_LIMIT = 1000
+# Limited times of Itereation
+ITERATION_LIMIT = 1000
 
 
 def open_gps():
+	pi = pigpio.pi()
+	
 	for i in range (5):
 		try:
 			pi.set_mode(RX, pigpio.INPUT)
@@ -41,6 +41,9 @@ def open_gps():
 
 
 def read_gps():
+
+	pi = pigpio.pi()
+
 	utc = -1.0
 	Lat = -1.0
 	Lon = 0.0
@@ -156,6 +159,7 @@ def read_gps():
 
 
 def close_gps():
+	pi = pigpio.pi()
 	pi.bb_serial_read_close(RX)
 	pi.stop()
 
@@ -315,7 +319,6 @@ def gps_test(reset_time = 10):
 	data_string = ""  # 初期化
 
 	try:
-		setup_gps()
 		open_gps()
 		while True:
 			utc, lat, lon, sHeight, gHeight = read_gps()

@@ -21,9 +21,6 @@ def main():
     print("wait 3sec...")
     time.sleep(3)
 
-    #test
-    result = "20030127"
-
     #send
     send.send_log(result)
 

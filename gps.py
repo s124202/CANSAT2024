@@ -41,7 +41,6 @@ def open_gps():
 
 
 def read_gps():
-
 	pi = pigpio.pi()
 
 	utc = -1.0

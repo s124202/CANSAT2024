@@ -28,4 +28,5 @@ def main():
     send.send_log(result)
 
 if __name__ == '__main__':
-	main()
+    for i in range(3):
+	    main()

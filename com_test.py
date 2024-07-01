@@ -27,6 +27,10 @@ def main():
     #send
     send.send_log(result)
 
+    #sleep
+    print("wait 3sec...")
+    time.sleep(3)
+
 if __name__ == '__main__':
     for i in range(3):
 	    main()

@@ -8,8 +8,8 @@ import motor
 import time
 #import send
 from collections import deque
-#import basics
-#from main_const import *
+import basics
+from main_const import *
 #import log
 
 #PID制御のテストコード

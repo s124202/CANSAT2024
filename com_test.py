@@ -12,7 +12,6 @@ def main():
 
     #Get_Gps
     result = gps.gps_test(5)
-    #result = gps.gps_csv(10)
 
     #change_mode0
     mode0.mode0_change()
@@ -29,5 +28,4 @@ def main():
     time.sleep(3)
 
 if __name__ == '__main__':
-    for i in range(3):
-	    main()
+	main()

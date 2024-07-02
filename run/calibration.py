@@ -13,7 +13,7 @@ import run.stuck as stuck
 
 def get_data():
     """
-     MBC050からデータを得る
+    MBC050からデータを得る
     """
     try:
         magData = bmx055.mag_dataRead()
@@ -60,7 +60,7 @@ def magdata_matrix(l, r, n):
             motor.motor_continue(l, r)
             magx, magy, magz = get_data()
             print(magx, magy)
-            # --- multi dimention matrix ---#
+            # --- multi dimension matrix ---#
             magdata = np.append(magdata, np.array(
                 [[magx, magy, magz]]), axis=0)
             time.sleep(0.03)
@@ -86,7 +86,7 @@ def magdata_matrix_hand():
             time.sleep(0.05)
             print(f'{i + 1}回目')
             magx, magy, magz = get_data()
-            # --- multi dimention matrix ---#
+            # --- multi dimension matrix ---#
             magdata = np.append(magdata, np.array(
                 [[magx, magy, magz]]), axis=0)
     except KeyboardInterrupt:
@@ -106,13 +106,13 @@ def magdata_matrix_offset(l, r, t, magx_off, magy_off, magz_off):
         for _ in range(20):
             motor(l, r, t)
             magx, magy, magz = get_data_offset(magx_off, magy_off, magz_off)
-            # --- multi dimention matrix ---#
+            # --- multi dimension matrix ---#
             magdata = np.append(magdata, np.array(
                 [[magx, magy, magz]]), axis=0)
     except KeyboardInterrupt:
-        print_im920sl('Interrupt')
+        print('Interrupt') #log
     except Exception as e:
-        print_im920sl(e.message())
+        print(e.message()) #log
     return magdata
 
 

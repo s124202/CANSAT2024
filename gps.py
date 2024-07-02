@@ -23,7 +23,7 @@ GEODETIC_DATUM = {
 	],
 }
 
-# Limited times of Itereation
+# Limited times of Iteration
 ITERATION_LIMIT = 1000
 
 

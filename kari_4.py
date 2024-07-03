@@ -15,6 +15,7 @@ while True:
         break
     except:
         print("try again")
+        time.sleep(3)
         pass
 
 while True:

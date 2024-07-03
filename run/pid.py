@@ -85,10 +85,10 @@ def get_theta_dest(target_azimuth, magx_off, magy_off):
 
     return theta_dest
 
-theta_array = []
-theta_differential_array = []
+#theta_array = []
+#theta_differential_array = []
 
-    
+#消去したい
 def make_theta_array(array: list, array_num: int):
     '''
     クソコでした by 田口 8/28 -> [0]*5で可能
@@ -124,9 +124,6 @@ def proportional_control(Kp, theta_array :list):
 def integral_control(Ki, theta_array: list):
     #I制御
 
-    #積分係数の設定
-    #Ki = 0.5
-
     #thetaの積分処理
     theta_integral = sum(theta_array)
 
@@ -136,9 +133,6 @@ def integral_control(Ki, theta_array: list):
 
 def differential_control(Kd, theta_array: list):
     #D制御
-
-    #微分係数の設定
-    #Kd = 0.5
 
     #thetaの微分処理
     for i in range(len(theta_array)):
@@ -212,7 +206,7 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
     t_adj_start = time.time()
 
     while True:
-        if time.time() - t_adj_start > 1 and error_theta <= 75: #5秒経過したら強制的に終了する
+        if time.time() - t_adj_start > 1 and error_theta <= 75: #1秒経過したら強制的に終了する
             break
         elif time.time() - t_adj_start > 1 and error_theta > 75: #スタック回避を行う
             print('Stuck Avoid')

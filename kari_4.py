@@ -7,7 +7,15 @@ bd_addr = "B8:27:EB:A9:05:AB" # サーバー側のデバイスアドレスを入
 
 port = 1
 sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-sock.connect((bd_addr, port))
+
+while True:
+    try:
+        sock.connect((bd_addr, port))
+        print("connect success")
+        break
+    except:
+        print("try again")
+        pass
 
 while True:
 

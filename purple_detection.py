@@ -29,7 +29,7 @@ def get_largest_red_object(mask):
     else:
         return None, 0
 
-def main():
+def main_movie():
     # カメラのキャプチャ
     cap = cv2.VideoCapture(0)
 
@@ -65,7 +65,29 @@ def main():
     cap.release()
     cv2.destroyAllWindows()
 
-    
+
+def main_image():
+    # カメラのキャプチャ
+    cap = cv2.VideoCapture(0)
+
+    # フレームを取得
+    ret, frame = cap.read()
+    frame = cv2.resize(frame, (640,640))
+    frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
+
+    # 赤色検出
+    mask = red_detect(frame)
+
+    # 最大の赤色物体の中心を取得
+    center, size = get_largest_red_object(mask)
+
+    cap.release()
+    cv2.destroyAllWindows()
+
+    if center is not None:
+        return int(center)
+    else:
+        return 0.1
 
 if __name__ == '__main__':
-    main()
+    main_movie()

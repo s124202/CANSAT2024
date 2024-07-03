@@ -4,7 +4,7 @@ import math
 import time
 import traceback
 
-import detection.bmx055 as bmx055
+import src.bmx055 as bmx055
 import gps
 import run.gps_navigate as gps_navigate
 import motor

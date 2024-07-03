@@ -4,7 +4,7 @@ import random
 import motor
 import run.gps_navigate as gps_navigate
 import gps
-import detection.bmx055 as bmx055
+import src.bmx055 as bmx055
 
 
 def ue_jug():

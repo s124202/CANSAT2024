@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 
-import gps
+import src.gps as gps
 import send
 import mode0
 import mode3

@@ -1,18 +1,15 @@
 import time
-import run.gps_navigate as gps_navigate
-import gps as gps
-import run.calibration as calibration
-import detection.bmx055 as bmx055
-import run.stuck as stuck
-import motor
-import time
-#import send
 from collections import deque
+
+import gps_navigate
+import gps
+import calibration
+import src.bmx055 as bmx055
+import stuck
+import src.motor as motor
 import basics
 from main_const import *
-#import log
 
-#PID制御のテストコード
 
 def get_theta_dest_gps(lon_dest, lat_dest, magx_off, magy_off):
     '''

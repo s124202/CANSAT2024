@@ -1,9 +1,9 @@
 import serial
 import sys
 import argparse
-import hexdump
 import time
 
+import hexdump
 
 def get_args():
     parser = argparse.ArgumentParser()

@@ -1,5 +1,6 @@
 import time
 import bluetooth
+import threading
 
 import motor
 import purple_detection
@@ -49,12 +50,10 @@ def blt():
     server_sock.close()
 
 
-def main():
-    global send
-    global receive
-    global synchro
-
+def wait():
     #子機の発見を待つ
+    global receive
+
     while True:
         discovered = receive
         if discovered == "1":
@@ -63,6 +62,15 @@ def main():
         else:
             print("waiting")
         time.sleep(3)
+
+
+def main():
+    global send
+    global receive
+    global synchro
+
+    #子機の発見を待つ
+    wait()
     
     #目的地の方向を向いて子機がいるか確認
 
@@ -80,10 +88,27 @@ def main():
         time.sleep(1)
 
 
-
+    #いない場合(正しい順序になっている)
     else:
         send = 1
+
+    #bltリセット
+    time.sleep(3)
+    send = 0
+
+    #子機の発見を待つ
+    wait()
     
     #追従準備完了
     synchro = 1
     print("ready to follow")
+
+if __name__ == "__main__":
+    thread1 = threading.Thread(target = main)
+    thread2 = threading.Thread(target = blt)
+
+    thread1.start()
+    thread2.start()
+
+    thread1.join()
+    thread2.join()

@@ -12,7 +12,6 @@ def blt():
     send = 0
     receive = 0
     synchro = 0
-    count = 0
 
     bd_addr = "B8:27:EB:A9:05:AB" # サーバー側のデバイスアドレスを入力
 

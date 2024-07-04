@@ -19,22 +19,19 @@ while True:
         pass
 
 while True:
-
     try:
-        time.sleep(2)
-        sock.send("hello world!")
-        count += 1
+        data = client_sock.recv(1024)
+        receive = data
+        print("received [%s]" % data)
+        time.sleep(1)
+        client_sock.send(str(send))
 
-        # サーバーからのデータを受信
-        if count == 3:
-            data = sock.recv(1024)
-            print("received [%s]" % data)
-            count = 0
     except KeyboardInterrupt:
         print("finish")
         break
     except bluetooth.btcommon.BluetoothError as err:
         print("close")
         break
+        
 
 sock.close()

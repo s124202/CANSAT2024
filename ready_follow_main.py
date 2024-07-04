@@ -31,13 +31,9 @@ def blt():
             data = client_sock.recv(1024)
             receive = data
             print("received [%s]" % data)
-            count +=1
+            time.sleep(1)
+            client_sock.send(str(send))
 
-            # クライアントにデータを送信
-            if count == 3:
-                time.sleep(0.5)
-                client_sock.send(str(send))
-                count = 0
         except KeyboardInterrupt:
             print("finish")
             break

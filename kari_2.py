@@ -13,17 +13,13 @@ client_sock,address = server_sock.accept()
 print("Accepted connection from ",address)
 
 while True:
-
     try:
-        data = client_sock.recv(1024)
+        time.sleep(1)
+        sock.send(str(send))
+        data = sock.recv(1024)
+        receive = data
         print("received [%s]" % data)
-        count +=1
 
-        # クライアントにデータを送信
-        if count == 3:
-            time.sleep(0.5)
-            client_sock.send("Message from server!")
-            count = 0
     except KeyboardInterrupt:
         print("finish")
         break

@@ -34,16 +34,12 @@ def blt():
             print("synchro")
             break
         try:
-            time.sleep(2)
+            time.sleep(1)
             sock.send(str(send))
-            count += 1
+            data = sock.recv(1024)
+            receive = data
+            print("received [%s]" % data)
 
-            # サーバーからのデータを受信
-            if count == 3:
-                data = sock.recv(1024)
-                receive = data
-                print("received [%s]" % data)
-                count = 0
         except KeyboardInterrupt:
             print("finish")
             break

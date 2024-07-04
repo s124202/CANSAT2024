@@ -93,7 +93,7 @@ def main():
         send = 1
 
     #bltリセット
-    time.sleep(3)
+    time.sleep(5)
     send = 0
 
     #子機の発見を待つ

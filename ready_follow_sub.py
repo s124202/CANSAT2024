@@ -91,7 +91,7 @@ def main():
         time.sleep(3)
 
     #bltリセット
-    time.sleep(3)
+    time.sleep(5)
     send = 0
 
     #周辺を見回して親機を発見する

@@ -7,8 +7,10 @@ import purple_detection
 def blt():
     global send
     global receive
+    global synchro
     send = 0
     receive = 0
+    synchro = 0
     count = 0
 
     server_sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
@@ -21,6 +23,9 @@ def blt():
     print("Accepted connection from ",address)
 
     while True:
+        if synchro == 1:
+            print("synchro")
+            break
         try:
             data = client_sock.recv(1024)
             receive = data
@@ -36,6 +41,7 @@ def blt():
             print("finish")
             break
 
+
     client_sock.close()
     server_sock.close()
 
@@ -43,6 +49,7 @@ def blt():
 def main():
     global send
     global receive
+    global synchro
 
     #子機の発見を待つ
     while True:
@@ -57,5 +64,23 @@ def main():
     #目的地の方向を向いて子機がいるか確認
 
     #+++目的地に向く+++
+
+
     find = purple_detection.main_image()
+    #子機がいた場合
     if find != 0.1:
+        motor.move(30,-30,0.3)
+        time.sleep(1)
+        motor.move(80,80,3)
+        time.sleep(1)
+        motor.move(-30,30,0.3)
+        time.sleep(1)
+
+
+
+    else:
+        send = 1
+    
+    #追従準備完了
+    synchro = 1
+    print("ready to follow")

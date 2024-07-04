@@ -7,8 +7,10 @@ import purple_detection
 def blt():
     global send
     global receive
+    global synchro
     send = 0
     receive = 0
+    synchro = 0
     count = 0
 
     bd_addr = "B8:27:EB:A9:05:AB" # サーバー側のデバイスアドレスを入力
@@ -27,6 +29,9 @@ def blt():
             pass
 
     while True:
+        if synchro == 1:
+            print("synchro")
+            break
         try:
             time.sleep(2)
             sock.send(str(send))
@@ -49,6 +54,7 @@ def blt():
 def main():
     global send
     global receive
+    global synchro
 
     #周辺を見回して親機を発見する
     count = 0
@@ -58,12 +64,25 @@ def main():
         if find != 0.1:
             count += 1
             time.sleep(0.1)
+            if count == 3:
+                print("discover main")
+                send = 1
+                break
             continue
-        if count == 3:
-            print("discover main")
-            send = 1
-            break
+
         motor.move(30,-30,0.3)
         time.sleep(1)
 
     #親機の方向調整を待つ
+    while True:
+        discovered = receive
+        if discovered == "1":
+            print("adjustment finish")
+            break
+        else:
+            print("waiting")
+        time.sleep(3)
+
+    #追従準備完了
+    synchro = 1
+    print("ready to follow")

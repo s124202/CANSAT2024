@@ -29,6 +29,7 @@ while True:
         break
     except bluetooth.btcommon.BluetoothError as err:
         print("close")
+        break
 
 client_sock.close()
 server_sock.close()

@@ -40,6 +40,9 @@ def blt():
         except KeyboardInterrupt:
             print("finish")
             break
+        except bluetooth.btcommon.BluetoothError as err:
+            print("close")
+            break
 
 
     client_sock.close()

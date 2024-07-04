@@ -35,5 +35,6 @@ while True:
         break
     except bluetooth.btcommon.BluetoothError as err:
         print("close")
+        break
 
 sock.close()

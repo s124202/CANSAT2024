@@ -350,6 +350,49 @@ def gps_test(reset_time = 10):
 
 	return data_string
 
+#入力secGPS取得
+def gps_float():
+
+	#time_start = time.time()
+	#timer = reset_time
+	data_string = ""  # 初期化
+
+	try:
+		open_gps()
+		while True:
+			utc, lat, lon, sHeight, gHeight = read_gps()
+			if utc == -1.0:
+				if lat == -1.0:
+					print("Reading gps Error")
+					#data_string = "GPS cannot be read"
+					# pass
+				else:
+					# pass
+					print("Status V")
+					#data_string = "GPS cannot be read"
+
+			else:
+				# pass
+				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
+				#data_string = f"utc:{utc}\nlat:{lat}\nlon:{lon}\nsHeight: {sHeight}\ngHeight: {gHeight}"
+				gps_lat,gps_lon = lat,lon
+				break
+			time.sleep(1)
+
+			#if time.time() - time_start > timer:
+			#	print("end_gps")
+			#	#data_string = "Fin:GPS"
+			#	break
+	except KeyboardInterrupt:
+		print("\r\nKeyboard Intruppted, Serial Closed")
+	except:
+		print(traceback.format_exc())
+	finally:
+		close_gps()
+
+	#return data_string
+	return gps_lat,gps_lon
+
 #入力秒数だけGPS取得+csv書き出し
 def gps_csv(reset_time = 10):
 	#setup

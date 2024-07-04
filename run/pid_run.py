@@ -10,45 +10,7 @@ import src.motor as motor
 import basics
 from main_const import *
 
-
-def get_theta_dest_gps(lon_dest, lat_dest, magx_off, magy_off):
-    '''
-    目標地点(dest)との相対角度を算出する関数
-    ローバーが向いている角度を基準に、時計回りを正とする。
-
-    theta_dest = 60 のとき、目標地点はローバーから見て右手60度の方向にある。
-
-    -180 < theta_dest < 180
-
-    Parameters
-    ----------
-    lon2 : float
-        目標地点の経度
-    lat2 : float
-        目標地点の緯度
-    magx_off : int
-        地磁気x軸オフセット
-    magy_off : int
-        地磁気y軸オフセット
-
-    '''
-    #-----ローバーの角度を取得-----#
-    magdata= bmx055.mag_dataRead()
-    mag_x, mag_y = magdata[0], magdata[1]
-
-    rover_angle = calibration.angle(mag_x, mag_y, magx_off, magy_off)
-    direction = calibration.calculate_direction(lon_dest, lat_dest)
-    azimuth = direction["azimuth1"]
-
-    #-----目標地点との相対角度を算出-----#
-    #ローバーが向いている角度を0度としたときの、目的地への相対角度。このとき時計回りを正とする。
-    theta_dest = rover_angle - azimuth
-
-    #-----相対角度の範囲を-180~180度にする-----#
-    theta_dest = basics.standarize_angle(theta_dest)
-
-    return theta_dest
-
+#return theta_dest
 def get_theta_dest(target_azimuth, magx_off, magy_off):
     '''
     #ローバーから目標地点までの方位角が既知の場合に目標地点(dest)との相対角度を算出する関数
@@ -85,21 +47,7 @@ def get_theta_dest(target_azimuth, magx_off, magy_off):
 
     return theta_dest
 
-#theta_array = []
-#theta_differential_array = []
-
-#消去したい
-def make_theta_array(array: list, array_num: int):
-    '''
-    クソコでした by 田口 8/28 -> [0]*5で可能
-    '''
-    #-----決められた数の要素を含む空配列の作成-----#
-
-    for i in range(array_num):
-        array.append(0)
-    
-    return array
-
+#theta_array Max5
 def latest_theta_array(theta, array:list):
     #-----thetaの値を蓄積する-----#
 
@@ -111,6 +59,7 @@ def latest_theta_array(theta, array:list):
 
     return array
 
+#P
 def proportional_control(Kp, theta_array :list):
     #-----P制御-----#
     
@@ -121,6 +70,7 @@ def proportional_control(Kp, theta_array :list):
 
     return mp
 
+#I
 def integral_control(Ki, theta_array: list):
     #I制御
 
@@ -131,6 +81,7 @@ def integral_control(Ki, theta_array: list):
 
     return mi
 
+#D
 def differential_control(Kd, theta_array: list):
     #D制御
 
@@ -146,6 +97,7 @@ def differential_control(Kd, theta_array: list):
 
     return md
 
+#PID
 def PID_control(theta, theta_array: list, Kp=0.1, Ki=0.04, Kd=2.5):
     #-----PID制御-----#
     
@@ -169,10 +121,10 @@ def PID_control(theta, theta_array: list, Kp=0.1, Ki=0.04, Kd=2.5):
 
     return m
 
+#direction_adjust
 def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
     '''
     目標角度に合わせて方向調整を行う関数
-    最終version
 
     Parameters
     ----------
@@ -186,22 +138,8 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
     Ki_ = 0.03
 
     count = 0
-    # controller = PID_Controller(kp=0.4, ki=0.03, kd=3, target=target_theta, num_log=5, validate_ki=25)
     
     print('PID_adjust_direction')
-
-    #-----ローバーの角度の取得-----#
-    # error_theta = get_theta_dest(target_azimuth, magx_off, magy_off)
-
-    # # output = controller.get_output(theta)
-    # # print(controller.kp)
-    
-    # print('error theta = ' + str(error_theta))
-
-    # theta_array.append(error_theta)
-
-    #-----制御処理-----#
-    #while abs(theta_array[-1]) > 5:
 
     t_adj_start = time.time()
 
@@ -266,6 +204,7 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
         count += 1
 
     motor.motor_stop(1)
+
 
 def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array: list, loop_num: int=20):
     '''
@@ -353,7 +292,7 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
     return control
 
 
-def drive3(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loop_num: int, report_log):
+def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loop_num: int, report_log):
     '''
     任意の地点までPID制御により走行する関数
     最終version これを使う
@@ -509,7 +448,7 @@ if __name__ == "__main__":
 
     while True: #1ループおおよそT_CAL秒
         #-T_CALごとに以下の情報を取得-#
-        lat_now, lon_now, distance_to_dest, rover_azimuth, isReach_dest = drive3(lon_dest=lon_test, lat_dest=lat_test, thd_distance=THD_DISTANCE_DEST, t_cal=T_CAL, loop_num=LOOP_NUM)
+        lat_now, lon_now, distance_to_dest, rover_azimuth, isReach_dest = drive(lon_dest=lon_test, lat_dest=lat_test, thd_distance=THD_DISTANCE_DEST, t_cal=T_CAL, loop_num=LOOP_NUM)
         
         print('isReach_dest = ', isReach_dest)
 

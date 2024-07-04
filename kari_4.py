@@ -33,5 +33,7 @@ while True:
     except KeyboardInterrupt:
         print("finish")
         break
+    except bluetooth.btcommon.BluetoothError as err:
+        print("close")
 
 sock.close()

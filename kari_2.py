@@ -27,6 +27,8 @@ while True:
     except KeyboardInterrupt:
         print("finish")
         break
+    except bluetooth.btcommon.BluetoothError as err:
+        print("close")
 
 client_sock.close()
 server_sock.close()

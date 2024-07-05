@@ -49,6 +49,7 @@ def blt():
 def wait(number):
     #子機の発見を待つ
     global receive
+    receive = "0"
 
     while True:
         confirm = receive

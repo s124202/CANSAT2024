@@ -350,7 +350,7 @@ def gps_test(reset_time = 10):
 
 	return data_string
 
-#入力secGPS取得
+#GPS取得したらすぐにfloatでlat,lon送信
 def gps_float():
 
 	#time_start = time.time()

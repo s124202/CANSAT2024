@@ -49,10 +49,10 @@ def blt():
 def wait(number):
     #子機の発見を待つ
     global receive
-    receive = 0
+    receive = "0"
 
     while True:
-        confirm = receive
+        confirm = str(receive)
         print(confirm)
         if confirm == number:
             print("confirmed")

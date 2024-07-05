@@ -9,9 +9,24 @@ def red_detect(img):
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
     # 紫色のHSVの値域1
-    hsv_min = np.array([110,100,50])
-    hsv_max = np.array([170,255,255])
+    #hsv_min = np.array([110,100,50])
+    #hsv_max = np.array([170,255,255])
+    #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+
+    # 緑色のHSVの値域1
+    #hsv_min = np.array([30,64,0])
+    #hsv_max = np.array([90,255,255])
+    #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+
+    # 黄色のHSVの値域1
+    hsv_min = np.array([20,80,10])
+    hsv_max = np.array([50,255,255])
     mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+
+    # 紫色のHSVの値域1
+    #hsv_min = np.array([110,100,50])
+    #hsv_max = np.array([170,255,255])
+    #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
 
     return mask1
 

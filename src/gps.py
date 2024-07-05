@@ -447,6 +447,6 @@ def gps_csv(reset_time = 10):
 if __name__ == '__main__':
 	#gps_main()
 
-	for i in range(20):
+	for i in range(3):
 		lat,lon = gps_float()
 		print(lat,lon)

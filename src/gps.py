@@ -442,4 +442,5 @@ if __name__ == '__main__':
 	#gps_main()
 
 	for i in range(3):
-		gps_float()
+		lat,lon = gps_float()
+		print(lat,lon)

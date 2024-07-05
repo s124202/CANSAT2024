@@ -46,14 +46,14 @@ def blt():
     server_sock.close()
 
 
-def wait():
+def wait(number):
     #子機の発見を待つ
     global receive
 
     while True:
-        discovered = receive
-        if discovered == "1":
-            print("discovered")
+        confirm = receive
+        if confirm == str(number):
+            print("confirmed")
             break
         else:
             print("waiting")
@@ -65,37 +65,31 @@ def main():
     global receive
     global synchro
 
-    #子機の発見を待つ
-    wait()
-    
-    #目的地の方向を向いて子機がいるか確認
+    #自身のgps取得
+    main_lat,main_lon = gps.gps_float()
+    time.sleep(1)
 
-    #+++目的地に向く+++
+    #子機に緯度を送信
+    send = main_lat
 
-
-    find = purple_detection.main_image()
-    #子機がいた場合
-    if find != 0.1:
-        motor.move(30,-30,0.3)
-        time.sleep(1)
-        motor.move(80,80,3)
-        time.sleep(1)
-        motor.move(-30,30,0.3)
-        time.sleep(1)
-
-
-    #いない場合(正しい順序になっている)
-    else:
-        send = 1
-
-    #bltリセット
-    time.sleep(5)
+    #子機の受信報告確認
+    wait(1)
     send = 0
+    time.sleep(5)
 
-    #子機の発見を待つ
-    wait()
-    
-    #追従準備完了
+    #子機に経度を送信
+    send = main_lon
+
+    #子機の受信報告確認
+    wait(2)
+    send = 0
+    time.sleep(5)
+
+
+    #子機が来るのを待つ
+
+
+    #完了
     synchro = 1
     print("success to gather")
 

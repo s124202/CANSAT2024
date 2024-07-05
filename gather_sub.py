@@ -49,73 +49,49 @@ def blt():
 
     sock.close()
 
-def look_around():
-    #周辺を見回して親機を発見する
-    global send
-    count = 0
-
-    while True:
-        find = purple_detection.main_image()
-        if find != 0.1:
-            count += 1
-            time.sleep(0.1)
-            if count == 3:
-                print("discover main")
-                send = 1
-                break
-            continue
-
-        motor.move(30,-30,0.3)
-        time.sleep(1)
 
 def main():
     global send
     global receive
     global synchro
 
-    #親機のgps取得を待つ
-    while True:
-        discovered = receive
-        if discovered == "1":
-            print("ready to gps")
-            break
-        else:
-            print("waiting")
-        time.sleep(1)
-    
-    #bltリセット
-    time.sleep(5)
-    receive = 0
 
     #親機の緯度をもらう
     while True:
         main_lat = receive
-        if discovered != "0":
+        if main_lat != "0":
             main_lat = float(main_lat)
             break
         else:
             print("lat waiting")
         time.sleep(1)
 
-    #bltリセット
-    time.sleep(5)
+    #緯度受信報告・bltリセット
+    send = 1
     receive = 0
+    time.sleep(5)
 
     #親機の経度をもらう
     while True:
         main_lon = receive
-        if discovered != "0":
+        if main_lon != "0":
             main_lon = float(main_lon)
             break
         else:
             print("lot waiting")
         time.sleep(1)
     
-    
+    #経度受信報告・bltリセット
+    send = 2
+    receive = 0
+    time.sleep(5)
 
-    #追従準備完了
+    #親機の元へ行く
+
+
+    #完了
     synchro = 1
-    print("")
+    print("success to gather")
 
 if __name__ == "__main__":
     thread1 = threading.Thread(target = main)

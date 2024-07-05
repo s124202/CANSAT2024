@@ -9,7 +9,7 @@ def main(lat_target = 35.918468,lon_target = 139.90712):
     #目標地点設定
     #lat_target = 35.918468
     #lon_target = 139.90712
-    distance_thd = 5
+    distance_thd = 2
 
     lat_now = 0
     lon_now = 0

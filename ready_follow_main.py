@@ -28,8 +28,8 @@ def blt():
             break
         try:
             data = client_sock.recv(1024)
-            receive = data
-            print("received [%s]" % data)
+            receive = data.decode()
+            print("received" + receive)
             time.sleep(1)
             client_sock.send(str(send))
 

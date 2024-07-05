@@ -10,7 +10,7 @@ def blt():
     global receive
     global synchro
     send = 0
-    receive = 0
+    receive = "0"
     synchro = 0
 
     bd_addr = "B8:27:EB:A9:05:AB" # サーバー側のデバイスアドレスを入力
@@ -36,8 +36,8 @@ def blt():
             time.sleep(1)
             sock.send(str(send))
             data = sock.recv(1024)
-            receive = data
-            print("received [%s]" % data)
+            receive = data.decode()
+            print("received" + receive)
 
         except KeyboardInterrupt:
             print("finish")

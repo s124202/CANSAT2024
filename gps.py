@@ -353,6 +353,8 @@ def gps_test(reset_time = 10):
 #入力secGPS取得
 def gps_float():
 
+	gps_lat = 0
+	gps_lon = 0
 	#time_start = time.time()
 	#timer = reset_time
 

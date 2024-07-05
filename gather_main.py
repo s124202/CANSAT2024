@@ -52,7 +52,7 @@ def wait(number):
     receive = "0"
 
     while True:
-        confirm = str(receive)
+        confirm = receive
         print(confirm)
         if confirm == number:
             print("confirmed")

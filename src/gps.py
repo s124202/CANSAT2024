@@ -158,7 +158,7 @@ def read_gps():
 
 
 def close_gps():
-	#pi = pigpio.pi()
+	pi = pigpio.pi()
 	pi.bb_serial_read_close(RX)
 	pi.stop()
 

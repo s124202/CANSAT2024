@@ -6,8 +6,8 @@ import run.gps_navigate as gps_navigate
 def main():
 
     #目標地点設定
-    lat_target = 35.918423
-    lon_target = 139.90772
+    lat_target = 35.918468
+    lon_target = 139.90712
     distance_thd = 5
 
     lat_now = 0

@@ -67,6 +67,7 @@ def main():
         time.sleep(1)
 
     #緯度受信報告・bltリセット
+    print(main_lat)
     send = 1
     receive = 0
     time.sleep(5)

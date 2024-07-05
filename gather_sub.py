@@ -55,11 +55,12 @@ def main():
     global receive
     global synchro
 
+    receive = "0"
+
 
     #親機の緯度をもらう
     while True:
         main_lat = receive
-        print(main_lat)
         if main_lat != "0":
             main_lat = float(main_lat)
             break

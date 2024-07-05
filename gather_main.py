@@ -54,7 +54,7 @@ def wait(number):
     while True:
         confirm = receive
         print(confirm)
-        if confirm == number:
+        if confirm == str(number):
             print("confirmed")
             break
         else:

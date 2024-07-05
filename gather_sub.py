@@ -71,7 +71,7 @@ def main():
     #緯度受信報告・bltリセット
     print(main_lat)
     send = 1
-    receive = 0
+    receive = "0"
     time.sleep(5)
 
     #親機の経度をもらう

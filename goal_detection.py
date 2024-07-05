@@ -13,6 +13,8 @@ def main():
     lat_now = 0
     lon_now = 0
 
+    count = 0
+
     try:
         while True:
             #gps_get
@@ -28,7 +30,13 @@ def main():
             #判定
             if distance_to_target < distance_thd:
                 print("10m以内に到達")
-                break
+                count += 1
+
+                if count == 3:
+                    break
+                else: 
+                    count = 0
+
 
             time.sleep(1)
     

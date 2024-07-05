@@ -83,10 +83,17 @@ def main():
     
     #経度受信報告・bltリセット
     send = 2
-    receive = 0
     time.sleep(5)
 
     #親機の元へ行く
+
+
+    #親機に集合報告
+    send = 3
+    time.sleep(5)
+    
+
+
 
 
     #完了

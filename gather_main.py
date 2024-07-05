@@ -87,7 +87,8 @@ def main():
 
 
     #子機が来るのを待つ
-
+    wait(3)
+    time.sleep(3)
 
     #完了
     synchro = 1

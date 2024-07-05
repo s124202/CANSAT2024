@@ -103,7 +103,7 @@ def main():
     #完了
     synchro = 1
     print("success to gather")
-    print(main_lat + main_lon)
+    print(str(main_lat) + "," + str(main_lon))
 
 if __name__ == "__main__":
     thread1 = threading.Thread(target = main)

@@ -16,7 +16,7 @@ def main():
     try:
         while True:
             #gps_get
-            lat_now,lon_now = gps.location()
+            lat_now,lon_now = gps.gps_float()
             print("現在")
             print("緯度：" + str(lat_now) + "\t" + "経度：" + str(lon_now))
 

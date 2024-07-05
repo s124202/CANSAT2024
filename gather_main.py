@@ -62,7 +62,7 @@ def wait(number):
         time.sleep(3)
 
 
-def main():
+def gather():
     global send
     global receive
     global synchro
@@ -96,8 +96,8 @@ def main():
     synchro = 1
     print("success to gather")
 
-if __name__ == "__main__":
-    thread1 = threading.Thread(target = main)
+def main():
+    thread1 = threading.Thread(target = gather)
     thread2 = threading.Thread(target = blt)
 
     thread1.start()
@@ -105,3 +105,6 @@ if __name__ == "__main__":
 
     thread1.join()
     thread2.join()
+
+if __name__ == "__main__":
+    main()

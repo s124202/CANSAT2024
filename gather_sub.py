@@ -50,7 +50,7 @@ def blt():
     sock.close()
 
 
-def main():
+def gather():
     global send
     global receive
     global synchro
@@ -105,8 +105,9 @@ def main():
     print("success to gather")
     print(str(main_lat) + "," + str(main_lon))
 
-if __name__ == "__main__":
-    thread1 = threading.Thread(target = main)
+
+def main():
+    thread1 = threading.Thread(target = gather)
     thread2 = threading.Thread(target = blt)
 
     thread1.start()
@@ -114,3 +115,6 @@ if __name__ == "__main__":
 
     thread1.join()
     thread2.join()
+
+if __name__ == "__main__":
+    main()

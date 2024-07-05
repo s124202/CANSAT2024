@@ -41,7 +41,7 @@ def open_gps():
 
 
 def read_gps():
-	pi = pigpio.pi()
+	#pi = pigpio.pi()
 
 	utc = -1.0
 	Lat = -1.0
@@ -158,7 +158,7 @@ def read_gps():
 
 
 def close_gps():
-	pi = pigpio.pi()
+	#pi = pigpio.pi()
 	pi.bb_serial_read_close(RX)
 	pi.stop()
 
@@ -443,6 +443,6 @@ def gps_csv(reset_time = 10):
 if __name__ == '__main__':
 	#gps_main()
 
-	for i in range(3):
+	for i in range(20):
 		lat,lon = gps_float()
 		print(lat,lon)

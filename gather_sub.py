@@ -35,7 +35,7 @@ def blt():
             break
         try:
             time.sleep(1)
-            sock.send(send)
+            sock.send(str(send))
             data = sock.recv(1024)
             receive = data
             print("received" + data)

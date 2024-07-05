@@ -1,6 +1,7 @@
 import time
 import bluetooth
 import threading
+from queue import Queue
 
 import motor
 import purple_detection
@@ -50,7 +51,7 @@ def blt():
     sock.close()
 
 
-def gather():
+def gather(q):
     global send
     global receive
     global synchro
@@ -97,17 +98,15 @@ def gather():
     time.sleep(5)
     
 
-
-
-
     #完了
     synchro = 1
     print("success to gather")
-    print(str(main_lat) + "," + str(main_lon))
+    q.put([main_lat,main_lon])
 
 
 def main():
-    thread1 = threading.Thread(target = gather)
+    q = Queue()
+    thread1 = threading.Thread(target = gather,args=(q,))
     thread2 = threading.Thread(target = blt)
 
     thread1.start()
@@ -116,5 +115,9 @@ def main():
     thread1.join()
     thread2.join()
 
+    return q.get()
+
 if __name__ == "__main__":
-    main()
+    lat_lon = main()
+    print(lat_lon[0])
+    print(lat_lon[1])

@@ -6,7 +6,8 @@ import traceback
 import csv
 
 RX = 15
-pi = None
+#pi = None
+pi = pigpio.pi()
 
 ELLIPSOID_GRS80 = 1  # GRS80
 ELLIPSOID_WGS84 = 2  # WGS84
@@ -28,9 +29,10 @@ ITERATION_LIMIT = 1000
 
 
 def open_gps():
-	global pi
-	if pi is None:
-		pi = pigpio.pi()
+	#global pi
+	#if pi is None:
+	#	pi = pigpio.pi()
+	pi = pigpio.pi()
 	
 	for i in range (5):
 		try:
@@ -43,7 +45,8 @@ def open_gps():
 
 
 def read_gps():
-	global pi
+	#global pi
+	pi = pigpio.pi()
 
 	utc = -1.0
 	Lat = -1.0
@@ -160,12 +163,14 @@ def read_gps():
 
 
 def close_gps():
-	global pi
-	if pi is not None:
-		pi.bb_serial_read_close(RX)
-		pi.stop()
-		pi = None
-
+	#global pi
+	#if pi is not None:
+	#	pi.bb_serial_read_close(RX)
+	#	pi.stop()
+	#	pi = None
+	pi = pigpio.pi()
+	pi.bb_serial_read_close(RX)
+	pi.stop()
 
 def cal_rhoang(lat_a, lon_a, lat_b, lon_b):
 	if(lat_a == lat_b and lon_a == lon_b):

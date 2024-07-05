@@ -16,9 +16,6 @@ def main(lat_target = 35.918468,lon_target = 139.90712):
 
     count = 0
 
-    print("目標値")
-    print("緯度：" + str(lat_target) + "\t" + "経度：" + str(lon_target))
-
     try:
         while True:
             #gps_get

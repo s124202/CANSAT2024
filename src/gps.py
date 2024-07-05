@@ -356,6 +356,8 @@ def gps_float():
 	#time_start = time.time()
 	#timer = reset_time
 	data_string = ""  # 初期化
+	gps_lat = 0
+	gps_lon = 0
 
 	try:
 		open_gps()

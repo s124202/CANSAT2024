@@ -10,6 +10,9 @@ def main():
     lon_target = 139.905386
     distance_thd = 5
 
+    lat_now = 0
+    lon_now = 0
+
     try:
         while True:
             #gps_get

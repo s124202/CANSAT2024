@@ -11,7 +11,7 @@ def blt():
     global receive
     global synchro
     send = 0
-    receive = "0"
+    receive = 0
     synchro = 0
 
     bd_addr = "B8:27:EB:A9:5B:64" # サーバー側のデバイスアドレスを入力
@@ -35,10 +35,10 @@ def blt():
             break
         try:
             time.sleep(1)
-            sock.send(str(send))
+            sock.send(send)
             data = sock.recv(1024)
             receive = data
-            print("received [%s]" % data)
+            print("received" + data)
 
         except KeyboardInterrupt:
             print("finish")
@@ -55,13 +55,13 @@ def main():
     global receive
     global synchro
 
-    receive = "0"
+    receive = 0
 
 
     #親機の緯度をもらう
     while True:
         main_lat = receive
-        if main_lat != "0":
+        if main_lat != 0:
             main_lat = float(main_lat)
             break
         else:
@@ -71,13 +71,13 @@ def main():
     #緯度受信報告・bltリセット
     print(main_lat)
     send = 1
-    receive = "0"
+    receive = 0
     time.sleep(5)
 
     #親機の経度をもらう
     while True:
         main_lon = receive
-        if main_lon != "0":
+        if main_lon != 0:
             main_lon = float(main_lon)
             break
         else:

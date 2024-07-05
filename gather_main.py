@@ -11,7 +11,7 @@ def blt():
     global receive
     global synchro
     send = 0
-    receive = "0"
+    receive = 0
     synchro = 0
 
     server_sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
@@ -30,7 +30,7 @@ def blt():
         try:
             data = client_sock.recv(1024)
             receive = data
-            print("received [%s]" % data)
+            print("received" + data)
             time.sleep(1)
             client_sock.send(str(send))
 
@@ -49,12 +49,12 @@ def blt():
 def wait(number):
     #子機の発見を待つ
     global receive
-    receive = "0"
+    receive = 0
 
     while True:
         confirm = receive
         print(confirm)
-        if confirm == str(number):
+        if confirm == number:
             print("confirmed")
             break
         else:

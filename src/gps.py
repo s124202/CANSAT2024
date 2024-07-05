@@ -367,6 +367,7 @@ def gps_float(reset_time=100):
 	data_string = ""  # 初期化
 	gps_lat = 0
 	gps_lon = 0
+	count = 0
 
 	try:
 		open_gps()
@@ -387,7 +388,9 @@ def gps_float(reset_time=100):
 				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
 				data_string = f"utc:{utc}\nlat:{lat}\nlon:{lon}\nsHeight: {sHeight}\ngHeight: {gHeight}"
 				gps_lat,gps_lon = lat,lon
-				break
+				count += 1
+				if count == 10:
+					break
 			time.sleep(1)
 
 			if time.time() - time_start > timer:

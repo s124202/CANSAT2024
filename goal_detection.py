@@ -1,19 +1,23 @@
 import time
+import csv
 
 import src.gps as gps
 import run.gps_navigate as gps_navigate
 
-def main():
+def main(lat_target = 35.918468,lon_target = 139.90712):
 
     #目標地点設定
-    lat_target = 35.918468
-    lon_target = 139.90712
+    #lat_target = 35.918468
+    #lon_target = 139.90712
     distance_thd = 5
 
     lat_now = 0
     lon_now = 0
 
     count = 0
+
+    print("目標値")
+    print("緯度：" + str(lat_target) + "\t" + "経度：" + str(lon_target))
 
     try:
         while True:
@@ -37,7 +41,6 @@ def main():
                 else: 
                     count = 0
 
-
             time.sleep(1)
     
     except KeyboardInterrupt:
@@ -45,4 +48,7 @@ def main():
 
 
 if __name__ == '__main__':
-	main()
+    lat_target1,lon_target1 = gps.gps_float()
+    print("wait 20sec...")
+    time.sleep(20)
+    main(lat_target1,lon_target1)

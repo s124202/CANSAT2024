@@ -83,6 +83,7 @@ def main():
         time.sleep(1)
     
     #経度受信報告・bltリセット
+    print(main_lon)
     send = 2
     time.sleep(5)
 

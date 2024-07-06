@@ -6,9 +6,9 @@ def release_main():
 	time_start = time.time()
 	time_timeout = 30
 	
-	release_press_thd = 0.2
-	release_judge_count = 3
-	release_judge_time = 3
+	RELEASE_PRESS_THD = 0.2
+	RELEASE_JUDGE_COUNT = 3
+	RELEASE_JUDGE_TIME = 3
 
 	press_count = 0
 	press_array = [0]
@@ -16,12 +16,12 @@ def release_main():
 
 	while True:
 		press_array.pop(0)
-		time.sleep(release_judge_time)
+		time.sleep(RELEASE_JUDGE_TIME)
 		press_array.append(bme280.bme280_read()[1])
 		if press_array[0] != 0 and press_array[1] != 0:
 			delta_press = press_array[1] - press_array[0]
 
-			if delta_press > release_press_thd:
+			if delta_press > RELEASE_PRESS_THD:
 				press_count += 1
 			
 			else:
@@ -33,7 +33,7 @@ def release_main():
 
 		print(press_array, press_count)
 
-		if press_count == release_judge_count:
+		if press_count == RELEASE_JUDGE_COUNT:
 			print("Release Detected")
 			break
 

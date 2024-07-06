@@ -1,3 +1,5 @@
+def red_detection()
+
 def main(lat_land, lon_land, lat_dest, lon_dest, check_count :int, add_pwr: int, para_avoid_log):
 
     '''
@@ -15,7 +17,6 @@ def main(lat_land, lon_land, lat_dest, lon_dest, check_count :int, add_pwr: int,
 
     isDistant_para = 0 #パラシュート回避用のフラグ
     red_area = 0
-    control_num = 0
 
     para_info = calibration.calculate_direction(lon2=lon_land, lat2=lat_land)
     para_dist = para_info['distance'] #パラシュートまでの距離を計算
@@ -27,7 +28,7 @@ def main(lat_land, lon_land, lat_dest, lon_dest, check_count :int, add_pwr: int,
     if para_dist <= SHORT_THD_DIST:
         magx_off, magy_off = -830, -980
         print('Warning: Parachute is very close\nStarting Parachute Avoid Sequence')
-        red_area = detect_para()
+        red_area = red_detection()
         if red_area > PARA_THD_COVERED:
             print('Parachute on top')
             time.sleep(5)
@@ -114,6 +115,5 @@ def main(lat_land, lon_land, lat_dest, lon_dest, check_count :int, add_pwr: int,
             isDistant_para = 1
     
     time.sleep(1)
-    para_avoid_log.save_log(lat_now, lon_now, para_dist, red_area, isDistant_para)
 
     return isDistant_para, check_count

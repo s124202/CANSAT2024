@@ -309,6 +309,9 @@ def gps_med(reset_time=60):
 	finally:
 		close_gps()
 
+	if len(gps_lat) == 0 or len(gps_lon) == 0:
+		return None, None
+
 	gps_lat_median = np.median(gps_lat)
 	gps_lon_median = np.median(gps_lon)
 

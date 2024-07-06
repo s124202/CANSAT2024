@@ -294,7 +294,7 @@ def gps_med(reset_time=60):
 			else:
 				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
 				gps_lat.append(lat)
-				gps_lat.append(lon)
+				gps_lon.append(lon)
 			
 			time.sleep(1)
 

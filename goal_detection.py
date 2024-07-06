@@ -19,7 +19,7 @@ def main(lat_target = 35.918468,lon_target = 139.90712):
     try:
         while True:
             #gps_get
-            lat_now,lon_now = gps.gps_float()
+            lat_now,lon_now = gps.gps_med()
             print("現在")
             print("緯度：" + str(lat_now) + "\t" + "経度：" + str(lon_now))
 
@@ -33,7 +33,7 @@ def main(lat_target = 35.918468,lon_target = 139.90712):
                 print("10m以内に到達")
                 count += 1
 
-                if count == 3:
+                if count > 2:
                     break
                 else: 
                     count = 0
@@ -45,7 +45,7 @@ def main(lat_target = 35.918468,lon_target = 139.90712):
 
 
 if __name__ == '__main__':
-    lat_target1,lon_target1 = gps.gps_float()
+    lat_target1,lon_target1 = gps.gps_med()
     print("wait 10sec...")
     time.sleep(10)
     main(lat_target1,lon_target1)

@@ -2,8 +2,6 @@ import time
 import bluetooth
 import threading
 
-import motor
-import purple_detection
 import gps
 
 def blt():

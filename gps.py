@@ -439,6 +439,45 @@ def gps_csv(reset_time = 10):
 
 	return data_string
 
+def gps_med(reset_time=60):
+
+	time_start = time.time()
+	gps_lat = []
+	gps_lon = []
+
+	try:
+		open_gps()
+		while len(gps_lat) < 10:
+			utc, lat, lon, sHeight, gHeight = read_gps()
+			if utc == -1.0:
+				if lat == -1.0:
+					print("Reading gps Error")
+				else:
+					print("Status V")
+
+			else:
+				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
+				gps_lat.append(lat)
+				gps_lat.append(lon)
+			
+			time.sleep(1)
+
+			if time.time() - time_start > reset_time:
+				print("end_gps")
+				break
+
+	except KeyboardInterrupt:
+		print("\r\nKeyboard Intruppted, Serial Closed")
+	except:
+		print(traceback.format_exc())
+	finally:
+		close_gps()
+
+	gps_lat_median = np.median(gps_lat)
+	gps_lon_median = np.median(gps_lon)
+
+	return gps_lat_median,gps_lon_median
+
 if __name__ == '__main__':
 	#gps_main()
 

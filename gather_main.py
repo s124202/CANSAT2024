@@ -66,7 +66,7 @@ def gather():
     global synchro
 
     #自身のgps取得
-    main_lat,main_lon = gps.gps_float()
+    main_lat,main_lon = gps.gps_med()
     time.sleep(1)
 
     #子機に緯度を送信

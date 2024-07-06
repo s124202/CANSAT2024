@@ -1,6 +1,7 @@
 # 常にbluetooth通信にて受信する
 
 import bluetooth
+import time
 
 def main():
     # Bluetoothポート番号
@@ -13,13 +14,9 @@ def main():
     client_sock, client_info = sock.accept()
     print("Accepted connection from", client_info)
     
-    # データを受信
-    while True:
-        data = client_sock.recv(1024)
-        print("Received:", data)
-    
-        if data == "15":
-            break
+    data = client_sock.recv(1024)
+    a = time.time()
+    print(a)
         
     # ソケットをクローズ
     client_sock.close()

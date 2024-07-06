@@ -46,6 +46,6 @@ def main(lat_target = 35.918468,lon_target = 139.90712):
 
 if __name__ == '__main__':
     lat_target1,lon_target1 = gps.gps_float()
-    print("wait 20sec...")
-    time.sleep(20)
+    print("wait 10sec...")
+    time.sleep(10)
     main(lat_target1,lon_target1)

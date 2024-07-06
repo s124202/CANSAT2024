@@ -315,4 +315,5 @@ def gps_med(reset_time=60):
 	return gps_lat_median,gps_lon_median
 
 if __name__ == '__main__':
-	gps_main()
+	a = gps_med()
+	print(a)

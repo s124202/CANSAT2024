@@ -10,7 +10,7 @@ def blt():
 
     sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
     sock.connect((bd_addr, port))
-    a = time.time
+    a = time.time()
     sock.send("1")
     print(a)
     

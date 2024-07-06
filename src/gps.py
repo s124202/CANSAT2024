@@ -283,7 +283,7 @@ def gps_med(reset_time=60):
 
 	try:
 		open_gps()
-		while len(gps_lat) < 10:
+		while len(gps_lat) < 30:
 			utc, lat, lon, sHeight, gHeight = read_gps()
 			if utc == -1.0:
 				if lat == -1.0:
@@ -296,7 +296,7 @@ def gps_med(reset_time=60):
 				gps_lat.append(lat)
 				gps_lon.append(lon)
 			
-			time.sleep(1)
+			time.sleep(0.3)
 
 			if time.time() - time_start > reset_time:
 				print("end_gps")

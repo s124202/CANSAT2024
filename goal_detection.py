@@ -30,11 +30,12 @@ def main(lat_target = 35.918468,lon_target = 139.90712):
 
             #判定
             if distance_to_target < distance_thd:
-                print("10m以内に到達")
                 count += 1
 
                 if count > 2:
+                    print("10m以内に到達")
                     break
+
                 else: 
                     count = 0
 

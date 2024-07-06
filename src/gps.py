@@ -32,7 +32,6 @@ def open_gps():
 	global pi
 	if pi is None:
 		pi = pigpio.pi()
-	#pi = pigpio.pi()
 	
 	for i in range (5):
 		try:
@@ -40,13 +39,12 @@ def open_gps():
 			pi.bb_serial_read_open(RX, 9600, 8)
 			break
 		except pigpio.error as e:
-			#print("Open gps Error")
+			print("Open gps Error")
 			pass
 
 
 def read_gps():
 	global pi
-	#pi = pigpio.pi()
 
 	utc = -1.0
 	Lat = -1.0
@@ -57,20 +55,13 @@ def read_gps():
 
 	(count, data) = pi.bb_serial_read(RX)
 	if count:
-		# print(data)
-		# print(type(data))
 		if isinstance(data, bytearray):
 			gpsData = data.decode('utf-8', 'replace')
 
-		# print(gpsData)
-		# print()
-		# print()、
 		gga = gpsData.find('$GPGGA,')
 		rmc = gpsData.find('$GPRMC,')
 		gll = gpsData.find('$GPGLL,')
 
-		# print(gpsData[rmc:rmc+20])
-		# print(gpsData[gll:gll+40])
 		if gpsData[gga:gga+20].find(",0,") != -1 or gpsData[rmc:rmc+20].find("V") != -1 or gpsData[gll:gll+60].find("V") != -1:
 			utc = -1.0
 			Lat = 0.0
@@ -79,7 +70,7 @@ def read_gps():
 			utc = -2.0
 			if gpsData[gga:gga+60].find(",N,") != -1 or gpsData[gga:gga+60].find(",S,") != -1:
 				gpgga = gpsData[gga:gga+72].split(",")
-				# print(gpgga)
+
 				if len(gpgga) >= 6:
 					utc = gpgga[1]
 					lat = gpgga[2]
@@ -104,12 +95,10 @@ def read_gps():
 						gHeight = float(gpgga[11])
 					except:
 						pass
-					#print(sHeight, gHeight)
-			# print(gpsData[gll:gll+60].find("A"))
+
 			if gpsData[gll:gll+40].find("N") != -1 and utc == -2.0:
 				gpgll = gpsData[gll:gll+72].split(",")
-				# print(gpgll)
-				# print("a")
+
 				if len(gpgll) >= 6:
 					utc = gpgll[5]
 					lat = gpgll[1]
@@ -128,8 +117,7 @@ def read_gps():
 					utc = -2.0
 			if gpsData[rmc:rmc+20].find("A") != -1 and utc == -2.0:
 				gprmc = gpsData[rmc:rmc+72].split(",")
-				# print(gprmc)
-				# print("b")
+
 				if len(gprmc) >= 7:
 					utc = gprmc[1]
 					lat = gprmc[3]
@@ -168,97 +156,6 @@ def close_gps():
 		pi.bb_serial_read_close(RX)
 		pi.stop()
 		pi = None
-	#pi = pigpio.pi()
-	#pi.bb_serial_read_close(RX)
-	#pi.stop()
-
-def cal_rhoang(lat_a, lon_a, lat_b, lon_b):
-	if(lat_a == lat_b and lon_a == lon_b):
-		return 0.0, 0.0
-	ra = 6378.140  # equatorial radius (km)
-	rb = 6356.755  # polar radius (km)
-	F = (ra-rb)/ra  # flattening of the earth
-	rad_lat_a = np.radians(lat_a)
-	rad_lon_a = np.radians(lon_a)
-	rad_lat_b = np.radians(lat_b)
-	rad_lon_b = np.radians(lon_b)
-	pa = np.arctan(rb/ra*np.tan(rad_lat_a))
-	pb = np.arctan(rb/ra*np.tan(rad_lat_b))
-	xx = np.arccos(np.sin(pa)*np.sin(pb) + np.cos(pa) *
-				   np.cos(pb)*np.cos(rad_lon_a-rad_lon_b))
-	c1 = (np.sin(xx)-xx)*(np.sin(pa) + np.sin(pb))**2 / np.cos(xx/2)**2
-	c2 = (np.sin(xx)+xx)*(np.sin(pa) - np.sin(pb))**2 / np.sin(xx/2)**2
-	dr = F/8*(c1-c2)
-	rho = ra*(xx + dr) * 1000  # Convert To [m]
-	angle = math.atan2(lon_a-lon_b,  lat_b-lat_a) * 180 / math.pi  # [deg]
-	return rho, angle
-
-
-def vincenty_inverse(lat1, lon1, lat2, lon2, ellipsoid=None):
-	if lat1 == lat2 and lon1 == lon2:
-		return 0.0, 0.0
-
-	# Calculate Short Axis Radius
-	# if Ellipsoid is not specified, it uses GRS80
-	a, f = GEODETIC_DATUM.get(ellipsoid, GEODETIC_DATUM.get(ELLIPSOID_GRS80))
-	b = (1 - f) * a
-
-	phi1 = math.radians(lat1)
-	phi2 = math.radians(lat2)
-	lambda1 = math.radians(lon1)
-	lambda2 = math.radians(lon2)
-
-	# Corrected Latitude
-	U1 = math.atan((1 - f) * math.tan(phi1))
-	U2 = math.atan((1 - f) * math.tan(phi2))
-
-	sinU1 = math.sin(U1)
-	sinU2 = math.sin(U2)
-	cosU1 = math.cos(U1)
-	cosU2 = math.cos(U2)
-
-	# Diffrence of Longtitude between 2 points
-	L = lambda2 - lambda1
-
-	# Reset lamb to L
-	lamb = L
-
-	# Calculate lambda untill it converges
-	# if it doesn't converge, returns None
-	for i in range(ITERATION_LIMIT):
-		sinLambda = math.sin(lamb)
-		cosLambda = math.cos(lamb)
-		sinSigma = math.sqrt((cosU2 * sinLambda) ** 2 +
-							 (cosU1 * sinU2 - sinU1 * cosU2 * cosLambda) ** 2)
-		cosSigma = sinU1 * sinU2 + cosU1 * cosU2 * cosLambda
-		sigma = math.atan2(sinSigma, cosSigma)
-		sinAlpha = cosU1 * cosU2 * sinLambda / sinSigma
-		cos2Alpha = 1 - sinAlpha ** 2
-		cos2Sigmam = cosSigma - 2 * sinU1 * sinU2 / cos2Alpha
-		C = f / 16 * cos2Alpha * (4 + f * (4 - 3 * cos2Alpha))
-		lambdaʹ = lamb
-		lamb = L + (1 - C) * f * sinAlpha * (sigma + C * sinSigma *
-											 (cos2Sigmam + C * cosSigma * (-1 + 2 * cos2Sigmam ** 2)))
-
-		# Deviation is udner 1e-12, break
-		if abs(lamb - lambdaʹ) <= 1e-12:
-			break
-	else:
-		return None
-
-	# if it converges, calculates distance and angle
-	u2 = cos2Alpha * (a ** 2 - b ** 2) / (b ** 2)
-	A = 1 + u2 / 16384 * (4096 + u2 * (-768 + u2 * (320 - 175 * u2)))
-	B = u2 / 1024 * (256 + u2 * (-128 + u2 * (74 - 47 * u2)))
-	dSigma = B * sinSigma * (cos2Sigmam + B / 4 * (cosSigma * (-1 + 2 * cos2Sigmam ** 2) -
-												   B / 6 * cos2Sigmam * (-3 + 4 * sinSigma ** 2) * (-3 + 4 * cos2Sigmam ** 2)))
-
-	s = b * A * (sigma - dSigma)  # Distance between 2 points
-	alpha = -1 * math.atan2(cosU2 * sinLambda, cosU1 * sinU2 -
-							sinU1 * cosU2 * cosLambda)  # Angle between 2 points
-
-	# return s(distance), and alpha(angle)
-	return s, math.degrees(alpha)
 
 
 def gps_data_read():
@@ -278,21 +175,9 @@ def gps_data_read():
 		print("\r\nKeyboard Intruppted, Serial Closed")
 
 
-def location():
-	try:
-		while True:
-			utc, lat, lon, sHeight, gHeight = read_gps()
-			if utc != -1.0 and lat != -1.0:
-				break
-			time.sleep(1)
-		return lat, lon
-	except KeyboardInterrupt:
-		close_gps()
-		print("\r\nKeyboard Intruppted, Serial Closed")
-
 #無限にGPS取得
 def gps_main():
-	data_string = ""  # 初期化
+	data_string = ""
 	try:
 		open_gps()
 		while True:
@@ -300,13 +185,10 @@ def gps_main():
 			if utc == -1.0:
 				if lat == -1.0:
 					print("Reading gps Error")
-					# pass
 				else:
-					# pass
 					print("Status V")
 
 			else:
-				# pass
 				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
 				data_string = f"utc:{utc}\nlat:{lat}\nlon:{lon}\nsHeight: {sHeight}\ngHeight: {gHeight}"
 			time.sleep(1)
@@ -323,8 +205,7 @@ def gps_main():
 def gps_test(reset_time = 10):
 
 	time_start = time.time()
-	timer = reset_time
-	data_string = ""  # 初期化
+	data_string = ""
 
 	try:
 		open_gps()
@@ -334,21 +215,17 @@ def gps_test(reset_time = 10):
 				if lat == -1.0:
 					print("Reading gps Error")
 					data_string = "GPS cannot be read"
-					# pass
 				else:
-					# pass
 					print("Status V")
 					data_string = "GPS cannot be read"
 
 			else:
-				# pass
 				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
 				data_string = f"utc:{utc}\nlat:{lat}\nlon:{lon}\nsHeight: {sHeight}\ngHeight: {gHeight}"
 			time.sleep(1)
 
-			if time.time() - time_start > timer:
+			if time.time() - time_start > reset_time:
 				print("end_gps")
-				#data_string = "Fin:GPS"
 				break
 	except KeyboardInterrupt:
 		print("\r\nKeyboard Intruppted, Serial Closed")
@@ -360,14 +237,12 @@ def gps_test(reset_time = 10):
 	return data_string
 
 #GPS取得したらすぐにfloatでlat,lon送信
-def gps_float(reset_time=100):
+#60sec_timeout
+def gps_float(reset_time=60):
 
 	time_start = time.time()
-	timer = reset_time
-	data_string = ""  # 初期化
 	gps_lat = 0
 	gps_lon = 0
-	count = 0
 
 	try:
 		open_gps()
@@ -376,26 +251,18 @@ def gps_float(reset_time=100):
 			if utc == -1.0:
 				if lat == -1.0:
 					print("Reading gps Error")
-					data_string = "GPS cannot be read"
-					# pass
 				else:
-					# pass
 					print("Status V")
-					data_string = "GPS cannot be read"
 
 			else:
-				# pass
 				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
-				data_string = f"utc:{utc}\nlat:{lat}\nlon:{lon}\nsHeight: {sHeight}\ngHeight: {gHeight}"
 				gps_lat,gps_lon = lat,lon
-				count += 1
-				if count == 10:
-					break
+				break
+
 			time.sleep(1)
 
-			if time.time() - time_start > timer:
+			if time.time() - time_start > reset_time:
 				print("end_gps")
-				data_string = "Fin:GPS"
 				break
 	except KeyboardInterrupt:
 		print("\r\nKeyboard Intruppted, Serial Closed")
@@ -404,43 +271,35 @@ def gps_float(reset_time=100):
 	finally:
 		close_gps()
 
-	#return data_string
 	return gps_lat,gps_lon
 
-#入力秒数だけGPS取得+csv書き出し
-def gps_csv(reset_time = 10):
-	#setup
-	time_start = time.time()
-	timer = reset_time
-	data_string = ""  # 初期化
+#GPSを10回取得したら中央値をfloatでlat,lon送信
+#60sec_timeout
+def gps_med(reset_time=60):
 
-	#csv_setup
-	filename = "gps_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
-	f = open(filename,"w")
-	writer = csv.writer(f)
+	time_start = time.time()
+	gps_lat = []
+	gps_lon = []
 
 	try:
 		open_gps()
-		while True:
+		while len(gps_lat) < 10:
 			utc, lat, lon, sHeight, gHeight = read_gps()
 			if utc == -1.0:
 				if lat == -1.0:
 					print("Reading gps Error")
-					# pass
 				else:
-					# pass
 					print("Status V")
 
 			else:
-				# pass
 				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
-				writer.writerows([[time.time(),utc,lat,lon,sHeight,gHeight]])
-				data_string = f"utc:{utc} lat:{lat} lon:{lon} sHeight:{sHeight} gHeight:{gHeight}"
+				gps_lat.append(lat)
+				gps_lat.append(lon)
+			
 			time.sleep(1)
 
-			if time.time() - time_start > timer:
+			if time.time() - time_start > reset_time:
 				print("end_gps")
-				#data_string = "Fin:GPS"
 				break
 
 	except KeyboardInterrupt:
@@ -450,11 +309,10 @@ def gps_csv(reset_time = 10):
 	finally:
 		close_gps()
 
-	return data_string
+	gps_lat_median = np.median(gps_lat)
+	gps_lon_median = np.median(gps_lon)
+
+	return gps_lat_median,gps_lon_median
 
 if __name__ == '__main__':
-	#gps_main()
-
-	for i in range(3):
-		lat,lon = gps_float()
-		print(lat,lon)
+	gps_main()

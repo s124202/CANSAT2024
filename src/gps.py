@@ -296,7 +296,7 @@ def gps_med(reset_time=60):
 				gps_lat.append(lat)
 				gps_lon.append(lon)
 			
-			time.sleep(0.5)
+			time.sleep(1)
 
 			if time.time() - time_start > reset_time:
 				print("end_gps")

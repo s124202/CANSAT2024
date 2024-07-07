@@ -30,7 +30,6 @@ def blt():
             receive = data.decode()
             time.sleep(1)
             client_sock.send(str(send))
-            send += 1
 
         except KeyboardInterrupt:
             print("finish")

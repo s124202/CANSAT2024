@@ -32,6 +32,7 @@ def blt():
         try:
             time.sleep(1)
             sock.send(str(send))
+            send += 1
             data = sock.recv(1024)
             receive = data.decode()
             print(receive)
@@ -41,7 +42,6 @@ def blt():
             break
         except bluetooth.btcommon.BluetoothError as err:
             print("close")
-            print(traceback.format_exc())
             break
 
     sock.close()

@@ -1,6 +1,6 @@
-def red_detection()
+def detect_para()
 
-def main(lat_land, lon_land, lat_dest, lon_dest, check_count :int, add_pwr: int, para_avoid_log):
+def main(lat_land, lon_land, lat_dest, lon_dest, check_count :int, add_pwr: int):
 
     '''
     lat_land : float

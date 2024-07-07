@@ -14,13 +14,13 @@ PARA_THD_COVERED = 69120*0.7
 t_start = time.time()
 red_area = para_avoidance.detect_para()
 
-if red_area == 0:
+if red_area > PARA_THD_COVERED:
+    print('Parachute on top')
+    motor.move(80, 80, 5)
+elif red_area == 0:
     print("Move Forwward")
     motor.move(60, 60, 5) #徐々に減速するはず
     #motor.motor_stop(0.2)
-elif red_area > PARA_THD_COVERED:
-    print('Parachute on top')
-    motor.move(60, 60, 5)
 else:
     print("Move Backwward")
     motor.move(-60, -60, 5) #徐々に減速するはず

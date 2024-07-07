@@ -48,6 +48,7 @@ def blt():
             break
 
     sock.close()
+    print("owari")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,5 @@
 import bluetooth
 import time
-import traceback
 
 def blt():
     global send
@@ -33,9 +32,9 @@ def blt():
             time.sleep(1)
             sock.send(str(send))
             send += 1
-            #data = sock.recv(1024)
-            #receive = data.decode()
-            #print(receive)
+            data = sock.recv(1024)
+            receive = data.decode()
+            print(receive)
 
         except KeyboardInterrupt:
             print("finish")

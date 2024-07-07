@@ -33,6 +33,7 @@ def blt():
             sock.send(str(send))
             data = sock.recv(1024)
             receive = data.decode()
+            print(data.decoce())
 
         except KeyboardInterrupt:
             print("finish")

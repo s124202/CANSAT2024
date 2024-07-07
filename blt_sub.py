@@ -13,6 +13,8 @@ def blt():
 
     port = 1
 
+    sock.settimeout(10)
+    
     while True:
         try:
             sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)

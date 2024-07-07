@@ -41,7 +41,7 @@ def blt():
             break
         except bluetooth.btcommon.BluetoothError as err:
             print("close")
-            print(traceback.format_exc)
+            print(traceback.format_exc())
             break
 
     sock.close()

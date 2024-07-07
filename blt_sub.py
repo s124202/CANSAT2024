@@ -13,20 +13,20 @@ def blt():
 
     port = 1
 
-    while True:
-        try:
-            print("10")
-            sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-            print("20")
-            sock.connect((bd_addr, port))
-            print("30")
-            sock.settimeout(10)
-            print("connect success")
-            break
-        except:
-            print("try again")
-            time.sleep(3)
-            pass
+#    while True:
+#        try:
+    print("10")
+    sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+    print("20")
+    sock.connect((bd_addr, port))
+    print("30")
+    sock.settimeout(10)
+    print("connect success")
+#            break
+#        except:
+#            print("try again")
+#            time.sleep(3)
+#            pass
 
     while True:
         if synchro == 1:

@@ -1,5 +1,6 @@
 import bluetooth
 import time
+import traceback
 
 def blt():
     global send
@@ -40,6 +41,7 @@ def blt():
             break
         except bluetooth.btcommon.BluetoothError as err:
             print("close")
+            print(traceback.format_exc)
             break
 
     sock.close()

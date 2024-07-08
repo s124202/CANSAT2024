@@ -1,20 +1,15 @@
-#scd30_sample.py
+#2024/07/08 生川
 
-#input : none
-#output : [CO2,temp,rh(hum?)]
-
-#config
+#standard
 import time
 from scd30_i2c import SCD30
-import csv
+
 
 scd30 = SCD30()
 
 scd30.set_measurement_interval(2)
 scd30.start_periodic_measurement()
 
-f = open("scd30_save.csv","w")
-writer = csv.writer(f)
 
 def scd30_main():
 
@@ -27,13 +22,12 @@ def scd30_main():
 				if m is not None:
 					#print(f"CO2: {m[0]:.2f}ppm, temp: {m[1]:.2f}'C, rh: {m[2]:.2f}%")
 					print(f"CO2: {m[0]:.2f}ppm")
-					writer.writerows([[time.time(),m[0]]])
 				time.sleep(2)
 			else:
 				time.sleep(0.2)
 		except KeyboardInterrupt:
 			print("\r\n")
-			f.close()
+
 
 if __name__ == '__main__':
 	scd30_main()

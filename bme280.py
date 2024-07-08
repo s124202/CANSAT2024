@@ -177,11 +177,6 @@ def bme280_csv():
 		f.close()
 	except Exception as e:
 		print(e)
-
-
-	
-
-	
 	
 if __name__ == '__main__':
 	bme280_setup()

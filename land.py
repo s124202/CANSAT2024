@@ -8,6 +8,7 @@ def land_main():
 	time_start = time.time()
 	time_timeout = 300
 
+	#閾値設定
 	LAND_PRESS_THD = 0.05
 	LAND_GYR_THD = 20
 	LAND_ACC_THD = 0.2

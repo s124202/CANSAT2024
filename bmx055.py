@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+#2024/07/08 shoji
+
 from smbus import SMBus
 import time
 import csv
@@ -157,9 +158,6 @@ def bmx055_csv():
 	f = open(filename,"w")
 	writer = csv.writer(f)
 	try:
-		bmx055_setup()
-		time.sleep(0.2)
-
 		for i in range(300):
 			bmxData = bmx055_read()
 			print(bmxData)
@@ -172,6 +170,7 @@ def bmx055_csv():
 
 
 if __name__ == '__main__':
+	bmx055_setup()
 	bmx055_csv()
 	#try:
 	#	bmx055_setup()

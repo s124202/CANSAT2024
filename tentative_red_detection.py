@@ -30,7 +30,6 @@ def get_largest_red_object(mask):
         size = stats[largest_label,cv2.CC_STAT_AREA]
         if size > minarea:
             return center, size
-        return None, 0
     else:
         return None, 0
 
@@ -43,11 +42,6 @@ def main():
         ret, frame = cap.read()
         frame = cv2.resize(frame, (640,640))
         frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)   #カメラ表示を90度回転
-
-        # フレームが正しく読み込まれていることを確認
-        if frame is None:
-            print("Failed to capture frame")
-            break
 
         # 赤色検出
         mask = red_detect(frame)

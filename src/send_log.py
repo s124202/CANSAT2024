@@ -1,7 +1,6 @@
 #2024/07/08 生川
 
 #standard
-import time
 
 #send
 import send.send as send

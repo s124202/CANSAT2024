@@ -8,6 +8,7 @@ def blt():
     send = 0
     receive = "0"
     synchro = 0
+    fin = 0
 
     while True:
         try:
@@ -46,7 +47,7 @@ def blt():
             client_sock.close()
             server_sock.close()
             break
-        
+
         if synchro == 1 or fin == 1:
             break
 

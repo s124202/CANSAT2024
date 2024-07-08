@@ -6,8 +6,8 @@ import motor
 def correct_posture():
     """
     ローバーの状態を確認する関数
-    通常状態：True
-    逆さになってる：False
+    通常状態:True
+    逆さになってる:False
     加速度センサZ軸の正負で判定する
     """
     count = 0

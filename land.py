@@ -1,76 +1,83 @@
 import time
+import math
 
 import bme280
 import bmx055
 
 def land_main():
-    time_start = time.time()
-    time_timeout = 60
+	time_start = time.time()
+	time_timeout = 300
 
-    press_thd = 0.05
-    gyr_thd = 1
+	LAND_PRESS_THD = 0.05
+	LAND_GYR_THD = 20
+	LAND_JUDGE_COUNT = 5
+	LAND_JUDGE_TIME = 1
 
-    #気圧によるチェック
-    press_array = [0]
-    press_array.append(bme280.bme280_read()[1])
-    while True:
-        press_count = 0
+	#気圧による着地判定
+	press_count = 0
+	press_array = [0]
+	press_array.append(bme280.bme280_read()[1])
 
-        for i in range(5):
-            press_array.pop(0)
-            time.sleep(1)
-            press_array.append(bme280.bme280_read()[1])
-            print(press_array,press_count)
-            press_gap = abs(press_array[0] - press_array[1])
+	while True:
+		press_array.pop(0)
+		time.sleep(LAND_JUDGE_TIME)
+		press_array.append(bme280.bme280_read()[1])
+		if press_array[0] != 0 and press_array[1] != 0:
+			delta_press = abs(press_array[0] - press_array[1])
 
-            if press_gap < press_thd:
-                press_count += 1
-            else:
-                break
+			if delta_press < LAND_PRESS_THD:
+				press_count += 1
+			else:
+				press_count = 0
+		
+		elif press_array[0] == 0 or press_array[1] == 0:
+			print('Reading Press Again')
+			press_count = 0
+		
+		print(press_array, press_count)
+		
+		if press_count == LAND_JUDGE_COUNT:
+			print("Press OK")
+			break
 
-        if press_count == 5:
-            print("press_ok")
-            break
-        if time.time() - time_start > time_timeout:
-            print("press_timeout")
-            break
+		if time.time() - time_start > time_timeout:
+			print("Land Timeout")
+			break
+	
+	#角速度による着地判定
+	gyro_count = 0
 
-    #角速度によるチェック
-    #gyr_array = [0]
-    #gyr_array.append(bmx055.gyr_dataRead())
-    #while True:
-    #    gyr_count = 0
-#
-    #    for i in range(5):
-    #        gyr_array.pop(0)
-    #        time.sleep(1)
-    #        gyr_array.append(bmx055.gyr_dataRead())
-    #        print(gyr_array)
-    #        gyr_x_gap = abs(gyr_array[0][0] - gyr_array[1][0])
-    #        gyr_y_gap = abs(gyr_array[0][1] - gyr_array[1][1])
-    #        gyr_z_gap = abs(gyr_array[0][2] - gyr_array[1][2])
-#
-    #        if gyr_x_gap < gyr_thd and gyr_y_gap < gyr_thd and gyr_z_gap < gyr_thd:
-    #            gyr_count += 1
-    #        else:
-    #            break
-#
-    #    if gyr_count == 5:
-    #        print("gyr_ok")
-    #        break
-    #    if time.time() - time_start > time_timeout:
-    #        print("gyr_timeout")
-    #        break
+	while True:
+		time.sleep(LAND_JUDGE_TIME)
+		bmxData = bmx055.bmx055_read()
+		gyro_x = math.fabs(bmxData[3])
+		gyro_y = math.fabs(bmxData[4])
+		gyro_z = math.fabs(bmxData[5])
+
+		if gyro_x < LAND_GYR_THD and gyro_y < LAND_GYR_THD and gyro_z < LAND_GYR_THD:
+			gyro_count += 1
+		else:
+			gyro_count = 0
+
+		print(gyro_x, gyro_y, gyro_z, gyro_count)
+
+		if gyro_count == LAND_JUDGE_COUNT:
+			print("Gyro OK")
+			break
+
+		if time.time() - time_start > time_timeout:
+			print("Land Timeout")
+			break
 
 if __name__ == "__main__":
-    bme280.bme280_setup()
-    bme280.bme280_calib_param()
-    #bmx055.bmx055_setup()
+	bme280.bme280_setup()
+	bme280.bme280_calib_param()
+	bmx055.bmx055_setup()
 
-    try:
-        land_main()
+	try:
+		land_main()
 
-    except KeyboardInterrupt:
-        print("\r\n")
-    except Exception as e:
-        print(e)
+	except KeyboardInterrupt:
+		print("\r\n")
+	except Exception as e:
+		print(e)

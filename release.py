@@ -4,7 +4,7 @@ import bme280
 #気圧による放出判定
 def release_main():
 	time_start = time.time()
-	time_timeout = 30
+	time_timeout = 300
 	
 	RELEASE_PRESS_THD = 0.2
 	RELEASE_JUDGE_COUNT = 3
@@ -23,10 +23,9 @@ def release_main():
 
 			if delta_press > RELEASE_PRESS_THD:
 				press_count += 1
-			
 			else:
 				press_count = 0
-
+		
 		elif press_array[0] == 0 or press_array[1] == 0:
 			print('Reading Press Again')
 			press_count = 0

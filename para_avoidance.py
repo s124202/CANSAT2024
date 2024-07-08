@@ -1,4 +1,22 @@
-def detect_para()
+def detect_red(img):
+    # HSV色空間に変換
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+
+    # 赤色のHSVの値域1
+    hsv_min = np.array([0,100,100])
+    hsv_max = np.array([5,255,255])
+    mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+
+    # 赤色のHSVの値域2
+    hsv_min = np.array([174,100,100])
+    hsv_max = np.array([179,255,255])
+    mask2 = cv2.inRange(hsv, hsv_min, hsv_max)
+
+    mask = mask1 + mask2
+
+    return = mask
+
+
 
 def main(lat_land, lon_land, lat_dest, lon_dest, check_count :int, add_pwr: int):
 

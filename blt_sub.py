@@ -5,15 +5,14 @@ def blt():
     global send
     global receive
     global synchro
-    send = 0
-    receive = "0"
-    synchro = 0
-    fin = 0
 
     bd_addr = "B8:27:EB:A9:5B:64" # サーバー側のデバイスアドレスを入力
-
     port = 1
     while True:
+        send = 0
+        receive = "0"
+        synchro = 0
+        
         while True:
             try:
                 sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)

@@ -5,12 +5,12 @@ def blt():
     global send
     global receive
     global synchro
-    send = 0
-    receive = "0"
-    synchro = 0
-    fin = 0
 
     while True:
+        send = 0
+        receive = "0"
+        synchro = 0
+        
         try:
             server_sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
             port = 1

@@ -1,4 +1,9 @@
+#2024/07/08 生川
+
+#standard
 import time
+
+#src
 import bme280
 
 #気圧による放出判定

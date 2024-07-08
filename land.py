@@ -1,6 +1,10 @@
+#2024/07/08 生川
+
+#standard
 import time
 import math
 
+#src
 import bme280
 import bmx055
 

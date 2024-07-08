@@ -33,7 +33,6 @@ def blt():
                     send += 1
                 except KeyboardInterrupt:
                     print("finish")
-                    fin = 1
                     break
                 except bluetooth.btcommon.BluetoothError as err:
                     print("close")
@@ -47,8 +46,7 @@ def blt():
             client_sock.close()
             server_sock.close()
             break
-
-        if synchro == 1 or fin == 1:
+        if synchro == 1:
             break
 
 if __name__ == "__main__":

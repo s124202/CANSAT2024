@@ -17,6 +17,7 @@ def blt():
         server_sock.bind(("",port))
         server_sock.listen(1)
         client_sock,address = server_sock.accept()
+        client_sock.settimeout(10)
         print("Accepted connection from ",address)
 
         while True:

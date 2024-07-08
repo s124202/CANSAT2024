@@ -1,9 +1,14 @@
+#2024/07/08 生川
+
+#standard
 import serial
 import sys
 import argparse
 import time
 
+#send
 import hexdump
+
 
 def get_args():
     parser = argparse.ArgumentParser()

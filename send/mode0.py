@@ -1,6 +1,9 @@
 #送受信モード
+#2024/07/08 生川
 
+#standard
 import RPi.GPIO as GPIO
+
 
 def mode0_change():
 

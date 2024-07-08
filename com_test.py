@@ -1,10 +1,17 @@
+#2024/07/08 生川
+
+#standard
 import RPi.GPIO as GPIO
 import time
 
-import src.gps as gps
-import send
-import mode0
-import mode3
+#src
+import gps
+
+#send
+import send.send as send
+import send.mode0 as mode0
+import send.mode3 as mode3
+
 
 def main():
     #change_mode3

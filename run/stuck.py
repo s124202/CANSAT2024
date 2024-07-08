@@ -1,10 +1,16 @@
+#2024/07/08 生川
+
+#standard
 import time
 import random
 
+#src
 import motor
-import run.gps_navigate as gps_navigate
 import gps
-import src.bmx055 as bmx055
+import bmx055
+
+#run
+import gps_navigate
 
 
 def ue_jug():

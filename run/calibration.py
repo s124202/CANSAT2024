@@ -1,14 +1,19 @@
-# --- must be installed module ---#
+#2024/07/08 生川
+
+#standard
 import numpy as np
 import math
 import time
 import traceback
 
-import src.bmx055 as bmx055
+#src
+import bmx055
 import gps
-import run.gps_navigate as gps_navigate
 import motor
-import run.stuck as stuck
+
+#run
+import stuck
+import gps_navigate
 
 
 def get_data():

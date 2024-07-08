@@ -1,3 +1,6 @@
+#2024/07/08 生川
+
+#standard
 import math
 import time
 import pigpio
@@ -7,7 +10,6 @@ import csv
 
 RX = 15
 pi = None
-#pi = pigpio.pi()
 
 ELLIPSOID_GRS80 = 1  # GRS80
 ELLIPSOID_WGS84 = 2  # WGS84
@@ -201,8 +203,9 @@ def gps_main():
 		print(traceback.format_exc())
 		return data_string
 
+
 #入力secGPS取得
-def gps_test(reset_time = 10):
+def gps_limit(reset_time = 100):
 
 	time_start = time.time()
 	data_string = ""
@@ -235,6 +238,7 @@ def gps_test(reset_time = 10):
 		close_gps()
 
 	return data_string
+
 
 #GPS取得したらすぐにfloatでlat,lon送信
 #60sec_timeout
@@ -273,7 +277,8 @@ def gps_float(reset_time=60):
 
 	return gps_lat,gps_lon
 
-#GPSを10回取得したら中央値をfloatでlat,lon送信
+
+#GPSを20回取得したら中央値をfloatでlat,lon送信
 #60sec_timeout
 def gps_med(reset_time=60):
 
@@ -317,6 +322,37 @@ def gps_med(reset_time=60):
 
 	return gps_lat_median,gps_lon_median
 
+#print無し
+#GPS取得したらすぐにfloatでlat,lon送信
+#60sec_timeout
+def gps_location(reset_time=60):
+
+	time_start = time.time()
+	gps_lat = 0
+	gps_lon = 0
+
+	try:
+		open_gps()
+		while True:
+			utc, lat, lon, sHeight, gHeight = read_gps()
+			if utc != -1.0 and lat != -1.0:
+				gps_lat,gps_lon = lat,lon
+				break
+
+			time.sleep(1)
+
+			if time.time() - time_start > reset_time:
+				print("end_gps")
+				break
+	except KeyboardInterrupt:
+		print("\r\nKeyboard Intruppted, Serial Closed")
+	except:
+		print(traceback.format_exc())
+	finally:
+		close_gps()
+
+	return gps_lat,gps_lon
+
 if __name__ == '__main__':
-	a = gps_med()
-	print(a)
+	a,b = gps_med()
+	print(a,b)

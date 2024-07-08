@@ -50,9 +50,9 @@ def blt():
                 break
 
         sock.close()
-        print("try reconnect")
         if synchro == 1 or fin == 1:
             break
+        print("try reconnect")
 
 
 if __name__ == "__main__":

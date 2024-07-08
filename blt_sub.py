@@ -44,7 +44,7 @@ def blt():
                 print("close")
                 break
 
-            sock.close()
+        sock.close()
         print("try reconnect")
 
 

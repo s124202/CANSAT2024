@@ -1,7 +1,6 @@
 #2024/07/08 生川
 
 #standard
-import RPi.GPIO as GPIO
 import time
 
 #src
@@ -18,7 +17,7 @@ def main():
     mode3.mode3_change()
 
     #Get_Gps
-    result = gps.gps_test(5)
+    result = gps.location()
 
     #change_mode0
     mode0.mode0_change()

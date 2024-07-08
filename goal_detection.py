@@ -1,19 +1,22 @@
+#2024/07/08 生川
+
+#standard
 import time
 import csv
 
-import src.gps as gps
+#src
+import gps
+
+#run
 import run.gps_navigate as gps_navigate
+
 
 def main(lat_target = 35.918468,lon_target = 139.90712):
 
-    #目標地点設定
-    #lat_target = 35.918468
-    #lon_target = 139.90712
+    #初期設定
     distance_thd = 2
-
     lat_now = 0
     lon_now = 0
-
     count = 0
 
     try:

@@ -10,6 +10,7 @@ def land_main():
 
 	LAND_PRESS_THD = 0.05
 	LAND_GYR_THD = 20
+	LAND_ACC_THD = 0.2
 	LAND_JUDGE_COUNT = 5
 	LAND_JUDGE_TIME = 1
 
@@ -63,6 +64,36 @@ def land_main():
 
 		if gyro_count == LAND_JUDGE_COUNT:
 			print("Gyro OK")
+			break
+
+		if time.time() - time_start > time_timeout:
+			print("Land Timeout")
+			break
+	
+	#加速度による着地判定
+	acc_count = 0
+	acc_array = [0]
+	bmxData = bmx055.bmx055_read()
+	acc_abs = math.sqrt(bmx055[0]**2 + bmx055[1]**2 + bmx055[2]**2)
+	acc_array.append(acc_abs)
+
+	while True:
+		acc_array.pop(0)
+		time.sleep(LAND_JUDGE_TIME)
+		bmxData = bmx055.bmx055_read()
+		acc_abs = math.sqrt(bmx055[0]**2 + bmx055[1]**2 + bmx055[2]**2)
+		acc_array.append(acc_abs)
+		
+		delta_acc = abs(acc_array[0] - acc_array[1])
+		if delta_acc < LAND_ACC_THD:
+			acc_count += 1
+		else:
+			acc_count = 0
+		
+		print(acc_array, acc_count)
+		
+		if acc_count == LAND_JUDGE_COUNT:
+			print("Acceleration OK")
 			break
 
 		if time.time() - time_start > time_timeout:

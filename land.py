@@ -71,7 +71,7 @@ def land_main():
 			print("Land Timeout")
 			break
 	
-	#加速度による着地判定
+	#加速度(絶対値)による着地判定
 	acc_count = 0
 	acc_array = [0]
 	bmxData = bmx055.bmx055_read()

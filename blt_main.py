@@ -36,9 +36,9 @@ def blt():
             except bluetooth.btcommon.BluetoothError as err:
                 print("close")
                 break
-            client_sock.close()
-            server_sock.close()
-            
+        client_sock.close()
+        server_sock.close()
+
         print("try reconnect")
 
 if __name__ == "__main__":

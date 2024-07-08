@@ -8,7 +8,8 @@ import time
 
 #send
 import send.hexdump as hexdump
-
+import send.mode0 as mode0
+import send.mode3 as mode3
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -83,5 +84,19 @@ def send_log(result=None):
         return
 
 
+#mode変更含む
+def log(message):
+
+    #change_mode0
+    mode0.mode0_change()
+
+    #send
+    send_log(message)
+
+    #change_mode3
+    mode3.mode3_change()
+
+
 if __name__ == "__main__":
-    send_log()
+    message = "sample"
+    log(message)

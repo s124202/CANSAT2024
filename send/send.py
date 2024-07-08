@@ -7,12 +7,13 @@ import argparse
 import time
 
 #send
-#import send.hexdump as hexdump
-#import send.mode0 as mode0
-#import send.mode3 as mode3
-import hexdump
-import mode0
-import mode3
+import send.hexdump as hexdump
+import send.mode0 as mode0
+import send.mode3 as mode3
+#import hexdump
+#import mode0
+#import mode3
+
 
 def get_args():
     parser = argparse.ArgumentParser()

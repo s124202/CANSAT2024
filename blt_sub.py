@@ -20,6 +20,10 @@ def blt():
                 sock.settimeout(10)
                 print("connect success")
                 break
+            except KeyboardInterrupt:
+                print("finish")
+                fin = 1
+                break
             except:
                 print("try again")
                 time.sleep(3)
@@ -39,6 +43,7 @@ def blt():
 
             except KeyboardInterrupt:
                 print("finish")
+                fin = 1
                 break
             except bluetooth.btcommon.BluetoothError as err:
                 print("close")
@@ -46,8 +51,9 @@ def blt():
 
         sock.close()
         print("try reconnect")
+        if synchro == 1 or fin == 1:
+            break
 
 
 if __name__ == "__main__":
-
     blt()

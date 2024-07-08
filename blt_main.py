@@ -1,5 +1,3 @@
-# 常にbluetooth通信にて受信する
-
 import bluetooth
 import time
 
@@ -34,6 +32,7 @@ def blt():
                     send += 1
                 except KeyboardInterrupt:
                     print("finish")
+                    fin = 1
                     break
                 except bluetooth.btcommon.BluetoothError as err:
                     print("close")
@@ -46,6 +45,9 @@ def blt():
             print("finish")
             client_sock.close()
             server_sock.close()
+            break
+        
+        if synchro == 1 or fin == 1:
             break
 
 if __name__ == "__main__":

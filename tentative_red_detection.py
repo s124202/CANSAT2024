@@ -30,6 +30,7 @@ def get_largest_red_object(mask):
         size = stats[largest_label,cv2.CC_STAT_AREA]
         if size > minarea:
             return center, size
+        return None, 0
     else:
         return None, 0
 

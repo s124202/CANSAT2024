@@ -68,7 +68,7 @@ def detect_para():
 		# フレームを取得
 		ret, frame = cap.read()
 
-		#frame = mosaic(frame, ratio=0.8)
+		frame = mosaic(frame, ratio=0.8)
 
 		# 赤色検出
 		mask = detect_red(frame)

@@ -14,7 +14,7 @@ import run.gps_navigate as gps_navigate
 def main(lat_target = 35.918468,lon_target = 139.90712):
 
     #初期設定
-    distance_thd = 2
+    distance_thd = 5
     lat_now = 0
     lon_now = 0
     count = 0
@@ -36,7 +36,7 @@ def main(lat_target = 35.918468,lon_target = 139.90712):
                 count += 1
 
                 if count > 2:
-                    print("10m以内に到達")
+                    print("5m以内に到達")
                     break
 
                 else: 

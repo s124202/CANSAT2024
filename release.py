@@ -8,7 +8,7 @@ import threading
 import bme280
 
 
-def blt():
+def blt_adalt():
     global send
     global receive
     global synchro
@@ -55,6 +55,49 @@ def blt():
             break
         if synchro == 1:
             break
+
+def blt_child():
+    global send
+    global receive
+    global synchro
+    send = 0
+    receive = "0"
+    synchro = 0
+
+    bd_addr = "B8:27:EB:A9:5B:64" # サーバー側のデバイスアドレスを入力
+
+    port = 1
+
+    while True:
+        try:
+            sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+            sock.connect((bd_addr, port))
+            print("connect success")
+            break
+        except:
+            print("try again")
+            time.sleep(3)
+            pass
+
+    while True:
+        if synchro == 1:
+            print("synchro")
+            break
+        try:
+            time.sleep(1)
+            sock.send(str(send))
+            data = sock.recv(1024)
+            receive = data.decode()
+
+        except KeyboardInterrupt:
+            print("finish")
+            break
+        except bluetooth.btcommon.BluetoothError as err:
+            print("close")
+            break
+
+    sock.close()
+
 
 
 #1機体で気圧による放出判定
@@ -147,11 +190,16 @@ def release_together():
 			break
 
 	#子機と通信して放出確認
+	time_start = time.time()
+	time_timeout = 60
 	while True:
 		confirm = receive
 		print(confirm)
 		if confirm == str(1):
 			print("confirmed")
+			break
+		elif time.time() - time_start > 60:
+			print("partner timeout")
 			break
 		else:
 			print("waiting")
@@ -159,9 +207,21 @@ def release_together():
 
 	synchro = 1
 
-#2機体で通信する場合はこれ
-def release_together_main():
-    thread1 = threading.Thread(target = blt)
+
+#2機体で通信する場合はこれ(親機)
+def release_adalt_main():
+    thread1 = threading.Thread(target = blt_adalt)
+    thread2 = threading.Thread(target = release_together)
+
+    thread1.start()
+    thread2.start()
+
+    thread1.join()
+    thread2.join()
+
+#2機体で通信する場合はこれ(子機)
+def release_child_main():
+    thread1 = threading.Thread(target = blt_child)
     thread2 = threading.Thread(target = release_together)
 
     thread1.start()

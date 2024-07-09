@@ -92,7 +92,7 @@ def detect_para():
 			break
 
 	cap.release()
-	cv2.destroyAllWindows()
+	#cv2.destroyAllWindows()
 
 def main(lat_land, lon_land, lat_dest, lon_dest, check_count :int, add_pwr: int):
 

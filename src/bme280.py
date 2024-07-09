@@ -1,8 +1,9 @@
-# -*- coding: utf-8 -*-
-#coding:utf-8
+#2024/07/08 shoji
 
 from smbus import SMBus
 import time
+import csv
+
 
 bus_number  = 1
 i2c_address = 0x76	#16進数76番でi2c通信
@@ -128,15 +129,9 @@ def bme280_setup():
 	config_reg    = (t_sb << 5) | (filter << 2) | spi3w_en
 	ctrl_hum_reg  = osrs_h
 
-	for i in range (5):
-		try:
-			writeReg(0xF2,ctrl_hum_reg)
-			writeReg(0xF4,ctrl_meas_reg)
-			writeReg(0xF5,config_reg)
-			break
-		except:
-			time.sleep(0.1)
-			print("BME280 Setup Error")
+	writeReg(0xF2,ctrl_hum_reg)
+	writeReg(0xF4,ctrl_meas_reg)
+	writeReg(0xF5,config_reg)
 
 #--　データ読み込み　--#
 def bme280_read():
@@ -165,15 +160,37 @@ def bme280_read():
 
 	return value
 
+def bme280_csv():
+
+	filename = "bme280_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	f = open(filename,"w")
+	writer = csv.writer(f)
+
+	try:
+		for i in range(300):
+			temp,pres,hum,alt = bme280_read()
+			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
+			writer.writerows([[time.time(),pres]])
+			time.sleep(0.1)
+	except KeyboardInterrupt:
+		print("\r\n")
+		f.close()
+	except Exception as e:
+		print(e)
+	
 if __name__ == '__main__':
 	bme280_setup()
 	bme280_calib_param()
-	try:
-		while 1:
-			temp,pres,hum,alt = bme280_read()
-			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
-			time.sleep(0.8)
-	except KeyboardInterrupt:
-		print("\r\n")
-	except Exception as e:
-		print(e)
+	bme280_csv()
+
+	#bme280_setup()
+	#bme280_calib_param()
+	#try:
+	#	while 1:
+	#		temp,pres,hum,alt = bme280_read()
+	#		print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
+	#		time.sleep(0.8)
+	#except KeyboardInterrupt:
+	#	print("\r\n")
+	#except Exception as e:
+	#	print(e)

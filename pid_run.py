@@ -207,7 +207,6 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
 
         #-----モータの操作-----#
         motor.motor_move(pwr_l, pwr_r, 0.01)
-        #motor.move(pwr_l, pwr_r, 0.2)
 
         time.sleep(0.04)
 
@@ -279,8 +278,6 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 
         #-----相対角度の取得-----#
         error_theta = get_theta_dest(target_azimuth, magx_off, magy_off)
-        if _ == 0:
-            control = -error_theta
 
         #-----thetaの値を蓄積する-----#
         theta_array = latest_theta_array(error_theta, theta_array)
@@ -310,14 +307,9 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 
         count += 1
 
-    return control
-
 
 def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loop_num: int, report_log):
-    '''
-    任意の地点までPID制御により走行する関数
-    最終version これを使う
-    
+    '''  
     Parameters
     ----------
     lon_dest : float
@@ -339,7 +331,6 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
     #-----初期設定-----#
     stuck_count = 1
     isReach_dest = 0
-    report_count = 0
     control = 0
 
     #-----キャリブレーション-----#
@@ -388,12 +379,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
         else:
             isReach_dest = 1 #ゴール判定用のフラグ
 
-        #-Log-#
-        if report_count % 5 == 0: #30から20回に一回ログをとることにした
-            report_log.save_log(lat_now, lon_now, target_azimuth, control)
-
         stuck_count += 1 #25回に一回スタックチェックを行う
-        report_count += 1
 
         if isReach_dest == 1:
             break

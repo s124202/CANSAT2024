@@ -1,6 +1,8 @@
-# -*- coding: utf-8 -*-
+#2024/07/08 shoji
+
 from smbus import SMBus
 import time
+import csv
 
 ACC_ADDRESS = 0x19
 ACC_REGISTER_ADDRESS = 0x02
@@ -150,16 +152,34 @@ def bmx055_read():
 
 	return 	value
 
-if __name__ == '__main__':
+def bmx055_csv():
+
+	filename = "bmx055_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	f = open(filename,"w")
+	writer = csv.writer(f)
 	try:
-		bmx055_setup()
-		time.sleep(0.2)
-		while 1:
+		for i in range(300):
 			bmxData = bmx055_read()
 			print(bmxData)
-			time.sleep(2)
-
+			writer.writerows([[time.time(),bmxData]])
+			time.sleep(0.1)
 	except KeyboardInterrupt:
 		print("\r\n")
 	except Exception as e:
 		print(e)
+
+
+if __name__ == '__main__':
+	bmx055_setup()
+	bmx055_csv()
+	#try:
+	#	bmx055_setup()
+	#	time.sleep(0.2)
+	#	while 1:
+	#		bmxData = bmx055_read()
+	#		print(bmxData)
+	#		time.sleep(2)
+	#except KeyboardInterrupt:
+	#	print("\r\n")
+	#except Exception as e:
+	#	print(e)

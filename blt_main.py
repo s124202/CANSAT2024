@@ -13,7 +13,7 @@ def blt():
         
         try:
             server_sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-            port = 2
+            port = 3
             server_sock.bind(("",port))
             server_sock.listen(1)
             client_sock,address = server_sock.accept()

@@ -1,4 +1,6 @@
 #2024/07/08 sato
+#2024/07/09 shoji
+
 
 import time
 import math
@@ -200,7 +202,7 @@ def land_alone_main():
 
 #2機体で通信しながら着地判定
 #下に続く並列の関数を使用
-def land_alone_main():
+def land_together():
 
 	global send
 	global receive
@@ -302,7 +304,27 @@ def land_alone_main():
 			print("Land Timeout")
 			break
 
+#2機体で通信する場合はこれ(親機)
+def land_adalt_main():
+    thread1 = threading.Thread(target = blt_adalt)
+    thread2 = threading.Thread(target = land_together)
 
+    thread1.start()
+    thread2.start()
+
+    thread1.join()
+    thread2.join()
+
+#2機体で通信する場合はこれ(子機)
+def release_child_main():
+    thread1 = threading.Thread(target = blt_child)
+    thread2 = threading.Thread(target = land_together)
+
+    thread1.start()
+    thread2.start()
+
+    thread1.join()
+    thread2.join()
 
 if __name__ == "__main__":
 	bme280.bme280_setup()

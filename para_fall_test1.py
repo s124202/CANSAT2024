@@ -20,9 +20,6 @@ PARA_THD_COVERED = 255000
 red_area = para_avoidance.detect_para()
 print(f'red_area : {red_area}')
 
-print(type(PARA_THD_COVERED))
-print(type(red_area))
-
 while True:
 	if PARA_THD_COVERED < red_area:
 		print("Parachute on top")

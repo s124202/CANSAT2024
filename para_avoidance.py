@@ -66,7 +66,7 @@ def detect_para():
 	cap = cv2.VideoCapture(0)
 
 	while(cap.isOpened()):
-		time.sleep(5)
+		time.sleep(1)
 		# フレームを取得
 		ret, frame = cap.read()
 

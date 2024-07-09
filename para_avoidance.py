@@ -61,7 +61,7 @@ def get_para_area(max_contour):
 
 	return area
 
-def detect_para():
+def detect_para_movie():
 	# カメラのキャプチャ
 	cap = cv2.VideoCapture(0)
 
@@ -94,6 +94,27 @@ def detect_para():
 
 	cap.release()
 	cv2.destroyAllWindows()
+
+def detect_para():
+	# カメラのキャプチャ
+	cap = cv2.VideoCapture(0)
+
+	# フレームを取得
+	ret, frame = cap.read()
+
+	frame = mosaic(frame, ratio=0.8)
+
+	# 赤色検出
+	mask = detect_red(frame)
+
+	frame, max_contour = get_max_contour(mask, frame)
+
+	frame = cv2.resize(frame, (640,640))
+	frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)   #カメラ表示を90度回転
+
+	red_area = get_para_area(max_contour)
+
+	return red_area
 
 def main(lat_land, lon_land, lat_dest, lon_dest, check_count :int, add_pwr: int):
 

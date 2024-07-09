@@ -14,9 +14,48 @@ def detect_red(img):
 
     mask = mask1 + mask2
 
-    return = mask
+    return mask
 
+def get_largest_red_object(mask):
+    # 最小領域の設定
+    minarea = 50
+    nlabels, labels, stats, centroids = cv2.connectedComponentsWithStats(mask)
+    if nlabels > 1:
+        largest_label = 1 + np.argmax(stats[1:, cv2.CC_STAT_AREA])
+        center = centroids[largest_label]
+        size = stats[largest_label,cv2.CC_STAT_AREA]
+        if size > minarea:
+            return center, size
+        return None, 0
+    else:
+        return None, 0
 
+def main():
+    # カメラのキャプチャ
+    cap = cv2.VideoCapture(0)
+
+    while(cap.isOpened()):
+        # フレームを取得
+        ret, frame = cap.read()
+        frame = cv2.resize(frame, (640,640))
+        frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)   #カメラ表示を90度回転
+
+        # 赤色検出
+        mask = red_detect(frame)
+
+        # 最大の赤色物体の中心を取得
+        center, size = get_largest_red_object(mask)
+
+        # 結果表示
+        cv2.imshow("Frame", frame)
+        cv2.imshow("Mask", mask)
+
+        # qキーが押されたら途中終了
+        if cv2.waitKey(25) & 0xFF == ord('q'):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
 
 def main(lat_land, lon_land, lat_dest, lon_dest, check_count :int, add_pwr: int):
 

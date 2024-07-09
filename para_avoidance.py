@@ -60,32 +60,32 @@ def detect_para():
 	# カメラのキャプチャ
 	cap = cv2.VideoCapture(0)
 
-	
-	# フレームを取得
-	ret, frame = cap.read()
+	while(cap.isOpened()):
+		# フレームを取得
+		ret, frame = cap.read()
 
-	# 赤色検出
-	mask = detect_red(frame)
+		# 赤色検出
+		mask = detect_red(frame)
 
-	frame, max_contour = get_max_contour(mask, frame)
+		frame, max_contour = get_max_contour(mask, frame)
 
-	frame = cv2.resize(frame, (640,640))
-	frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)   #カメラ表示を90度回転
+		frame = cv2.resize(frame, (640,640))
+		frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)   #カメラ表示を90度回転
 
-	red_area = get_para_area(max_contour)
+		red_area = get_para_area(max_contour)
 
-	cv2.putText(frame, str(int(red_area)), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+		cv2.putText(frame, str(int(red_area)), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
-	# 結果表示
-	cv2.imshow("Frame", frame)
-	cv2.imshow("Mask", mask)
+		# 結果表示
+		cv2.imshow("Frame", frame)
+		cv2.imshow("Mask", mask)
 
 		# qキーが押されたら途中終了
-		#if cv2.waitKey(25) & 0xFF == ord('q'):
-		#	break
+		if cv2.waitKey(25) & 0xFF == ord('q'):
+			break
 
-	#cap.release()
-	#cv2.destroyAllWindows()
+	cap.release()
+	cv2.destroyAllWindows()
 
 def main(lat_land, lon_land, lat_dest, lon_dest, check_count :int, add_pwr: int):
 

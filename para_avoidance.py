@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import time
 
 def detect_red(img):
 	# HSV色空間に変換
@@ -65,6 +66,7 @@ def detect_para():
 	cap = cv2.VideoCapture(0)
 
 	while(cap.isOpened()):
+		time.sleep(5)
 		# フレームを取得
 		ret, frame = cap.read()
 
@@ -92,7 +94,7 @@ def detect_para():
 			break
 
 	cap.release()
-	#cv2.destroyAllWindows()
+	cv2.destroyAllWindows()
 
 def main(lat_land, lon_land, lat_dest, lon_dest, check_count :int, add_pwr: int):
 

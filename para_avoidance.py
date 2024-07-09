@@ -79,12 +79,13 @@ def detect_para():
 		frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)   #カメラ表示を90度回転
 
 		red_area = get_para_area(max_contour)
+		print(red_area)
 
-		cv2.putText(frame, str(int(red_area)), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+		#cv2.putText(frame, str(int(red_area)), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
 		# 結果表示
-		cv2.imshow("Frame", frame)
-		cv2.imshow("Mask", mask)
+		#cv2.imshow("Frame", frame)
+		#cv2.imshow("Mask", mask)
 
 		# qキーが押されたら途中終了
 		if cv2.waitKey(25) & 0xFF == ord('q'):

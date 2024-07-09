@@ -33,6 +33,10 @@ def detect_red(img):
 #	else:
 #		return None, 0
 
+def mosaic(img, ratio):
+	small_img = cv2.resize(img, None, fx=ratio, fy=ratio, interpolation=cv2.INTER_NEAREST)
+	return cv2.resize(small_img, img.shape[:2][::-1], interpolation=cv2.INTER_NEAREST)
+
 def get_max_contour(mask, img):
 	try:
 		contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -64,6 +68,8 @@ def detect_para():
 		# フレームを取得
 		ret, frame = cap.read()
 
+		frame = mosaic(frame, ratio=0.8)
+		
 		# 赤色検出
 		mask = detect_red(frame)
 
@@ -206,4 +212,4 @@ def main(lat_land, lon_land, lat_dest, lon_dest, check_count :int, add_pwr: int)
 	return isDistant_para, check_count
 
 if __name__ == '__main__':
-    detect_para()
+	detect_para()

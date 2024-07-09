@@ -18,6 +18,7 @@ red_area = 0
 PARA_THD_COVERED = 255000
 
 red_area = para_avoidance.detect_para()
+print(red_area)
 
 while True:
 	if red_area > PARA_THD_COVERED:

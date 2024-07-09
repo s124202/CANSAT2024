@@ -104,7 +104,7 @@ def release_alone_main():
 
 	time_start = time.time()
 	time_timeout = 300
-	
+	 
 	#閾値設定
 	RELEASE_PRESS_THD = 0.2
 	RELEASE_JUDGE_COUNT = 3

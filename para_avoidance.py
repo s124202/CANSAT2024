@@ -114,7 +114,7 @@ def detect_para():
 
 	red_area = get_para_area(max_contour)
 
-	return red_area
+	print(type(red_area))
 
 def main(lat_land, lon_land, lat_dest, lon_dest, check_count :int, add_pwr: int):
 

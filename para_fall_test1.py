@@ -29,10 +29,10 @@ while True:
 		break
 
 if int(red_area) > 1000:
-	print("Move Forwward")
-	motor.move(60, 60, 5) #徐々に減速するはず
-	#motor.motor_stop(0.2)
-else:
 	print("Move Backwward")
 	motor.move(-60, -60, 5) #徐々に減速するはず
+	#motor.motor_stop(0.2)
+else:
+	print("Move Forwward")
+	motor.move(60, 60, 5) #徐々に減速するはず
 	#motor.motor_stop(0.2)

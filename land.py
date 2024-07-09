@@ -16,8 +16,8 @@ def blt_adalt():
     global synchro
 
     while True:
-        send = 0
-        receive = "0"
+        send = 1
+        receive = "1"
         synchro = 0
         
         try:
@@ -39,7 +39,6 @@ def blt_adalt():
                     print(receive)
                     time.sleep(1)
                     client_sock.send(str(send))
-                    send += 1
                 except KeyboardInterrupt:
                     print("finish")
                     break
@@ -62,8 +61,8 @@ def blt_child():
     global send
     global receive
     global synchro
-    send = 0
-    receive = "0"
+    send = 1
+    receive = "1"
     synchro = 0
 
     bd_addr = "B8:27:EB:A9:5B:64" # サーバー側のデバイスアドレスを入力
@@ -311,7 +310,7 @@ def land_together():
 	while True:
 		confirm = receive
 		print(confirm)
-		if confirm == str(1):
+		if confirm == str(2):
 			print("confirmed")
 			break
 		elif time.time() - time_start > 60:

@@ -20,15 +20,18 @@ PARA_THD_COVERED = 255000
 red_area = para_avoidance.detect_para()
 print(f'red_area : {red_area}')
 
+print(type(PARA_THD_COVERED))
+print(type(red_area))
+
 while True:
-	if PARA_THD_COVERED < int(red_area):
+	if PARA_THD_COVERED < red_area:
 		print("Parachute on top")
 		motor.move(80, 80, 5)
 		break
 	else:
 		break
 
-if int(red_area) > 1000:
+if red_area > 1000:
 	print("Move Backwward")
 	motor.move(-60, -60, 5) #徐々に減速するはず
 	#motor.motor_stop(0.2)

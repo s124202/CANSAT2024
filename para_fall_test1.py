@@ -6,8 +6,8 @@ import stuck
 
 motor.setup()
 
-print("Improving the rover's posture")
-stuck.correct_posture()
+#print("Improving the rover's posture")
+#stuck.correct_posture()
 
 print("#####-----Parachute Avoid Sequence: Start-----#####")
 
@@ -15,7 +15,7 @@ print("Para Avoid Start")
 
 check_count = 0 #パラ回避用のカウンター
 red_area = 0
-PARA_THD_COVERED = 69120*0.7
+PARA_THD_COVERED = 255000
 
 red_area = para_avoidance.detect_para()
 

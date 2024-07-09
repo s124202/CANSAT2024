@@ -9,94 +9,94 @@ import bme280
 
 
 def blt_adalt():
-    global send
-    global receive
-    global synchro
+	global send
+	global receive
+	global synchro
 
-    while True:
-        send = 0
-        receive = "0"
-        synchro = 0
-        
-        try:
-            server_sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-            port = 1
-            server_sock.bind(("",port))
-            server_sock.listen(1)
-            client_sock,address = server_sock.accept()
-            client_sock.settimeout(10)
-            print("Accepted connection from ",address)
+	while True:
+		send = 0
+		receive = "0"
+		synchro = 0
+		
+		try:
+			server_sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+			port = 1
+			server_sock.bind(("",port))
+			server_sock.listen(1)
+			client_sock,address = server_sock.accept()
+			client_sock.settimeout(10)
+			print("Accepted connection from ",address)
 
-            while True:
-                if synchro == 1:
-                    print("synchro")
-                    break
-                try:
-                    data = client_sock.recv(1024)
-                    receive = data.decode()
-                    print(receive)
-                    time.sleep(1)
-                    client_sock.send(str(send))
-                    send += 1
-                except KeyboardInterrupt:
-                    print("finish")
-                    break
-                except bluetooth.btcommon.BluetoothError as err:
-                    print("close")
-                    break
-            client_sock.close()
-            server_sock.close()
+			while True:
+				if synchro == 1:
+					print("synchro")
+					break
+				try:
+					data = client_sock.recv(1024)
+					receive = data.decode()
+					print(receive)
+					time.sleep(1)
+					client_sock.send(str(send))
+					send += 1
+				except KeyboardInterrupt:
+					print("finish")
+					break
+				except bluetooth.btcommon.BluetoothError as err:
+					print("close")
+					break
+			client_sock.close()
+			server_sock.close()
 
-            print("try reconnect")
-        except KeyboardInterrupt:
-            print("finish")
-            client_sock.close()
-            server_sock.close()
-            break
-        if synchro == 1:
-            break
+			print("try reconnect")
+		except KeyboardInterrupt:
+			print("finish")
+			client_sock.close()
+			server_sock.close()
+			break
+		if synchro == 1:
+			break
 
 def blt_child():
-    global send
-    global receive
-    global synchro
-    send = 0
-    receive = "0"
-    synchro = 0
+	global send
+	global receive
+	global synchro
+	send = 0
+	receive = "0"
+	synchro = 0
 
-    bd_addr = "B8:27:EB:A9:5B:64" # サーバー側のデバイスアドレスを入力
+	bd_addr = "B8:27:EB:A9:5B:64" # サーバー側のデバイスアドレスを入力
 
-    port = 1
+	port = 1
 
-    while True:
-        try:
-            sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-            sock.connect((bd_addr, port))
-            print("connect success")
-            break
-        except:
-            print("try again")
-            time.sleep(3)
-            pass
+	while True:
+		try:
+			sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+			sock.connect((bd_addr, port))
+			print("connect success")
+			break
+		except:
+			print("try again")
+			time.sleep(3)
+			pass
 
-    while True:
-        if synchro == 1:
-            print("synchro")
-            break
-        try:
-            time.sleep(1)
-            sock.send(str(send))
-            data = sock.recv(1024)
-            receive = data.decode()
+	while True:
+		if synchro == 1:
+			print("synchro")
+			break
+		try:
+			time.sleep(1)
+			sock.send(str(send))
+			data = sock.recv(1024)
+			receive = data.decode()
 
-        except KeyboardInterrupt:
-            print("finish")
-            break
-        except bluetooth.btcommon.BluetoothError as err:
-            print("close")
-            break
+		except KeyboardInterrupt:
+			print("finish")
+			break
+		except bluetooth.btcommon.BluetoothError as err:
+			print("close")
+			break
 
-    sock.close()
+	sock.close()
 
 
 
@@ -182,14 +182,14 @@ def release_together():
 
 		if press_count == RELEASE_JUDGE_COUNT:
 			print("Release Detected")
-			send = 1
 			break
 
 		if time.time() - time_start > time_timeout:
 			print("Release Timeout")
 			break
-
+	
 	#子機と通信して放出確認
+	send = 1
 	time_start = time.time()
 	time_timeout = 60
 	while True:
@@ -203,32 +203,31 @@ def release_together():
 			break
 		else:
 			print("waiting")
-		time.sleep(3)
-
+		time.sleep(3)  
 	synchro = 1
 
 
 #2機体で通信する場合はこれ(親機)
 def release_adalt_main():
-    thread1 = threading.Thread(target = blt_adalt)
-    thread2 = threading.Thread(target = release_together)
+	thread1 = threading.Thread(target = blt_adalt)
+	thread2 = threading.Thread(target = release_together)
 
-    thread1.start()
-    thread2.start()
+	thread1.start()
+	thread2.start()
 
-    thread1.join()
-    thread2.join()
+	thread1.join()
+	thread2.join()
 
 #2機体で通信する場合はこれ(子機)
 def release_child_main():
-    thread1 = threading.Thread(target = blt_child)
-    thread2 = threading.Thread(target = release_together)
+	thread1 = threading.Thread(target = blt_child)
+	thread2 = threading.Thread(target = release_together)
 
-    thread1.start()
-    thread2.start()
+	thread1.start()
+	thread2.start()
 
-    thread1.join()
-    thread2.join()
+	thread1.join()
+	thread2.join()
 
 
 

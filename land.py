@@ -304,6 +304,25 @@ def land_together():
 			print("Land Timeout")
 			break
 
+	#子機と通信して放出確認
+	send = 1
+	time_start = time.time()
+	time_timeout = 60
+	while True:
+		confirm = receive
+		print(confirm)
+		if confirm == str(1):
+			print("confirmed")
+			break
+		elif time.time() - time_start > 60:
+			print("partner timeout")
+			break
+		else:
+			print("waiting")
+		time.sleep(3)  
+	synchro = 1
+
+
 #2機体で通信する場合はこれ(親機)
 def land_adalt_main():
     thread1 = threading.Thread(target = blt_adalt)

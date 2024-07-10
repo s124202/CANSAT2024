@@ -10,7 +10,7 @@ bme280.bme280_setup
 bme280.bme280_calib_param
 bmx055.bmx055_setup
 
-release.release_adalt_main()
+release.release_together()
 
 time.sleep(3)
 

@@ -60,4 +60,5 @@ if __name__ == '__main__':
     send.log(str(lon_target1))
     time.sleep(3)
     main(lat_target1,lon_target1)
+    time.sleep(1)
     send.log("finish")

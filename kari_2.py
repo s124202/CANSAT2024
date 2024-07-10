@@ -103,7 +103,7 @@ def test():
 	move(30,30,30)
 
 def main():
-    thread1 = threading.Thread(target = test)
+    thread1 = threading.Thread(target = test())
     thread2 = threading.Thread(target = blt_sub.blt())
 
     thread1.start()

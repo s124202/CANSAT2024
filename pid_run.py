@@ -398,6 +398,7 @@ if __name__ == "__main__":
     #-----セットアップ-----#
     motor.setup()
     bmx055.bmx055_setup()
+
     #-----初期設定-----#
     theta_differential_array = []
     theta_array = [0]*5

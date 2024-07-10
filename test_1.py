@@ -2,7 +2,7 @@ import time
 
 import release
 import land
-import para_fall_test
+#import para_fall_test
 
 release.release_adalt_main()
 

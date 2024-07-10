@@ -5,7 +5,7 @@ import time
 import csv
 
 #src
-import gps
+import src.gps as gps
 
 #run
 import run.gps_navigate as gps_navigate

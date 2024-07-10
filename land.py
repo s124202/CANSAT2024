@@ -305,7 +305,7 @@ def land_together():
 			break
 
 	#子機と通信して放出確認
-	send = 1
+	send = 2
 	time_start = time.time()
 	time_timeout = 60
 	while True:

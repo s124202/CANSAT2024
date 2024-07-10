@@ -1,1 +1,0 @@
-print("kari_4")

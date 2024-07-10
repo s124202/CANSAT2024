@@ -1,10 +1,10 @@
 import threading
 
-import blt_sub
+import blt_main
 
 def main():
     thread1 = threading.Thread(target = gather)
-    thread2 = threading.Thread(target = blt_sub.blt())
+    thread2 = threading.Thread(target = blt_main.blt())
 
     thread1.start()
     thread2.start()

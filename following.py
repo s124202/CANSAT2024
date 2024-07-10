@@ -7,7 +7,7 @@ import threading
 import bluetooth
 
 def blt(state):
-    bd_addr = "B8:27:EB:20:4F:0D"
+    bd_addr = "B8:27:EB:1B:C5:BF"
     port = 1
 
     sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)

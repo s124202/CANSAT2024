@@ -190,6 +190,8 @@ def release_together():
 	
 	#子機と通信して放出確認
 	send = 1
+	time.sleep(5)
+	
 	time_start = time.time()
 	time_timeout = 60
 	while True:

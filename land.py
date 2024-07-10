@@ -14,11 +14,12 @@ def blt_adalt():
     global send
     global receive
     global synchro
+	
+    send = 1
+    receive = "1"
+    synchro = 0
 
     while True:
-        send = 1
-        receive = "1"
-        synchro = 0
         
         try:
             server_sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)

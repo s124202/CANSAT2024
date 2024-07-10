@@ -13,10 +13,11 @@ def blt_adalt():
 	global receive
 	global synchro
 
+	send = 0
+	receive = "0"
+	synchro = 0
+
 	while True:
-		send = 0
-		receive = "0"
-		synchro = 0
 		
 		try:
 			server_sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
@@ -191,7 +192,7 @@ def release_together():
 	#子機と通信して放出確認
 	send = 1
 	time.sleep(5)
-	
+
 	time_start = time.time()
 	time_timeout = 60
 	while True:

@@ -28,7 +28,6 @@ def main(send):
                 break
         client_sock.close()
         server_sock.close()
-        print("try reconnect")
     except KeyboardInterrupt:
         print("finish")
         client_sock.close()

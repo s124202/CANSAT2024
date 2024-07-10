@@ -6,8 +6,8 @@ import stuck
 
 motor.setup()
 
-print("Improving the rover's posture")
-stuck.correct_posture()
+#print("Improving the rover's posture")
+#stuck.correct_posture()
 
 print("#####-----Parachute Avoid Sequence: Start-----#####")
 
@@ -29,9 +29,9 @@ while True:
 
 if red_area > 1000:
 	print("Move Backwward")
-	motor.move(-60, -60, 5) #徐々に減速するはず
+	motor.move(-70, -70, 3) #徐々に減速するはず
 	#motor.motor_stop(0.2)
 else:
 	print("Move Forwward")
-	motor.move(60, 60, 5) #徐々に減速するはず
+	motor.move(70, 70, 3) #徐々に減速するはず
 	#motor.motor_stop(0.2)

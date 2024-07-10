@@ -329,9 +329,9 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
     '''
 
     #-----初期設定-----#
-    stuck_count = 1
+    #stuck_count = 1
     isReach_dest = 0
-    control = 0
+    #control = 0
 
     #-----キャリブレーション-----#
     time.sleep(1)
@@ -349,7 +349,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
     magdata = bmx055.mag_dataRead()
     mag_x = magdata[0]
     mag_y = magdata[1]
-    lat_old, lon_old = gps.location() #最初のスタックチェック用の変数の設定
+    #lat_old, lon_old = gps.location() #最初のスタックチェック用の変数の設定
     rover_azimuth = calibration.angle(mag_x, mag_y, magx_off, magy_off) #戻り値
 
     theta_array = [0]*5
@@ -364,14 +364,14 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
         print(lat_now, lon_now)
 
         #-----スタックチェック-----#
-        if stuck_count % 25 == 0:
-            lat_new, lon_new = lat_now, lon_now
-            if stuck.stuck_jug(lat_old, lon_old, lat_new, lon_new, thd=STUCK_JUDGE_THD_DISTANCE):
-                pass
-            else:
-                stuck.stuck_avoid()
-                pass
-            lat_old, lon_old = gps.location()
+        #if stuck_count % 25 == 0:
+        #    lat_new, lon_new = lat_now, lon_now
+        #    if stuck.stuck_jug(lat_old, lon_old, lat_new, lon_new, thd=STUCK_JUDGE_THD_DISTANCE):
+        #        pass
+        #    else:
+        #        stuck.stuck_avoid()
+        #        pass
+        #    lat_old, lon_old = gps.location()
 
         #-----PID制御による走行-----#
         if distance_to_dest > thd_distance:
@@ -379,7 +379,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
         else:
             isReach_dest = 1 #ゴール判定用のフラグ
 
-        stuck_count += 1 #25回に一回スタックチェックを行う
+        #stuck_count += 1 #25回に一回スタックチェックを行う
 
         if isReach_dest == 1:
             break
@@ -398,21 +398,17 @@ if __name__ == "__main__":
     #-----セットアップ-----#
     motor.setup()
     bmx055.bmx055_setup()
+
     #-----初期設定-----#
     theta_differential_array = []
     theta_array = [0]*5
     direction = calibration.calculate_direction(lon2=lon_test, lat2=lat_test)
     distance_to_goal = direction["distance"]
 
-    while True: #1ループおおよそT_CAL秒
-        #-T_CALごとに以下の情報を取得-#
+    while True:
         lat_now, lon_now, distance_to_dest, rover_azimuth, isReach_dest = drive(lon_dest=lon_test, lat_dest=lat_test, thd_distance=THD_DISTANCE_DEST, t_cal=T_CAL, loop_num=LOOP_NUM)
         
         print('isReach_dest = ', isReach_dest)
-
-        # pid_test_log.save_log(lat_now, lon_now, distance_to_dest, rover_azimuth, isReach_dest)
-        #-Log-#
-        # gps_running_goal_log.save_log(lat_now, lon_now, distance_to_dest, rover_azimuth, isReach_dest)    
             
         if isReach_dest == 1: #ゴール判定
             print('Goal')

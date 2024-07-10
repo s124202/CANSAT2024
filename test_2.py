@@ -10,7 +10,7 @@ bme280.bme280_setup()
 bme280.bme280_calib_param()
 bmx055.bmx055_setup()
 
-release.release_child_main()
+#release.release_child_main()
 
 time.sleep(3)
 

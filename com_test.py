@@ -27,7 +27,7 @@ def main():
     time.sleep(3)
 
     #send
-    send.send_log(result)
+    send.send_log(str(result))
 
     #sleep
     print("wait 3sec...")

@@ -1,13 +1,11 @@
-import time
-
 import para_avoidance
 import motor
 import stuck
 
 motor.setup()
 
-#print("Improving the rover's posture")
-#stuck.correct_posture()
+print("Improving the rover's posture")
+stuck.correct_posture()
 
 print("#####-----Parachute Avoid Sequence: Start-----#####")
 
@@ -24,7 +22,6 @@ while True:
 	if PARA_THD_COVERED < red_area:
 		print("Parachute on top")
 		motor.move(80, 80, 5)
-		break
 	else:
 		break
 

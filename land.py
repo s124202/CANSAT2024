@@ -89,6 +89,7 @@ def blt_child():
             sock.send(str(send))
             data = sock.recv(1024)
             receive = data.decode()
+            print(receive)
 
         except KeyboardInterrupt:
             print("finish")

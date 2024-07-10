@@ -133,6 +133,7 @@ def para_adalt():
 		#motor.motor_stop(0.2)
 	
 	#子機のパラ回避待ち
+	send = 1
 	time_start = time.time()
 	time_timeout = 120
 	while True:

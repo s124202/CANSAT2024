@@ -100,7 +100,7 @@ def motor_continue(strength_l, strength_r):
 def test():
 	
 	setup()
-	move(30,30,30)
+	move(10,10,30)
 
 def main():
     thread1 = threading.Thread(target = test)

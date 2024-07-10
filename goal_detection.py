@@ -7,6 +7,9 @@ import csv
 #src
 import src.gps as gps
 
+#send
+import send.mode3 as mode3
+
 #run
 import run.gps_navigate as gps_navigate
 
@@ -49,6 +52,7 @@ def main(lat_target = 35.918468,lon_target = 139.90712):
 
 
 if __name__ == '__main__':
+    mode3.mode3_change()
     lat_target1,lon_target1 = gps.gps_float()
     print("wait 3sec...")
     time.sleep(3)

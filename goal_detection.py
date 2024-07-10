@@ -43,8 +43,8 @@ def main(lat_target = 35.918468,lon_target = 139.90712):
                     print("5m以内に到達")
                     break
 
-                else: 
-                    count = 0
+            else: 
+                count = 0
 
             time.sleep(1)
     

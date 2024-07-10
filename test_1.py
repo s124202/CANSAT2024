@@ -14,8 +14,8 @@ bmx055.bmx055_setup()
 release.release_main()
 time.sleep(1)
 
-#blt_adalt.main(0)
-#time.sleep(1)
+blt_adalt.main(0)
+time.sleep(1)
 
 land.land_main()
 time.sleep(1)

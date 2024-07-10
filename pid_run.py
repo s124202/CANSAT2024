@@ -405,8 +405,7 @@ if __name__ == "__main__":
     direction = calibration.calculate_direction(lon2=lon_test, lat2=lat_test)
     distance_to_goal = direction["distance"]
 
-    while True: #1ループおおよそT_CAL秒
-        #-T_CALごとに以下の情報を取得-#
+    while True:
         lat_now, lon_now, distance_to_dest, rover_azimuth, isReach_dest = drive(lon_dest=lon_test, lat_dest=lat_test, thd_distance=THD_DISTANCE_DEST, t_cal=T_CAL, loop_num=LOOP_NUM)
         
         print('isReach_dest = ', isReach_dest)

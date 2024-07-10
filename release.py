@@ -197,7 +197,7 @@ def release_together():
 		if confirm == str(1):
 			print("confirmed")
 			break
-		elif time.time() - time_start > 60:
+		elif time.time() - time_start > time_timeout:
 			print("partner timeout")
 			break
 		else:

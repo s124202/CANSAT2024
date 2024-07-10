@@ -13,7 +13,7 @@ def land_main():
 	LAND_GYR_THD = 20
 	LAND_ACC_THD = 0.2
 	LAND_JUDGE_COUNT = 5
-	LAND_JUDGE_TIME = 1
+	LAND_JUDGE_TIME = 3
 
 	#気圧による着地判定
 	press_count = 0

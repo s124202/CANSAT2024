@@ -13,7 +13,7 @@ def blt():
     receive = "0"
     synchro = 0
 
-    bd_addr = "B8:27:EB:A9:05:AB" # サーバー側のデバイスアドレスを入力
+    bd_addr = "B8:27:EB:20:4F:0D" # サーバー側のデバイスアドレスを入力
 
     port = 1
 

@@ -154,7 +154,7 @@ def release_together():
 	time_timeout = 300
 	
 	#閾値設定
-	RELEASE_PRESS_THD = 0.2
+	RELEASE_PRESS_THD = 0.1
 	RELEASE_JUDGE_COUNT = 3
 	RELEASE_JUDGE_TIME = 1
 

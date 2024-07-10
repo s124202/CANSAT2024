@@ -334,7 +334,7 @@ def land_adalt_main():
     thread2.join()
 
 #2機体で通信する場合はこれ(子機)
-def release_child_main():
+def land_child_main():
     thread1 = threading.Thread(target = blt_child)
     thread2 = threading.Thread(target = land_together)
 

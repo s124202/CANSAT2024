@@ -4,7 +4,7 @@
 import time
 
 #src
-import gps
+import src.gps as gps
 
 #send
 import send.send as send

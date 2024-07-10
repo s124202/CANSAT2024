@@ -6,8 +6,8 @@ import bme280
 import bmx055
 #import para_fall_test
 
-bme280.bme280_setup
-bme280.bme280_calib_param
+bme280.bme280_setup()
+bme280.bme280_calib_param()
 #bmx055.bmx055_setup
 
 release.release_alone_main()

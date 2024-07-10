@@ -14,7 +14,7 @@ bmx055.bmx055_setup()
 
 time.sleep(3)
 
-land.land_adalt_main()
+land.land_child_main()
 
 #time.sleep(3)
 

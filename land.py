@@ -82,7 +82,7 @@ def land_main():
 		acc_array.pop(0)
 		time.sleep(LAND_JUDGE_TIME)
 		bmxData = bmx055.bmx055_read()
-		acc_abs = math.sqrt(bmx055[0]**2 + bmx055[1]**2 + bmx055[2]**2)
+		acc_abs = math.sqrt(bmxData[0]**2 + bmxData[1]**2 + bmxData[2]**2)
 		acc_array.append(acc_abs)
 		
 		delta_acc = abs(acc_array[0] - acc_array[1])

@@ -1,20 +1,20 @@
-#import time
+import time
 
 import release
-#import land
+import land
 import bme280
 import bmx055
 #import para_fall_test
 
 bme280.bme280_setup()
 bme280.bme280_calib_param()
-#bmx055.bmx055_setup
+bmx055.bmx055_setup()
 
 release.release_alone_main()
 
-#time.sleep(3)
+time.sleep(3)
 
-#land.land_adalt_main()
+land.land_adalt_main()
 
 #time.sleep(3)
 

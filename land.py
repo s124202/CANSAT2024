@@ -5,8 +5,8 @@ import time
 import math
 
 #src
-import bme280
-import bmx055
+import src.bme280 as bme280
+import src.bmx055 as bmx055
 
 def land_main():
 	time_start = time.time()

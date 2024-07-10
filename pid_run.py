@@ -5,9 +5,9 @@ import time
 from collections import deque
 
 #src
-import gps
-import bmx055
-import motor
+import src.gps as gps
+import src.bmx055 as bmx055
+import src.motor as motor
 from main_const import *
 
 #run

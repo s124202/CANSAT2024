@@ -4,7 +4,7 @@
 import time
 
 #src
-import bme280
+import src.bme280 as bme280
 
 #気圧による放出判定
 def release_main():

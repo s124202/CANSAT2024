@@ -9,6 +9,7 @@ import src.gps as gps
 
 #send
 import send.mode3 as mode3
+import send.send as send
 
 #run
 import run.gps_navigate as gps_navigate
@@ -55,5 +56,7 @@ if __name__ == '__main__':
     mode3.mode3_change()
     lat_target1,lon_target1 = gps.gps_float()
     print("wait 3sec...")
+    send.log(str(lat_target1),str(lon_target1))
     time.sleep(3)
     main(lat_target1,lon_target1)
+    send.log("finish")

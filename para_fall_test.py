@@ -32,6 +32,6 @@ if red_area > 1000:
 	motor.move(70, 70, 3) #徐々に減速するはず
 	#motor.motor_stop(0.2)
 else:
-	print("Move Forwward")
+	print("Move Forward")
 	motor.move(-70, -70, 3) #徐々に減速するはず
 	#motor.motor_stop(0.2)

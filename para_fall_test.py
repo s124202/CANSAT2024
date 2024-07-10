@@ -127,11 +127,11 @@ def para_adalt():
 			break
 
 	if red_area > 1000:
-		print("Move Backwward")
+		print("Move Backward")
 		motor.move(-60, -60, 5) #徐々に減速するはず
 		#motor.motor_stop(0.2)
 	else:
-		print("Move Forwward")
+		print("Move Forward")
 		motor.move(60, 60, 5) #徐々に減速するはず
 		#motor.motor_stop(0.2)
 	
@@ -198,11 +198,11 @@ def para_child():
 			break
 
 	if red_area > 1000:
-		print("Move Backwward")
+		print("Move Backward")
 		motor.move(-60, -60, 5) #徐々に減速するはず
 		#motor.motor_stop(0.2)
 	else:
-		print("Move Forwward")
+		print("Move Forward")
 		motor.move(60, 60, 5) #徐々に減速するはず
 		#motor.motor_stop(0.2)
 

@@ -12,4 +12,4 @@ land.land_child_main()
 
 time.sleep(3)
 
-para_fall_test.para_child_main()
+#para_fall_test.para_child_main()

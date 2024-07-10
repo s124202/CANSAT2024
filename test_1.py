@@ -12,5 +12,5 @@ land.land_adalt_main()
 
 time.sleep(3)
 
-para_fall_test.para_adalt_main()
+#para_fall_test.para_adalt_main()
 

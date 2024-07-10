@@ -102,6 +102,9 @@ def blt_child():
 
 #下に続く並列の関数を使用
 def para_adalt():
+	global send
+	global receive
+	global synchro
 	#print("Improving the rover's posture")
 	#stuck.correct_posture()
 

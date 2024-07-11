@@ -107,24 +107,10 @@ def motor_test(strength_l=10, strength_r=10, t_moving=10):
 if __name__ == '__main__':
 	setup()
 	try:
-		while 1:
-			command = input('操作\t')
-			if command == 'a':
-				move(10, 30, 2)
-			elif command == 'w':
-				move(40, 40, 2)
-			elif command == 'd':
-				move(30, 10, 2)
-			elif command == 's':
-				move(-20, -20, 2)
-			elif command == 'manual':
-				l = float(input('左の出力は？'))
-				r = float(input('右の出力は？'))
-				t = float(input('移動時間は？'))
-				time.sleep(0.8)
-				move(l, r, t)
-			else:
-				print('もう一度入力してください')
+		while True:
+			l = float(input('左の出力は？'))
+			r = float(input('右の出力は？'))
+			t = float(input('移動時間は？'))
 	except KeyboardInterrupt:
 		print("\r\n")
 	except Exception as e:

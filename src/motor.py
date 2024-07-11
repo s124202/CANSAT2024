@@ -1,3 +1,5 @@
+#2024/07/11 生川
+
 from gpiozero import Motor
 import time
 

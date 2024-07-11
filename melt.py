@@ -1,4 +1,4 @@
-#2024/07/10 生川
+#2024/07/11 生川
 
 #standard
 import time
@@ -8,7 +8,7 @@ import pigpio
 meltPin = 17
 
 
-def melt_down(meltPin, t_melt = 5.0):
+def melt_down(meltPin, t_melt = 3.0):
 	"""
 	溶断回路を用いてテグスを溶断するための関数
 	"""

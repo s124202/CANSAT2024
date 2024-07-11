@@ -12,8 +12,8 @@ import src.gps as gps
 import src.motor as motor
 
 #run
-import stuck
-import gps_navigate
+import run.stuck as stuck
+import run.gps_navigate as gps_navigate
 
 
 def get_data():

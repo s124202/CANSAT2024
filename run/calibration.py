@@ -8,8 +8,8 @@ import traceback
 
 #src
 import src.bmx055 as bmx055
-import gps
-import motor
+import src.gps as gps
+import src.motor as motor
 
 #run
 import stuck

@@ -1,11 +1,9 @@
 #2024/07/08 sato
 #2024/07/09 shoji
 
-#standrd
 import time
 
-#src
-import src.bme280 as bme280
+import bme280
 
 
 #1機体で気圧による放出判定
@@ -13,7 +11,7 @@ def release_main():
 
 	time_start = time.time()
 	time_timeout = 300
-
+	 
 	#閾値設定
 	RELEASE_PRESS_THD = 0.1
 	RELEASE_JUDGE_COUNT = 3

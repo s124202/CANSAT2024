@@ -1,14 +1,12 @@
 #2024/07/08 sato
 #2024/07/09 shoji
 
-#standard
+
 import time
 import math
 
-#src
-import src.bme280 as bme280
-import src.bmx055 as bmx055
-
+import bme280
+import bmx055
 
 #1機体での着地判定
 def land_main():

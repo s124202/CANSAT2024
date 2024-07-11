@@ -7,7 +7,7 @@ import time
 import traceback
 
 #src
-import bmx055
+import src.bmx055 as bmx055
 import gps
 import motor
 

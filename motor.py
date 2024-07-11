@@ -1,3 +1,5 @@
+#2024/07/11 生川
+
 from gpiozero import Motor
 import time
 
@@ -6,8 +8,8 @@ def setup():
 	motorを使うときに必要な初期化を行う関数
 	"""
 	global motor_r, motor_l
-	Rpin1, Rpin2 = 23, 18
-	Lpin1, Lpin2 = 16, 26
+	Rpin1, Rpin2 = 16, 26
+	Lpin1, Lpin2 = 23, 18
 	motor_r = Motor(Rpin1, Rpin2)
 	motor_l = Motor(Lpin1, Lpin2)
 
@@ -94,16 +96,21 @@ def motor_continue(strength_l, strength_r):
         motor_r.backward(abs(strength_r))
         motor_l.forward(abs(strength_l))
 
+#10sec 10:10 動作
+def motor_test(strength_l=10, strength_r=10, t_moving=10):
+	motor_move(strength_l, strength_r, t_moving)
+	if abs(strength_l) == abs(strength_r) and strength_l * strength_r < 0:
+		motor_stop(0.1)
+	else:
+		deceleration(strength_l, strength_r)
 
 if __name__ == '__main__':
 	setup()
 	try:
-		while 1:
+		while True:
 			l = float(input('左の出力は？'))
 			r = float(input('右の出力は？'))
 			t = float(input('移動時間は？'))
-			time.sleep(0.8)
-			move(l, r, t)
 	except KeyboardInterrupt:
 		print("\r\n")
 	except Exception as e:

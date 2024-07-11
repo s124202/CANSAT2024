@@ -1,11 +1,12 @@
 #2024/07/08 sato
 #2024/07/09 shoji
+#2004/7/11 生川
 
 import time
 import bluetooth
 import threading
 
-import bme280
+import src.bme280 as bme280
 
 
 def blt_adalt():
@@ -104,7 +105,7 @@ def release_alone_main():
 
 	time_start = time.time()
 	time_timeout = 300
-	 
+
 	#閾値設定
 	RELEASE_PRESS_THD = 0.2
 	RELEASE_JUDGE_COUNT = 3

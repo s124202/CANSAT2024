@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 import threading
 import bluetooth
-
+ 
 def blt(state):
     bd_addr = "B8:27:EB:1B:C5:BF"
     port = 1
@@ -173,6 +173,7 @@ def main_detect():
         if lose == 90:
              deceleration()
              blt_send = 1
+             time.sleep(5)
              break
         
         elif discover % 30 == 0:

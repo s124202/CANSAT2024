@@ -45,12 +45,6 @@ def main():
         frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
         frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
 
-
-        # フレームが正しく読み込まれていることを確認
-        if frame is None:
-            print("Failed to capture frame")
-            break
-
         # 赤色検出
         mask = red_detect(frame)
 

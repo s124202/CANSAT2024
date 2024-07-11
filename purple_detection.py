@@ -14,14 +14,14 @@ def red_detect(img):
     #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # 緑色のHSVの値域1
-    #hsv_min = np.array([30,64,0])
-    #hsv_max = np.array([90,255,255])
-    #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+    hsv_min = np.array([30,64,0])
+    hsv_max = np.array([90,255,255])
+    mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # 黄色のHSVの値域1
-    hsv_min = np.array([20,80,10])
-    hsv_max = np.array([50,255,255])
-    mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+    #hsv_min = np.array([20,80,10])
+    #hsv_max = np.array([50,255,255])
+    #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # 紫色のHSVの値域1
     #hsv_min = np.array([110,100,50])
@@ -52,7 +52,7 @@ def main_movie():
         # フレームを取得
         ret, frame = cap.read()
         frame = cv2.resize(frame, (640,640))
-        frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
+        frame = cv2.rotate(frame, cv2.ROTATE_180)
 
         # フレームが正しく読み込まれていることを確認
         if frame is None:
@@ -88,7 +88,7 @@ def main_image():
     # フレームを取得
     ret, frame = cap.read()
     frame = cv2.resize(frame, (640,640))
-    frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
+    frame = cv2.rotate(frame, cv2.ROTATE_180)
 
     # 赤色検出
     mask = red_detect(frame)

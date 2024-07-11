@@ -2,10 +2,10 @@ import time
 
 import release
 import land
-import bme280
-import bmx055
-import motor
-import blt_child
+import src.bme280 as bme280
+import src.bmx055 as bmx055
+import src.motor as motor
+import blt.blt_child as blt_child
 import para_fall_test
 
 bme280.bme280_setup()

@@ -3,7 +3,7 @@
 
 import time
 
-import bme280
+import src.bme280 as bme280
 
 
 #1機体で気圧による放出判定

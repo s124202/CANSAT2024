@@ -2,7 +2,7 @@
 #2024/07/10　shoji
 
 import para_avoidance
-import motor
+import src.motor as motor
 #import stuck
 
 import bluetooth

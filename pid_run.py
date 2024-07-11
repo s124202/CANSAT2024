@@ -308,7 +308,7 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         count += 1
 
 
-def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loop_num: int, report_log):
+def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loop_num: int):
     '''  
     Parameters
     ----------

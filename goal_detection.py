@@ -63,5 +63,6 @@ if __name__ == '__main__':
     print("wait 3sec...")
     time.sleep(3)
     send.log("finish")
-    send.log("2024/07/11")
-    send.log("goal_detection")
+    time.sleep(1)
+    #send.log("2024/07/11")
+    #send.log("goal_detection")

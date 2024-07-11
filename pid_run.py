@@ -362,6 +362,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
         direction = gps_navigate.vincenty_inverse(lat_now, lon_now, lat_dest, lon_dest)
         distance_to_dest, target_azimuth = direction["distance"], direction["azimuth1"]
         print(lat_now, lon_now)
+        print(distance_to_dest, target_azimuth)
 
         #-----スタックチェック-----#
         #if stuck_count % 25 == 0:
@@ -375,7 +376,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
 
         #-----PID制御による走行-----#
         if distance_to_dest > thd_distance:
-            control = PID_run(target_azimuth, magx_off, magy_off, theta_array, loop_num)
+            PID_run(target_azimuth, magx_off, magy_off, theta_array, loop_num)
         else:
             isReach_dest = 1 #ゴール判定用のフラグ
 

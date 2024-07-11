@@ -5,8 +5,8 @@
 import time
 import math
 
-import bme280
-import bmx055
+import src.bme280 as bme280
+import src.bmx055 as bmx055
 
 #1機体での着地判定
 def land_main():

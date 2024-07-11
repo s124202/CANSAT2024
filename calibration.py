@@ -148,7 +148,14 @@ def calculate_offset(magdata):
 
 
 def cal(l, r, n):
-    magdata = magdata_matrix_hand(l, r, n)
+    magdata = magdata_matrix(l, r, n)
+    _, _, _, magx_off, magy_off, _ = calculate_offset(magdata)
+    print('magx_off:', magx_off, 'magy_off:', magy_off)
+    return magx_off, magy_off
+
+
+def cal():
+    magdata = magdata_matrix_hand()
     _, _, _, magx_off, magy_off, _ = calculate_offset(magdata)
     print('magx_off:', magx_off, 'magy_off:', magy_off)
     return magx_off, magy_off

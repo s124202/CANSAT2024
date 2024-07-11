@@ -479,7 +479,7 @@ def gps_med(reset_time=60):
 	return gps_lat_median,gps_lon_median
 
 if __name__ == '__main__':
-	#gps_main()
+	gps_main()
 
-	for i in range(3):
-		gps_test(5)
+	#for i in range(3):
+	#	gps_test(5)

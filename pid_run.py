@@ -392,8 +392,8 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
 
 if __name__ == "__main__":
 
-    lat_test = 40.893549
-    lon_test = -119.109417
+    lat_test = 35.9182015
+    lon_test = 139.9080585
 
     #-----セットアップ-----#
     motor.setup()

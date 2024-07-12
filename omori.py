@@ -327,12 +327,12 @@ def save_csv():
 			bmxData = bmx055_read()
 			print(bmxData)
 			writer_bmx.writerows([[time.time(),bmxData]])
-			time.sleep(0.5)
+			time.sleep(0.8)
 
 			temp,pres,hum,alt = bme280_read()
 			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
 			writer_bme.writerows([[time.time(),pres]])
-			time.sleep(0.5)
+			time.sleep(0.8)
 
 	except KeyboardInterrupt:
 		print("\r\n")
@@ -345,7 +345,7 @@ def save_csv():
 		f_bme.close()
 
 if __name__ =="__main__":
-	
+
 	bme280_setup()
 	bme280_calib_param
 	bmx055_setup

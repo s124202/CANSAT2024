@@ -165,6 +165,7 @@ def bmx055_csv():
 			time.sleep(0.8)
 	except KeyboardInterrupt:
 		print("\r\n")
+		f.close()
 	except Exception as e:
 		print(e)
 

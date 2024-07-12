@@ -39,6 +39,7 @@ time.sleep(1)
 
 #テグス溶断
 #send.log("melt start")
+print("melt start")
 melt.melt_down(17,3)
 time.sleep(1)
 #send.log("melt end")

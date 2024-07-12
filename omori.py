@@ -324,7 +324,7 @@ def save_csv():
 	writer_bme = csv.writer(f_bme)
 
 	try:
-		while True:
+		for i in range(20):
 			bmxData = bmx055_read()
 			print(bmxData)
 			writer_bmx.writerows([[time.time(),bmxData]])
@@ -337,13 +337,13 @@ def save_csv():
 
 	except KeyboardInterrupt:
 		print("\r\n")
-		#f_bmx.close()
-		#f_bme.close()
+		f_bmx.close()
+		f_bme.close()
 
 	except Exception as e:
 		print(e)
-		#f_bmx.close()
-		#f_bme.close()
+		f_bmx.close()
+		f_bme.close()
 
 if __name__ =="__main__":
 

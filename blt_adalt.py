@@ -7,7 +7,7 @@ def main(send):
         port = 1
         server_sock.bind(("",port))
         server_sock.listen(1)
-        server_sock.settimeout(10)
+        server_sock.settimeout(60)
         client_sock,address = server_sock.accept()
         client_sock.settimeout(10)
         print("Accepted connection from ",address)
@@ -34,7 +34,7 @@ def main(send):
         client_sock.close()
         server_sock.close()
     except:
-        print("time out")
+        print("blt connect timeout")
 
 if __name__ == "__main__":
     main(1)

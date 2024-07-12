@@ -25,10 +25,11 @@ def main(send):
             pass
     if timeout == 1:
         print("blt connect timeout")
-        exit()
 
     while True:
         try:
+            if timeout == 1:
+                break
             time.sleep(1)
             sock.send(str(send))
             data = sock.recv(1024)

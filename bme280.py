@@ -170,7 +170,7 @@ def bme280_csv():
 		while True:
 			temp,pres,hum,alt = bme280_read()
 			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
-			writer.writerows([[time.time(),pres]])
+			writer.writerow([[time.time(),pres]])
 			time.sleep(0.8)
 	except KeyboardInterrupt:
 		print("\r\n")

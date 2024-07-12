@@ -3,7 +3,7 @@ import time
 import release
 import land
 import bme280
-import bmx055
+#import bmx055
 import motor
 import blt_child
 import para_fall_test

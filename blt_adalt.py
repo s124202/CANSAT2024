@@ -11,7 +11,7 @@ def main(send):
         client_sock,address = server_sock.accept()
         client_sock.settimeout(10)
         print("Accepted connection from ",address)
-        while True:
+        for i in range(15):
             try:
                 data = client_sock.recv(1024)
                 receive = data.decode()

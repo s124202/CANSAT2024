@@ -26,7 +26,7 @@ def main(send):
     if timeout == 1:
         print("blt connect timeout")
 
-    while True:
+    for i in range(15):
         try:
             if timeout == 1:
                 break

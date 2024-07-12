@@ -31,6 +31,7 @@ blt_child.main(1)
 time.sleep(1)
 
 #テグス溶断
+print("melt start")
 melt.melt_down(17,3)
 time.sleep(1)
 

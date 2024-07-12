@@ -1,6 +1,5 @@
 import time
 
-import release
 import land
 import bme280
 import bmx055
@@ -13,14 +12,6 @@ bme280.bme280_setup()
 bme280.bme280_calib_param()
 bmx055.bmx055_setup()
 motor.setup()
-
-#放出判定
-release.release_main()
-time.sleep(1)
-
-#放出判定確認
-blt_adalt.main(0)
-time.sleep(1)
 
 #着地判定
 land.land_main()
@@ -36,4 +27,4 @@ melt.melt_down(17,3)
 time.sleep(1)
 
 #パラ回避
-para_fall_test.para_adalt_main()
+para_fall_test.para_child_main()

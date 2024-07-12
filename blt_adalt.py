@@ -33,6 +33,8 @@ def main(send):
         print("finish")
         client_sock.close()
         server_sock.close()
+    except:
+        print("time out")
 
 if __name__ == "__main__":
     main(1)

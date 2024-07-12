@@ -8,7 +8,7 @@ import motor
 import blt_child
 import para_fall_test
 import melt
-import send.send as send
+import send.send2 as send
 import send.mode3 as mode3
 
 bme280.bme280_setup()
@@ -20,6 +20,7 @@ mode3.mode3_change()
 #放出判定
 release.release_main()
 time.sleep(1)
+send.log("Release Detected")
 
 #放出判定確認
 blt_child.main(0)
@@ -44,4 +45,4 @@ send.log("melt end")
 
 #パラ回避
 para_fall_test.para_child_main()
-send.log("para_detect_end")
+send.log("para avoiding finished")

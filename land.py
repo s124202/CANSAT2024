@@ -7,7 +7,6 @@ import math
 
 import bme280
 import bmx055
-import send.send as send
 
 #1機体での着地判定
 def land_main():
@@ -46,12 +45,10 @@ def land_main():
 		
 		if press_count == LAND_JUDGE_COUNT:
 			print("Press OK")
-			send.log("Press OK")
 			break
 
 		if time.time() - time_start > time_timeout:
 			print("Land Timeout")
-			send.log("Land Timeout")
 			break
 	
 	#角速度による着地判定
@@ -73,12 +70,10 @@ def land_main():
 
 		if gyro_count == LAND_JUDGE_COUNT:
 			print("Gyro OK")
-			send.log("Gyro OK")
 			break
 
 		if time.time() - time_start > time_timeout:
 			print("Land Timeout")
-			send.log("Land Timeout")
 			break
 	
 	#加速度(絶対値)による着地判定
@@ -105,12 +100,10 @@ def land_main():
 		
 		if acc_count == LAND_JUDGE_COUNT:
 			print("Acceleration OK")
-			send.log("Acceleration OK")
 			break
 
 		if time.time() - time_start > time_timeout:
 			print("Land Timeout")
-			send.log("Land Timeout")
 			break
 
 

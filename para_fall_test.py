@@ -129,11 +129,11 @@ def para_adalt():
 
 	if red_area > 1000:
 		print("Move Backward")
-		motor.move(-60, -60, 5) #徐々に減速するはず
+		motor.move(-80, -80, 3) #徐々に減速するはず
 		#motor.motor_stop(0.2)
 	else:
 		print("Move Forward")
-		motor.move(60, 60, 5) #徐々に減速するはず
+		motor.move(80, 80, 3) #徐々に減速するはず
 		#motor.motor_stop(0.2)
 	
 	#子機のパラ回避待ち
@@ -200,11 +200,11 @@ def para_child():
 
 	if red_area > 1000:
 		print("Move Backward")
-		motor.move(-60, -60, 5) #徐々に減速するはず
+		motor.move(-80, -80, 3) #徐々に減速するはず
 		#motor.motor_stop(0.2)
 	else:
 		print("Move Forward")
-		motor.move(60, 60, 5) #徐々に減速するはず
+		motor.move(80, 80, 3) #徐々に減速するはず
 		#motor.motor_stop(0.2)
 
 	#親機に終了報告

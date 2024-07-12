@@ -337,13 +337,13 @@ def save_csv():
 
 	except KeyboardInterrupt:
 		print("\r\n")
-		f_bmx.close()
-		f_bme.close()
+		#f_bmx.close()
+		#f_bme.close()
 
 	except Exception as e:
 		print(e)
-		f_bmx.close()
-		f_bme.close()
+		#f_bmx.close()
+		#f_bme.close()
 
 if __name__ =="__main__":
 

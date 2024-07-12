@@ -103,4 +103,4 @@ def log(message):
 
 if __name__ == "__main__":
     message = "sample"
-    log(message)
+    log("sample")

@@ -7,13 +7,13 @@ import time
 import traceback
 
 #src
-import bmx055
-import gps
-import motor
+import src.bmx055 as bmx055
+import src.gps as gps
+import src.motor as motor
 
 #run
-import stuck
-import gps_navigate
+import run.stuck as stuck
+import run.gps_navigate as gps_navigate
 
 
 def get_data():
@@ -153,6 +153,13 @@ def cal(l, r, n):
     print('magx_off:', magx_off, 'magy_off:', magy_off)
     return magx_off, magy_off
 
+
+def cal2():
+    magdata = magdata_matrix_hand()
+    _, _, _, magx_off, magy_off, _ = calculate_offset(magdata)
+    print('magx_off:', magx_off, 'magy_off:', magy_off)
+    return magx_off, magy_off
+
 #ちゃんと北をむいてる確認する
 def angle(magx, magy, magx_off=0, magy_off=0):
     '''
@@ -202,10 +209,10 @@ def calculate_direction(lon2, lat2):
 
 if __name__ == "__main__":
     
-    n = int(input("motor？"))
+    #n = int(input("motor？"))
     motor.setup()
     bmx055.bmx055_setup()
-    magx_off, magy_off = cal(n, -n, 40)
+    magx_off, magy_off = cal2()
     # print(magx_off, magy_off)
 
     # magdata = magdata_matrix_hand()

@@ -5,9 +5,9 @@ import time
 from collections import deque
 
 #src
-import gps
-import bmx055
-import motor
+import src.gps as gps
+import src.bmx055 as bmx055
+import src.motor as motor
 from main_const import *
 
 #run
@@ -15,6 +15,9 @@ import run.calibration as calibration
 import run.gps_navigate as gps_navigate
 import run.stuck as stuck
 
+#send
+import send.mode3 as mode3
+#import send.send as send
 
 #angle correction
 def standarize_angle(angle):
@@ -171,11 +174,11 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
     t_adj_start = time.time()
 
     while True:
-        if time.time() - t_adj_start > 1 and error_theta <= 75: #1秒経過したら強制的に終了する
-            break
-        elif time.time() - t_adj_start > 1 and error_theta > 75: #スタック回避を行う
-            print('Stuck Avoid')
-            stuck.stuck_avoid()
+        #if time.time() - t_adj_start > 1 and error_theta <= 75: #1秒経過したら強制的に終了する
+        #    break
+        #elif time.time() - t_adj_start > 1 and error_theta > 75: #スタック回避を行う
+        #    print('Stuck Avoid')
+        #    stuck.stuck_avoid()
 
         if count < 25:
             Ki = 0
@@ -289,8 +292,8 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         #-----モータの出力-----#
 
         #直進補正分(m=0のとき直進するように設定するため)
-        s_r = 35
-        s_l = 35
+        s_r = 75
+        s_l = 75
 
         #モータ出力の最大値と最小値を設定
         m = min(m, 15)
@@ -308,7 +311,7 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         count += 1
 
 
-def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loop_num: int, report_log):
+def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loop_num: int):
     '''  
     Parameters
     ----------
@@ -335,7 +338,9 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
 
     #-----キャリブレーション-----#
     time.sleep(1)
-    magx_off, magy_off = calibration.cal(40, -40, 30)
+    print("ready")
+    time.sleep(3)
+    magx_off, magy_off = calibration.cal2()
 
     #-----目標地点への角度を取得-----#
     direction = calibration.calculate_direction(lon2=lon_dest, lat2=lat_dest)
@@ -362,6 +367,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
         direction = gps_navigate.vincenty_inverse(lat_now, lon_now, lat_dest, lon_dest)
         distance_to_dest, target_azimuth = direction["distance"], direction["azimuth1"]
         print(lat_now, lon_now)
+        print(distance_to_dest, target_azimuth)
 
         #-----スタックチェック-----#
         #if stuck_count % 25 == 0:
@@ -375,7 +381,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
 
         #-----PID制御による走行-----#
         if distance_to_dest > thd_distance:
-            control = PID_run(target_azimuth, magx_off, magy_off, theta_array, loop_num)
+            PID_run(target_azimuth, magx_off, magy_off, theta_array, loop_num)
         else:
             isReach_dest = 1 #ゴール判定用のフラグ
 
@@ -392,8 +398,11 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
 
 if __name__ == "__main__":
 
-    lat_test = 40.893549
-    lon_test = -119.109417
+    lat_test = 35.918435
+    lon_test = 139.9077175
+
+    #mode3.mode3_change()
+    #lat_test,lon_test = gps.gps_med()
 
     #-----セットアップ-----#
     motor.setup()
@@ -405,11 +414,18 @@ if __name__ == "__main__":
     direction = calibration.calculate_direction(lon2=lon_test, lat2=lat_test)
     distance_to_goal = direction["distance"]
 
+    #send.log("pid_run_start")
+    
     while True:
         lat_now, lon_now, distance_to_dest, rover_azimuth, isReach_dest = drive(lon_dest=lon_test, lat_dest=lat_test, thd_distance=THD_DISTANCE_DEST, t_cal=T_CAL, loop_num=LOOP_NUM)
         
-        print('isReach_dest = ', isReach_dest)
+        #print('isReach_dest = ', isReach_dest)
             
         if isReach_dest == 1: #ゴール判定
             print('Goal')
+            #send.log("end_gps_running")
             break
+        #else:
+        #    print("not_Goal", "distance=",distance_to_dest)
+        #    send.log("distance=")
+        #    send.log(str(distance_to_dest))

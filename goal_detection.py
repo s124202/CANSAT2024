@@ -1,11 +1,15 @@
-#2024/07/08 生川
+#2024/07/10 生川
 
 #standard
 import time
 import csv
 
 #src
-import gps
+import src.gps as gps
+
+#send
+import send.mode3 as mode3
+import send.send as send
 
 #run
 import run.gps_navigate as gps_navigate
@@ -22,7 +26,7 @@ def main(lat_target = 35.918468,lon_target = 139.90712):
     try:
         while True:
             #gps_get
-            lat_now,lon_now = gps.gps_med()
+            lat_now,lon_now = gps.gps_float()
             print("現在")
             print("緯度：" + str(lat_now) + "\t" + "経度：" + str(lon_now))
 
@@ -39,8 +43,8 @@ def main(lat_target = 35.918468,lon_target = 139.90712):
                     print("5m以内に到達")
                     break
 
-                else: 
-                    count = 0
+            else: 
+                count = 0
 
             time.sleep(1)
     
@@ -49,7 +53,16 @@ def main(lat_target = 35.918468,lon_target = 139.90712):
 
 
 if __name__ == '__main__':
-    lat_target1,lon_target1 = gps.gps_med()
-    print("wait 10sec...")
-    time.sleep(10)
+    mode3.mode3_change()
+    lat_target1,lon_target1 = gps.gps_float()
+    print("wait 3sec...")
+    send.log(str(lat_target1))
+    send.log(str(lon_target1))
+    time.sleep(3)
     main(lat_target1,lon_target1)
+    print("wait 3sec...")
+    time.sleep(3)
+    send.log("finish")
+    time.sleep(1)
+    #send.log("2024/07/11")
+    #send.log("goal_detection")

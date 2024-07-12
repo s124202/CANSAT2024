@@ -1,10 +1,10 @@
-#2024/07/08 生川
+#2024/07/10 生川
 
 #standard
 import time
 
 #src
-import gps
+import src.gps as gps
 
 #send
 import send.send as send
@@ -27,7 +27,7 @@ def main():
     time.sleep(3)
 
     #send
-    send.send_log(result)
+    send.send_log(str(result))
 
     #sleep
     print("wait 3sec...")

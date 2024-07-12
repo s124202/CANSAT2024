@@ -1,13 +1,14 @@
-#2024/07/08 生川
+#2024/07/08 sato
+#2024/07/09 shoji
 
-#standard
+
 import time
 import math
 
-#src
-import bme280
-import bmx055
+import src.bme280 as bme280
+import src.bmx055 as bmx055
 
+#1機体での着地判定
 def land_main():
 	time_start = time.time()
 	time_timeout = 300
@@ -17,7 +18,7 @@ def land_main():
 	LAND_GYR_THD = 20
 	LAND_ACC_THD = 0.2
 	LAND_JUDGE_COUNT = 5
-	LAND_JUDGE_TIME = 1
+	LAND_JUDGE_TIME = 3
 
 	#気圧による着地判定
 	press_count = 0
@@ -79,14 +80,14 @@ def land_main():
 	acc_count = 0
 	acc_array = [0]
 	bmxData = bmx055.bmx055_read()
-	acc_abs = math.sqrt(bmx055[0]**2 + bmx055[1]**2 + bmx055[2]**2)
+	acc_abs = math.sqrt(bmxData[0]**2 + bmxData[1]**2 + bmxData[2]**2)
 	acc_array.append(acc_abs)
 
 	while True:
 		acc_array.pop(0)
 		time.sleep(LAND_JUDGE_TIME)
 		bmxData = bmx055.bmx055_read()
-		acc_abs = math.sqrt(bmx055[0]**2 + bmx055[1]**2 + bmx055[2]**2)
+		acc_abs = math.sqrt(bmxData[0]**2 + bmxData[1]**2 + bmxData[2]**2)
 		acc_array.append(acc_abs)
 		
 		delta_acc = abs(acc_array[0] - acc_array[1])
@@ -104,6 +105,7 @@ def land_main():
 		if time.time() - time_start > time_timeout:
 			print("Land Timeout")
 			break
+
 
 if __name__ == "__main__":
 	bme280.bme280_setup()

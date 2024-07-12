@@ -1,20 +1,21 @@
-#2024/07/08 生川
+#2024/07/08 sato
+#2024/07/09 shoji
 
-#standard
 import time
 
-#src
-import bme280
+import src.bme280 as bme280
 
-#気圧による放出判定
+
+#1機体で気圧による放出判定
 def release_main():
+
 	time_start = time.time()
 	time_timeout = 300
-	
+	 
 	#閾値設定
-	RELEASE_PRESS_THD = 0.2
+	RELEASE_PRESS_THD = 0.1
 	RELEASE_JUDGE_COUNT = 3
-	RELEASE_JUDGE_TIME = 3
+	RELEASE_JUDGE_TIME = 1
 
 	press_count = 0
 	press_array = [0]
@@ -45,7 +46,6 @@ def release_main():
 		if time.time() - time_start > time_timeout:
 			print("Release Timeout")
 			break
-
 
 
 if __name__ == "__main__":

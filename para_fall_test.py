@@ -4,6 +4,7 @@
 import para_avoidance
 import motor
 #import stuck
+#import send.send as send
 
 import bluetooth
 import threading

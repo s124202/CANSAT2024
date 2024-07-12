@@ -4,6 +4,7 @@
 import time
 
 import bme280
+#import send.send as send
 
 
 #1機体で気圧による放出判定
@@ -11,7 +12,7 @@ def release_main():
 
 	time_start = time.time()
 	time_timeout = 300
-	 
+
 	#閾値設定
 	RELEASE_PRESS_THD = 0.1
 	RELEASE_JUDGE_COUNT = 3
@@ -41,10 +42,12 @@ def release_main():
 
 		if press_count == RELEASE_JUDGE_COUNT:
 			print("Release Detected")
+			#send.log("Release Detected")
 			break
 
 		if time.time() - time_start > time_timeout:
 			print("Release Timeout")
+			#send.log("Release Timeout")
 			break
 
 

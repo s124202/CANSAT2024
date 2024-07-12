@@ -1,4 +1,5 @@
 #2024/07/08 生川
+#target=10
 
 #standard
 import serial
@@ -7,12 +8,12 @@ import argparse
 import time
 
 #send
-#import send.hexdump as hexdump
-#import send.mode0 as mode0
-#import send.mode3 as mode3
-import hexdump
-import mode0
-import mode3
+import send.hexdump as hexdump
+import send.mode0 as mode0
+import send.mode3 as mode3
+#import hexdump
+#import mode0
+#import mode3
 
 
 def get_args():
@@ -24,7 +25,7 @@ def get_args():
     parser.add_argument("-p", "--payload_length")
     parser.add_argument("-a", "--ascii_text")
     parser.add_argument("-f", "--fixed_mode", action="store_true", default=True)
-    parser.add_argument("--target_address", default="2")
+    parser.add_argument("--target_address", default="10")
     parser.add_argument("--target_channel", default="0")
 
     args = parser.parse_args()

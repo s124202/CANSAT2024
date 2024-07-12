@@ -321,7 +321,7 @@ def save_csv():
         writer_bme = csv.writer(f_bme)
 
         try:
-            for i in range(20):
+            while True:
                 bmxData = bmx055_read()
                 print(bmxData)
                 writer_bmx.writerows([[time.time(),bmxData]])

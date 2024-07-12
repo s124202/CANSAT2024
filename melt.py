@@ -8,7 +8,7 @@ import pigpio
 meltPin = 17
 
 
-def melt_down(meltPin, t_melt = 5.0):
+def melt_down(meltPin, t_melt):
 	"""
 	溶断回路を用いてテグスを溶断するための関数
 	"""
@@ -17,14 +17,12 @@ def melt_down(meltPin, t_melt = 5.0):
 	pi.write(meltPin, 0)
 	time.sleep(1)
 	pi.write(meltPin, 1)
-	print("meltpin_high")
 	time.sleep(t_melt)
 	pi.write(meltPin, 0)
-	print("meltpin_low")
 	time.sleep(1)
 
 	pi.stop()
 
 
 if __name__ == "__main__":
-	melt_down(meltPin=17, t_melt = 5.0)
+	melt_down(meltPin=17, t_melt = 3.0)

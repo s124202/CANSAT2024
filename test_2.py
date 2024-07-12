@@ -7,6 +7,7 @@ import bmx055
 import motor
 import blt_child
 import para_fall_test
+import melt
 
 bme280.bme280_setup()
 bme280.bme280_calib_param()
@@ -27,6 +28,10 @@ time.sleep(1)
 
 #着地判定確認
 blt_child.main(1)
+time.sleep(1)
+
+#テグス溶断
+melt.melt_down(17,3)
 time.sleep(1)
 
 #パラ回避

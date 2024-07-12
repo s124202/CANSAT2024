@@ -166,7 +166,8 @@ def bme280_read():
 		for i in range(len(value)):
 			if value[i] is not None:
 				value[i] = round(value[i], 4)
-	except:
+	except Exception as e:
+		print(e)
 		value = [0.0, 0.0, 0.0, 0.0]
 
 	return value
@@ -327,12 +328,12 @@ def save_csv():
 			bmxData = bmx055_read()
 			print(bmxData)
 			writer_bmx.writerows([[time.time(),bmxData]])
-			time.sleep(0.8)
+			time.sleep(0.5)
 
 			temp,pres,hum,alt = bme280_read()
 			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
 			writer_bme.writerows([[time.time(),pres]])
-			time.sleep(0.8)
+			time.sleep(0.5)
 
 	except KeyboardInterrupt:
 		print("\r\n")

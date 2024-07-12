@@ -174,9 +174,10 @@ def bme280_csv():
 			time.sleep(0.8)
 	except KeyboardInterrupt:
 		print("\r\n")
-		f.close()
+		f.flush()
 	except Exception as e:
 		print(e)
+		f.flush()
 	
 if __name__ == '__main__':
 	#bme280_setup()

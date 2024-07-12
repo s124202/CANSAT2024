@@ -25,4 +25,4 @@ def melt_down(meltPin, t_melt):
 
 
 if __name__ == "__main__":
-	melt_down(meltPin=17, t_melt = 3.0)
+	melt_down(meltPin=17, t_melt = 5.0)

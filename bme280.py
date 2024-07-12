@@ -167,7 +167,7 @@ def bme280_csv():
 	writer = csv.writer(f)
 
 	try:
-		while True:
+		for i in range(500):
 			temp,pres,hum,alt = bme280_read()
 			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
 			writer.writerows([[time.time(),pres]])
@@ -177,6 +177,7 @@ def bme280_csv():
 		f.close()
 	except Exception as e:
 		print(e)
+		f.close()
 	
 if __name__ == '__main__':
 	#bme280_setup()

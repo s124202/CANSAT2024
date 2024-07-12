@@ -3,9 +3,10 @@ import time
 
 def main(send):
     bd_addr = "B8:27:EB:A9:5B:64" # サーバー側のデバイスアドレスを入力
-    port = 1       
+    port = 1
+    timeout = 0 
 
-    while True:
+    for i in range(10):
         try:
             sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
             sock.connect((bd_addr, port))
@@ -18,7 +19,13 @@ def main(send):
         except:
             print("try again")
             time.sleep(3)
+            if i == 9:
+                timeout = 1
+                break
             pass
+    if timeout == 1:
+        print("blt connect timeout")
+        exit()
 
     while True:
         try:

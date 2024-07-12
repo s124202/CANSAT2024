@@ -158,15 +158,17 @@ def bmx055_csv():
 	f = open(filename,"w")
 	writer = csv.writer(f)
 	try:
-		while True:
+		for i in range(500):
 			bmxData = bmx055_read()
 			print(bmxData)
 			writer.writerows([[time.time(),bmxData]])
 			time.sleep(0.8)
 	except KeyboardInterrupt:
 		print("\r\n")
+		f.close()
 	except Exception as e:
 		print(e)
+		f.close()
 
 
 if __name__ == '__main__':

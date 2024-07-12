@@ -111,6 +111,7 @@ if __name__ == '__main__':
 			l = float(input('左の出力は？'))
 			r = float(input('右の出力は？'))
 			t = float(input('移動時間は？'))
+			move(l,r,t)
 	except KeyboardInterrupt:
 		print("\r\n")
 	except Exception as e:

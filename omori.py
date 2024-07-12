@@ -348,7 +348,7 @@ def save_csv():
 if __name__ =="__main__":
 
 	bme280_setup()
-	bme280_calib_param
-	bmx055_setup
+	bme280_calib_param()
+	bmx055_setup()
 
 	save_csv()

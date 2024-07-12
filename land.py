@@ -7,6 +7,7 @@ import math
 
 import bme280
 import bmx055
+#import send.send as send
 
 #1機体での着地判定
 def land_main():

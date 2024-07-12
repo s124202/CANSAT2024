@@ -1,9 +1,9 @@
 #2024/07/10　sato
 #2024/07/10　shoji
+#2024/07/13 生川
 
 import para_avoidance
 import src.motor as motor
-#import stuck
 
 import bluetooth
 import threading

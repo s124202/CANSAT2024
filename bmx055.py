@@ -158,11 +158,11 @@ def bmx055_csv():
 	f = open(filename,"w")
 	writer = csv.writer(f)
 	try:
-		for i in range(300):
+		while True:
 			bmxData = bmx055_read()
 			print(bmxData)
 			writer.writerows([[time.time(),bmxData]])
-			time.sleep(0.1)
+			time.sleep(0.8)
 	except KeyboardInterrupt:
 		print("\r\n")
 	except Exception as e:
@@ -170,16 +170,16 @@ def bmx055_csv():
 
 
 if __name__ == '__main__':
-	bmx055_setup()
-	bmx055_csv()
-	#try:
-	#	bmx055_setup()
-	#	time.sleep(0.2)
-	#	while 1:
-	#		bmxData = bmx055_read()
-	#		print(bmxData)
-	#		time.sleep(2)
-	#except KeyboardInterrupt:
-	#	print("\r\n")
-	#except Exception as e:
-	#	print(e)
+	#bmx055_setup()
+	#bmx055_csv()
+	try:
+		bmx055_setup()
+		time.sleep(0.2)
+		while 1:
+			bmxData = bmx055_read()
+			print(bmxData)
+			time.sleep(0.8)
+	except KeyboardInterrupt:
+		print("\r\n")
+	except Exception as e:
+		print(e)

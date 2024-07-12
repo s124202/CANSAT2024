@@ -165,10 +165,10 @@ def bmx055_csv():
 			time.sleep(0.8)
 	except KeyboardInterrupt:
 		print("\r\n")
-		f.flush()
+		f.close()
 	except Exception as e:
 		print(e)
-		f.flush()
+		f.close()
 
 
 if __name__ == '__main__':

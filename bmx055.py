@@ -158,7 +158,7 @@ def bmx055_csv():
 	f = open(filename,"w")
 	writer = csv.writer(f)
 	try:
-		for i in range(5):
+		for i in range(500):
 			bmxData = bmx055_read()
 			print(bmxData)
 			writer.writerows([[time.time(),bmxData]])

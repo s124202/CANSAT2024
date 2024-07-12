@@ -99,7 +99,7 @@ def log(message):
     send_log(message)
 
     #change_mode3
-    mode3.mode3_change()
+    #mode3.mode3_change()
 
 
 if __name__ == "__main__":

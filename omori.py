@@ -313,37 +313,30 @@ def bmx055_read():
 	return 	value
 
 def save_csv():
+    bmx055_file = "bmx055_data_" + time.strftime("%m%d-%H%M") + ".csv"
+    bme280_file = "bme280_data_" + time.strftime("%m%d-%H%M") + ".csv"
+    
+    with open(bmx055_file,"w") as f_bmx, open(bme280_file,"w") as f_bme:
+        writer_bmx = csv.writer(f_bmx)
+        writer_bme = csv.writer(f_bme)
 
-	bmx055_file = "bmx055_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
-	bme280_file = "bme280_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
-	
-	f_bmx = open(bmx055_file,"w")
-	writer_bmx = csv.writer(f_bmx)
+        try:
+            for i in range(20):
+                bmxData = bmx055_read()
+                print(bmxData)
+                writer_bmx.writerows([[time.time(),bmxData]])
+                time.sleep(0.5)
 
-	f_bme = open(bme280_file,"w")
-	writer_bme = csv.writer(f_bme)
+                temp,pres,hum,alt = bme280_read()
+                print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
+                writer_bme.writerows([[time.time(),pres]])
+                time.sleep(0.5)
 
-	try:
-		for i in range(20):
-			bmxData = bmx055_read()
-			print(bmxData)
-			writer_bmx.writerows([[time.time(),bmxData]])
-			time.sleep(0.5)
+        except KeyboardInterrupt:
+            print("\\r\\n")
 
-			temp,pres,hum,alt = bme280_read()
-			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
-			writer_bme.writerows([[time.time(),pres]])
-			time.sleep(0.5)
-
-	except KeyboardInterrupt:
-		print("\r\n")
-		f_bmx.close()
-		f_bme.close()
-
-	except Exception as e:
-		print(e)
-		f_bmx.close()
-		f_bme.close()
+        except Exception as e:
+            print(e)
 
 if __name__ =="__main__":
 

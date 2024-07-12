@@ -13,7 +13,7 @@ import melt
 
 bme280.bme280_setup()
 bme280.bme280_calib_param()
-bmx055.bmx055_setup()
+#bmx055.bmx055_setup()
 motor.setup()
 #mode3.mode3_change()
 

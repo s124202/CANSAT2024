@@ -11,7 +11,7 @@ import bme280
 #1機体での着地判定
 def land_main():
 	time_start = time.time()
-	time_timeout = 180
+	time_timeout = 60
 
 	#閾値設定
 	LAND_PRESS_THD = 0.05

@@ -10,7 +10,7 @@ import bme280
 def release_main():
 
 	time_start = time.time()
-	time_timeout = 60
+	time_timeout = 180
 
 	#閾値設定
 	RELEASE_PRESS_THD = 0.1

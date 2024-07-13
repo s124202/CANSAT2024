@@ -6,7 +6,7 @@ import bme280
 #import bmx055
 import motor
 import blt_child
-import para_fall_test
+#import para_fall_test
 import melt
 import send.send2 as send
 #import send.mode3 as mode3

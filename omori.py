@@ -316,7 +316,7 @@ def save_csv():
 	bmx055_file = "bmx055_data_" + time.strftime("%m%d-%H%M") + ".csv"
 	bme280_file = "bme280_data_" + time.strftime("%m%d-%H%M") + ".csv"
 	
-	with open(bme280_file,"w") as f_bmx,open(bmx055_file,"w") as f_bmx:
+	with open(bme280_file,"w") as f_bme, open(bmx055_file,"w") as f_bmx:
 		writer_bmx = csv.writer(f_bmx)
 		writer_bme = csv.writer(f_bme)
 

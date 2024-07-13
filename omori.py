@@ -332,7 +332,7 @@ def save_csv():
 				print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
 				writer_bme.writerows([[time.time(),pres]])
 				f_bme.flush()
-				time.sleep(1)
+				time.sleep(0.5)
 
 		except KeyboardInterrupt:
 			print("\\r\\n")

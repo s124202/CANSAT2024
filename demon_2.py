@@ -14,6 +14,8 @@ bme280.bme280_calib_param()
 #bmx055.bmx055_setup()
 motor.setup()
 
+send.log("demon start")
+
 #着地判定
 land.land_main()
 time.sleep(1)

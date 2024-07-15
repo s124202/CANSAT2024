@@ -28,6 +28,7 @@ def main(timelimit=30):
             result = gps.location()
 
             #send
+
             send.log(str(result))
 
             #timeout

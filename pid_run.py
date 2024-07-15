@@ -398,8 +398,8 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
 
 if __name__ == "__main__":
 
-    lat_test = 35.918555999999995
-    lon_test = 139.907565
+    lat_test = 35.918315
+    lon_test = 139.9080775
 
     mode3.mode3_change()
     #lat_test,lon_test = gps.gps_med()

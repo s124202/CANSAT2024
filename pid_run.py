@@ -292,8 +292,8 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         #-----モータの出力-----#
 
         #直進補正分(m=0のとき直進するように設定するため)
-        s_r = 80
-        s_l = 80
+        s_r = 40
+        s_l = 40
 
         #モータ出力の最大値と最小値を設定
         m = min(m, 20)
@@ -398,8 +398,8 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
 
 if __name__ == "__main__":
 
-    lat_test = 35.918128
-    lon_test = 139.90803
+    lat_test = 35.918395
+    lon_test = 139.9085105
 
     mode3.mode3_change()
     #lat_test,lon_test = gps.gps_med()

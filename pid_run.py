@@ -199,8 +199,8 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
 
         #-----モータの出力-----#
 
-        m = min(m, 80)
-        m = max(m, -80)
+        m = min(m, 60)
+        m = max(m, -60)
 
         pwr_l = -m
         pwr_r = m

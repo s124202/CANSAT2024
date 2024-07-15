@@ -342,10 +342,10 @@ def location(reset_time=60):
 			time.sleep(1)
 
 			if time.time() - time_start > reset_time:
-				print("end_gps")
+				print("timeout_gps")
 				break
 	except KeyboardInterrupt:
-		print("\r\nKeyboard Intruppted, Serial Closed")
+		print("\r\nKeyboard Intruppted at location")
 	except:
 		print(traceback.format_exc())
 	finally:

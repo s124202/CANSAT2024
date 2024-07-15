@@ -414,7 +414,7 @@ if __name__ == "__main__":
     direction = calibration.calculate_direction(lon2=lon_test, lat2=lat_test)
     distance_to_goal = direction["distance"]
 
-    send.log("pid_run_start")
+    #send.log("pid_run_start")
     
     while True:
         lat_now, lon_now, distance_to_dest, rover_azimuth, isReach_dest = drive(lon_dest=lon_test, lat_dest=lat_test, thd_distance=THD_DISTANCE_DEST, t_cal=T_CAL, loop_num=LOOP_NUM)
@@ -423,8 +423,8 @@ if __name__ == "__main__":
 
         if isReach_dest == 1: #ゴール判定
             print('Goal')
-            send.log("end_gps_running")
+            #send.log("end_gps_running")
             break
         else:
             print("not_Goal", "distance=",distance_to_dest)
-            send.log("distance=" + str(distance_to_dest))
+            #send.log("distance=" + str(distance_to_dest))

@@ -32,8 +32,8 @@ def main(timelimit=30):
 
             #timeout
             if time.time() - time_start > timelimit:
-                print("timeout_sendProgram")
-                send.log("timeout_sendProgram")
+                print("\r\ntimeout_sendProgram")
+                send.log("\r\ntimeout_sendProgram")
                 break
 
     except KeyboardInterrupt:

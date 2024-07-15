@@ -1,4 +1,4 @@
-#2024/07/08 生川
+#2024/07/13 生川
 
 #standard
 import time
@@ -8,7 +8,7 @@ from collections import deque
 import src.gps as gps
 import src.bmx055 as bmx055
 import src.motor as motor
-from main_const import *
+from src.main_const import *
 
 #run
 import run.calibration as calibration

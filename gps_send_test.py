@@ -27,16 +27,8 @@ def main(timelimit=30):
             #Get Gps
             result = gps.location()
 
-            #sleep
-            print("wait 1sec...")
-            time.sleep(1)
-
             #send
             send.log(str(result))
-
-            #sleep
-            print("wait 1sec...")
-            time.sleep(1)
 
             #timeout
             if time.time() - time_start > timelimit:

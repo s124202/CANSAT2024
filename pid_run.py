@@ -304,9 +304,9 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         pwr_r = m + s_r
 
         #-----モータの操作-----#
-        motor.motor_move(pwr_l, pwr_r, 0.01)
+        motor.motor_move(pwr_l, pwr_r, 0.05)
 
-        time.sleep(0.24)
+        time.sleep(0.20)
 
         count += 1
 
@@ -366,8 +366,8 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
         lat_now, lon_now = gps.location()
         direction = gps_navigate.vincenty_inverse(lat_now, lon_now, lat_dest, lon_dest)
         distance_to_dest, target_azimuth = direction["distance"], direction["azimuth1"]
-        print(lat_now, lon_now)
-        print(distance_to_dest, target_azimuth)
+        print("緯度、経度 = ", lat_now, lon_now)
+        print("距離、角度 = ", distance_to_dest, target_azimuth)
 
         #-----スタックチェック-----#
         #if stuck_count % 25 == 0:

@@ -402,7 +402,7 @@ if __name__ == "__main__":
     lon_test = 139.9077175
 
     mode3.mode3_change()
-    lat_test,lon_test = gps.gps_med()
+    #lat_test,lon_test = gps.gps_med()
 
     #-----セットアップ-----#
     motor.setup()

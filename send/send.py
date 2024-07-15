@@ -94,6 +94,9 @@ def log(message):
     #change_mode0
     mode0.mode0_change()
 
+    #sleep
+    time.sleep(1)
+
     #send
     send_log(message)
 

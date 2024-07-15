@@ -211,7 +211,7 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
         #-----モータの操作-----#
         motor.motor_move(pwr_l, pwr_r, 0.01)
 
-        time.sleep(0.24)
+        time.sleep(0.4)
 
         #-----角度の取得-----#
         # magdata = bmx055.mag_dataRead()

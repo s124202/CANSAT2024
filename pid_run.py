@@ -292,12 +292,12 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         #-----モータの出力-----#
 
         #直進補正分(m=0のとき直進するように設定するため)
-        s_r = 75
-        s_l = 75
+        s_r = 80
+        s_l = 80
 
         #モータ出力の最大値と最小値を設定
-        m = min(m, 15)
-        m = max(m, -15)
+        m = min(m, 20)
+        m = max(m, -10)
 
         #モーター出力の決定
         pwr_l = -m + s_l

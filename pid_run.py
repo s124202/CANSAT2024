@@ -1,4 +1,4 @@
-#2024/07/13 生川
+#2024/07/15 生川
 
 #standard
 import time
@@ -17,7 +17,7 @@ import run.stuck as stuck
 
 #send
 import send.mode3 as mode3
-#import send.send as send
+import send.send as send
 
 #angle correction
 def standarize_angle(angle):
@@ -199,8 +199,8 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
 
         #-----モータの出力-----#
 
-        m = min(m, 40)
-        m = max(m, -40)
+        m = min(m, 5)
+        m = max(m, -5)
 
         pwr_l = -m
         pwr_r = m
@@ -306,7 +306,7 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         #-----モータの操作-----#
         motor.motor_move(pwr_l, pwr_r, 0.01)
 
-        time.sleep(0.04)
+        time.sleep(0.24)
 
         count += 1
 
@@ -401,8 +401,8 @@ if __name__ == "__main__":
     lat_test = 35.918435
     lon_test = 139.9077175
 
-    #mode3.mode3_change()
-    #lat_test,lon_test = gps.gps_med()
+    mode3.mode3_change()
+    lat_test,lon_test = gps.gps_med()
 
     #-----セットアップ-----#
     motor.setup()
@@ -414,18 +414,17 @@ if __name__ == "__main__":
     direction = calibration.calculate_direction(lon2=lon_test, lat2=lat_test)
     distance_to_goal = direction["distance"]
 
-    #send.log("pid_run_start")
+    send.log("pid_run_start")
     
     while True:
         lat_now, lon_now, distance_to_dest, rover_azimuth, isReach_dest = drive(lon_dest=lon_test, lat_dest=lat_test, thd_distance=THD_DISTANCE_DEST, t_cal=T_CAL, loop_num=LOOP_NUM)
         
-        #print('isReach_dest = ', isReach_dest)
-            
+        print('isReach_dest = ', isReach_dest)
+
         if isReach_dest == 1: #ゴール判定
             print('Goal')
-            #send.log("end_gps_running")
+            send.log("end_gps_running")
             break
-        #else:
-        #    print("not_Goal", "distance=",distance_to_dest)
-        #    send.log("distance=")
-        #    send.log(str(distance_to_dest))
+        else:
+            print("not_Goal", "distance=",distance_to_dest)
+            send.log("distance=" + str(distance_to_dest))

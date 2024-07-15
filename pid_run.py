@@ -340,7 +340,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
     time.sleep(1)
     print("ready")
     time.sleep(3)
-    magx_off, magy_off = calibration.cal(40,-40,3)
+    magx_off, magy_off = calibration.cal(80,-80,3)
 
     #-----目標地点への角度を取得-----#
     direction = calibration.calculate_direction(lon2=lon_dest, lat2=lat_dest)

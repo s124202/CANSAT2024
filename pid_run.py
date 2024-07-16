@@ -180,7 +180,7 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
         #    print('Stuck Avoid')
         #    stuck.stuck_avoid()
 
-        if count < 25:
+        if count < 15:
             Ki = 0
             Kd = Kd_
         else:
@@ -296,17 +296,17 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         s_l = 40
 
         #モータ出力の最大値と最小値を設定
-        m = min(m, 20)
-        m = max(m, -10)
+        m = min(m, 15)
+        m = max(m, -15)
 
         #モーター出力の決定
         pwr_l = -m + s_l
         pwr_r = m + s_r
 
         #-----モータの操作-----#
-        motor.motor_move(pwr_l, pwr_r, 0.05)
+        motor.motor_move(pwr_l, pwr_r, 0.01)
 
-        time.sleep(0.05)
+        time.sleep(0.04)
 
         count += 1
 
@@ -334,13 +334,9 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
     #-----初期設定-----#
     #stuck_count = 1
     isReach_dest = 0
-    #control = 0
 
     #-----キャリブレーション-----#
-    time.sleep(1)
-    print("ready")
-    time.sleep(3)
-    magx_off, magy_off = calibration.cal(80,-80,30)
+    magx_off, magy_off = calibration.cal(80,-80,40)
 
     #-----目標地点への角度を取得-----#
     direction = calibration.calculate_direction(lon2=lon_dest, lat2=lat_dest)
@@ -366,8 +362,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
         lat_now, lon_now = gps.location()
         direction = gps_navigate.vincenty_inverse(lat_now, lon_now, lat_dest, lon_dest)
         distance_to_dest, target_azimuth = direction["distance"], direction["azimuth1"]
-        print("緯度、経度 = ", lat_now, lon_now)
-        print("距離、角度 = ", distance_to_dest, target_azimuth)
+        print("距離 = ", distance_to_dest)
 
         #-----スタックチェック-----#
         #if stuck_count % 25 == 0:
@@ -401,9 +396,6 @@ if __name__ == "__main__":
     lat_test = 35.918315
     lon_test = 139.9080775
 
-    mode3.mode3_change()
-    #lat_test,lon_test = gps.gps_med()
-
     #-----セットアップ-----#
     motor.setup()
     bmx055.bmx055_setup()
@@ -414,7 +406,7 @@ if __name__ == "__main__":
     direction = calibration.calculate_direction(lon2=lon_test, lat2=lat_test)
     distance_to_goal = direction["distance"]
 
-    #send.log("pid_run_start")
+    send.log("pid_run_start")
     
     while True:
         lat_now, lon_now, distance_to_dest, rover_azimuth, isReach_dest = drive(lon_dest=lon_test, lat_dest=lat_test, thd_distance=THD_DISTANCE_DEST, t_cal=T_CAL, loop_num=LOOP_NUM)
@@ -423,8 +415,8 @@ if __name__ == "__main__":
 
         if isReach_dest == 1: #ゴール判定
             print('Goal')
-            #send.log("end_gps_running")
+            send.log("end_gps_running")
             break
         else:
             print("not_Goal", "distance=",distance_to_dest)
-            #send.log("distance=" + str(distance_to_dest))
+            send.log("distance=" + str(distance_to_dest))

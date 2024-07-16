@@ -98,7 +98,7 @@ def log(message):
     time.sleep(1)
 
     #send
-    send_log("\r\n" + message)
+    send_log(message + "\r\n")
 
     #change_mode3
     mode3.mode3_change()

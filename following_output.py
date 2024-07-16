@@ -119,7 +119,7 @@ def main_detect():
         # フレームを取得
         ret, frame = cap.read()
         frame = cv2.resize(frame, (640,640))
-        frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
+        frame = cv2.rotate(frame, cv2.ROTATE_180)
 
         # 赤色検出
         mask = red_detect(frame)
@@ -139,18 +139,19 @@ def main_detect():
         
         #-100 ~ 100 の範囲で設定
         strength = (int(center[0]) - 320) / 3.2
+        strength = strength / 5
 
-        if size < 10000:
-             default = 80
+        if size < 2000:
+             default = 70
 
-        elif size < 30000:
+        elif size < 5000:
              default = 50
 
         else:
              default = 20
         
-        strength_l = default + strength / 5
-        strength_r = default - strength / 5
+        strength_l = default + strength
+        strength_r = default - strength
 
         # 結果表示
         cv2.imshow("Frame", frame)

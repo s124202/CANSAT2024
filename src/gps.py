@@ -355,5 +355,6 @@ def location(reset_time=60):
 
 
 if __name__ == '__main__':
-	a,b = gps_med()
-	print(a,b)
+	gps_main()
+	#a,b = gps_med()
+	#print(a,b)

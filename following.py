@@ -6,16 +6,54 @@ import numpy as np
 import threading
 import bluetooth
  
-def blt(state):
-    bd_addr = "B8:27:EB:1B:C5:BF"
+def blt():
+    global send
+    global receive
+    global synchro
+
+    bd_addr = "B8:27:EB:1B:C5:BF" # サーバー側のデバイスアドレスを入力
     port = 1
+    while True:
+        send = 0
+        receive = "0"
+        synchro = 0
+        
+        while True:
+            try:
+                sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+                sock.connect((bd_addr, port))
+                sock.settimeout(10)
+                print("connect success")
+                break
+            except KeyboardInterrupt:
+                print("finish")
+                break
+            except:
+                print("try again")
+                time.sleep(3)
+                pass
 
-    sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-    sock.connect((bd_addr, port))
+        while True:
+            if synchro == 1:
+                print("synchro")
+                break
+            try:
+                time.sleep(1)
+                sock.send(str(send))
+                data = sock.recv(1024)
+                receive = data.decode()
+                print(receive)
+            except KeyboardInterrupt:
+                print("finish")
+                break
+            except bluetooth.btcommon.BluetoothError as err:
+                print("close")
+                break
 
-    sock.send(str(state))
-    
-    sock.close()
+        sock.close()
+        if synchro == 1:
+            break
+        print("try reconnect")
 
 def motor_setup():
 	"""

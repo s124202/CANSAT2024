@@ -113,7 +113,7 @@ def test():
 			#t = float(input('移動時間は？'))
 			l = 10
 			r = 10
-			t = 20
+			t = 30
 			move(l,r,t)
 	except KeyboardInterrupt:
 		print("\r\n")

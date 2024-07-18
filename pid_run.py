@@ -336,6 +336,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
     isReach_dest = 0
 
     #-----キャリブレーション-----#
+    print("--calibration--")
     magx_off, magy_off = calibration.cal(80,-80,40)
 
     #-----目標地点への角度を取得-----#
@@ -362,7 +363,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
         lat_now, lon_now = gps.location()
         direction = gps_navigate.vincenty_inverse(lat_now, lon_now, lat_dest, lon_dest)
         distance_to_dest, target_azimuth = direction["distance"], direction["azimuth1"]
-        print("距離 = ", distance_to_dest)
+        print("距離 : ", distance_to_dest)
 
         #-----スタックチェック-----#
         #if stuck_count % 25 == 0:
@@ -399,6 +400,7 @@ if __name__ == "__main__":
     #-----セットアップ-----#
     motor.setup()
     bmx055.bmx055_setup()
+    mode3.mode3_change()
 
     #-----初期設定-----#
     theta_differential_array = []

@@ -127,8 +127,8 @@ if __name__ == '__main__':
 			#l = float(input('左の出力は？'))
 			#r = float(input('右の出力は？'))
 			#t = float(input('移動時間は？'))
-			l = 40
-			r = 40
+			l = 30
+			r = 30
 			t = 20
 			move(l,r,t)
 	except KeyboardInterrupt:

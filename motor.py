@@ -111,8 +111,8 @@ def test():
 			#l = float(input('左の出力は？'))
 			#r = float(input('右の出力は？'))
 			#t = float(input('移動時間は？'))
-			l = 5
-			r = 5
+			l = 10
+			r = 10
 			t = 20
 			move(l,r,t)
 	except KeyboardInterrupt:

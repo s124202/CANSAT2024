@@ -26,25 +26,28 @@ def main(lat_target = 35.918468,lon_target = 139.90712):
     try:
         while True:
             #gps_get
-            lat_now,lon_now = gps.gps_float()
+            lat_now,lon_now = gps.location()
             print("現在")
             print("緯度：" + str(lat_now) + "\t" + "経度：" + str(lon_now))
+            send.log(str(lat_now))
+            send.log(str(lon_now))
 
             #距離取得
             distance = gps_navigate.vincenty_inverse(lat_now, lon_now, lat_target, lon_target)
             distance_to_target = distance["distance"]
             print("目標値までの距離：" + str(distance_to_target))
+            send.log(str(distance_to_target))
 
             #判定
-            if distance_to_target < distance_thd:
-                count += 1
-
-                if count > 2:
-                    print("5m以内に到達")
-                    break
-
-            else: 
-                count = 0
+            #if distance_to_target < distance_thd:
+            #    count += 1
+#
+            #    if count > 2:
+            #        print("5m以内に到達")
+            #        break
+#
+            #else: 
+            #    count = 0
 
             time.sleep(1)
     
@@ -54,15 +57,9 @@ def main(lat_target = 35.918468,lon_target = 139.90712):
 
 if __name__ == '__main__':
     mode3.mode3_change()
-    lat_target1,lon_target1 = gps.gps_float()
+    lat_target1,lon_target1 = gps.location()
     print("wait 3sec...")
     send.log(str(lat_target1))
     send.log(str(lon_target1))
-    time.sleep(3)
-    main(lat_target1,lon_target1)
-    print("wait 3sec...")
-    time.sleep(3)
-    send.log("finish")
     time.sleep(1)
-    #send.log("2024/07/11")
-    #send.log("goal_detection")
+    main(lat_target1,lon_target1)

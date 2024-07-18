@@ -50,7 +50,7 @@ def main(lat_target = 35.918468,lon_target = 139.90712):
             #    count = 0
 
             time.sleep(1)
-    
+
     except KeyboardInterrupt:
         print("key_interrupt")
 
@@ -58,7 +58,7 @@ def main(lat_target = 35.918468,lon_target = 139.90712):
 if __name__ == '__main__':
     mode3.mode3_change()
     lat_target1,lon_target1 = gps.location()
-    print("wait 3sec...")
+    send.log("target address")
     send.log(str(lat_target1))
     send.log(str(lon_target1))
     time.sleep(1)

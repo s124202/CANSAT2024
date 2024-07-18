@@ -29,14 +29,12 @@ def main(lat_target = 35.918468,lon_target = 139.90712):
             lat_now,lon_now = gps.location()
             print("現在")
             print("緯度：" + str(lat_now) + "\t" + "経度：" + str(lon_now))
-            send.log(str(lat_now))
-            send.log(str(lon_now))
 
             #距離取得
             distance = gps_navigate.vincenty_inverse(lat_now, lon_now, lat_target, lon_target)
             distance_to_target = distance["distance"]
             print("目標値までの距離：" + str(distance_to_target))
-            send.log(str(distance_to_target))
+            send.log(str(lat_now) + "," + str(lon_now) + "," + str(distance_to_target))
 
             #判定
             #if distance_to_target < distance_thd:
@@ -59,7 +57,6 @@ if __name__ == '__main__':
     mode3.mode3_change()
     lat_target1,lon_target1 = gps.location()
     send.log("target address")
-    send.log(str(lat_target1))
-    send.log(str(lon_target1))
+    send.log(str(lat_target1) + "," + str(lon_target1))
     time.sleep(1)
     main(lat_target1,lon_target1)

@@ -13,27 +13,20 @@ import send.mode3 as mode3
 
 
 def main():
-    #change_mode3
-    #mode3.mode3_change()
-
     #Get_Gps
-    result = gps.location()
-    print("gps:", result)
-
-    #change_mode0
-    #mode0.mode0_change()
-
-    #sleep
-    #print("wait 3sec...")
-    #time.sleep(3)
+    lat,lon = gps.location()
+    print("lat:", lat)
+    print("lon:", lon)
 
     #send
-    send.send_log(str(result))
+    send.log(str(lat))
+    send.log(str(lon))
 
     #sleep
-    print("wait 1sec...")
     time.sleep(1)
 
 if __name__ == '__main__':
+    mode3.mode3_change()
+    send.log("program start")
     while True:
         main()

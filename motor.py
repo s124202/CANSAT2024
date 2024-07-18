@@ -104,13 +104,32 @@ def motor_test(strength_l=10, strength_r=10, t_moving=10):
 	else:
 		deceleration(strength_l, strength_r)
 
+def test():
+	setup()
+	try:
+		while True:
+			#l = float(input('左の出力は？'))
+			#r = float(input('右の出力は？'))
+			#t = float(input('移動時間は？'))
+			l = 40
+			r = 40
+			t = 20
+			move(l,r,t)
+	except KeyboardInterrupt:
+		print("\r\n")
+	except Exception as e:
+		print(e)
+
 if __name__ == '__main__':
 	setup()
 	try:
 		while True:
-			l = float(input('左の出力は？'))
-			r = float(input('右の出力は？'))
-			t = float(input('移動時間は？'))
+			#l = float(input('左の出力は？'))
+			#r = float(input('右の出力は？'))
+			#t = float(input('移動時間は？'))
+			l = 40
+			r = 40
+			t = 20
 			move(l,r,t)
 	except KeyboardInterrupt:
 		print("\r\n")

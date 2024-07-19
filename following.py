@@ -203,14 +203,14 @@ def main_detect():
              lose = 0
         
         if size is None:
-             size = 1000
+             size = 100000
 
         oldsize = size
         
         #-100 ~ 100 の範囲で設定
         strength = (int(center[0]) - 320) / 3.2
     
-        strength = strength / 7
+        strength = strength / 13
 
         if size < 2000:
              default_l = 28

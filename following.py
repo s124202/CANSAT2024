@@ -213,13 +213,13 @@ def main_detect():
              default = 30
 
         elif size < 6000:
-             default = 20
+             default = 25
 
         elif size > 20000:
             default = 5
-            
+
         else:
-             default = 10
+             default = 30
         
         strength_l = default + strength
         strength_r = default - strength

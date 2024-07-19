@@ -88,6 +88,11 @@ def motor_move():
         motor_r.backward(abs(local_strength_r))
         motor_l.backward(abs(local_strength_l))
         time.sleep(t_moving)
+    else:
+        motor_r.forward(0.01)
+        motor_l.forward(0.01)
+        time.sleep(t_moving)
+
 
 def motor_stop(x=1):
 	"""

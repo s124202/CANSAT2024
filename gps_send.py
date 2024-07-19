@@ -47,13 +47,13 @@ def loop(lat_target = 35.918468,lon_target = 139.90712):
 def test():
     #target
     mode3.mode3_change()
-    lat_target1,lon_target1 = gps.location()
+    lat_target,lon_target = gps.location()
     send.log("target address")
-    send.log(str(lat_target1) + "," + str(lon_target1))
+    send.log(str(lat_target) + "," + str(lon_target))
 
     #main
     send.log("main start")
-    loop(lat_target1,lon_target1)
+    loop(lat_target,lon_target)
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-#2024/07/08 生川
+#2024/07/19 生川
 
 #standard
 import math
@@ -8,23 +8,10 @@ import numpy as np
 import traceback
 import csv
 
+
+#init
 RX = 15
 pi = None
-
-#ELLIPSOID_GRS80 = 1  # GRS80
-#ELLIPSOID_WGS84 = 2  # WGS84
-#
-## Long Axis Radius and Flat Rate
-#GEODETIC_DATUM = {
-#	ELLIPSOID_GRS80: [
-#		6378137.0,         # [GRS80] Long Axis Radius
-#		1 / 298.257222101,  # [GRS80] Flat Rate
-#	],
-#	ELLIPSOID_WGS84: [
-#		6378137.0,         # [WGS84] Long Axis Radius
-#		1 / 298.257223563,  # [WGS84] Flat Rate
-#	],
-#}
 
 
 def open_gps():

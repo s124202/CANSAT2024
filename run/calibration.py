@@ -154,6 +154,7 @@ def cal(l, r, n):
     return magx_off, magy_off
 
 
+#手動キャリブレーション
 def cal2():
     magdata = magdata_matrix_hand()
     _, _, _, magx_off, magy_off, _ = calculate_offset(magdata)
@@ -181,78 +182,15 @@ def angle(magx, magy, magx_off=0, magy_off=0):
     elif magx - magx_off > 0 and magy - magy_off < 0:  # Fourth quadrant
         theta = theta + 360  # 270 <= theta <= 360
 
-        
-
     theta += 180 #センサの傾きを考慮する場合？？
     theta  = theta % 360
 
     return theta
 
 
-def calculate_direction(lon2, lat2):
-    # --- read gps data ---#
-    try:
-        gps.open_gps()
-        utc, lat, lon, sHeight, gHeight = gps.gps_data_read()
-        lat1 = lat
-        lon1 = lon
-    except KeyboardInterrupt:
-        gps.close_gps()
-        print("\r\nKeyboard Intruppted, Serial Closed")
-    except:
-        gps.close_gps()
-        print(traceback.format_exc())
-    # --- calculate angle to goal ---#
-    direction = gps_navigate.vincenty_inverse(lat1, lon1, lat2, lon2)
-    return direction
-
-
 if __name__ == "__main__":
     
-    #n = int(input("motor？"))
+    n = int(input("motor？"))
     motor.setup()
     bmx055.bmx055_setup()
-    magx_off, magy_off = cal2()
-    # print(magx_off, magy_off)
-
-    # magdata = magdata_matrix_hand()
-    # _, _, _, magx_off, magy_off, _ = calculate_offset(magdata)
-    # print(magx_off, magy_off)
-    # print(type(magx_off))
-    # while 1:
-    #     # magx, magy, magz = get_data_offset(magx_off, magy_off, 0)
-    #     magx, magy, magz = bmx055.mag_dataRead()
-    #     angle_ = angle(magx, magy, magx_off, magy_off)
-    #     print(angle_)
-    #     time.sleep(0.5)
-        
-    # try:
-    #     r = float(input('右の出力は？'))
-    #     l = float(input('左の出力は？'))
-    #     t = float(input('一回の回転時間は？'))
-    #     # n = int(input("取得するデータ数は？"))
-    #     # --- setup ---#
-    #     mag.bmc050_setup()
-    #     t_start = time.time()
-    #     # --- calibration ---#
-    #     magdata_Old = magdata_matrix(l, r, t)
-    #     # --- calculate offset ---#
-    #     magx_array_Old, magy_array_Old, magz_array_Old, magx_off, magy_off, magz_off = calculate_offset(
-    #         magdata_Old)
-    #     time.sleep(0.1)
-    #     # ----Take magnetic data considering offset----#
-    #     magdata_new = magdata_matrix_offset(
-    #         l, r, t, magx_off, magy_off, magz_off)
-    #     magx_array_new = magdata_new[:, 0]
-    #     magy_array_new = magdata_new[:, 1]
-    #     magz_array_new = magdata_new[:, 2]
-    #     for i in range(len(magx_array_new)):
-    #         other.log(
-    #             path_log, magx_array_Old[i], magy_array_Old[i], magx_array_new[i], magy_array_new[i])
-    #     print_xbee("success")
-
-    # except KeyboardInterrupt:
-    #     print_xbee("Interrupted")
-
-    # finally:
-    #     print_xbee("End")
+    magx_off, magy_off = cal(n,-n,40)

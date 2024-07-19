@@ -254,6 +254,8 @@ def main_detect():
         if cv2.waitKey(25) & 0xFF == ord('q'):
             break
 
+        time.sleep(0.05)
+
     cap.release()
     cv2.destroyAllWindows()
 

@@ -127,7 +127,7 @@ def move():
     while True:
         motor_move()
         time_finish = time.time()
-        if time_finish - time_start > 30:
+        if time_finish - time_start > 60:
             break
     
     deceleration()

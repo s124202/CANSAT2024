@@ -47,6 +47,34 @@ def ue_jug():
             ue_count += 1
 
 
+def yoko_jug():
+    yoko_count = 0
+    
+    #ローバーの状態を確認する関数
+    #加速度センサX軸の正負で判定するよ
+    
+    while 1:
+        x_array = []
+        for i in range(3):
+            accdata = bmx055.acc_dataRead()
+            x_array.append(abs(accdata[0]))
+            time.sleep(0.2)
+        x = max(x_array)
+        
+        if x < 3:
+            print('正常だよ')
+            break
+        else:
+            print(f'横だよ{yoko_count}')
+            print(f'abs(acc): {x}')
+            if yoko_count % 2 == 0:
+                motor.move(30, -30, 3)
+            else:
+                motor.move(-30, 30, 3)
+            time.sleep(2)
+            yoko_count += 1
+
+
 def stuck_jug(lat1, lon1, lat2, lon2, thd=1.0):
     data_stuck = gps_navigate.vincenty_inverse(lat1, lon1, lat2, lon2)
     if data_stuck['distance'] <= thd:

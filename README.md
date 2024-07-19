@@ -41,11 +41,44 @@
     - 引数
         - magx : 現在のx軸方向の地磁気
         - magy : 現在のy軸方向の地磁気
-        - magx_off : x軸方向の地磁気オフセット（デフォルト0）
-        - magy_off : y軸方向の地磁気オフセット（デフォルト0）
+        - magx_off : x軸方向の地磁気オフセット（デフォルト 0）
+        - magy_off : y軸方向の地磁気オフセット（デフォルト 0）
     - 返り値
         - theta : ローバーが向いてる方位角
 
 ## run/gps_navigate.py
+- vincenty_inverse(lat1, lon1, lat2, lon2, ellipsoid=None) : 目的地までの距離取得
+    - 引数
+        - lat1 : 始点の緯度
+        - lon1 : 始点の経度
+        - lat2 : 終点の緯度
+        - lon2 : 終点の経度
+        - ellipsoid : 楕円体（デフォルト None）
+    - 返り値
+        - 'distance' : 距離
+        - 'azimuth1' : 方位角（始点>終点）
+        - 'azimuth2' : 方位角（終点>始点）
 
 ## run/stuck.py
+- ue_ jug() : ローバーの状態を確認
+    - 引数：なし
+    - 返り値：なし
+    - 補足
+        - 向きが正常ならそのまま抜ける
+        - 向きが上下逆なら戻す方向にモーターを回す
+
+- stuck_jug(lat1, lon1, lat2, lon2, thd=1.0) : スタック判定用
+    - 引数
+        - lat1 : 始点の緯度
+        - lon1 : 始点の経度
+        - lat2 : 終点の緯度
+        - lon2 : 終点の経度
+        - thd : しきい値（デフォルト 1.0）
+    - 返り値
+        - bool : スタック判定でFalse
+
+- stuck_avoid()
+    - 引数 : なし
+    - 返り値 : なし
+    - 補足
+        - 

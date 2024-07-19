@@ -200,15 +200,15 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
 
         #-----モータの出力-----#
         if m < 0:
-            if abs(m) < 50:
-                m = -50
+            if abs(m) < 30:
+                m = -30
             elif abs(m) > 60:
                 m = -60
             else:
                 pass
         else:
-            if m < 50:
-                m = 50
+            if m < 30:
+                m = 30
             elif m > 60:
                 m = 60
             else:

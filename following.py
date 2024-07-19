@@ -213,22 +213,26 @@ def main_detect():
         strength = strength / 7
 
         if size < 2000:
-             default = 30
+             default_l = 30
+             default_r = 40
 
         elif size < 4000:
-             default = 25
+             default_l = 25
+             default_r = 35
 
         elif size < 6000:
-             default = 20
+             default_l = 20
+             default_r = 30
 
         elif size < 20000:
-            default = 5
+            default_l = 5
+            default_r = 5
 
         else:
-             default = 0
+             default_l = 0
         
-        strength_l = default + strength
-        strength_r = default - strength
+        strength_l = default_l + strength
+        strength_r = default_r - strength
 
         old_center = center
 

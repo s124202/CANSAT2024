@@ -63,7 +63,7 @@ def PD_control(theta, theta_array: list, Kp=0.1, Kd=2.5):
     return m
 
 
-def PD_run(s_l=35, s_r=35, loop_num = 20):
+def PD_run(s_l=35, s_r=35):
     #const
     Kp = 0.4
     Kd = 3
@@ -71,24 +71,22 @@ def PD_run(s_l=35, s_r=35, loop_num = 20):
     #init
     theta_array = [0]*5
 
-    for _ in range(loop_num):
-        #theta
-        error_theta = 1 #ここ要調整
-        theta_array = latest_theta_array(error_theta, theta_array)
+    #theta
+    error_theta = 1 #ここ要調整
+    theta_array = latest_theta_array(error_theta, theta_array)
 
-        #PD
-        m = PD_control(error_theta, theta_array, Kp, Kd)
+    #PD
+    m = PD_control(error_theta, theta_array, Kp, Kd)
 
-        #motor
-        #max,min
-        m = min(m, 5)
-        m = max(m, -5)
+    #m調整
+    m = min(m, 5)
+    m = max(m, -5)
 
-        #モーター出力の決定
-        pwr_l = -m + s_l
-        pwr_r = m + s_r
+    #モーター出力の決定
+    pwr_l = -m + s_l
+    pwr_r = m + s_r
 
-        return pwr_l,pwr_r
+    return pwr_l,pwr_r
 
 
 if __name__ == "__main__":
@@ -100,7 +98,7 @@ if __name__ == "__main__":
     s_l = 45
 
     #PD制御でモーターの出力を得る
-    pwr_l,pwr_r = PD_control(s_l, s_r, loop_num=20)
+    pwr_l,pwr_r = PD_control(s_l, s_r)
 
     motor.motor_move(pwr_l, pwr_r, 0.01)
     time.sleep(0.04)

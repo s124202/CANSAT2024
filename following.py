@@ -216,6 +216,7 @@ def main_detect():
         strength = (int(center[0]) - 320) / 3.2
     
         strength = strength / 10
+        print(strength)
 
         if size < 2000:
              default_l = 24

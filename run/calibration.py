@@ -97,26 +97,6 @@ def magdata_matrix_hand():
     return magdata
 
 
-def magdata_matrix_offset(l, r, t, magx_off, magy_off, magz_off):
-    """
-        オフセットを考慮したデータセットを取得するための関数
-        """
-    try:
-        magx, magy, magz = get_data_offset(magx_off, magy_off, magz_off)
-        magdata = np.array([[magx, magy, magz]])
-        for _ in range(20):
-            motor(l, r, t)
-            magx, magy, magz = get_data_offset(magx_off, magy_off, magz_off)
-            # --- multi dimension matrix ---#
-            magdata = np.append(magdata, np.array(
-                [[magx, magy, magz]]), axis=0)
-    except KeyboardInterrupt:
-        print('Interrupt') #log
-    except Exception as e:
-        print(e.message()) #log
-    return magdata
-
-
 def calculate_offset(magdata):
     """
     オフセットを計算する関数

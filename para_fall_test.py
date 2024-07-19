@@ -12,7 +12,6 @@ stuck.correct_posture()
 #print("Improving the rover's posture")
 #stuck.correct_posture()
 
-
 print("#####-----Parachute Avoid Sequence: Start-----#####")
 
 print("Para Avoid Start")

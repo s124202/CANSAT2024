@@ -19,19 +19,10 @@ def detect_red(img):
 
 	return mask
 
-#def get_larger_red_object(mask):
-#	# 最小領域の設定
-#	minarea = 50
-#	nlabels, labels, stats, centroids = cv2.connectedComponentsWithStats(mask)
-#	if nlabels > 1:
-#		largest_label = 1 + np.argmax(stats[1:, cv2.CC_STAT_AREA])
-#		center = centroids[largest_label]
-#		size = stats[largest_label,cv2.CC_STAT_AREA]
-#		if size > minarea:
-#			return center, size
-#		return None, 0
-#	else:
-#		return None, 0
+def mosaic(img, ratio):
+	small_img = cv2.resize(img, None, fx=ratio, fy=ratio, interpolation=cv2.INTER_NEAREST)
+	
+	return cv2.resize(small_img, img.shape[:2][::-1], interpolation=cv2.INTER_NEAREST)
 
 def get_max_contour(mask, img):
 	try:
@@ -56,13 +47,86 @@ def get_para_area(max_contour):
 
 	return area
 
-def detect_red():
+def get_center(mask, original_img):
+	try:
+		contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+		
+		#最大の輪郭を抽出
+		max_contour = max(contours, key = cv2.contourArea)
+
+		#最大輪郭の重心を求める
+		# 重心の計算
+		m = cv2.moments(max_contour)
+		cx,cy= m['m10']/m['m00'] , m['m01']/m['m00']
+		# print(f"Weight Center = ({cx}, {cy})")
+		# 座標を四捨五入
+		cx, cy = round(cx), round(cy)
+		# 重心位置に x印を書く
+		cv2.line(original_img, (cx-5,cy-5), (cx+5,cy+5), (0, 255, 0), 2)
+		cv2.line(original_img, (cx+5,cy-5), (cx-5,cy+5), (0, 255, 0), 2)
+
+		cv2.drawContours(original_img, [max_contour], -1, (0, 255, 0), thickness=2)
+
+	except:
+		max_contour = 0
+		cx = 0
+		cy = 0
+	
+	return original_img, max_contour, cx, cy
+
+def get_angle(cx, cy, original_img):
+	angle = 0
+	#重心から現在位置とゴールの相対角度を大まかに計算
+	img_width = original_img.shape[1]
+	quat_width = img_width / 5
+	x0, x1, x2, x3, x4, x5 = 0, quat_width, quat_width*2, quat_width*3, quat_width*4, quat_width*5
+
+	if x0 < cx <x1:
+		angle = 1
+	elif x1 < cx < x4:
+		angle = 2
+	elif x4 < cx < x5:
+		angle = 3
+
+	return angle
+
+def get_area(max_contour, original_img):
+    try:
+        #輪郭の面積を計算
+        area = cv2.contourArea(max_contour)
+        img_area = original_img.shape[0] * original_img.shape[1] #画像の縦横の積
+        area_ratio = area / img_area * 100 #面積の割合を計算
+        if area_ratio < 0.1:
+            area_ratio = 0.0
+        # print(f"Area ratio = {area_ratio:.1f}%")
+    except:
+        area_ratio = 0
+
+    return area_ratio
+
+#def get_larger_red_object(mask):
+#	# 最小領域の設定
+#	minarea = 50
+#	nlabels, labels, stats, centroids = cv2.connectedComponentsWithStats(mask)
+#	if nlabels > 1:
+#		largest_label = 1 + np.argmax(stats[1:, cv2.CC_STAT_AREA])
+#		center = centroids[largest_label]
+#		size = stats[largest_label,cv2.CC_STAT_AREA]
+#		if size > minarea:
+#			return center, size
+#		return None, 0
+#	else:
+#		return None, 0
+
+def detect_para_movie():
 	# カメラのキャプチャ
 	cap = cv2.VideoCapture(0)
 
 	while(cap.isOpened()):
 		# フレームを取得
 		ret, frame = cap.read()
+
+		frame = mosaic(frame, ratio=0.8)
 
 		# 赤色検出
 		mask = detect_red(frame)
@@ -73,6 +137,7 @@ def detect_red():
 		frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)   #カメラ表示を90度回転
 
 		red_area = get_para_area(max_contour)
+		#print(red_area)
 
 		cv2.putText(frame, str(int(red_area)), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
@@ -87,5 +152,50 @@ def detect_red():
 	cap.release()
 	cv2.destroyAllWindows()
 
+def detect_para():
+	# カメラのキャプチャ
+	cap = cv2.VideoCapture(0)
+
+	# フレームを取得
+	ret, frame = cap.read()
+
+	#画像を圧縮
+	frame = mosaic(frame, ratio=0.8)
+
+	# 赤色検出
+	mask = detect_red(frame)
+
+	frame, max_contour = get_max_contour(mask, frame)
+
+	frame = cv2.resize(frame, (640,640))
+	frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)   #カメラ表示を90度回転
+
+	red_area = get_para_area(max_contour)
+
+	return red_area
+
+def detect_goal():
+	# カメラのキャプチャ
+	cap = cv2.VideoCapture(0)
+
+	# フレームを取得
+	ret, frame = cap.read()
+
+	#画像を圧縮
+	frame = mosaic(frame, ratio=0.8)
+	
+	# 赤色検出
+	mask = detect_red(frame)
+
+	original_img, max_contour, cx, cy = get_center(mask, frame)
+
+	#赤が占める割合を求める
+	area_ratio = get_area(max_contour, original_img)
+
+	#重心から現在位置とゴールの相対角度を大まかに計算
+	angle = get_angle(cx, cy, original_img)
+	
+	return area_ratio, angle
+
 if __name__ == '__main__':
-    detect_red()
+	detect_para_movie()

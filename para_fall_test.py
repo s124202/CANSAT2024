@@ -1,5 +1,3 @@
-import time
-
 import para_avoidance
 import motor
 import stuck
@@ -17,7 +15,7 @@ check_count = 0 #パラ回避用のカウンター
 red_area = 0
 PARA_THD_COVERED = 69120*0.7
 
-red_area = para_avoidance.detect_para()
+red_area = para_avoidance.detect_red()
 
 if red_area > PARA_THD_COVERED:
     print("Parachute on top")

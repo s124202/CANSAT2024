@@ -207,16 +207,16 @@ def main_detect():
         #-100 ~ 100 の範囲で設定
         strength = (int(center[0]) - 320) / 3.2
     
-        strength = strength / 10
+        strength = strength / 20
 
         if size < 2000:
-             default = 30
+             default = 20
 
         elif size < 6000:
-             default = 30
+             default = 20
 
         else:
-             default = 10
+             default = 5
         
         strength_l = default + strength
         strength_r = default - strength

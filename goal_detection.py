@@ -19,7 +19,7 @@ def standarize_angle(angle):
 
 	return angle
 
-def main():
+def main(magx_off: float, magy_off: float, add_pwr: float):
 	'''
 	Parameters
 	----------
@@ -112,7 +112,7 @@ if __name__ == '__main__':
 	print('Goal Detection Start')
 
 	while True:
-		isReach_goal = main()
+		isReach_goal = main(magx_off, magy_off, add_pwr)
 		
 		if isReach_goal == 1:
 			break

@@ -165,9 +165,9 @@ def get_largest_red_object(mask):
         size = stats[largest_label,cv2.CC_STAT_AREA]
         if size > minarea:
             return center, size
-        return None, 0
+        return None, None
     else:
-        return None, 0
+        return None, None
 
 def main_detect():
 
@@ -213,16 +213,16 @@ def main_detect():
         strength = strength / 13
 
         if size < 2000:
-             default_l = 28
-             default_r = 35
+             default_l = 23
+             default_r = 30
 
         elif size < 4000:
-             default_l = 25
-             default_r = 32
-
-        elif size < 6000:
              default_l = 20
              default_r = 27
+
+        elif size < 6000:
+             default_l = 15
+             default_r = 22
 
         elif size < 20000:
             default_l = 5

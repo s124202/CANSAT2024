@@ -2,7 +2,6 @@
 
 #standard
 import time
-import csv
 
 #src
 import src.gps as gps

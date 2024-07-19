@@ -4,7 +4,6 @@
 import numpy as np
 import math
 import time
-import traceback
 
 #src
 import src.bmx055 as bmx055

@@ -1,10 +1,11 @@
 import egdsk
 
-def main():
+def main(x):
     c = egdsk.plus(x)
     d = c + 2
     return d
 
 if __name__ == '__main__':
-    d = main()
+    x=2
+    d = main(x)
     print(d)

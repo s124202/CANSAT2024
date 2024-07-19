@@ -68,9 +68,6 @@ def PD_run(s_l=35, s_r=35):
     Kp = 0.4
     Kd = 3
 
-    #init
-    theta_array = [0]*5
-
     #theta
     error_theta = 1 #ここ要調整
     theta_array = latest_theta_array(error_theta, theta_array)

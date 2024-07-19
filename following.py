@@ -213,20 +213,20 @@ def main_detect():
         strength = strength / 7
 
         if size < 2000:
-             default_l = 30
-             default_r = 40
+             default_l = 28
+             default_r = 35
 
         elif size < 4000:
              default_l = 25
-             default_r = 35
+             default_r = 32
 
         elif size < 6000:
              default_l = 20
-             default_r = 30
+             default_r = 27
 
         elif size < 20000:
             default_l = 5
-            default_r = 5
+            default_r = 6
 
         else:
              default_l = 0

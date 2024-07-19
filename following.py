@@ -127,7 +127,7 @@ def move():
     while True:
         motor_move()
         time_finish = time.time()
-        if time_finish - time_start > 30:
+        if time_finish - time_start > 60:
             break
     
     deceleration()
@@ -178,6 +178,7 @@ def main_detect():
 
     lose = 0
     discover = 1
+    old_center = [320,0]
     # カメラのキャプチャ
     cap = cv2.VideoCapture(0)
 
@@ -194,7 +195,7 @@ def main_detect():
         center, size = get_largest_red_object(mask)
 
         if center is None:
-            center = [320, 0]
+            center = old_center
             lose += 1
             discover = 1
         else:
@@ -228,6 +229,8 @@ def main_detect():
         
         strength_l = default + strength
         strength_r = default - strength
+
+        old_center = center
 
         if lose == 90:
              deceleration()

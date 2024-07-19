@@ -1,4 +1,4 @@
-#2024/07/08 生川
+#2024/07/19 生川
 
 #standard
 import numpy as np

@@ -12,12 +12,11 @@ import src.motor as motor
 
 #run
 import run.stuck as stuck
-import run.gps_navigate as gps_navigate
 
 
 def get_data():
     """
-    MBC050からデータを得る
+    BMX055からデータを得る
     """
     try:
         magData = bmx055.mag_dataRead()

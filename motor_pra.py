@@ -2,6 +2,7 @@
 
 import time
 import src.motor as motor
+import run.stuck as stuck
 
 def main():
     #setup
@@ -19,4 +20,4 @@ def main():
         print("end code")
 
 if __name__ == "__main__":
-    main()
+    stuck.yoko_jug()

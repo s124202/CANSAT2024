@@ -200,15 +200,15 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
 
         #-----モータの出力-----#
         if m < 0:
-            if abs(m) < 10:
-                m = -10
+            if abs(m) < 50:
+                m = -50
             elif abs(m) > 60:
                 m = -60
             else:
                 pass
         else:
-            if m < 10:
-                m = 10
+            if m < 50:
+                m = 50
             elif m > 60:
                 m = 60
             else:
@@ -295,8 +295,8 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         #-----モータの出力-----#
 
         #直進補正分(m=0のとき直進するように設定するため)
-        s_r = 30
-        s_l = 30
+        s_r = 60
+        s_l = 60
 
         #モータ出力の最大値と最小値を設定
         m = min(m, 5)
@@ -340,7 +340,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
 
     #-----キャリブレーション-----#
     print("--calibration--")
-    magx_off, magy_off = calibration.cal(50,-50,40)
+    magx_off, magy_off = calibration.cal(70,-70,40)
 
     #-----目標地点への角度を取得-----#
     #gps_get

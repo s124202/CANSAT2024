@@ -122,6 +122,7 @@ def move():
     t_movingはモータを動かす時間
     """
     time_start = time.time()
+    time.sleep(5)
 
     while True:
         motor_move()

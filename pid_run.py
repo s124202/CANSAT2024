@@ -347,7 +347,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
     lat_1,lon_1 = gps.location()
 
     #距離取得
-    distance = gps_navigate.vincenty_inverse(lat_1, lon_1, lat_dest, lon_dest)
+    direction = gps_navigate.vincenty_inverse(lat_1, lon_1, lat_dest, lon_dest)
     target_azimuth, distance_to_dest = direction["azimuth1"], direction["distance"]
 
     #-----PID制御による角度調整-----#

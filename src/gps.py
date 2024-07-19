@@ -1,12 +1,10 @@
 #2024/07/19 生川
 
 #standard
-import math
 import time
 import pigpio
 import numpy as np
 import traceback
-import csv
 
 
 #init

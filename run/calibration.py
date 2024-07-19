@@ -7,7 +7,6 @@ import time
 
 #src
 import src.bmx055 as bmx055
-import src.gps as gps
 import src.motor as motor
 
 #run

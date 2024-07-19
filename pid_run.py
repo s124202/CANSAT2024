@@ -2,7 +2,6 @@
 
 #standard
 import time
-from collections import deque
 
 #src
 import src.gps as gps

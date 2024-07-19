@@ -17,3 +17,6 @@ def main():
 
     except KeyboardInterrupt:
         print("end code")
+
+if __name__ == "__main__":
+    main()

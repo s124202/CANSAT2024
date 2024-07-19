@@ -230,6 +230,7 @@ def main_detect():
 
         else:
              default_l = 0
+             default_r = 0
         
         strength_l = default_l + strength
         strength_r = default_r - strength

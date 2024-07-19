@@ -118,7 +118,6 @@ def detect_para():
 
 	return red_area
 
->>>>>>> 6640247e53b6ff8bfe1c6813d2e8d665aacbcf2f
 def main(lat_land, lon_land, lat_dest, lon_dest, check_count :int, add_pwr: int):
 
 	'''

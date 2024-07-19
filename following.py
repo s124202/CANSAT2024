@@ -215,7 +215,7 @@ def main_detect():
         #-100 ~ 100 の範囲で設定
         strength = (int(center[0]) - 320) / 3.2
     
-        strength = strength / 10
+        strength = strength / 13
 
         if size < 2000:
              default_l = 24
@@ -253,8 +253,6 @@ def main_detect():
         # qキーが押されたら途中終了
         if cv2.waitKey(25) & 0xFF == ord('q'):
             break
-
-        time.sleep(0.05)
 
     cap.release()
     cv2.destroyAllWindows()

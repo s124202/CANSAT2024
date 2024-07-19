@@ -228,7 +228,7 @@ def main_detect():
             default_l = 18
             default_r = 25
              
-        if count == 100:
+        if count == 50:
             print("out")
             deceleration()
             break

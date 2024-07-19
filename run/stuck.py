@@ -47,6 +47,9 @@ def ue_jug():
             ue_count += 1
 
 
+#yoko_jug
+#acc_xで判定
+
 def stuck_jug(lat1, lon1, lat2, lon2, thd=1.0):
     data_stuck = gps_navigate.vincenty_inverse(lat1, lon1, lat2, lon2)
     if data_stuck['distance'] <= thd:

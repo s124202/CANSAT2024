@@ -165,7 +165,6 @@ def angle(magx, magy, magx_off=0, magy_off=0):
 
 
 if __name__ == "__main__":
-    
     n = int(input("motor？"))
     motor.setup()
     bmx055.bmx055_setup()

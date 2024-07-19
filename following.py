@@ -227,9 +227,12 @@ def main_detect():
             default_r = 6
 
         else:
-             default_l = 0
-             default_r = 0
+             stop = 1
         
+        if stop == 1:
+            motor_stop()
+            stop = 0
+
         strength_l = default_l + strength
         strength_r = default_r - strength
 

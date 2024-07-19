@@ -19,6 +19,7 @@ import run.stuck as stuck
 import send.mode3 as mode3
 import send.send as send
 
+
 #angle correction
 def standarize_angle(angle):
     '''
@@ -171,7 +172,7 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
     
     print('PID_adjust_direction')
 
-    t_adj_start = time.time()
+    #t_adj_start = time.time()
 
     while True:
         #if time.time() - t_adj_start > 1 and error_theta <= 75: #1秒経過したら強制的に終了する
@@ -198,9 +199,20 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
         m = PID_control(error_theta, theta_array, Kp, Ki, Kd)
 
         #-----モータの出力-----#
-
-        m = min(m, 60)
-        m = max(m, -60)
+        if m < 0:
+            if abs(m) < 10:
+                m = -10
+            elif abs(m) > 60:
+                m = -60
+            else:
+                pass
+        else:
+            if m < 10:
+                m = 10
+            elif m > 60:
+                m = 60
+            else:
+                pass
 
         pwr_l = -m
         pwr_r = m
@@ -210,18 +222,9 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
 
         #-----モータの操作-----#
         motor.motor_move(pwr_l, pwr_r, 0.01)
-
         time.sleep(0.04)
 
-        #-----角度の取得-----#
-        # magdata = bmx055.mag_dataRead()
-        # mag_x = magdata[0]
-        # mag_y = magdata[1]
-        # rover_angle = calibration.angle(mag_x, mag_y, magx_off, magy_off)
-
-        error_theta = get_theta_dest(target_azimuth, magx_off, magy_off)
-
-        # check = 0
+        #15度以内なら終了
         bool_com = True
         for i in range(len(theta_array)):
             if abs(theta_array[i]) > 15:
@@ -296,8 +299,8 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         s_l = 30
 
         #モータ出力の最大値と最小値を設定
-        m = min(m, 15)
-        m = max(m, -15)
+        m = min(m, 5)
+        m = max(m, -5)
 
         #モーター出力の決定
         pwr_l = -m + s_l
@@ -340,7 +343,11 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
     magx_off, magy_off = calibration.cal(50,-50,40)
 
     #-----目標地点への角度を取得-----#
-    direction = calibration.calculate_direction(lon2=lon_dest, lat2=lat_dest)
+    #gps_get
+    lat_1,lon_1 = gps.location()
+
+    #距離取得
+    direction = gps_navigate.vincenty_inverse(lat_1, lon_1, lat_dest, lon_dest)
     target_azimuth, distance_to_dest = direction["azimuth1"], direction["distance"]
 
     #-----PID制御による角度調整-----#
@@ -405,14 +412,20 @@ if __name__ == "__main__":
     #-----初期設定-----#
     theta_differential_array = []
     theta_array = [0]*5
-    direction = calibration.calculate_direction(lon2=lon_test, lat2=lat_test)
-    distance_to_goal = direction["distance"]
 
+    #gps_get
+    lat_1,lon_1 = gps.location()
+
+    #距離取得
+    distance = gps_navigate.vincenty_inverse(lat_1, lon_1, lat_test, lon_test)
+    distance_to_goal = distance["distance"]
+
+    #log
     send.log("pid_run_start")
-    
+
     while True:
         lat_now, lon_now, distance_to_dest, rover_azimuth, isReach_dest = drive(lon_dest=lon_test, lat_dest=lat_test, thd_distance=THD_DISTANCE_DEST, t_cal=T_CAL, loop_num=LOOP_NUM)
-        
+
         print('isReach_dest = ', isReach_dest)
 
         if isReach_dest == 1: #ゴール判定

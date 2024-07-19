@@ -212,10 +212,13 @@ def main_detect():
         if size < 2000:
              default = 30
 
-        elif size < 6000:
+        elif size < 4000:
              default = 25
 
-        elif size > 20000:
+        elif size < 6000:
+             default = 20
+
+        elif size < 20000:
             default = 5
 
         else:

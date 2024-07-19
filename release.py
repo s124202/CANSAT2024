@@ -8,7 +8,7 @@ def release_main():
 	
 	RELEASE_PRESS_THD = 0.2
 	RELEASE_JUDGE_COUNT = 3
-	RELEASE_JUDGE_TIME = 3
+	RELEASE_JUDGE_TIME = 1
 
 	press_count = 0
 	press_array = [0]

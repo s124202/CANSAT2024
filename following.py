@@ -229,6 +229,7 @@ def main_detect():
         else:
             default_l = 0.1
             default_r = 0.1
+            print("stop")
              
 
         strength_l = default_l + strength

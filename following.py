@@ -218,16 +218,16 @@ def main_detect():
         strength = strength / 15
 
         if size < 2000:
-             default_l = 30
-             default_r = 37
+             default_l = 27
+             default_r = 34
 
         elif size < 8000:
-             default_l = 25
-             default_r = 32
+             default_l = 22
+             default_r = 29
 
         else:
-            default_l = 20
-            default_r = 27
+            default_l = 17
+            default_r = 24
              
         if count == 30:
             print("out")

@@ -124,13 +124,13 @@ def move():
     strengthは-100~100
     t_movingはモータを動かす時間
     """
-    time_start = time.time()
+
+    global synchro
     time.sleep(5)
 
     while True:
         motor_move()
-        time_finish = time.time()
-        if time_finish - time_start > 60:
+        if synchro == 1:
             break
     
     deceleration()
@@ -175,6 +175,7 @@ def get_largest_red_object(mask):
 def main_detect():
 
     global blt_send
+    global synchro
 
     global strength_l
     global strength_r
@@ -230,7 +231,7 @@ def main_detect():
              
         if count == 50:
             print("out")
-            deceleration()
+            synchro = 1
             break
 
         strength_l = default_l + strength

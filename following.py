@@ -215,7 +215,7 @@ def main_detect():
         #-100 ~ 100 の範囲で設定
         strength = (int(center[0]) - 320) / 3.2
     
-        strength = strength / 13
+        strength = strength / 15
 
         if size < 2000:
              default_l = 24

@@ -298,8 +298,8 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         s_l = 30
 
         #モータ出力の最大値と最小値を設定
-        m = min(m, 15)
-        m = max(m, -15)
+        m = min(m, 5)
+        m = max(m, -5)
 
         #モーター出力の決定
         pwr_l = -m + s_l

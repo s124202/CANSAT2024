@@ -69,7 +69,6 @@ def PD_run(s_l=35, s_r=35, loop_num = 20):
     Kd = 3
 
     #init
-    theta_differential_array = []
     theta_array = [0]*5
 
     for _ in range(loop_num):
@@ -94,6 +93,8 @@ def PD_run(s_l=35, s_r=35, loop_num = 20):
 
 if __name__ == "__main__":
     #const
+    theta_differential_array = []
+    theta_array = [0]*5
     #直進成分
     s_r = 45
     s_l = 45

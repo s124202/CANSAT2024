@@ -89,8 +89,6 @@ def motor_move():
         motor_l.backward(abs(local_strength_l))
         time.sleep(t_moving)
     else:
-        motor_r.forward(0.01)
-        motor_l.forward(0.01)
         time.sleep(t_moving)
 
 
@@ -219,13 +217,9 @@ def main_detect():
              default_l = 24
              default_r = 31
 
-        elif size < 4000:
+        elif size < 8000:
              default_l = 21
              default_r = 28
-
-        elif size < 6000:
-             default_l = 16
-             default_r = 23
 
         elif size < 20000:
             default_l = 10

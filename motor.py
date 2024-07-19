@@ -124,12 +124,9 @@ if __name__ == '__main__':
 	setup()
 	try:
 		while True:
-			#l = float(input('左の出力は？'))
-			#r = float(input('右の出力は？'))
-			#t = float(input('移動時間は？'))
-			l = 30
-			r = 30
-			t = 20
+			l = float(input('左の出力は？'))
+			r = float(input('右の出力は？'))
+			t = float(input('移動時間は？'))
 			move(l,r,t)
 	except KeyboardInterrupt:
 		print("\r\n")

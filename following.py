@@ -182,6 +182,7 @@ def main_detect():
     lose = 0
     discover = 1
     old_center = [320,0]
+    count = 0
     # カメラのキャプチャ
     cap = cv2.VideoCapture(0)
 
@@ -201,9 +202,11 @@ def main_detect():
             center = old_center
             lose += 1
             discover = 1
+            count += 1
         else:
              discover += 1
              lose = 0
+             count = 0
         
         if size is None:
              size = 100000
@@ -221,14 +224,14 @@ def main_detect():
              default_l = 21
              default_r = 28
 
-        elif size < 20000:
-            default_l = 10
-            default_r = 11
-
         else:
-            default_l = 0.1
-            default_r = 0.1
+            default_l = 18
+            default_r = 25
              
+        if count == 100:
+            print("out")
+            deceleration()
+            break
 
         strength_l = default_l + strength
         strength_r = default_r - strength

@@ -20,6 +20,7 @@ def blt():
 
     client_sock,address = server_sock.accept()
     print("Accepted connection from ",address)
+    client_sock.settimeout(10)
 
     while True:
         if synchro == 1:

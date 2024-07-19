@@ -24,6 +24,7 @@ def blt():
             sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
             sock.connect((bd_addr, port))
             print("connect success")
+            sock.settimeout(10)
             break
         except:
             print("try again")

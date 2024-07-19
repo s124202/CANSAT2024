@@ -260,8 +260,8 @@ if __name__ == '__main__':
 
     blt_send = 0
 	
-    strength_l = 30
-    strength_r = 37
+    strength_l = 25
+    strength_r = 32
     t_moving = 0.05
 	
     thread1 = threading.Thread(target = main_detect)

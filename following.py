@@ -217,8 +217,8 @@ def main_detect():
         else:
              default = 50
         
-        strength_l = default - strength
-        strength_r = default + strength
+        strength_l = default + strength
+        strength_r = default - strength
 
         if lose == 90:
              deceleration()

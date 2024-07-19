@@ -1,33 +1,15 @@
-#2024/07/08 生川
+#2024/07/19 生川
 
 #standard
-import math
 import time
 import pigpio
 import numpy as np
 import traceback
-import csv
 
+
+#init
 RX = 15
 pi = None
-
-ELLIPSOID_GRS80 = 1  # GRS80
-ELLIPSOID_WGS84 = 2  # WGS84
-
-# Long Axis Radius and Flat Rate
-GEODETIC_DATUM = {
-	ELLIPSOID_GRS80: [
-		6378137.0,         # [GRS80] Long Axis Radius
-		1 / 298.257222101,  # [GRS80] Flat Rate
-	],
-	ELLIPSOID_WGS84: [
-		6378137.0,         # [WGS84] Long Axis Radius
-		1 / 298.257223563,  # [WGS84] Flat Rate
-	],
-}
-
-# Limited times of Iteration
-ITERATION_LIMIT = 1000
 
 
 def open_gps():
@@ -160,25 +142,8 @@ def close_gps():
 		pi = None
 
 
-def gps_data_read():
-	'''
-	GPSを読み込むまでデータをとり続ける関数
-	'''
-	try:
-		while True:
-			utc, lat, lon, sHeight, gHeight = read_gps()
-			print('gps reading')
-			if utc != -1.0 and lat != -1.0:
-				break
-			time.sleep(1)
-		return utc, lat, lon, sHeight, gHeight
-	except KeyboardInterrupt:
-		close_gps()
-		print("\r\nKeyboard Intruppted, Serial Closed")
-
-
 #無限にGPS取得
-def gps_main():
+def main():
 	data_string = ""
 	try:
 		open_gps()
@@ -202,85 +167,11 @@ def gps_main():
 		close_gps()
 		print(traceback.format_exc())
 		return data_string
-
-
-#入力secGPS取得
-def gps_limit(reset_time = 100):
-
-	time_start = time.time()
-	data_string = ""
-
-	try:
-		open_gps()
-		while True:
-			utc, lat, lon, sHeight, gHeight = read_gps()
-			if utc == -1.0:
-				if lat == -1.0:
-					print("Reading gps Error")
-					data_string = "GPS cannot be read"
-				else:
-					print("Status V")
-					data_string = "GPS cannot be read"
-
-			else:
-				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
-				data_string = f"utc:{utc}\nlat:{lat}\nlon:{lon}\nsHeight: {sHeight}\ngHeight: {gHeight}"
-			time.sleep(1)
-
-			if time.time() - time_start > reset_time:
-				print("end_gps")
-				break
-	except KeyboardInterrupt:
-		print("\r\nKeyboard Intruppted, Serial Closed")
-	except:
-		print(traceback.format_exc())
-	finally:
-		close_gps()
-
-	return data_string
-
-
-#GPS取得したらすぐにfloatでlat,lon送信
-#60sec_timeout
-def gps_float(reset_time=60):
-
-	time_start = time.time()
-	gps_lat = 0
-	gps_lon = 0
-
-	try:
-		open_gps()
-		while True:
-			utc, lat, lon, sHeight, gHeight = read_gps()
-			if utc == -1.0:
-				if lat == -1.0:
-					print("Reading gps Error")
-				else:
-					print("Status V")
-
-			else:
-				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
-				gps_lat,gps_lon = lat,lon
-				break
-
-			time.sleep(1)
-
-			if time.time() - time_start > reset_time:
-				print("end_gps")
-				break
-	except KeyboardInterrupt:
-		print("\r\nKeyboard Intruppted, Serial Closed")
-	except:
-		print(traceback.format_exc())
-	finally:
-		close_gps()
-
-	return gps_lat,gps_lon
 
 
 #GPSを20回取得したら中央値をfloatでlat,lon送信
 #60sec_timeout
-def gps_med(reset_time=60):
+def med(reset_time=60):
 
 	time_start = time.time()
 	gps_lat = []
@@ -322,21 +213,20 @@ def gps_med(reset_time=60):
 
 	return gps_lat_median,gps_lon_median
 
+
 #print無し
 #GPS取得したらすぐにfloatでlat,lon送信
 #60sec_timeout
 def location(reset_time=60):
-
+	#init
 	time_start = time.time()
-	gps_lat = 0
-	gps_lon = 0
 
+	#main
 	try:
 		open_gps()
 		while True:
 			utc, lat, lon, sHeight, gHeight = read_gps()
 			if utc != -1.0 and lat != -1.0:
-				gps_lat,gps_lon = lat,lon
 				break
 
 			time.sleep(1)
@@ -350,11 +240,8 @@ def location(reset_time=60):
 		print(traceback.format_exc())
 	finally:
 		close_gps()
-
-	return gps_lat,gps_lon
+		return lat,lon
 
 
 if __name__ == '__main__':
-	gps_main()
-	#a,b = gps_med()
-	#print(a,b)
+	main()

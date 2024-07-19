@@ -216,7 +216,7 @@ def main_detect():
              default = 30
 
         else:
-             default = 30
+             default = 10
         
         strength_l = default + strength
         strength_r = default - strength

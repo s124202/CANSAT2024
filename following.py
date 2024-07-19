@@ -263,6 +263,7 @@ def main_detect():
 if __name__ == '__main__':
 
     blt_send = 0
+    synchro = 0
 	
     strength_l = 25
     strength_r = 32

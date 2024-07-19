@@ -34,7 +34,7 @@ def get_data():
 
 def get_data_offset(magx_off, magy_off, magz_off):
     """
-        MBC050からオフセットを考慮して磁気データを得る関数
+        BMX055からオフセットを考慮して磁気データを得る関数
         """
     try:
         magData = bmx055.mag_dataRead()
@@ -67,12 +67,10 @@ def magdata_matrix(l, r, n):
             magdata = np.append(magdata, np.array(
                 [[magx, magy, magz]]), axis=0)
             time.sleep(0.03)
-            # time.sleep(0.1)
+
         motor.deceleration(l, r)
     except KeyboardInterrupt:
         print('Interrupt')
-#    except Exception as e:
-#        print(e.message())
 
     return magdata
 

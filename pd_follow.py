@@ -298,8 +298,8 @@ def main_detect():
                 synchro = 1
                 break
 
-            strength_l = default_l - s - m
-            strength_r = default_r - s + m
+            strength_l = default_l - s + m
+            strength_r = default_r - s - m
 
             old_center = center
 

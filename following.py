@@ -147,9 +147,9 @@ def red_detect(img):
     #mask = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # 黄色のHSVの値域1
-    #hsv_min = np.array([20,64,100])
-    #hsv_max = np.array([30,255,255])
-    #mask = cv2.inRange(hsv, hsv_min, hsv_max)
+    hsv_min = np.array([20,64,100])
+    hsv_max = np.array([30,255,255])
+    mask = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # 紫色のHSVの値域1
     #hsv_min = np.array([110,100,50])
@@ -157,16 +157,16 @@ def red_detect(img):
     #mask = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # 赤色のHSVの値域1
-    hsv_min = np.array([0,100,100])
-    hsv_max = np.array([5,255,255])
-    mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+    #hsv_min = np.array([0,100,100])
+    #hsv_max = np.array([5,255,255])
+    #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # 赤色のHSVの値域2
-    hsv_min = np.array([174,100,100])
-    hsv_max = np.array([179,255,255])
-    mask2 = cv2.inRange(hsv, hsv_min, hsv_max)
+    #hsv_min = np.array([174,100,100])
+    #hsv_max = np.array([179,255,255])
+    #mask2 = cv2.inRange(hsv, hsv_min, hsv_max)
 
-    mask = mask1 + mask2
+    #mask = mask1 + mask2
 
     return mask
 
@@ -191,6 +191,9 @@ def main_detect():
 
     global strength_l
     global strength_r
+
+    default_l = 28
+    default_r= default_l + 7
 
     lose = 0
     discover = 1
@@ -230,24 +233,19 @@ def main_detect():
         strength = strength / 15
 
         if size < 2000:
-             default_l = 30
-             default_r = 37
-
+            s = 0
         elif size < 8000:
-             default_l = 25
-             default_r = 32
-
+            s = 5
         else:
-            default_l = 20
-            default_r = 27
+            s = 10
              
         if count == 60:
             print("out")
             synchro = 1
             break
 
-        strength_l = default_l + strength
-        strength_r = default_r - strength
+        strength_l = default_l - s + strength
+        strength_r = default_r - s - strength
 
         old_center = center
 

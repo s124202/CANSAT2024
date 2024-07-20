@@ -241,7 +241,7 @@ def main_detect():
             default_l = 20
             default_r = 27
              
-        if count == 30:
+        if count == 60:
             print("out")
             synchro = 1
             break

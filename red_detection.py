@@ -134,7 +134,7 @@ def detect_para_movie():
 		frame, max_contour = get_max_contour(mask, frame)
 
 		frame = cv2.resize(frame, (640,640))
-		#frame = cv2.rotate(frame, cv2.ROTATE_180)   #カメラ表示を90度回転
+		frame = cv2.rotate(frame, cv2.ROTATE_180)   #カメラ表示を90度回転
 
 		red_area = get_para_area(max_contour)
 		#print(red_area)
@@ -162,13 +162,12 @@ def detect_para():
 	#画像を圧縮
 	frame = mosaic(frame, ratio=0.8)
 
+	frame = cv2.rotate(frame, cv2.ROTATE_180)   #カメラ表示を90度回転
+
 	# 赤色検出
 	mask = detect_red(frame)
 
 	frame, max_contour = get_max_contour(mask, frame)
-
-	frame = cv2.resize(frame, (640,640))
-	frame = cv2.rotate(frame, cv2.ROTATE_180)   #カメラ表示を90度回転
 
 	red_area = get_para_area(max_contour)
 
@@ -184,6 +183,9 @@ def detect_goal_movie():
 
 		frame = mosaic(frame, ratio=0.8)
 
+		#frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)   #カメラ表示を90度回転
+		frame = cv2.rotate(frame, cv2.ROTATE_180)
+
 		# 赤色検出
 		mask = detect_red(frame)
 
@@ -193,8 +195,6 @@ def detect_goal_movie():
 		area_ratio = get_area(max_contour, original_img)
 
 		frame = cv2.resize(frame, (640,640))
-		#frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)   #カメラ表示を90度回転
-		frame = cv2.rotate(frame, cv2.ROTATE_180)
 
 		cv2.putText(frame, str(int(area_ratio)), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
@@ -219,6 +219,8 @@ def detect_goal():
 	#画像を圧縮
 	frame = mosaic(frame, ratio=0.8)
 	
+	frame = cv2.rotate(frame, cv2.ROTATE_180)   #カメラ表示を90度回転
+
 	# 赤色検出
 	mask = detect_red(frame)
 
@@ -233,4 +235,4 @@ def detect_goal():
 	return area_ratio, angle
 
 if __name__ == '__main__':
-	detect_para_movie()
+	detect_goal_movie()

@@ -192,6 +192,9 @@ def main_detect():
     global strength_l
     global strength_r
 
+    default_l = 28
+    default_r= default_l + 7
+
     lose = 0
     discover = 1
     old_center = [320,0]
@@ -230,24 +233,19 @@ def main_detect():
         strength = strength / 15
 
         if size < 2000:
-             default_l = 30
-             default_r = 37
-
+            s = 0
         elif size < 8000:
-             default_l = 25
-             default_r = 32
-
+            s = 5
         else:
-            default_l = 20
-            default_r = 27
+            s = 10
              
         if count == 30:
             print("out")
             synchro = 1
             break
 
-        strength_l = default_l + strength
-        strength_r = default_r - strength
+        strength_l = default_l - s + strength
+        strength_r = default_r - s - strength
 
         old_center = center
 

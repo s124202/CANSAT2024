@@ -5,20 +5,15 @@ import time
 from collections import deque
 
 #src
-import src.gps as gps
-import src.bmx055 as bmx055
-import src.motor as motor
-from src.main_const import *
+import gps
+import bmx055
+import motor
+import main_const
 
 #run
-import run.calibration as calibration
-import run.gps_navigate as gps_navigate
-import run.stuck as stuck
-
-#send
-import send.mode3 as mode3
-import send.send as send
-
+import calibration
+import gps_navigate
+import stuck
 
 #angle correction
 def standarize_angle(angle):
@@ -396,42 +391,3 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
     motor.motor_stop(1)
 
     return lat_now, lon_now, distance_to_dest, rover_azimuth, isReach_dest
-
-
-
-if __name__ == "__main__":
-
-    lat_test = 35.924354
-    lon_test = 139.912477
-
-    #-----セットアップ-----#
-    motor.setup()
-    bmx055.bmx055_setup()
-    mode3.mode3_change()
-
-    #-----初期設定-----#
-    theta_differential_array = []
-    theta_array = [0]*5
-
-    #gps_get
-    lat_1,lon_1 = gps.location()
-
-    #距離取得
-    distance = gps_navigate.vincenty_inverse(lat_1, lon_1, lat_test, lon_test)
-    distance_to_goal = distance["distance"]
-
-    #log
-    send.log("pid_run_start")
-
-    while True:
-        lat_now, lon_now, distance_to_dest, rover_azimuth, isReach_dest = drive(lon_dest=lon_test, lat_dest=lat_test, thd_distance=THD_DISTANCE_DEST, t_cal=T_CAL, loop_num=LOOP_NUM)
-
-        print('isReach_dest = ', isReach_dest)
-
-        if isReach_dest == 1: #ゴール判定
-            print('Goal')
-            send.log("end_gps_running")
-            break
-        else:
-            print("not_Goal", "distance=",distance_to_dest)
-            send.log("distance=" + str(distance_to_dest))

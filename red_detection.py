@@ -174,6 +174,40 @@ def detect_para():
 
 	return red_area
 
+def detect_goal_movie():
+	# カメラのキャプチャ
+	cap = cv2.VideoCapture(0)
+
+	while(cap.isOpened()):
+		# フレームを取得
+		ret, frame = cap.read()
+
+		frame = mosaic(frame, ratio=0.8)
+
+		# 赤色検出
+		mask = detect_red(frame)
+
+		original_img, max_contour, cx, cy = get_center(mask, frame)
+
+		#赤が占める割合を求める
+		area_ratio = get_area(max_contour, original_img)
+		
+		frame = cv2.resize(frame, (640,640))
+		frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)   #カメラ表示を90度回転
+
+		cv2.putText(frame, str(int(area_ratio)), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+
+		# 結果表示
+		cv2.imshow("Frame", frame)
+		cv2.imshow("Mask", mask)
+
+		# qキーが押されたら途中終了
+		if cv2.waitKey(25) & 0xFF == ord('q'):
+			break
+
+	cap.release()
+	cv2.destroyAllWindows()
+
 def detect_goal():
 	# カメラのキャプチャ
 	cap = cv2.VideoCapture(0)

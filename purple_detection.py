@@ -51,7 +51,7 @@ def main_movie():
     while(cap.isOpened()):
         # フレームを取得
         ret, frame = cap.read()
-        frame = cv2.resize(frame, (640,640))
+        frame = cv2.resize(frame, (640,480))
         frame = cv2.rotate(frame, cv2.ROTATE_180)
         #frame = cv2.convertScaleAbs(frame,alpha = 0.9,beta = 0)
 

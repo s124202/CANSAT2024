@@ -221,6 +221,8 @@ def detect_goal():
 	
 	frame = cv2.rotate(frame, cv2.ROTATE_180)   #カメラ表示を90度回転
 
+	frame = cv2.resize(frame, (640,640))
+
 	# 赤色検出
 	mask = detect_red(frame)
 

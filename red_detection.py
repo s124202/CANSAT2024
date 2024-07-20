@@ -234,7 +234,7 @@ def detect_goal():
 	#重心から現在位置とゴールの相対角度を大まかに計算
 	angle = get_angle(cx, cy, original_img)
 	
-	print(area_ratio)
+	return area_ratio, angle
 
 if __name__ == '__main__':
 	detect_goal_movie()

@@ -42,7 +42,7 @@ def get_largest_red_object(mask):
 def main_movie():
     # カメラのキャプチャ
     cap = cv2.VideoCapture(0)
-    cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 10)
+    cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 1)
 
     while(cap.isOpened()):
         # フレームを取得

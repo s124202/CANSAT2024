@@ -242,7 +242,7 @@ def main_detect():
     #const
     theta_array = [0]*5
     Kp = 0.4
-    Kd = 3
+    Kd = 1
     #直進成分
     default_l = 30
     default_r= default_l + 7
@@ -280,7 +280,7 @@ def main_detect():
                  size = 100000
 
             #-180 ~ 180 の範囲で設定
-            error_theta = (int(center[0]) - 320) / 3.2
+            error_theta = (int(center[0]) - 320) / 1.77
             theta_array = latest_theta_array(error_theta, theta_array)
 
             m = PD_control(error_theta, theta_array, Kp, Kd)

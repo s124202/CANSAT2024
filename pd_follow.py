@@ -242,7 +242,7 @@ def main_detect():
     #const
     theta_array = [0]*5
     Kp = 0.02
-    Kd = 0
+    Kd = 1
     #直進成分
     default_l = 25
     default_r= default_l + 7
@@ -286,7 +286,7 @@ def main_detect():
             m = PD_control(error_theta, theta_array, Kp, Kd)
             m = min(m, 7)
             m = max(m, -7)
-            if size < 3000:
+            if size < 2000:
                 s = 0
             elif size < 8000:
                 s = 5

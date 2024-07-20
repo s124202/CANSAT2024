@@ -56,17 +56,17 @@ def blt():
         print("try reconnect")
 
 def motor_setup():
-	"""
-	motorを使うときに必要な初期化を行う関数
-	"""
-	global motor_r, motor_l
-	Rpin1, Rpin2 = 16,26
-	Lpin1, Lpin2 = 23,18
-	motor_r = Motor(Rpin1, Rpin2)
-	motor_l = Motor(Lpin1, Lpin2)
+    """
+    motorを使うときに必要な初期化を行う関数
+    """
+    global motor_r, motor_l
+    Rpin1, Rpin2 = 16,26
+    Lpin1, Lpin2 = 23,18
+    motor_r = Motor(Rpin1, Rpin2)
+    motor_l = Motor(Lpin1, Lpin2)
 
 def motor_move():
-	
+    
     global strength_l
     global strength_r
     global t_moving
@@ -93,12 +93,12 @@ def motor_move():
 
 
 def motor_stop(x=1):
-	"""
-	motor_move()とセットで使用
-	"""
-	motor_r.stop()
-	motor_l.stop()
-	time.sleep(x)
+    """
+    motor_move()とセットで使用
+    """
+    motor_r.stop()
+    motor_l.stop()
+    time.sleep(x)
 
 def deceleration():
     global strength_l
@@ -116,7 +116,7 @@ def deceleration():
         motor_l.forward((local_strength_l /100) * coefficient_power)
         time.sleep(0.1)
         if i == 9:
-        	motor_stop(0.1)
+            motor_stop(0.1)
 
 def move():
     """
@@ -135,7 +135,7 @@ def move():
     
     deceleration()
         
-		
+        
 
 def red_detect(img):
     # HSV色空間に変換
@@ -144,19 +144,31 @@ def red_detect(img):
     # 緑色のHSVの値域1
     #hsv_min = np.array([40,64,50])
     #hsv_max = np.array([90,255,255])
-    #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+    #mask = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # 黄色のHSVの値域1
-    hsv_min = np.array([20,64,100])
-    hsv_max = np.array([30,255,255])
-    mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+    #hsv_min = np.array([20,64,100])
+    #hsv_max = np.array([30,255,255])
+    #mask = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # 紫色のHSVの値域1
     #hsv_min = np.array([110,100,50])
     #hsv_max = np.array([170,255,255])
-    #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+    #mask = cv2.inRange(hsv, hsv_min, hsv_max)
 
-    return mask1
+    # 赤色のHSVの値域1
+    hsv_min = np.array([0,100,100])
+    hsv_max = np.array([5,255,255])
+    mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+
+    # 赤色のHSVの値域2
+    hsv_min = np.array([174,100,100])
+    hsv_max = np.array([179,255,255])
+    mask2 = cv2.inRange(hsv, hsv_min, hsv_max)
+
+    mask = mask1 + mask2
+
+    return mask
 
 def get_largest_red_object(mask):
     # 最小領域の設定
@@ -263,11 +275,11 @@ if __name__ == '__main__':
 
     blt_send = 0
     synchro = 0
-	
+    
     strength_l = 25
     strength_r = 32
     t_moving = 0.05
-	
+    
     thread1 = threading.Thread(target = main_detect)
     thread2 = threading.Thread(target = move)
 

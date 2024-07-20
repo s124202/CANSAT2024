@@ -205,7 +205,7 @@ def main_detect():
     while(cap.isOpened()):
         # フレームを取得
         ret, frame = cap.read()
-        frame = cv2.resize(frame, (640,640))
+        frame = cv2.resize(frame, (640,320))
         frame = cv2.rotate(frame, cv2.ROTATE_180)
 
         # 赤色検出

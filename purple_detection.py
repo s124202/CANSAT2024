@@ -19,14 +19,14 @@ def red_detect(img):
     #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # オレンジ色のHSVの値域1
-    #hsv_min = np.array([10,100,100])
-    #hsv_max = np.array([25,255,255])
-    #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+    hsv_min = np.array([10,100,100])
+    hsv_max = np.array([25,255,255])
+    mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # 黄色のHSVの値域1
-    hsv_min = np.array([20,64,100])
-    hsv_max = np.array([30,255,255])
-    mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+    #hsv_min = np.array([20,64,100])
+    #hsv_max = np.array([30,255,255])
+    #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
 
     return mask1
 
@@ -88,7 +88,7 @@ def main_image():
 
     # フレームを取得
     ret, frame = cap.read()
-    frame = cv2.resize(frame, (640,640))
+    frame = cv2.resize(frame, (640,320))
     frame = cv2.rotate(frame, cv2.ROTATE_180)
 
     # 赤色検出

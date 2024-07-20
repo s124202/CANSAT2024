@@ -191,7 +191,7 @@ def detect_goal_movie():
 
 		#赤が占める割合を求める
 		area_ratio = get_area(max_contour, original_img)
-		
+
 		frame = cv2.resize(frame, (640,640))
 		frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)   #カメラ表示を90度回転
 
@@ -232,4 +232,4 @@ def detect_goal():
 	return area_ratio, angle
 
 if __name__ == '__main__':
-	detect_para_movie()
+	detect_goal_movie()

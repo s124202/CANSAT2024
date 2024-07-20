@@ -48,7 +48,7 @@ def main_movie():
         ret, frame = cap.read()
         frame = cv2.resize(frame, (640,640))
         frame = cv2.rotate(frame, cv2.ROTATE_180)
-        frame = cv2.convertScaleAbs(frame,alpha = 1,beta = -10)
+        frame = cv2.convertScaleAbs(frame,alpha = 0.9,beta = 0)
 
         # フレームが正しく読み込まれていることを確認
         if frame is None:

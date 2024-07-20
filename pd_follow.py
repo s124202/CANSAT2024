@@ -133,7 +133,6 @@ def move():
             motor_move()
             if synchro == 1:
                 break
-            deceleration()
         except KeyboardInterrupt:
             deceleration()
         

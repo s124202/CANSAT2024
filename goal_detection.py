@@ -38,8 +38,8 @@ def main(magx_off: float, magy_off: float, add_pwr: float):
 	target_azimuth = 0
 	isReach_goal = 0
 
-	LAT_GOAL = 35.924088
-	LON_GOAL = 139.911988
+	LAT_GOAL = 35.924138
+	LON_GOAL = 139.912025
 	T_CAL = 60 #キャリブレーションを行う間隔時間[sec]
 	LOOP_NUM = 20 #0.05秒ごとに9軸センサを取得するので、20回のとき1秒間隔でGPSを取得する
 	THD_DISTANCE_GOAL = 5 #画像誘導の範囲設定

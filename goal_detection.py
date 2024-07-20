@@ -107,12 +107,9 @@ if __name__ == '__main__':
 	bmx055.bmx055_setup()
 
 	add_pwr = 0
-	
-<<<<<<< HEAD
+
 	magx_off, magy_off = calibration.cal(70, -70, 30)
 
-=======
->>>>>>> f584fa92dbe1954b92d5e89489ede2af20b2ed51
 	print('Goal Detection Start')
 
 	magx_off, magy_off = calibration.cal(40, -40, 30)

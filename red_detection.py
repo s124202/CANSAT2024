@@ -237,4 +237,4 @@ def detect_goal():
 	print(area_ratio)
 
 if __name__ == '__main__':
-	detect_goal()
+	detect_goal_movie()

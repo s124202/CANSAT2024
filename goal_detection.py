@@ -104,6 +104,7 @@ def main(magx_off: float, magy_off: float, add_pwr: float):
 
 if __name__ == '__main__':
 	gps.open_gps()
+	motor.setup()
 	bmx055.bmx055_setup()
 
 	add_pwr = 0

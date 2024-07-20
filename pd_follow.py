@@ -244,7 +244,7 @@ def main_detect():
     Kp = 0.02
     Kd = 0.3
     #直進成分
-    default_l = 25
+    default_l = 28
     default_r= default_l + 7
 
     lose = 0

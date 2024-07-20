@@ -241,8 +241,8 @@ def main_detect():
 
     #const
     theta_array = [0]*5
-    Kp = 0.2
-    Kd = 3
+    Kp = 0.4
+    Kd = 0.5
     #直進成分
     default_l = 30
     default_r= default_l + 7

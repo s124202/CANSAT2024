@@ -47,7 +47,7 @@ def main(magx_off: float, magy_off: float, add_pwr: float):
 
 	###-----ゴールまでの距離を測定-----###
 	lat_now, lon_now = gps.location()
-	goal_info = gps_navigate.vincenty_inverse(lat_now, lon_now, lat_dest = LAT_GOAL, lon_dest = LON_GOAL)
+	goal_info = gps_navigate.vincenty_inverse(lat_now, lon_now, lat2 = LAT_GOAL, lon2 = LON_GOAL)
 	distance_to_goal = goal_info['distance']
 	print(f'{distance_to_goal}m')
 

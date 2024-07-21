@@ -152,7 +152,10 @@ def detect_para_movie():
 		if cv2.waitKey(25) & 0xFF == ord('q'):
 			break
 
+	# カメラを閉じる
 	cap.release()
+
+	# すべてのウィンドウを閉じる
 	cv2.destroyAllWindows()
 
 def detect_para():
@@ -216,7 +219,10 @@ def detect_goal_movie():
 		if cv2.waitKey(25) & 0xFF == ord('q'):
 			break
 
+	# カメラを閉じる
 	cap.release()
+
+	# すべてのウィンドウを閉じる
 	cv2.destroyAllWindows()
 
 def detect_goal():

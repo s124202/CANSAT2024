@@ -187,7 +187,7 @@ def detect_goal_movie():
 	# カメラのキャプチャ
 	cap = cv2.VideoCapture(0)
 
-	while(cap.isOpened()):
+	while True:
 		# フレームを取得
 		ret, frame = cap.read()
 

@@ -93,7 +93,7 @@ def main(magx_off: float, magy_off: float, add_pwr: float):
 	###-----画像誘導モードの範囲外にいた場合の処理-----###
 	else:
 		print('ゴールから遠すぎます\nGPS誘導を行います')
-		PID.drive(lon_dest=LON_GOAL, lat_dest=LAT_GOAL, thd_distance=3, t_cal=T_CAL, loop_num=LOOP_NUM)
+		PID.drive(lon_dest=LON_GOAL, lat_dest=LAT_GOAL, thd_distance=THD_DISTANCE_GOAL, t_cal=T_CAL, loop_num=LOOP_NUM)
 		target_azimuth = 000 #見つかっていない場合
 
 	###-----ゴールした場合の処理-----###

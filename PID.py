@@ -1,19 +1,13 @@
 #2024/07/15 生川
 
-#standard
 import time
 from collections import deque
 
-#src
 import gps
 import bmx055
 import motor
-import main_const
-
-#run
 import calibration
 import gps_navigate
-import stuck
 
 #angle correction
 def standarize_angle(angle):

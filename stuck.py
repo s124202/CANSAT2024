@@ -1,15 +1,11 @@
 #2024/07/08 生川
 
-#standard
 import time
 import random
 
-#src
 import motor
 import gps
 import bmx055
-
-#run
 import gps_navigate
 
 

@@ -1,16 +1,11 @@
 #2024/07/19 生川
 
-#standard
 import numpy as np
 import math
 import time
 
-#src
 import bmx055
-import gps
 import motor
-
-#run
 import stuck
 
 

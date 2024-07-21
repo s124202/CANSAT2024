@@ -137,7 +137,7 @@ def detect_para_movie():
 
 		frame, max_contour = get_max_contour(mask, frame)
 
-		frame = cv2.resize(frame, (640,640))
+		frame = cv2.resize(frame, (320,320))
 
 		red_area = get_para_area(max_contour)
 

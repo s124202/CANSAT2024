@@ -174,12 +174,7 @@ def detect_para():
 
 	red_area = get_para_area(max_contour)
 
-	cv2.putText(frame, str(int(red_area)), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
-
-	# 結果表示
-	cv2.imshow("Frame", frame)
-	
-	#print(red_area)
+	print(red_area)
 
 def detect_goal_movie():
 	# カメラのキャプチャ
@@ -245,4 +240,4 @@ def detect_goal():
 	return area_ratio, angle
 
 if __name__ == '__main__':
-	detect_para()
+	detect_para_movie()

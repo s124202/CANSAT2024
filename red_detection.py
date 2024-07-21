@@ -177,6 +177,9 @@ def detect_para():
 
 	print(red_area)
 
+	# カメラを閉じる
+	cap.release()
+
 def detect_goal_movie():
 	# カメラのキャプチャ
 	cap = cv2.VideoCapture(0)
@@ -241,6 +244,9 @@ def detect_goal():
 	angle = get_angle(cx, cy, original_img)
 	
 	print(area_ratio, angle)
+
+	# カメラを閉じる
+	cap.release()
 
 if __name__ == '__main__':
 	detect_para_movie()

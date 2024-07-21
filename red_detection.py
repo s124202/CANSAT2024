@@ -249,7 +249,7 @@ def detect_goal():
 		# 赤が占める割合を求める
 		area_ratio = get_area(max_contour, original_img)
 
-		print(area_ratio)
+	print(area_ratio)
 
 	# カメラを閉じる
 	cap.release()

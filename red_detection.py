@@ -177,10 +177,10 @@ def detect_para():
 		frame, max_contour = get_max_contour(mask, frame)
 		red_area = get_para_area(max_contour)
 
-		print(red_area)
-
 	# カメラを閉じる
 	cap.release()
+
+	return(red_area)
 
 def detect_goal_movie():
 	# カメラのキャプチャ
@@ -255,4 +255,4 @@ def detect_goal():
 	return area_ratio
 
 if __name__ == '__main__':
-	detect_para()
+	detect_para_movie()

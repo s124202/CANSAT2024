@@ -16,7 +16,7 @@ print("Para Avoid Start")
 check_count = 0 #パラ回避用のカウンター
 red_area = 0
 
-PARA_THD_COVERED = 255000
+PARA_THD_COVERED = 200000
 
 red_area = para_avoidance.detect_para()
 print(f'red_area : {red_area}')

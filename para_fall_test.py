@@ -2,7 +2,7 @@
 
 import para_avoidance
 import motor
-import stuck
+import stuck_sato
 
 motor.setup()
 

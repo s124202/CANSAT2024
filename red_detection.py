@@ -91,18 +91,18 @@ def get_angle(cx, cy, original_img):
 	return angle
 
 def get_area(max_contour, original_img):
-    try:
-        # 輪郭の面積を計算
-        area = cv2.contourArea(max_contour)
-        img_area = original_img.shape[0] * original_img.shape[1] #画像の縦横の積
-        area_ratio = area / img_area * 100 #面積の割合を計算
-        if area_ratio < 0.1:
-            area_ratio = 0.0
-        # print(f"Area ratio = {area_ratio:.1f}%")
-    except:
-        area_ratio = 0
+	try:
+		# 輪郭の面積を計算
+		area = cv2.contourArea(max_contour)
+		img_area = original_img.shape[0] * original_img.shape[1] #画像の縦横の積
+		area_ratio = area / img_area * 100 #面積の割合を計算
+		if area_ratio < 0.1:
+			area_ratio = 0.0
+		# print(f"Area ratio = {area_ratio:.1f}%")
+	except:
+		area_ratio = 0
 
-    return area_ratio
+	return area_ratio
 
 #def get_larger_red_object(mask):
 #	# 最小領域の設定
@@ -187,7 +187,7 @@ def detect_goal_movie():
 	# カメラのキャプチャ
 	cap = cv2.VideoCapture(0)
 
-	while True:
+	while(cap.isOpened()):
 		# フレームを取得
 		ret, frame = cap.read()
 
@@ -231,30 +231,28 @@ def detect_goal():
 	# カメラのキャプチャ
 	cap = cv2.VideoCapture(0)
 
-	# フレームを取得
-	ret, frame = cap.read()
+	for i in range(5):
+		# フレームを取得
+		ret, frame = cap.read()
 
-	# カメラ表示を180度回転
-	frame = cv2.rotate(frame, cv2.ROTATE_180)
+		# カメラ表示を180度回転
+		frame = cv2.rotate(frame, cv2.ROTATE_180)
 
-	# 画像を圧縮
-	frame = mosaic(frame, ratio=0.8)
+		# 画像を圧縮
+		frame = mosaic(frame, ratio=0.8)
 
-	# 赤色検出
-	mask = detect_red(frame)
+		# 赤色検出
+		mask = detect_red(frame)
 
-	original_img, max_contour, cx, cy = get_center(mask, frame)
+		original_img, max_contour, cx, cy = get_center(mask, frame)
 
-	# 赤が占める割合を求める
-	area_ratio = get_area(max_contour, original_img)
+		# 赤が占める割合を求める
+		area_ratio = get_area(max_contour, original_img)
 
-	# 重心から現在位置とゴールの相対角度を大まかに計算
-	angle = get_angle(cx, cy, original_img)
-	
-	print(area_ratio, angle)
+		print(area_ratio)
 
 	# カメラを閉じる
 	cap.release()
 
 if __name__ == '__main__':
-	detect_goal_movie()
+	detect_goal()

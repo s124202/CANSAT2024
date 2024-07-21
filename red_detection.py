@@ -127,7 +127,7 @@ def detect_para_movie():
 		ret, frame = cap.read()
 
 		#カメラ表示を90度？回転
-		#frame = cv2.rotate(frame, cv2.ROTATE_180)
+		frame = cv2.rotate(frame, cv2.ROTATE_180)
 
 		#画像を圧縮
 		frame = mosaic(frame, ratio=0.8)

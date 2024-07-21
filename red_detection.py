@@ -126,7 +126,7 @@ def detect_para_movie():
 		# フレームを取得
 		ret, frame = cap.read()
 
-		#カメラ表示を90度？回転
+		#カメラ表示を180度回転
 		frame = cv2.rotate(frame, cv2.ROTATE_180)
 
 		#画像を圧縮
@@ -162,7 +162,7 @@ def detect_para():
 	# フレームを取得
 	ret, frame = cap.read()
 
-	#カメラ表示を90度？回転
+	#カメラ表示を180度回転
 	frame = cv2.rotate(frame, cv2.ROTATE_180)
 
 	#画像を圧縮
@@ -185,10 +185,11 @@ def detect_goal_movie():
 		# フレームを取得
 		ret, frame = cap.read()
 
-		frame = mosaic(frame, ratio=0.8)
-
-		#frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)   #カメラ表示を90度回転
+		#カメラ表示を180度回転
 		frame = cv2.rotate(frame, cv2.ROTATE_180)
+
+		#画像を圧縮
+		frame = mosaic(frame, ratio=0.8)
 
 		# 赤色検出
 		mask = detect_red(frame)
@@ -198,7 +199,9 @@ def detect_goal_movie():
 		#赤が占める割合を求める
 		area_ratio = get_area(max_contour, original_img)
 
-		frame = cv2.resize(frame, (640,640))
+		#リサイズ
+		#frame = cv2.resize(frame, (640,640))
+		#mask = cv2.resize(mask, (640, 640))
 
 		cv2.putText(frame, str(int(area_ratio)), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
@@ -220,12 +223,11 @@ def detect_goal():
 	# フレームを取得
 	ret, frame = cap.read()
 
+	#カメラ表示を180度回転
+	frame = cv2.rotate(frame, cv2.ROTATE_180)
+
 	#画像を圧縮
 	frame = mosaic(frame, ratio=0.8)
-	
-	frame = cv2.rotate(frame, cv2.ROTATE_180)   #カメラ表示を90度回転
-
-	frame = cv2.resize(frame, (640,640))
 
 	# 赤色検出
 	mask = detect_red(frame)

@@ -232,8 +232,6 @@ def detect_goal():
 	# フレームを取得
 	ret, frame = cap.read()
 
-	print(ret)
-
 	# カメラ表示を180度回転
 	frame = cv2.rotate(frame, cv2.ROTATE_180)
 
@@ -257,4 +255,4 @@ def detect_goal():
 	cap.release()
 
 if __name__ == '__main__':
-	detect_goal()
+	detect_goal_movie()

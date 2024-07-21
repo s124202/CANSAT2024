@@ -10,7 +10,7 @@ def blt():
     global receive
     global synchro
     send = 0
-    receive = 0
+    receive = "0"
     synchro = 0
 
     server_sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)

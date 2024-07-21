@@ -173,7 +173,7 @@ def detect_para():
 
 	red_area = get_para_area(max_contour)
 
-	return red_area
+	print(red_area)
 
 def detect_goal_movie():
 	# カメラのキャプチャ

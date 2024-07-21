@@ -126,6 +126,10 @@ def detect_para_movie():
 		# フレームを取得
 		ret, frame = cap.read()
 
+		#カメラ表示を90度？回転
+		frame = cv2.rotate(frame, cv2.ROTATE_180)
+
+		#画像を圧縮
 		frame = mosaic(frame, ratio=0.8)
 
 		# 赤色検出
@@ -134,10 +138,8 @@ def detect_para_movie():
 		frame, max_contour = get_max_contour(mask, frame)
 
 		frame = cv2.resize(frame, (640,640))
-		frame = cv2.rotate(frame, cv2.ROTATE_180)   #カメラ表示を90度回転
 
 		red_area = get_para_area(max_contour)
-		#print(red_area)
 
 		cv2.putText(frame, str(int(red_area)), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
@@ -237,4 +239,4 @@ def detect_goal():
 	return area_ratio, angle
 
 if __name__ == '__main__':
-	detect_goal_movie()
+	detect_para_movie()

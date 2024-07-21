@@ -240,4 +240,4 @@ def detect_goal():
 	return area_ratio, angle
 
 if __name__ == '__main__':
-	detect_para()
+	detect_para_movie()

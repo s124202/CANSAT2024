@@ -205,6 +205,8 @@ def detect_goal_movie():
 		# 赤が占める割合を求める
 		area_ratio = get_area(max_contour, original_img)
 
+		print(area_ratio)
+
 		# リサイズ
 		#frame = cv2.resize(frame, (640,640))
 		#mask = cv2.resize(mask, (640, 640))

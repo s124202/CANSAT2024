@@ -255,4 +255,4 @@ def detect_goal():
 	return area_ratio
 
 if __name__ == '__main__':
-	detect_goal()
+	detect_para()

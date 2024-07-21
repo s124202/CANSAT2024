@@ -255,4 +255,4 @@ def detect_goal():
 	cap.release()
 
 if __name__ == '__main__':
-	detect_para_movie()
+	detect_para()

@@ -161,10 +161,11 @@ def detect_para():
 	# フレームを取得
 	ret, frame = cap.read()
 
+	#カメラ表示を90度？回転
+	frame = cv2.rotate(frame, cv2.ROTATE_180)
+
 	#画像を圧縮
 	frame = mosaic(frame, ratio=0.8)
-
-	frame = cv2.rotate(frame, cv2.ROTATE_180)   #カメラ表示を90度回転
 
 	# 赤色検出
 	mask = detect_red(frame)

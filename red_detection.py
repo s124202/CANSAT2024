@@ -28,7 +28,7 @@ def get_max_contour(mask, img):
 	try:
 		contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 		
-		#最大の輪郭を抽出
+		# 最大の輪郭を抽出
 		max_contour = max(contours, key = cv2.contourArea)
 
 		cv2.drawContours(img, [max_contour], -1, (0, 255, 0), thickness=2)
@@ -40,7 +40,7 @@ def get_max_contour(mask, img):
 
 def get_para_area(max_contour):
 	try:
-		#輪郭の面積を計算
+		# 輪郭の面積を計算
 		area = cv2.contourArea(max_contour)
 	except:
 		area = 0
@@ -51,10 +51,10 @@ def get_center(mask, original_img):
 	try:
 		contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 		
-		#最大の輪郭を抽出
+		# 最大の輪郭を抽出
 		max_contour = max(contours, key = cv2.contourArea)
 
-		#最大輪郭の重心を求める
+		# 最大輪郭の重心を求める
 		# 重心の計算
 		m = cv2.moments(max_contour)
 		cx,cy= m['m10']/m['m00'] , m['m01']/m['m00']
@@ -76,7 +76,7 @@ def get_center(mask, original_img):
 
 def get_angle(cx, cy, original_img):
 	angle = 0
-	#重心から現在位置とゴールの相対角度を大まかに計算
+	# 重心から現在位置とゴールの相対角度を大まかに計算
 	img_width = original_img.shape[1]
 	quat_width = img_width / 5
 	x0, x1, x2, x3, x4, x5 = 0, quat_width, quat_width*2, quat_width*3, quat_width*4, quat_width*5
@@ -92,7 +92,7 @@ def get_angle(cx, cy, original_img):
 
 def get_area(max_contour, original_img):
     try:
-        #輪郭の面積を計算
+        # 輪郭の面積を計算
         area = cv2.contourArea(max_contour)
         img_area = original_img.shape[0] * original_img.shape[1] #画像の縦横の積
         area_ratio = area / img_area * 100 #面積の割合を計算
@@ -126,10 +126,10 @@ def detect_para_movie():
 		# フレームを取得
 		ret, frame = cap.read()
 
-		#カメラ表示を180度回転
+		# カメラ表示を180度回転
 		frame = cv2.rotate(frame, cv2.ROTATE_180)
 
-		#画像を圧縮
+		# 画像を圧縮
 		frame = mosaic(frame, ratio=0.8)
 
 		# 赤色検出
@@ -137,11 +137,11 @@ def detect_para_movie():
 		frame, max_contour = get_max_contour(mask, frame)
 		red_area = get_para_area(max_contour)
 
-		#リサイズ
+		# リサイズ
 		#frame = cv2.resize(frame, (640,640))
 		#mask = cv2.resize(mask, (640, 640))
 
-		#出力画面に赤色の面積を表示
+		# 出力画面に赤色の面積を表示
 		cv2.putText(frame, str(int(red_area)), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
 		# 結果表示
@@ -162,10 +162,10 @@ def detect_para():
 	# フレームを取得
 	ret, frame = cap.read()
 
-	#カメラ表示を180度回転
+	# カメラ表示を180度回転
 	frame = cv2.rotate(frame, cv2.ROTATE_180)
 
-	#画像を圧縮
+	# 画像を圧縮
 	frame = mosaic(frame, ratio=0.8)
 
 	# 赤色検出
@@ -188,10 +188,10 @@ def detect_goal_movie():
 		# フレームを取得
 		ret, frame = cap.read()
 
-		#カメラ表示を180度回転
+		# カメラ表示を180度回転
 		frame = cv2.rotate(frame, cv2.ROTATE_180)
 
-		#画像を圧縮
+		# 画像を圧縮
 		frame = mosaic(frame, ratio=0.8)
 
 		# 赤色検出
@@ -199,10 +199,10 @@ def detect_goal_movie():
 
 		original_img, max_contour, cx, cy = get_center(mask, frame)
 
-		#赤が占める割合を求める
+		# 赤が占める割合を求める
 		area_ratio = get_area(max_contour, original_img)
 
-		#リサイズ
+		# リサイズ
 		#frame = cv2.resize(frame, (640,640))
 		#mask = cv2.resize(mask, (640, 640))
 
@@ -226,10 +226,10 @@ def detect_goal():
 	# フレームを取得
 	ret, frame = cap.read()
 
-	#カメラ表示を180度回転
+	# カメラ表示を180度回転
 	frame = cv2.rotate(frame, cv2.ROTATE_180)
 
-	#画像を圧縮
+	# 画像を圧縮
 	frame = mosaic(frame, ratio=0.8)
 
 	# 赤色検出
@@ -237,10 +237,10 @@ def detect_goal():
 
 	original_img, max_contour, cx, cy = get_center(mask, frame)
 
-	#赤が占める割合を求める
+	# 赤が占める割合を求める
 	area_ratio = get_area(max_contour, original_img)
 
-	#重心から現在位置とゴールの相対角度を大まかに計算
+	# 重心から現在位置とゴールの相対角度を大まかに計算
 	angle = get_angle(cx, cy, original_img)
 	
 	print(area_ratio, angle)

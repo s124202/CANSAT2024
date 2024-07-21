@@ -162,23 +162,22 @@ def detect_para():
 	# カメラのキャプチャ
 	cap = cv2.VideoCapture(0)
 
-	# フレームを取得
-	ret, frame = cap.read()
+	for i in range(5):
+		# フレームを取得
+		ret, frame = cap.read()
 
-	# カメラ表示を180度回転
-	frame = cv2.rotate(frame, cv2.ROTATE_180)
+		# カメラ表示を180度回転
+		frame = cv2.rotate(frame, cv2.ROTATE_180)
 
-	# 画像を圧縮
-	frame = mosaic(frame, ratio=0.8)
+		# 画像を圧縮
+		frame = mosaic(frame, ratio=0.8)
 
-	# 赤色検出
-	mask = detect_red(frame)
+		# 赤色検出
+		mask = detect_red(frame)
+		frame, max_contour = get_max_contour(mask, frame)
+		red_area = get_para_area(max_contour)
 
-	frame, max_contour = get_max_contour(mask, frame)
-
-	red_area = get_para_area(max_contour)
-
-	print(red_area)
+		print(red_area)
 
 	# カメラを閉じる
 	cap.release()
@@ -249,10 +248,11 @@ def detect_goal():
 		# 赤が占める割合を求める
 		area_ratio = get_area(max_contour, original_img)
 
-	print(area_ratio)
 
 	# カメラを閉じる
 	cap.release()
+
+	return area_ratio
 
 if __name__ == '__main__':
 	detect_goal()

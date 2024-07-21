@@ -134,13 +134,12 @@ def detect_para_movie():
 
 		# 赤色検出
 		mask = detect_red(frame)
-
 		frame, max_contour = get_max_contour(mask, frame)
+		red_area = get_para_area(max_contour)
 
 		frame = cv2.resize(frame, (320,320))
 
-		red_area = get_para_area(max_contour)
-
+		#出力画面に赤色の面積を表示
 		cv2.putText(frame, str(int(red_area)), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
 		# 結果表示

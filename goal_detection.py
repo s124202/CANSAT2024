@@ -111,7 +111,7 @@ if __name__ == '__main__':
 
 	print('Goal Detection Start')
 
-	magx_off, magy_off = calibration.cal(70, -70, 30)
+	magx_off, magy_off = calibration.cal(40, -40, 60)
 
 	while True:
 		isReach_goal = main(magx_off, magy_off, add_pwr)

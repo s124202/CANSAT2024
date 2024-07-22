@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import time
 
 def detect_red(img):
 	# HSV色空間に変換

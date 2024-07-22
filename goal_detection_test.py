@@ -45,7 +45,7 @@ def main(magx_off: float, magy_off: float, add_pwr: float):
 	T_CAL = 60 #キャリブレーションを行う間隔時間[sec]
 	LOOP_NUM = 20 #0.05秒ごとに9軸センサを取得するので、20回のとき1秒間隔でGPSを取得する
 	THD_DISTANCE_GOAL = 5 #画像誘導の範囲設定
-	THD_RED_RATIO = 80 #画面を占める赤色の割合の閾値
+	THD_RED_RATIO = 75 #画面を占める赤色の割合の閾値
 
 	###-----ゴールまでの距離を測定-----###
 	lat_now, lon_now = gps.location()
@@ -111,6 +111,7 @@ if __name__ == '__main__':
 	bmx055.bmx055_setup()
 
 	add_pwr = 0
+	theta_differential_array = []
 
 	magx_off, magy_off = calibration.cal(40, -40, 30)
 

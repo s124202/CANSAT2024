@@ -286,6 +286,8 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
         ログの保存先インスタンス
     '''
 
+    STUCK_JUDGE_THD_DISTANCE = 1
+
     #init(flag)
     isReach_dest = 0
     stuck_count = 1

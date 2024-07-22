@@ -20,7 +20,7 @@ def standarize_angle(angle):
 
 	return angle
 
-def main(lat_land, lon_land, lat_dest, lon_dest, check_count :int, add_pwr: int):
+def main(lat_land, lon_land, lat_dest, lon_dest):
 
 	'''
 	lat_land : float
@@ -74,7 +74,7 @@ def main(lat_land, lon_land, lat_dest, lon_dest, check_count :int, add_pwr: int)
 			motor.motor_stop(0.2)
 		else:
 			print('Parachute Found\nTurning Around')
-			para_pwr = PARA_PWR + add_pwr
+			para_pwr = PARA_PWR
 			motor.move(para_pwr, -para_pwr, T_ROTATE)
 	
 	elif SHORT_THD_DIST < para_dist <= LONG_THD_DIST:
@@ -152,6 +152,8 @@ if __name__ == '__main__':
 	red_area = red_detection.detect_para()
 
 	PARA_THD_COVERED = 300000
+	LAT_DEST = 
+	LON_DEST = 
 
 	red_area = red_detection.detect_para()
 	print(f'red_area : {red_area}')
@@ -159,7 +161,7 @@ if __name__ == '__main__':
 	while True:
 		if PARA_THD_COVERED < red_area:
 			print("Parachute on top")
-			motor.move(70, 70, 5)
+			motor.move(60, 60, 5)
 		else:
 			break
 
@@ -173,7 +175,7 @@ if __name__ == '__main__':
 		#motor.motor_stop(0.2)
 	
 	while True:
-		isDistant_para = main()
+		isDistant_para = main(lat_land, lon_land, lat_dest=LAT_DEST, lon_dest=LON_DEST)
 
 		if isDistant_para == 1:
 			break

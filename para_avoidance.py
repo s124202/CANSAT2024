@@ -53,7 +53,7 @@ def main(lat_land, lon_land, lat_dest, lon_dest, check_count :int, add_pwr: int)
 	print(f'{para_dist}m')
 
 	if para_dist <= SHORT_THD_DIST:
-		magx_off, magy_off = -830, -980
+		magx_off, magy_off = 192.5, -367.5
 		print('Warning: Parachute is very close\nStarting Parachute Avoid Sequence')
 		red_area = red_detection.detect_para()
 

@@ -103,7 +103,7 @@ def detect_para():
 	small_img = mosaic(para_img, ratio=0.8)
 
 	#赤色であると認識させる範囲の設定
-	mask, masked_img = detect_red(small_img)
+	mask = detect_red(small_img)
 
 	#圧縮した画像から重心と輪郭を求めて、画像に反映
 	para_img, max_contour, cx, cy = get_center(mask, small_img)
@@ -134,7 +134,7 @@ def detect_goal():
     #画像を圧縮
     small_img = mosaic(original_img, 0.8)
     
-    mask, masked_img = detect_red(small_img)
+    mask = detect_red(small_img)
 
     original_img, max_contour, cx, cy = get_center(mask, small_img)
 

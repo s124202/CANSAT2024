@@ -220,12 +220,12 @@ def main_detect():
 			discover = 1
 			count += 1
 		else:
-			 discover += 1
-			 lose = 0
-			 count = 0
+			discover += 1
+			lose = 0
+			count = 0
 		
 		if size is None:
-			 size = 100000
+			size = 100000
 		
 		#-100 ~ 100 の範囲で設定
 		strength = (int(center[0]) - 320) / 3.2
@@ -235,9 +235,9 @@ def main_detect():
 		if size < 2000:
 			s = 0
 		elif size < 8000:
-			s = 5
+			s = 15
 		else:
-			s = 10
+			s = 20
 			 
 		if count == 60:
 			print("out")
@@ -250,14 +250,14 @@ def main_detect():
 		old_center = center
 
 		if lose == 90:
-			 deceleration()
-			 blt_send = 1
-			 time.sleep(5)
-			 break
+			deceleration()
+			blt_send = 1
+			time.sleep(5)
+			break
 		
 		elif discover % 30 == 0:
-			 blt_send = 0
-			 discover = 1        
+			blt_send = 0
+			discover = 1        
 
 
 		# qキーが押されたら途中終了

@@ -33,19 +33,19 @@ def picture(path, width=320, height=240):
         return f
       
     
-with picamera.Picamera2() as camera:
-    filepath = filename(path, 'jpg') # カメラのファイル名作成
-    camera_config = camera.create_still_configuration(main={"size": (width, height)}, lores={"size": (width, height)}, display="lores")
-    camera.configure(camera_config)
-    camera.start()
-    camera.capture_file(filepath) # 撮影した画像を保
-    #画像を読み込んで回転させる
-    image = cv2.imread(filepath)
-    image = cv2.resize(image, (width, height))
-    image = cv2.rotate(image, cv2.ROTATE_180)
-    cv2.imwrite(filepath, image)
-
-return filepath
+    with picamera.Picamera2() as camera:
+        filepath = filename(path, 'jpg') # カメラのファイル名作成
+        camera_config = camera.create_still_configuration(main={"size": (width, height)}, lores={"size": (width, height)}, display="lores")
+        camera.configure(camera_config)
+        camera.start()
+        camera.capture_file(filepath) # 撮影した画像を保
+        #画像を読み込んで回転させる
+        image = cv2.imread(filepath)
+        image = cv2.resize(image, (width, height))
+        image = cv2.rotate(image, cv2.ROTATE_180)
+        cv2.imwrite(filepath, image)
+    
+    return filepath
 
 
 if __name__ == '__main__':

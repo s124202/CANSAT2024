@@ -93,8 +93,7 @@ def get_area(max_contour, original_img):
 	return area_ratio
 
 def detect_para():
-	path_all_para = 'photo/detect_para/all/'
-	path_para_detect = 'photo/detect_para/detected/'
+	path_all_para = 'photo/detect_para/'
 	photoname = take_photo.Capture(path_all_para)
 	para_img = cv2.imread(photoname)
 	angle = 0
@@ -117,17 +116,11 @@ def detect_para():
 	if red_area == 0:
 		angle = 0
 
-	#パラシュートが検出された場合に画像を保存
-	if red_area != 0:
-		red_area = int(red_area)
-		save_photo.main(path_para_detect, 'para_detected_', str(red_area), para_img)
-	
 	print(red_area, angle)
 
 def detect_goal():
 	#画像の撮影から「角度」と「占める割合」を求めるまでの一連の流れ
-    path_all_photo = 'photo/detect_goal/all/'
-    path_detected_photo = 'photo/detect_para/detected/'
+    path_all_photo = 'photo/detect_goal/'
     photoname = take_photo.Capture(path_all_photo)
     original_img = cv2.imread(photoname)
 
@@ -144,11 +137,6 @@ def detect_goal():
     #重心から現在位置とゴールの相対角度を大まかに計算
     angle = get_angle(cx, cy, original_img)
 
-    #ゴールを検出した場合に画像を保存
-    if area_ratio != 0:
-        area_ratio = int(area_ratio) #小数点以下を切り捨てる（画像ファイル名にピリオドを使えないため）
-        save_photo.main(path_detected_photo, 'detected', str(area_ratio), original_img)
-    
     print(area_ratio, angle)
 
 if __name__ == '__main__':

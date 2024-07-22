@@ -12,7 +12,6 @@ scd30.start_periodic_measurement()
 
 
 def scd30_main():
-
 	time.sleep(2)
 
 	while True:

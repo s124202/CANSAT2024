@@ -170,17 +170,17 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
 
         #limit m
         if m < 0:
-            if abs(m) < 30:
-                m = -30
-            elif abs(m) > 45:
-                m = -45
+            if abs(m) < 20:
+                m = -20
+            elif abs(m) > 35:
+                m = -35
             else:
                 pass
         else:
-            if m < 30:
-                m = 30
-            elif m > 45:
-                m = 45
+            if m < 20:
+                m = 20
+            elif m > 35:
+                m = 35
             else:
                 pass
 

@@ -247,6 +247,7 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 
         #get theta
         error_theta = get_theta_dest(target_azimuth, magx_off, magy_off)
+        print("error_theta = " + error_theta)
 
         #PID
         m = PID_control(error_theta, theta_array, Kp, Ki, Kd)
@@ -320,6 +321,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
         lat_now, lon_now = gps.location()
         direction = gps_navigate.vincenty_inverse(lat_now, lon_now, lat_dest, lon_dest)
         distance_to_dest, target_azimuth = direction["distance"], direction["azimuth1"]
+        print("distance = " + distance_to_dest + "arg = " + target_azimuth)
 
         #run
         if distance_to_dest > thd_distance:

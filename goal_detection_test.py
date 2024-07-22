@@ -21,7 +21,7 @@ def standarize_angle(angle):
 
 	return angle
 
-def main(add_pwr: float):
+def main(magx_off: float, magy_off: float, add_pwr: float):
 	'''
 	Parameters
 	----------
@@ -111,6 +111,8 @@ if __name__ == '__main__':
 	bmx055.bmx055_setup()
 
 	add_pwr = 0
+
+	magx_off, magy_off = calibration.cal(40, -40, 30)
 
 	print('Goal Detection Start')
 

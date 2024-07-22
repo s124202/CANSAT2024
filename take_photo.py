@@ -35,12 +35,12 @@ def Capture(path, width = 320, height = 240):
 		print(traceback.format_exc())
 		time.sleep(0.1)
 		filepath = "Null"
-		
+
 	return filepath
 
 if __name__ == "__main__":
 	try:
-		photoName = Capture("photo", 320, 240)
+		photoName = Capture("photo/goal_detect", 320, 240)
 		print(photoName)
 	except KeyboardInterrupt:
 		print('stop')

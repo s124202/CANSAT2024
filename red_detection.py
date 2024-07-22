@@ -254,7 +254,7 @@ def detect_goal():
 	cap.release()
 	cv2.destroyAllWindows()
 
-	return area_ratio, angle
+	print(area_ratio, angle)
 
 if __name__ == '__main__':
 	detect_goal_movie()

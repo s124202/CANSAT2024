@@ -43,6 +43,6 @@ def picture(path, width=320, height=240):
 
 if __name__ == '__main__':
     try:
-        photoName = picture('../photo/test_imgs', 320, 240)
+        photoName = picture('photo/test_imgs', 320, 240)
     except KeyboardInterrupt:
         print('stop')

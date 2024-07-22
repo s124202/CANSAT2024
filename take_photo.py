@@ -40,7 +40,7 @@ def Capture(path, width = 320, height = 240):
 
 if __name__ == "__main__":
 	try:
-		for i in range(3)
+		for i in range(3):
 			photoName = Capture(" ", 320, 240)
 			print(photoName)
 	except KeyboardInterrupt:

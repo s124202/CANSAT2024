@@ -5,12 +5,10 @@ import time
 import random
 
 #src
-import src.motor as motor
-import src.gps as gps
-import src.bmx055 as bmx055
-
-#run
-import run.gps_navigate as gps_navigate
+import motor
+import gps
+import bmx055
+import gps_navigate
 
 
 def ue_jug():

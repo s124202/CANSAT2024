@@ -4,14 +4,12 @@
 import time
 
 #src
-import src.gps as gps
+import gps
+import gps_navigate
 
 #send
 import send.mode3 as mode3
 import send.send as send
-
-#run
-import run.gps_navigate as gps_navigate
 
 
 #無限にGPS取得してログを送る

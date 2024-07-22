@@ -6,11 +6,9 @@ import math
 import time
 
 #src
-import src.bmx055 as bmx055
-import src.motor as motor
-
-#run
-import run.stuck as stuck
+import bmx055
+import motor
+import stuck
 
 
 def get_data():

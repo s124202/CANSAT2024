@@ -1,5 +1,10 @@
+#2024/7/20 生川
+
+#standard
 import time
 from math import*
+
+#src
 import motor
 
 

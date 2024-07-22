@@ -4,20 +4,23 @@
 import time
 
 #src
-import src.gps as gps
-import src.bmx055 as bmx055
-import src.motor as motor
-from src.main_const import *
-
-#run
-import run.calibration as calibration
-import run.gps_navigate as gps_navigate
-import run.stuck as stuck
+import gps
+import bmx055
+import motor
+import calibration
+import gps_navigate
+import stuck
 
 #send
 import send.mode3 as mode3
 import send.send as send
 
+
+#-----GPS走行-----#
+STUCK_JUDGE_THD_DISTANCE = 10
+LOOP_NUM = 20 #0.05秒ごとに9軸センサを取得するので、20回のとき1秒間隔でGPSを取得する
+THD_DISTANCE_DEST = 5 #目的地に到達したと判定する距離
+T_CAL = 60 #キャリブレーションを行う間隔時間[sec] 30の倍数+5秒ぐらいがおそらくベスト？？
 
 #angle correction
 def standarize_angle(angle):

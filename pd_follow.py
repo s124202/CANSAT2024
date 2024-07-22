@@ -281,7 +281,6 @@ def main_detect():
 
             #-180 ~ 180 の範囲で設定
             error_theta = (int(center[0]) - 320) / 1.77
-            theta_array = latest_theta_array(error_theta, theta_array)
 
             m = PD_control(error_theta, theta_array, Kp, Kd)
             m = min(m, 7)

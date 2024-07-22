@@ -230,9 +230,10 @@ def main_detect():
              size = 5000
         
         #-100 ~ 100 の範囲で設定
-        strength = (int(center[0]) - 320) / 3.2
-    
-        strength = strength / 22
+        mp = (int(center[0]) - 320) / 3.2   
+        mp = mp / 22
+
+        #md = abs((center[0] - old_center[0]) )
 
         if size < 1000:
             s = 0
@@ -252,10 +253,11 @@ def main_detect():
             synchro = 1
             break
 
-        strength_l = default_l - s + strength
-        strength_r = default_r - s - strength
+        strength_l = default_l - s + mp
+        strength_r = default_r - s - mp
 
         old_center = center
+        print(old_center)
 
         if lose == 90:
              deceleration()

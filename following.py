@@ -35,8 +35,10 @@ def motor_move():
         time.sleep(t_moving)
     # 後進
     elif local_strength_r < 0 and local_strength_l < 0:
-        motor_r.backward(abs(local_strength_r))
-        motor_l.backward(abs(local_strength_l))
+        #motor_r.backward(abs(local_strength_r))
+        #motor_l.backward(abs(local_strength_l))
+        motor_r.forward(0.001)
+        motor_l.forward(0.001)
         time.sleep(t_moving)
     else:
         motor_stop(0.05)
@@ -97,14 +99,14 @@ def red_detect(img):
     #mask = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # 黄色のHSVの値域1
-    hsv_min = np.array([20,64,100])
-    hsv_max = np.array([30,255,255])
-    mask = cv2.inRange(hsv, hsv_min, hsv_max)
-
-    # 紫色のHSVの値域1
-    #hsv_min = np.array([110,100,50])
-    #hsv_max = np.array([170,255,255])
+    #hsv_min = np.array([20,64,100])
+    #hsv_max = np.array([30,255,255])
     #mask = cv2.inRange(hsv, hsv_min, hsv_max)
+
+    # オレンジ色のHSVの値域1
+    hsv_min = np.array([10,100,100])
+    hsv_max = np.array([25,255,255])
+    mask = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # 赤色のHSVの値域1
     #hsv_min = np.array([0,100,100])
@@ -138,8 +140,8 @@ def main_detect():
     global strength_l
     global strength_r
 
-    default_l = 28
-    default_r= default_l + 7
+    default_l = 17
+    default_r= default_l + 5
 
     lose = 0
     discover = 1
@@ -171,28 +173,30 @@ def main_detect():
              count = 0
         
         if size is None:
-             size = 100000
+             size = 5000
         
         #-100 ~ 100 の範囲で設定
-        strength = (int(center[0]) - 320) / 3.2
-    
-        strength = strength / 12
+        mp = (int(center[0]) - 320) / 3.2   
+        mp = mp / 22
 
-        if size < 2000:
+        md = abs((center[0] - old_center[0]) / 15)
+
+        m = mp - md
+
+        if size < 1000:
             s = 0
-        elif size < 8000:
-            s = 5
         else:
-            s = 10
+            s = size / 2000 + 5
              
         if count == 60:
             print("out")
             synchro = 1
             break
 
-        strength_l = default_l - s + strength
-        strength_r = default_r - s - strength
+        strength_l = default_l - s + m
+        strength_r = default_r - s - m
 
+        print(old_center[0]-center[0])
         old_center = center
 
         if lose == 90:
@@ -202,6 +206,7 @@ def main_detect():
              break
         
         elif discover % 30 == 0:
+             blt_send = 0
              discover = 1        
 
     cap.release()
@@ -210,6 +215,7 @@ def main_detect():
     
 
 if __name__ == '__main__':
+    
     strength_l = 25
     strength_r = 32
     t_moving = 0.05

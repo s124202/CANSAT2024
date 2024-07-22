@@ -58,32 +58,13 @@ def main(add_pwr: float):
 		print('画像誘導モードの範囲内にいます\n画像誘導を行います')
 		area_ratio, angle = red_detection.detect_goal()
 		print(area_ratio, angle)
-		time.sleep(5)
-		mag_data = bmx055.mag_dataRead()
-		mag_x, mag_y = mag_data[0], mag_data[1]
-		rover_azimuth = calibration.angle(mag_x, mag_y, magx_off, magy_off)
-		rover_azimuth = standarize_angle(rover_azimuth)
 		
 		###-----撮像した画像の中にゴールが映っていた場合の処理-----###
 		if area_ratio >= THD_RED_RATIO:
 			isReach_goal = 1
+		
 		elif 0 < area_ratio < THD_RED_RATIO:
-			###-----ゴールが真正面にあるときの処理-----###
-			if angle == 2:
-				# rover_azimuth はそのまま使用
-				target_azimuth = rover_azimuth
-			###------ゴールが真正面にないときの処理------###
-			###-----目標角度を少しずらす-----###
-			elif angle == 1:
-				target_azimuth = rover_azimuth - 15
-			elif angle == 3:
-				target_azimuth = rover_azimuth + 15
-				
-			###-----PID制御により前進-----###
-			theta_array = [0]*5
-			PID.PID_run(target_azimuth, magx_off, magy_off, theta_array=theta_array, loop_num=20)
-			motor.deceleration(20, 20)
-			motor.motor_stop(0.5)
+			
 
 		###-----撮像した画像の中にゴールが映っていない場合の処理-----###
 		elif area_ratio == 0:

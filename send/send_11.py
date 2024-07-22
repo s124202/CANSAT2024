@@ -1,4 +1,5 @@
 #2024/07/08 生川
+#target=11
 
 #standard
 import serial

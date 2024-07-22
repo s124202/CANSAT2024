@@ -9,7 +9,7 @@ import gps_navigate
 
 #send
 import send.mode3 as mode3
-import send.send as send
+import send.send_11 as send_11
 
 
 #無限にGPS取得してログを送る
@@ -32,7 +32,7 @@ def loop(lat_target = 35.918468,lon_target = 139.90712):
             print("distance:" + str(distance_to_target))
 
             #log
-            send.log(str(lat_now) + "," + str(lon_now) + "," + str(distance_to_target))
+            send_11.log(str(lat_now) + "," + str(lon_now) + "," + str(distance_to_target))
 
             time.sleep(1)
 
@@ -45,11 +45,11 @@ def test():
     #target
     mode3.mode3_change()
     lat_target,lon_target = gps.location()
-    send.log("target address")
-    send.log(str(lat_target) + "," + str(lon_target))
+    send_11.log("target address")
+    send_11.log(str(lat_target) + "," + str(lon_target))
 
     #main
-    send.log("main start")
+    send_11.log("main start")
     loop(lat_target,lon_target)
 
 

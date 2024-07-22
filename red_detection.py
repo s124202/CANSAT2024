@@ -250,9 +250,6 @@ def detect_goal():
 		#重心から現在位置とゴールの相対角度を大まかに計算
 		angle = get_angle(cx, cy, original_img)
 
-		time.sleep(1)
-
-
 	# カメラを閉じる
 	cap.release()
 	cv2.destroyAllWindows()

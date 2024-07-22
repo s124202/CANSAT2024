@@ -156,7 +156,7 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
     Kd = 3
     Ki = 0
 
-    count = 0
+    t_adj_start = time.time()
 
 
     while True:
@@ -201,7 +201,9 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
         if bool_com:
             break
 
-        count += 1
+        #timeout
+        if time.time() - t_adj_start > 3:
+            break
 
     motor.motor_stop(1)
 
@@ -286,6 +288,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
 
     #init(flag)
     isReach_dest = 0
+    stuck_count = 1
 
     #cal
     magx_off, magy_off = calibration.cal(40,-40,60)
@@ -304,6 +307,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
     mag_x = magdata[0]
     mag_y = magdata[1]
     rover_azimuth = calibration.angle(mag_x, mag_y, magx_off, magy_off)
+    lat_old, lon_old = gps.location()
 
     #init(time)
     theta_array = [0]*5
@@ -318,11 +322,26 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
         distance_to_dest, target_azimuth = direction["distance"], direction["azimuth1"]
         print("distance = " + distance_to_dest + "arg = " + target_azimuth)
 
+        #stuck check
+        if stuck_count % 30 == 0:
+            #yoko check
+            yoko_count = stuck.yoko_jug()
+            if yoko_count > 0:
+                break
+
+            if stuck.stuck_jug(lat_old, lon_old, lat_now, lon_old, thd=STUCK_JUDGE_THD_DISTANCE):
+                pass
+            else:
+                stuck.stuck_avoid()
+            lat_old, lon_old = gps.location()
+
         #run
         if distance_to_dest > thd_distance:
             PID_run(target_azimuth, magx_off, magy_off, theta_array, loop_num)
         else:
             isReach_dest = 1
+
+        stuck_count += 1
 
         if isReach_dest == 1:
             break
@@ -342,6 +361,7 @@ if __name__ == "__main__":
     LOOP_NUM = 20
     THD_DISTANCE_DEST = 5
     T_CAL = 60
+    STUCK_JUDGE_THD_DISTANCE = 1
 
     #init
     theta_differential_array = []

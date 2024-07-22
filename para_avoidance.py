@@ -152,8 +152,8 @@ if __name__ == '__main__':
 	red_area = red_detection.detect_para()
 
 	PARA_THD_COVERED = 300000
-	LAT_DEST = 
-	LON_DEST = 
+	LAT_DEST = 35.92479
+	LON_DEST = 139.911547
 
 	red_area = red_detection.detect_para()
 	print(f'red_area : {red_area}')

@@ -232,12 +232,15 @@ def main_detect():
     
         strength = strength / 12
 
-        if size < 2000:
+        if size < 1500:
             s = 0
         elif size < 8000:
+            s = 5
+        elif size < 20000:
             s = 10
         else:
-            s = 15
+            print("stop")
+            break
              
         if count == 60:
             print("out")

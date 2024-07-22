@@ -193,7 +193,7 @@ def main_detect():
     global strength_r
 
     default_l = 17
-    default_r= default_l + 7
+    default_r= default_l + 5
 
     lose = 0
     discover = 1
@@ -230,7 +230,7 @@ def main_detect():
         #-100 ~ 100 の範囲で設定
         strength = (int(center[0]) - 320) / 3.2
     
-        strength = strength / 15
+        strength = strength / 18
 
         if size < 1500:
             s = 0

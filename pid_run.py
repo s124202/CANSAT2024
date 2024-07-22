@@ -172,15 +172,15 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
         if m < 0:
             if abs(m) < 30:
                 m = -30
-            elif abs(m) > 60:
-                m = -60
+            elif abs(m) > 45:
+                m = -45
             else:
                 pass
         else:
             if m < 30:
                 m = 30
-            elif m > 60:
-                m = 60
+            elif m > 45:
+                m = 45
             else:
                 pass
 
@@ -250,8 +250,8 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         m = PID_control(error_theta, theta_array, Kp, Ki, Kd)
 
         #limit m
-        m = min(m, 10)
-        m = max(m, -10)
+        m = min(m, 5)
+        m = max(m, -5)
 
         #param
         s_r = 50
@@ -260,8 +260,8 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         pwr_r = m + s_r
 
         #move
-        motor.motor_move(pwr_l, pwr_r, 0.05)
-        time.sleep(0.05)
+        motor.motor_move(pwr_l, pwr_r, 0.01)
+        time.sleep(0.04)
 
         count += 1
 

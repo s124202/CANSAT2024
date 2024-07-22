@@ -233,7 +233,9 @@ def main_detect():
         mp = (int(center[0]) - 320) / 3.2   
         mp = mp / 22
 
-        #md = abs((center[0] - old_center[0]) )
+        md = abs((center[0] - old_center[0]) / 30)
+
+        m = mp - md
 
         if size < 1000:
             s = 0
@@ -253,8 +255,8 @@ def main_detect():
             synchro = 1
             break
 
-        strength_l = default_l - s + mp
-        strength_r = default_r - s - mp
+        strength_l = default_l - s + m
+        strength_r = default_r - s - m
 
         old_center = center
         print(old_center)

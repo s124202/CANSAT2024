@@ -236,6 +236,9 @@ def main_detect():
 			s = 0
 		elif size < 8000:
 			s = 15
+		elif size > 15000:
+			print("goal")
+			break
 		else:
 			s = 20
 			 

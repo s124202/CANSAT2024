@@ -1,8 +1,10 @@
-#2024/07/08 生川
+#2024/07/22 生川
 
+#standard
 import time
 import random
 
+#src
 import motor
 import gps
 import bmx055
@@ -69,12 +71,14 @@ def yoko_jug():
                 motor.move(-30, 30, 3)
             time.sleep(2)
             yoko_count += 1
+    
+    return yoko_count
 
 
 def stuck_jug(lat1, lon1, lat2, lon2, thd=1.0):
     data_stuck = gps_navigate.vincenty_inverse(lat1, lon1, lat2, lon2)
     if data_stuck['distance'] <= thd:
-        print(str(data_stuck['distance']) + '----!!!    stuck   !!!')
+        print(str(data_stuck['distance']) + '-----stucked')
         return False
     else:
         print(str(data_stuck['distance']) + '-----not stucked')
@@ -148,11 +152,6 @@ def stuck_avoid():
             lat_new, lon_new = gps.location()
             bool_stuck = stuck_jug(lat_old, lon_old, lat_new, lon_new, 0.5)
             if bool_stuck == False:
-                # if i == 1 or i == 4 or i == 5:
-                #     print('スタックもう一度引っかからないように避ける')
-                #     motor.move(-60, -60, 2)
-                #     motor.move(-60, 60, 0.5)
-                #     motor.move(80, 80, 3)
                 flag = True
                 break
         if flag:
@@ -163,11 +162,6 @@ def stuck_avoid():
             lat_new, lon_new = gps.location()
             bool_stuck = stuck_jug(lat_old, lon_old, lat_new, lon_new, 0.5)
             if bool_stuck == False:
-                # if i == 1 or i == 4 or i == 5:
-                #     print('スタックもう一度引っかからないように避ける')
-                #     motor.move(-60, -60, 2)
-                #     motor.move(-60, 60, 0.5)
-                #     motor.move(80, 80, 3)
                 flag = True
                 break
         if flag:

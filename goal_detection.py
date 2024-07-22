@@ -1,3 +1,5 @@
+import time
+
 import gps
 import gps_navigate
 import bmx055
@@ -56,6 +58,7 @@ def main(magx_off: float, magy_off: float, add_pwr: float):
 		print('画像誘導モードの範囲内にいます\n画像誘導を行います')
 		area_ratio, angle = red_detection.detect_goal()
 		print(area_ratio, angle)
+		time.sleep(3)
 		mag_data = bmx055.mag_dataRead()
 		mag_x, mag_y = mag_data[0], mag_data[1]
 		rover_azimuth = calibration.angle(mag_x, mag_y, magx_off, magy_off)

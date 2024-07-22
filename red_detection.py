@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import take_photo
+import save_photo
 
 def detect_red(small_img):
 	# HSV色空間に変換
@@ -92,8 +93,8 @@ def get_area(max_contour, original_img):
 	return area_ratio
 
 def detect_para():
-	path_all_para = '../imgs/parachute_avoid/all/para_image-'
-	path_para_detect = '../imgs/parachute_avoid/detected'
+	path_all_para = 'photo/detect_para/all/'
+	path_para_detect = 'photo/detect_para/detected/'
 	photoname = take_photo.Capture(path_all_para)
 	para_img = cv2.imread(photoname)
 	angle = 0
@@ -119,14 +120,14 @@ def detect_para():
 	#パラシュートが検出された場合に画像を保存
 	if red_area != 0:
 		red_area = int(red_area)
-		save_img.main(path_para_detect, 'para_detected_', str(red_area), para_img)
+		save_photo.main(path_para_detect, 'para_detected_', str(red_area), para_img)
 	
-	return red_area, angle
+	print(red_area, angle)
 
 def detect_goal():
 	#画像の撮影から「角度」と「占める割合」を求めるまでの一連の流れ
-    path_all_photo = '../imgs/goal_detect/all/ImageGuide-'
-    path_detected_photo = '../imgs/goal_detect/detected'
+    path_all_photo = 'photo/detect_goal/all/'
+    path_detected_photo = 'photo/detect_para/detected/'
     photoname = take_photo.Capture(path_all_photo)
     original_img = cv2.imread(photoname)
 
@@ -148,7 +149,7 @@ def detect_goal():
         area_ratio = int(area_ratio) #小数点以下を切り捨てる（画像ファイル名にピリオドを使えないため）
         save_photo.main(path_detected_photo, 'detected', str(area_ratio), original_img)
     
-    return area_ratio, angle
+    print(area_ratio, angle)
 
 if __name__ == '__main__':
 	detect_goal()

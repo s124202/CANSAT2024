@@ -116,7 +116,7 @@ def detect_para():
 	if red_area == 0:
 		angle = 0
 
-	print(red_area, angle)
+	return red_area, angle
 
 def detect_goal():
 	#画像の撮影から「角度」と「占める割合」を求めるまでの一連の流れ
@@ -137,7 +137,7 @@ def detect_goal():
     #重心から現在位置とゴールの相対角度を大まかに計算
     angle = get_angle(cx, cy, original_img)
 
-    print(area_ratio, angle)
+    return area_ratio, angle
 
 if __name__ == '__main__':
 	detect_para()

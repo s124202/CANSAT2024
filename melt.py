@@ -16,10 +16,8 @@ def melt_down(meltPin, t_melt = 3.0):
 	pi.write(meltPin, 0)
 	time.sleep(1)
 	pi.write(meltPin, 1)
-	print("meltpin_high")
 	time.sleep(t_melt)
 	pi.write(meltPin, 0)
-	print("meltpin_low")
 	time.sleep(1)
 
 	pi.stop()

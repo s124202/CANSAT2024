@@ -259,7 +259,7 @@ def main_detect():
         strength_r = default_r - s - m
 
         old_center = center
-        print(old_center)
+        print(old_center[0]-center[0])
 
         if lose == 90:
              deceleration()

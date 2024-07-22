@@ -16,11 +16,6 @@ import send.mode3 as mode3
 import send.send as send
 
 
-STUCK_JUDGE_THD_DISTANCE = 10
-LOOP_NUM = 20
-THD_DISTANCE_DEST = 5
-T_CAL = 60
-
 #angle correction
 def standarize_angle(angle):
     '''

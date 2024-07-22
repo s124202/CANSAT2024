@@ -1,10 +1,10 @@
 import cv2
 import numpy as np
-import time
+import take_photo
 
-def detect_red(img):
+def detect_red(small_img):
 	# HSV色空間に変換
-	hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+	hsv = cv2.cvtColor(small_img, cv2.COLOR_BGR2HSV)
 
 	# 赤色のHSVの値域1
 	hsv_min = np.array([0,100,100])
@@ -20,24 +20,10 @@ def detect_red(img):
 
 	return mask
 
-def mosaic(img, ratio):
-	small_img = cv2.resize(img, None, fx=ratio, fy=ratio, interpolation=cv2.INTER_NEAREST)
+def mosaic(original_img, ratio):
+	small_img = cv2.resize(original_img, None, fx=ratio, fy=ratio, interpolation=cv2.INTER_NEAREST)
 	
-	return cv2.resize(small_img, img.shape[:2][::-1], interpolation=cv2.INTER_NEAREST)
-
-def get_max_contour(mask, img):
-	try:
-		contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-		
-		# 最大の輪郭を抽出
-		max_contour = max(contours, key = cv2.contourArea)
-
-		cv2.drawContours(img, [max_contour], -1, (0, 255, 0), thickness=2)
-
-	except:
-		max_contour = 0
-	
-	return img, max_contour
+	return cv2.resize(small_img, original_img.shape[:2][::-1], interpolation=cv2.INTER_NEAREST)
 
 def get_para_area(max_contour):
 	try:
@@ -105,156 +91,64 @@ def get_area(max_contour, original_img):
 
 	return area_ratio
 
-#def get_larger_red_object(mask):
-#	# 最小領域の設定
-#	minarea = 50
-#	nlabels, labels, stats, centroids = cv2.connectedComponentsWithStats(mask)
-#	if nlabels > 1:
-#		largest_label = 1 + np.argmax(stats[1:, cv2.CC_STAT_AREA])
-#		center = centroids[largest_label]
-#		size = stats[largest_label,cv2.CC_STAT_AREA]
-#		if size > minarea:
-#			return center, size
-#		return None, 0
-#	else:
-#		return None, 0
-
-def detect_para_movie():
-	# カメラのキャプチャ
-	cap = cv2.VideoCapture(0)
-
-	while(cap.isOpened()):
-		# フレームを取得
-		ret, frame = cap.read()
-
-		# カメラ表示を180度回転
-		frame = cv2.rotate(frame, cv2.ROTATE_180)
-
-		# 画像を圧縮
-		frame = mosaic(frame, ratio=0.8)
-
-		# 赤色検出
-		mask = detect_red(frame)
-		frame, max_contour = get_max_contour(mask, frame)
-		red_area = get_para_area(max_contour)
-
-		# リサイズ
-		#frame = cv2.resize(frame, (640,640))
-		#mask = cv2.resize(mask, (640, 640))
-
-		# 出力画面に赤色の面積を表示
-		cv2.putText(frame, str(int(red_area)), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
-
-		# 結果表示
-		cv2.imshow("Frame", frame)
-		cv2.imshow("Mask", mask)
-
-		# qキーが押されたら途中終了
-		if cv2.waitKey(25) & 0xFF == ord('q'):
-			break
-
-	# カメラを閉じる
-	cap.release()
-
-	# すべてのウィンドウを閉じる
-	cv2.destroyAllWindows()
-
 def detect_para():
-	# カメラのキャプチャ
-	cap = cv2.VideoCapture(0)
+	path_all_para = '../imgs/parachute_avoid/all/para_image-'
+	path_para_detect = '../imgs/parachute_avoid/detected'
+	photoname = take_photo.Capture(path_all_para)
+	para_img = cv2.imread(photoname)
+	angle = 0
 
-	for i in range(5):
-		# フレームを取得
-		ret, frame = cap.read()
+	#画像を圧縮
+	small_img = mosaic(para_img, ratio=0.8)
 
-		# カメラ表示を180度回転
-		frame = cv2.rotate(frame, cv2.ROTATE_180)
+	#赤色であると認識させる範囲の設定
+	mask, masked_img = detect_red(small_img)
 
-		# 画像を圧縮
-		frame = mosaic(frame, ratio=0.8)
+	#圧縮した画像から重心と輪郭を求めて、画像に反映
+	para_img, max_contour, cx, cy = get_center(mask, small_img)
 
-		# 赤色検出
-		mask = detect_red(frame)
-		frame, max_contour = get_max_contour(mask, frame)
-		red_area = get_para_area(max_contour)
+	#赤色が占める割合を求める
+	red_area = get_para_area(max_contour, para_img)
 
-	# カメラを閉じる
-	cap.release()
+	#重心の位置から現在位置とパラシュートと相対角度を大まかに計算
+	angle = get_angle(cx, cy, para_img)
 
-	return(red_area)
+	if red_area == 0:
+		angle = 0
 
-def detect_goal_movie():
-	# カメラのキャプチャ
-	cap = cv2.VideoCapture(0)
-
-	while(cap.isOpened()):
-		# フレームを取得
-		ret, frame = cap.read()
-
-		# カメラ表示を180度回転
-		frame = cv2.rotate(frame, cv2.ROTATE_180)
-
-		# 画像を圧縮
-		frame = mosaic(frame, ratio=0.8)
-
-		# 赤色検出
-		mask = detect_red(frame)
-
-		original_img, max_contour, cx, cy = get_center(mask, frame)
-
-		# 赤が占める割合を求める
-		area_ratio = get_area(max_contour, original_img)
-
-		# リサイズ
-		#frame = cv2.resize(frame, (640,640))
-		#mask = cv2.resize(mask, (640, 640))
-
-		cv2.putText(frame, str(int(area_ratio)), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
-
-		# 結果表示
-		cv2.imshow("Frame", frame)
-		cv2.imshow("Mask", mask)
-
-		# qキーが押されたら途中終了
-		if cv2.waitKey(25) & 0xFF == ord('q'):
-			break
-
-	# カメラを閉じる
-	cap.release()
-
-	# すべてのウィンドウを閉じる
-	cv2.destroyAllWindows()
+	#パラシュートが検出された場合に画像を保存
+	if red_area != 0:
+		red_area = int(red_area)
+		save_img.main(path_para_detect, 'para_detected_', str(red_area), para_img)
+	
+	return red_area, angle
 
 def detect_goal():
-	# カメラのキャプチャ
-	cap = cv2.VideoCapture(0)
+	#画像の撮影から「角度」と「占める割合」を求めるまでの一連の流れ
+    path_all_photo = '../imgs/goal_detect/all/ImageGuide-'
+    path_detected_photo = '../imgs/goal_detect/detected'
+    photoname = take_photo.Capture(path_all_photo)
+    original_img = cv2.imread(photoname)
 
-	for i in range(5):
-		# フレームを取得
-		ret, frame = cap.read()
+    #画像を圧縮
+    small_img = mosaic(original_img, 0.8)
+    
+    mask, masked_img = detect_red(small_img)
 
-		# カメラ表示を180度回転
-		frame = cv2.rotate(frame, cv2.ROTATE_180)
+    original_img, max_contour, cx, cy = get_center(mask, small_img)
 
-		# 画像を圧縮
-		frame = mosaic(frame, ratio=0.8)
+    #赤が占める割合を求める
+    area_ratio = get_area(max_contour, original_img)
 
-		# 赤色検出
-		mask = detect_red(frame)
+    #重心から現在位置とゴールの相対角度を大まかに計算
+    angle = get_angle(cx, cy, original_img)
 
-		original_img, max_contour, cx, cy = get_center(mask, frame)
-
-		# 赤が占める割合を求める
-		area_ratio = get_area(max_contour, original_img)
-
-		#重心から現在位置とゴールの相対角度を大まかに計算
-		angle = get_angle(cx, cy, original_img)
-
-	# カメラを閉じる
-	cap.release()
-	cv2.destroyAllWindows()
-
-	print(area_ratio, angle)
+    #ゴールを検出した場合に画像を保存
+    if area_ratio != 0:
+        area_ratio = int(area_ratio) #小数点以下を切り捨てる（画像ファイル名にピリオドを使えないため）
+        save_photo.main(path_detected_photo, 'detected', str(area_ratio), original_img)
+    
+    return area_ratio, angle
 
 if __name__ == '__main__':
 	detect_goal()

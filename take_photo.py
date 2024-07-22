@@ -1,48 +1,48 @@
-import picamera2 as picamera
-import logging
+import picamera
+import time
+import traceback
 import os
-import cv2
 
-logging.getLogger('picamera2').setLevel(logging.WARNING)
-os.environ["LIBCAMERA_LOG_LEVELS"] = "3"
+def fileName(f, ext):
+	i = 0
+	num = ""
+	while 1:
+		num = ""
+		if(len(str(i)) <= 4):
+			for j in range(4 - len(str(i))):
+				num = num + "0"
+			num = num + str(i)
+		else:
+			num = str(i)
+		if not(os.path.exists(f + num + "." + ext)):
+			break
+		i = i + 1
+	f = f + num + "." + ext
+	return f
 
-def picture(path, width=320, height=240):
-    filepath = None
+def Capture(path, width = 320, height = 240):
+	filepath = ""
+	try:
+		with picamera.PiCamera() as camera:
+			camera.rotation = 180
+			camera.resolution = (width,height)	#(width,height)
+			filepath = fileName(path,"jpg")
+			camera.capture(filepath)
+	except picamera.exc.PiCameraMMALError:
+		filepath = "Null"
+		time.sleep(0.8)
+	except:
+		print(traceback.format_exc())
+		time.sleep(0.1)
+		filepath = "Null"
+		
+	return filepath
 
-    def filename(f, ext):
-        i = 0
-        while 1:
-            num = ""
-            if len(str(i)) <= 4:
-                for j in range(4 - len(str(i))):
-                    num = num + "0"
-                num = num + str(i)
-            else:
-                num = str(i)
-            if not (os.path.exists(f + num + "." + ext)):
-                break
-            i = i + 1
-        f = f + num + "." + ext
-        return f
-      
-    try:
-        with picamera.Picamera2() as camera:
-            filepath = filename(path, 'jpg')
-            camera_config = camera.create_still_configuration(main={"size": (width, height)}, lores={"size": (width, height)}, display="lores")
-            camera.configure(camera_config)
-            camera.start()
-            camera.capture_file(filepath)
-            image = cv2.imread(filepath)
-            image = cv2.resize(image, (width, height))
-            image = cv2.rotate(image, cv2.ROTATE_180)
-            cv2.imwrite(filepath, image)
-    except Exception as e:
-        print(f"Error: {e}")
-    
-    return filepath
-
-if __name__ == '__main__':
-    try:
-        photoName = picture('photo/test_imgs', 320, 240)
-    except KeyboardInterrupt:
-        print('stop')
+if __name__ == "__main__":
+	try:
+		photoName = Capture("photo", 320, 240)
+		print(photoName)
+	except KeyboardInterrupt:
+		print('stop')
+	except:
+		print(traceback.format_exc())

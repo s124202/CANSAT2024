@@ -163,13 +163,13 @@ if __name__ == '__main__':
 		else:
 			break
 
-	if red_area > 1000:
+	if red_area > 50:
 		print("Move Backwward")
-		motor.move(50, 50, 3) #徐々に減速するはず
+		motor.move(40, 40, 3) #徐々に減速するはず
 		#motor.motor_stop(0.2)
 	else:
 		print("Move Forward")
-		motor.move(-50, -50, 3) #徐々に減速するはず
+		motor.move(-40, -40, 3) #徐々に減速するはず
 		#motor.motor_stop(0.2)
 	
 	while True:

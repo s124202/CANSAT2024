@@ -192,7 +192,7 @@ def main_detect():
     global strength_l
     global strength_r
 
-    default_l = 20
+    default_l = 17
     default_r= default_l + 7
 
     lose = 0
@@ -236,10 +236,11 @@ def main_detect():
             s = 0
         elif size < 8000:
             s = 5
-        elif size < 20000:
+        elif size < 30000:
             s = 10
         else:
             print("stop")
+            synchro = 1
             break
              
         if count == 60:

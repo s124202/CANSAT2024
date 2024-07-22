@@ -252,6 +252,7 @@ def detect_goal():
 
 	# カメラを閉じる
 	cap.release()
+	cv2.destroyAllWindows()
 
 	return area_ratio, angle
 

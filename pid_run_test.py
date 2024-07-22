@@ -132,9 +132,6 @@ def differential_control(Kd, theta_array: list):
 #PID
 def PID_control(theta, theta_array: list, Kp=0.1, Ki=0.04, Kd=2.5):
     #-----PID制御-----#
-    
-    #-----初期設定-----# array_numは積分区間の設定
-    #array = make_theta_array(array, array_num)
 
     #-----thetaの値を蓄積する-----#
     theta_array = latest_theta_array(theta, theta_array)
@@ -402,7 +399,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
 
 
 if __name__ == "__main__":
-
+    #目標地点設定
     lat_test = 35.918437
     lon_test = 139.908887
 

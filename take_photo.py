@@ -40,7 +40,7 @@ def Capture(path, width = 320, height = 240):
 
 if __name__ == "__main__":
 	try:
-		photoName = Capture("photo/goal_detect", 320, 240)
+		photoName = Capture("photo/goal_detect/", 320, 240)
 		print(photoName)
 	except KeyboardInterrupt:
 		print('stop')

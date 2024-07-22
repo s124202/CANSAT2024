@@ -192,7 +192,7 @@ def main_detect():
     global strength_l
     global strength_r
 
-    default_l = 28
+    default_l = 20
     default_r= default_l + 7
 
     lose = 0
@@ -235,9 +235,9 @@ def main_detect():
         if size < 2000:
             s = 0
         elif size < 8000:
-            s = 5
-        else:
             s = 10
+        else:
+            s = 15
              
         if count == 60:
             print("out")

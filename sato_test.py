@@ -1,6 +1,8 @@
 import red_detection
 import motor
 
+motor.setup()
+
 THD_RED_RATIO = 80
 
 def main():

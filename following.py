@@ -236,14 +236,16 @@ def main_detect():
 
         if size < 1000:
             s = 0
-        elif size < 10000:
-            s = size / 2000 + 5
-        elif size < 30000:
-            s = 10
         else:
-            print("stop")
-            synchro = 1
-            break
+            s = size / 2000 + 5
+        #elif size < 10000:
+        #    s = size / 2000 + 5
+        #elif size < 30000:
+        #    s = 10
+        #else:
+        #    print("stop")
+        #    synchro = 1
+        #    break
              
         if count == 60:
             print("out")

@@ -206,16 +206,21 @@ def red_detect(img):
     #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # 黄色のHSVの値域1
-    hsv_min = np.array([20,64,100])
-    hsv_max = np.array([30,255,255])
-    mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+    #hsv_min = np.array([20,64,100])
+    #hsv_max = np.array([30,255,255])
+    #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+
+    # オレンジ色のHSVの値域1
+    hsv_min = np.array([10,100,100])
+    hsv_max = np.array([25,255,255])
+    mask = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # 紫色のHSVの値域1
     #hsv_min = np.array([110,100,50])
     #hsv_max = np.array([170,255,255])
     #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
 
-    return mask1
+    return mask
 
 def get_largest_red_object(mask):
     # 最小領域の設定
@@ -244,8 +249,8 @@ def main_detect():
     Kp = 0.04
     Kd = 0.3
     #直進成分
-    default_l = 28
-    default_r= default_l + 7
+    default_l = 17
+    default_r= default_l + 5
 
     lose = 0
     discover = 1

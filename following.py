@@ -85,8 +85,10 @@ def motor_move():
         time.sleep(t_moving)
     # 後進
     elif local_strength_r < 0 and local_strength_l < 0:
-        motor_r.backward(abs(local_strength_r))
-        motor_l.backward(abs(local_strength_l))
+        #motor_r.backward(abs(local_strength_r))
+        #motor_l.backward(abs(local_strength_l))
+        motor_r.forward(0.001)
+        motor_l.forward(0.001)
         time.sleep(t_moving)
     else:
         motor_stop(0.05)
@@ -225,17 +227,17 @@ def main_detect():
              count = 0
         
         if size is None:
-             size = 10000
+             size = 5000
         
         #-100 ~ 100 の範囲で設定
         strength = (int(center[0]) - 320) / 3.2
     
         strength = strength / 22
 
-        if size < 1500:
+        if size < 1000:
             s = 0
-        elif size < 8000:
-            s = 5
+        elif size < 10000:
+            s = size / 2000 + 5
         elif size < 30000:
             s = 10
         else:

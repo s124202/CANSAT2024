@@ -26,7 +26,7 @@ def mosaic(original_img, ratio):
 	
 	return cv2.resize(small_img, original_img.shape[:2][::-1], interpolation=cv2.INTER_NEAREST)
 
-def get_para_area(max_contour):
+def get_para_area(max_contour, para_img):
 	try:
 		# 輪郭の面積を計算
 		area = cv2.contourArea(max_contour)

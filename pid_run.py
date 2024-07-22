@@ -189,8 +189,8 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
         pwr_r = m
 
         #move
-        motor.motor_move(pwr_l, pwr_r, 0.05)
-        time.sleep(0.05)
+        motor.motor_move(pwr_l, pwr_r, 0.01)
+        time.sleep(0.04)
 
         #check
         bool_com = True

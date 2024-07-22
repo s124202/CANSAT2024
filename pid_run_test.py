@@ -292,7 +292,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
     isReach_dest = 0
 
     #cal
-    magx_off, magy_off = calibration.cal(70,-70,40)
+    magx_off, magy_off = calibration.cal(40,-40,60)
 
     #get param(azimuth,distance)
     lat_now,lon_now = gps.location()

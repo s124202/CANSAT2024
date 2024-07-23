@@ -69,7 +69,7 @@ def yoko_jug():
                 motor.move(30, -30, 3)
             else:
                 motor.move(-30, 30, 3)
-            time.sleep(2)
+            time.sleep(1)
             yoko_count += 1
     
     return yoko_count

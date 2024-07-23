@@ -54,6 +54,7 @@ def magdata_matrix(l, r, n):
         """
     try:
         stuck.ue_jug()
+        stuck.yoko_jug()
         magx, magy, magz = get_data()
         magdata = np.array([[magx, magy, magz]])
         for _ in range(n - 1):

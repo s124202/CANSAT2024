@@ -172,15 +172,15 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
         if m < 0:
             if abs(m) < 10:
                 m = -10
-            elif abs(m) > 35:
-                m = -35
+            elif abs(m) > 25:
+                m = -25
             else:
                 pass
         else:
             if m < 10:
                 m = 10
-            elif m > 35:
-                m = 35
+            elif m > 25:
+                m = 25
             else:
                 pass
 

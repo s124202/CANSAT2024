@@ -4,6 +4,56 @@ import time
 import cv2
 import numpy as np
 import threading
+import bluetooth
+ 
+def blt():
+    global send
+    global receive
+    global synchro
+
+    bd_addr = "B8:27:EB:1B:C5:BF" # サーバー側のデバイスアドレスを入力
+    port = 1
+    while True:
+        send = 0
+        receive = "0"
+        synchro = 0
+        
+        while True:
+            try:
+                sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+                sock.connect((bd_addr, port))
+                sock.settimeout(10)
+                print("connect success")
+                break
+            except KeyboardInterrupt:
+                print("finish")
+                break
+            except:
+                print("try again")
+                time.sleep(3)
+                pass
+
+        while True:
+            if synchro == 1:
+                print("synchro")
+                break
+            try:
+                time.sleep(1)
+                sock.send(str(send))
+                data = sock.recv(1024)
+                receive = data.decode()
+                print(receive)
+            except KeyboardInterrupt:
+                print("finish")
+                break
+            except bluetooth.btcommon.BluetoothError as err:
+                print("close")
+                break
+
+        sock.close()
+        if synchro == 1:
+            break
+        print("try reconnect")
 
 def motor_setup():
     """
@@ -104,21 +154,21 @@ def red_detect(img):
     #mask = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # オレンジ色のHSVの値域1
-    #hsv_min = np.array([10,100,100])
-    #hsv_max = np.array([25,255,255])
-    #mask = cv2.inRange(hsv, hsv_min, hsv_max)
+    hsv_min = np.array([10,100,100])
+    hsv_max = np.array([25,255,255])
+    mask = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # 赤色のHSVの値域1
-    hsv_min = np.array([0,100,100])
-    hsv_max = np.array([5,255,255])
-    mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+    #hsv_min = np.array([0,100,100])
+    #hsv_max = np.array([5,255,255])
+    #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # 赤色のHSVの値域2
-    hsv_min = np.array([174,100,100])
-    hsv_max = np.array([179,255,255])
-    mask2 = cv2.inRange(hsv, hsv_min, hsv_max)
+    #hsv_min = np.array([174,100,100])
+    #hsv_max = np.array([179,255,255])
+    #mask2 = cv2.inRange(hsv, hsv_min, hsv_max)
 
-    mask = mask1 + mask2
+    #mask = mask1 + mask2
 
     return mask
 
@@ -137,6 +187,10 @@ def get_largest_red_object(mask):
         return None, None
 
 def main_detect():
+
+    global blt_send
+    global synchro
+
     global strength_l
     global strength_r
 
@@ -187,6 +241,14 @@ def main_detect():
             s = 0
         else:
             s = size / 2000 + 5
+        #elif size < 10000:
+        #    s = size / 2000 + 5
+        #elif size < 30000:
+        #    s = 10
+        #else:
+        #    print("stop")
+        #    synchro = 1
+        #    break
              
         if count == 60:
             print("out")
@@ -209,12 +271,20 @@ def main_detect():
              blt_send = 0
              discover = 1        
 
+
+        # qキーが押されたら途中終了
+        if cv2.waitKey(25) & 0xFF == ord('q'):
+            break
+
     cap.release()
     cv2.destroyAllWindows()
 
     
 
 if __name__ == '__main__':
+
+    blt_send = 0
+    synchro = 0
     
     strength_l = 25
     strength_r = 32

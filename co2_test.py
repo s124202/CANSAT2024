@@ -39,7 +39,7 @@ def sensor():
 	writer = csv.writer(f)
 
 	#const
-	TIME_THD = 300
+	TIME_THD = 10
 	cycle = 1
 
 	time.sleep(1)
@@ -168,7 +168,7 @@ def t_motor():
 	print("start motor test")
 	send.log("start motor test")
 	time.sleep(20)
-	motor.motor_move(10, 10, 3)
+	motor.move(10, 10, 3)
 	print("motor test finished")
 	send.log("motor test finished")
 

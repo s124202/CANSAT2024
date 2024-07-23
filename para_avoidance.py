@@ -38,7 +38,6 @@ def main(lat_land, lon_land, lat_dest, lon_dest):
 
 	isDistant_para = 0 #パラシュート回避用のフラグ
 	red_area = 0
-	para_azimuth = None
 
 	PARA_PWR = 40 #パラシュートを見つけたときに回転するモーター出力
 	T_ROTATE = 0.25 #パラシュートを見つけたときに回転する時間
@@ -85,6 +84,7 @@ def main(lat_land, lon_land, lat_dest, lon_dest):
 		lat_now, lon_now = gps.location()
 		para_info = gps_navigate.vincenty_inverse(lat_now, lon_now, lat2 = lat_land, lon2 = lon_land)
 		para_azimuth = para_info["azimuth1"]
+		print(para_azimuth)
 		target_azimuth = para_azimuth + 180
 		if target_azimuth >= 360:
 			target_azimuth = target_azimuth % 360
@@ -118,6 +118,7 @@ def main(lat_land, lon_land, lat_dest, lon_dest):
 		lat_now, lon_now = gps.location()
 		goal_info = gps_navigate.vincenty_inverse(lat_now, lon_now, lat2 = lat_dest, lon2 = lon_dest)
 		goal_azimuth = goal_info['azimuth1']
+		print(goal_azimuth)
 
 		if abs(goal_azimuth - para_azimuth) < THD_AVOID_ANGLE:
 			print('Parachute is on the way')
@@ -165,7 +166,7 @@ if __name__ == '__main__':
 	while True:
 		if PARA_THD_COVERED < red_area:
 			print("Parachute on top")
-			motor.move(60, 60, 5)
+			motor.move(50, 50, 3)
 		else:
 			break
 

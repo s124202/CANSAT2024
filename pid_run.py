@@ -202,7 +202,7 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
             break
 
         #timeout
-        if time.time() - t_adj_start > 3:
+        if time.time() - t_adj_start > 1:
             break
 
     motor.motor_stop(1)
@@ -291,7 +291,10 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
     stuck_count = 1
 
     #cal
-    magx_off, magy_off = calibration.cal(40,-40,60)
+    magx_off, magy_off = calibration.cal(40,-40,60) 
+    while magx_off == 0 and magy_off == 0:
+        motor.motor_move(80, 75, 3)
+        magx_off, magy_off = calibration.cal(40,-40,60) 
 
     #get param(azimuth,distance)
     lat_now,lon_now = gps.location()

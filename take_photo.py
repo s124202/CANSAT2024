@@ -27,7 +27,6 @@ def Capture(path, width = 320, height = 240):
 			camera.rotation = 180
 			camera.resolution = (width,height)	#(width,height)
 			camera.awb_mode = "sunlight"
-			camera.exposure_compensation = -10
 			filepath = fileName(path,"jpg")
 			camera.capture(filepath)
 	except picamera.exc.PiCameraMMALError:
@@ -42,9 +41,8 @@ def Capture(path, width = 320, height = 240):
 
 if __name__ == "__main__":
 	try:
-		for i in range(3):
-			photoName = Capture(" ", 320, 240)
-			print(photoName)
+		photoName = Capture(" ", 320, 240)
+		print(photoName)
 	except KeyboardInterrupt:
 		print('stop')
 	except:

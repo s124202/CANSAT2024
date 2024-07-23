@@ -25,7 +25,7 @@ def Capture(path, width = 320, height = 240):
 	filepath = ""
 	try:
 		with picamera.PiCamera() as camera:
-			time.sleep(3)
+			time.sleep(1)
 			camera.rotation = 180
 			camera.resolution = (width,height)	#(width,height)
 			#camera.awb_mode = "sunlight"

@@ -125,7 +125,7 @@ def differential_control(Kd, theta_array: list):
 
 #これはどう？D
 #len(theta_array)をtheta_array[]の中に入れるとエラー吐きそうだから二行に分割
-def differential_control(Kd, theta_array: list):
+def differential_controlkai(Kd, theta_array: list):
     #D制御
 
     num = len(theta_array)

@@ -258,7 +258,7 @@ def main_detect():
         strength_l = default_l - s + m
         strength_r = default_r - s - m
 
-        print(old_center[0]-center[0])
+        #print(old_center[0]-center[0])
         old_center = center
 
         if lose == 90:

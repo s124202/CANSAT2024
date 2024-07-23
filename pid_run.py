@@ -12,8 +12,8 @@ import gps_navigate
 import stuck
 
 #send
-import send.mode3 as mode3
-import send.send_11 as send_11
+#import send.mode3 as mode3
+#import send.send_11 as send_11
 
 
 #angle correction
@@ -372,7 +372,7 @@ if __name__ == "__main__":
     #setup
     motor.setup()
     bmx055.bmx055_setup()
-    mode3.mode3_change()
+    #mode3.mode3_change()
 
 
     #main
@@ -382,8 +382,8 @@ if __name__ == "__main__":
         #check
         if isReach_dest == 1:
             print('end gps running')
-            send_11.log("end gps running")
+            #send_11.log("end gps running")
             break
         else:
             print("not Goal", "distance=",distance_to_dest)
-            send_11.log("distance=" + str(distance_to_dest))
+            #send_11.log("distance=" + str(distance_to_dest))

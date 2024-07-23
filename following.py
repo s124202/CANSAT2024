@@ -233,9 +233,9 @@ def main_detect():
         mp = (int(center[0]) - 320) / 3.2   
         mp = mp / 22
 
-        md = (center[0] - old_center[0]) / 15
+        #md = (center[0] - old_center[0]) / 15
 
-        m = mp - md
+        m = mp
 
         if size < 1000:
             s = 0

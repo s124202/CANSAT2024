@@ -13,7 +13,7 @@ import gps
 
 #send
 import send.mode3 as mode3
-import send.send_10 as send
+import send.send_11 as send
 
 
 def main():

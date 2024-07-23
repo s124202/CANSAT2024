@@ -323,7 +323,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
         print("distance = ", distance_to_dest, "arg = ", target_azimuth)
 
         #stuck check
-        if stuck_count % 30 == 0:
+        if stuck_count % 10 == 0:
             #yoko check
             yoko_count = stuck.yoko_jug()
             if yoko_count > 0:

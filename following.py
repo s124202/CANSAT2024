@@ -233,7 +233,7 @@ def main_detect():
         mp = (int(center[0]) - 320) / 3.2   
         mp = mp / 22
 
-        md = abs((center[0] - old_center[0]) / 15)
+        md = (center[0] - old_center[0]) / 15
 
         m = mp - md
 

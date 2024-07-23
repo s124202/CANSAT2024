@@ -3,20 +3,21 @@
 #standard
 import time
 import csv
-from scd30_i2c import SCD30
+import board
+import adafruit_sgp40
 import math
 
 #src
 import bme280
 import bmx055
-import co2_sensor as co2
+import voc_index
 import gps
 import motor
 import melt
 
 #send
 import send.mode3 as mode3
-import send.send_11 as send
+import send.send_10 as send
 
 
 def sensor():
@@ -31,10 +32,9 @@ def sensor():
 	bmx055.bmx055_setup()
 	bme280.bme280_setup()
 	bme280.bme280_calib_param()
-	scd30 = SCD30()
-	scd30.set_measurement_interval(2)
-	scd30.start_periodic_measurement()
-	filename = "co2_sensor_test_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	i2c = board.I2C() 
+	sgp = adafruit_sgp40.SGP40(i2c)
+	filename = "voc_sensor_test_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 	f = open(filename,"w")
 	writer = csv.writer(f)
 
@@ -50,20 +50,20 @@ def sensor():
 		while time.time() - start_time < TIME_THD:
 			temp, pres, hum, alt = bme280.bme280_read()
 			accx, accy, accz, gyrx, gyry, gyrz, magx, magy, magz = bmx055.bmx055_read()
-			m_co2 = co2.scd30_get()
+			voc_data, compensated_raw_gas, temperature, humidity = voc_index.test()
 			lat,lon = gps.test()
 
 			#log
-			send.log(str(cycle) + "," + str(lat) + "," + str(lon) + "," + str(temp) + str(pres) + "," + str(hum) + "," + str(alt) + "," + str(accx) + "," + str(accy) + "," + str(accz) + "," + str(gyrx) + "," + str(gyrz) + "," + str(magx) + "," + str(magy) + "," + str(magz) + "," + str(m_co2))
+			send.log(str(cycle) + "," + str(lat) + "," + str(lon) + "," + str(temp) + str(pres) + "," + str(hum) + "," + str(alt) + "," + str(accx) + "," + str(accy) + "," + str(accz) + "," + str(gyrx) + "," + str(gyrz) + "," + str(magx) + "," + str(magy) + "," + str(magz) + "," + str(voc_data) + "," + str(compensated_raw_gas) + "," + str(temperature) + "," + str(humidity))
 			print("cycle", cycle)
 			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
 			print("accx:" + str(accx) + "\t" + "accy:" + str(accy) + "\t" + "accz:" + str(accz))
 			print("gyrx:" + str(gyrx) + "\t" + "gyry:" + str(gyry) + "\t" + "gyrz:" + str(gyrz))
 			print("magx:" + str(magx) + "\t" + "magy:" + str(magy) + "\t" + "magz:" + str(magz))
-			print("co2:" + str(m_co2))
+			print("voc_index:" + str(voc_data) + "\t" + "raw_gas:" + str(compensated_raw_gas) + "\t" + "tem:" + str(temperature) + "\t" + "hum: " + str(humidity))
 			print("lat:" + str(lat) + "\t" + "lon:" + str(lon))
 
-			writer.writerows([[cycle, lat, lon, temp, pres, hum, alt, accx, accy, accz, gyrx, gyry, gyrz, magx, magy, magz, m_co2]])
+			writer.writerows([[cycle, lat, lon, temp, pres, hum, alt, accx, accy, accz, gyrx, gyry, gyrz, magx, magy, magz, voc_data, compensated_raw_gas, temperature, humidity]])
 
 			time.sleep(1)
 			cycle += 1
@@ -96,7 +96,7 @@ def land():
 	press_count = 0
 	press_array = [0]
 	press_array.append(bme280.bme280_read()[1])
-	filename = "co2_land_test_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	filename = "voc_land_test_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 	f = open(filename,"w")
 	writer = csv.writer(f)
 

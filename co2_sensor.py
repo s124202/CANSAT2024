@@ -28,5 +28,23 @@ def scd30_main():
 			print("\r\n")
 
 
+def scd30_get():
+	time.sleep(2)
+
+	while True:
+		try:
+			if scd30.get_data_ready():
+				m = scd30.read_measurement()
+				if m is not None:
+					break
+				time.sleep(2)
+			else:
+				time.sleep(0.2)
+		except KeyboardInterrupt:
+			print("\r\n")
+
+	return m[0]
+
+
 if __name__ == '__main__':
 	scd30_main()

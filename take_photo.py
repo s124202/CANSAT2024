@@ -27,6 +27,7 @@ def Capture(path, width = 320, height = 240):
 			camera.rotation = 180
 			camera.resolution = (width,height)	#(width,height)
 			camera.awb_mode = "sunlight"
+			camera.exposure_mode = "beach"
 			filepath = fileName(path,"jpg")
 			camera.capture(filepath)
 	except picamera.exc.PiCameraMMALError:

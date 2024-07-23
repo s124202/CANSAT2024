@@ -159,21 +159,6 @@ def angle(magx, magy, magx_off=0, magy_off=0):
 
     return theta
 
-def calculate_direction(lon2, lat2):
-    # --- read gps data ---#
-    try:
-        gps.open_gps()
-        utc, lat, lon, sHeight, gHeight = gps.gps_data_read()
-        lat1 = lat
-        lon1 = lon
-    except KeyboardInterrupt:
-        gps.close_gps()
-    except:
-        gps.close_gps()
-    # --- calculate angle to goal ---#
-    direction = gps_navigate.vincenty_inverse(lat1, lon1, lat2, lon2)
-    return direction
-
 if __name__ == "__main__":
     n = int(input("motor？"))
     motor.setup()

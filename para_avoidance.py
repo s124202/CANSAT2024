@@ -6,6 +6,7 @@ import motor
 import bmx055
 import PID
 import red_detection
+import gps_navigate
 
 def standarize_angle(angle):
 	'''
@@ -47,9 +48,9 @@ def main(lat_land, lon_land, lat_dest, lon_dest):
 	PARA_RUN_SHORT = 3
 	PARA_RUN_LONG = 10
 
-	para_info = calibration.calculate_direction(lon2=lon_land, lat2=lat_land)
+	lat_now, lon_now = gps.location()
+	para_info = gps_navigate.vincenty_inverse(lat_now, lon_now, lat2 = lon_land, lon2 = lat_land)
 	para_dist = para_info['distance'] #パラシュートまでの距離を計算
-	para_azimuth = para_info['azimuth1'] #パラシュートの方位角を計算
 	print(f'{para_dist}m')
 
 	if para_dist <= SHORT_THD_DIST:
@@ -80,8 +81,9 @@ def main(lat_land, lon_land, lat_dest, lon_dest):
 	elif SHORT_THD_DIST < para_dist <= LONG_THD_DIST:
 		print('Starting Calibration')
 		magx_off, magy_off = calibration.cal(40, -40, 30) #キャリブレーション
-		para_direction = calibration.calculate_direction(lon2=lon_land, lat2=lat_land) #パラシュート位置の取得
-		para_azimuth = para_direction["azimuth1"]
+		lat_now, lon_now = gps.location()
+		para_info = gps_navigate.vincenty_inverse(lat_now, lon_now, lat2 = lon_land, lon2 = lat_land)
+		para_azimuth = para_info["azimuth1"]
 		target_azimuth = para_azimuth + 180
 		if target_azimuth >= 360:
 			target_azimuth = target_azimuth % 360
@@ -112,7 +114,8 @@ def main(lat_land, lon_land, lat_dest, lon_dest):
 				motor.motor_stop(1)
 
 	elif para_dist > LONG_THD_DIST: #これどうする？？
-		goal_info = calibration.calculate_direction(lon2=lon_dest, lat2=lat_dest)
+		lat_now, lon_now = gps.location()
+		goal_info = gps_navigate.vincenty_inverse(lat_now, lon_now, lat2 = lon_dest, lon2 = lat_dest)
 		goal_azimuth = goal_info['azimuth1']
 
 		if abs(goal_azimuth - para_azimuth) < THD_AVOID_ANGLE:

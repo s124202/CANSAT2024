@@ -111,6 +111,7 @@ if __name__ == '__main__':
 	bmx055.bmx055_setup()
 
 	add_pwr = 0
+	
 
 	magx_off, magy_off = calibration.cal(40, -40, 30)
 

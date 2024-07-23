@@ -227,9 +227,9 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
     '''
 
     #const
-    Kp = 1.5
-    Kd = 3
-    Ki_ = 0.03
+    Kp = 0.1
+    Kd = 10
+    Ki_ = 0.1
 
     count = 0
 

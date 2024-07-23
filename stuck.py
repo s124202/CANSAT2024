@@ -59,7 +59,7 @@ def yoko_jug():
             time.sleep(0.2)
         x = max(x_array)
         
-        if x < 6:
+        if x < 6 or 15 < x:
             print('正常だよ')
             break
         else:

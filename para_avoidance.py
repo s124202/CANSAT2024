@@ -170,11 +170,11 @@ if __name__ == '__main__':
 
 	if red_area > 50:
 		print("Move Backwward")
-		motor.move(40, 40, 3) #徐々に減速するはず
+		motor.move(-40, -40, 3) #徐々に減速するはず
 		#motor.motor_stop(0.2)
 	else:
 		print("Move Forward")
-		motor.move(-40, -40, 3) #徐々に減速するはず
+		motor.move(40, 40, 3) #徐々に減速するはず
 		#motor.motor_stop(0.2)
 	
 	while True:

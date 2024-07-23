@@ -1,9 +1,7 @@
 #2024/07/22 生川
 
-#standard
 import time
 
-#src
 import gps
 import bmx055
 import motor

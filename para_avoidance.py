@@ -38,6 +38,8 @@ def main(lat_land, lon_land, lat_dest, lon_dest):
 
 	isDistant_para = 0 #パラシュート回避用のフラグ
 	red_area = 0
+	para_azimuth = 0
+	goal_azimuth = 0
 
 	PARA_PWR = 40 #パラシュートを見つけたときに回転するモーター出力
 	T_ROTATE = 0.25 #パラシュートを見つけたときに回転する時間

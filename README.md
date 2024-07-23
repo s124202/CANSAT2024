@@ -12,6 +12,14 @@
 - stuck.py : スタック用
 
 ## send
+- ascii_data.txt
+- config_cui.py
+- hexdump.py
+- mode0.py
+- mode3.py
+- send_10.py
+- send_11.py
+- setting.ini
 
 ## sorce
 - bme280.py

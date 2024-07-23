@@ -2,6 +2,7 @@ import picamera
 import time
 import traceback
 import os
+import time
 
 def fileName(f, ext):
 	i = 0
@@ -24,10 +25,11 @@ def Capture(path, width = 320, height = 240):
 	filepath = ""
 	try:
 		with picamera.PiCamera() as camera:
+			time.sleep(10)
 			camera.rotation = 180
 			camera.resolution = (width,height)	#(width,height)
-			camera.awb_mode = "sunlight"
-			camera.exposure_mode = "beach"
+			#camera.awb_mode = "sunlight"
+			#camera.exposure_mode = "beach"
 			filepath = fileName(path,"jpg")
 			camera.capture(filepath)
 	except picamera.exc.PiCameraMMALError:

@@ -123,6 +123,19 @@ def differential_control(Kd, theta_array: list):
     return md
 
 
+#これはどう？D
+#len(theta_array)をtheta_array[]の中に入れるとエラー吐きそうだから二行に分割
+def differential_control(Kd, theta_array: list):
+    #D制御
+
+    num = len(theta_array)
+    theta_differential = theta_array[num-1] - theta_array[num-2]
+
+    md = Kd * theta_differential
+
+    return md
+
+
 #PID
 def PID_control(theta, theta_array: list, Kp=0.1, Ki=0.04, Kd=2.5):
     #-----PID制御-----#

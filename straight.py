@@ -6,7 +6,9 @@ import motor
 import calibration
 
 def main():
-    kp = 0.4
+    kp = float(input("kp"))
+    kd = float(input("kd"))
+
     kd = 3
 
     s_l = 30

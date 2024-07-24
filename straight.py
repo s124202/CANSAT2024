@@ -20,7 +20,7 @@ def main():
     print(theta_correct)
     theta_old = theta_correct
 
-    for i in range (50):
+    for i in range (20):
         magx, magy, magz = bmx055.mag_dataRead()
         theta = calibration.angle(magx,magy)
         theta = calibration.standarize_angle(theta)
@@ -38,6 +38,7 @@ def main():
         motor.motor_move(strength_l, strength_r, 0.05)
         theta_old = theta
         time.sleep(0.05)
+    motor.deceleration()
 
 
 

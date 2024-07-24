@@ -8,19 +8,6 @@ import PID
 import calibration
 import red_detection
 
-def standarize_angle(angle):
-	'''
-	角度を-180～180度に収める関数
-	'''
-	angle = angle % 360
-	
-	if angle >180:
-		angle -= 360
-	elif angle < -180:
-		angle += 360
-
-	return angle
-
 def main(magx_off: float, magy_off: float, add_pwr: float):
 	'''
 	Parameters
@@ -111,7 +98,6 @@ if __name__ == '__main__':
 	bmx055.bmx055_setup()
 
 	add_pwr = 0
-	
 
 	magx_off, magy_off = calibration.cal(40, -40, 30)
 

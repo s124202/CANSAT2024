@@ -23,7 +23,7 @@ def main():
     for i in range (50):
         magx, magy, magz = bmx055.mag_dataRead()
         theta = calibration.angle(magx,magy)
-        theta = calibration.standarize_angle(theta_correct)
+        theta = calibration.standarize_angle(theta)
         print(theta)
         mp = (theta_correct - theta) * kp
         md = (theta - theta_old) * kd

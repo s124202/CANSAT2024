@@ -22,6 +22,7 @@ def main():
 	###-----撮像した画像の中にゴールが映っていた場合の処理-----###
 	if area_ratio >= THD_RED_RATIO:
 		isReach_goal = 1
+		
 	elif 0 < area_ratio < THD_RED_RATIO:
 		###-----ゴールが真正面にあるときの処理-----###
 		if angle == 2:

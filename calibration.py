@@ -10,6 +10,18 @@ import bmx055
 import motor
 import stuck
 
+def standarize_angle(angle):
+    '''
+    角度を-180～180度に収める関数
+    '''
+    angle = angle % 360
+    
+    if angle >180:
+        angle -= 360
+    elif angle < -180:
+        angle += 360
+
+    return angle
 
 def get_data():
     """

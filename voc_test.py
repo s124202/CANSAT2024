@@ -10,7 +10,6 @@ import math
 #src
 import bme280
 import bmx055
-import voc_index
 import gps
 import motor
 import melt
@@ -51,20 +50,19 @@ def sensor():
 		while time.time() - start_time < TIME_THD:
 			temp, pres, hum, alt = bme280.bme280_read()
 			accx, accy, accz, gyrx, gyry, gyrz, magx, magy, magz = bmx055.bmx055_read()
-			voc_data, compensated_raw_gas, temperature, humidity = voc_index.test()
 			lat,lon = gps.test()
 
 			#log
-			send.log(str(cycle) + "," + str(lat) + "," + str(lon) + "," + str(temp) + str(pres) + "," + str(hum) + "," + str(alt) + "," + str(accx) + "," + str(accy) + "," + str(accz) + "," + str(gyrx) + "," + str(gyrz) + "," + str(magx) + "," + str(magy) + "," + str(magz) + "," + str(voc_data) + "," + str(compensated_raw_gas) + "," + str(temperature) + "," + str(humidity))
+			send.log(str(cycle) + "," + str(lat) + "," + str(lon) + "," + str(temp) + str(pres) + "," + str(hum) + "," + str(alt) + "," + str(accx) + "," + str(accy) + "," + str(accz) + "," + str(gyrx) + "," + str(gyrz) + "," + str(magx) + "," + str(magy) + "," + str(magz) + "," + str(sgp.raw))
 			print("cycle", cycle)
 			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
 			print("accx:" + str(accx) + "\t" + "accy:" + str(accy) + "\t" + "accz:" + str(accz))
 			print("gyrx:" + str(gyrx) + "\t" + "gyry:" + str(gyry) + "\t" + "gyrz:" + str(gyrz))
 			print("magx:" + str(magx) + "\t" + "magy:" + str(magy) + "\t" + "magz:" + str(magz))
-			print("voc_index:" + str(voc_data) + "\t" + "raw_gas:" + str(compensated_raw_gas) + "\t" + "tem:" + str(temperature) + "\t" + "hum: " + str(humidity))
+			print("Raw Gas: ", sgp.raw)
 			print("lat:" + str(lat) + "\t" + "lon:" + str(lon))
 
-			writer.writerows([[cycle, lat, lon, temp, pres, hum, alt, accx, accy, accz, gyrx, gyry, gyrz, magx, magy, magz, voc_data, compensated_raw_gas, temperature, humidity]])
+			writer.writerows([[cycle, lat, lon, temp, pres, hum, alt, accx, accy, accz, gyrx, gyry, gyrz, magx, magy, magz, sgp.raw]])
 
 			time.sleep(1)
 			cycle += 1

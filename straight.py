@@ -5,11 +5,9 @@ import bmx055
 import motor
 import calibration
 
-def main():
+def main(time):
     kp = float(input("kp"))
     kd = float(input("kd"))
-
-    kd = 3
 
     s_l = 30
     s_r = s_l
@@ -20,7 +18,7 @@ def main():
     print(theta_correct)
     theta_old = theta_correct
 
-    for i in range (20):
+    for i in range (int(time/0.05)):
         magx, magy, magz = bmx055.mag_dataRead()
         theta = calibration.angle(magx,magy)
         theta = calibration.standarize_angle(theta)
@@ -46,4 +44,4 @@ if __name__ == "__main__":
     bmx055.bmx055_setup()
     motor.setup()
 
-    main()
+    main(2)

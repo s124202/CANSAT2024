@@ -25,6 +25,9 @@ def main():
         md = (theta - theta_old) * kd
         m = mp - md
 
+        m = min(m,5)
+        m = max(m,-5)
+
         strength_l = s_l - m
         strength_r = s_r + m
 
@@ -37,3 +40,5 @@ def main():
 if __name__ == "__main__":
     bmx055.bmx055_setup()
     motor.setup()
+
+    main()

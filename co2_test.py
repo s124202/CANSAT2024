@@ -73,7 +73,7 @@ def sensor():
 	except KeyboardInterrupt:
 		print("keyboard interrupt")
 		send.log("keyboard interrupt")
-	
+
 	print("sensor test finished")
 	send.log("sensor test finished")
 

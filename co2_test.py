@@ -23,7 +23,7 @@ import send.send_11 as send
 def sensor():
 	#start
 	print("start sensor test")
-	send.log("start sensor test")
+	send.log("start sensor test_co2")
 
 	time.sleep(1)
 

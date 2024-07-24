@@ -24,7 +24,7 @@ import send.send_10 as send
 def sensor():
 	#start
 	print("start sensor test")
-	send.log("start sensor test")
+	send.log("start sensor test_voc")
 
 	time.sleep(1)
 

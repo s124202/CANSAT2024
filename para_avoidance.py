@@ -11,7 +11,7 @@ import straight
 def main():
 
 	PARA_THD_COVERED = 300000
-	LAN_DEST = 
+	LAT_DEST = 
 	LON_DEST = 
 
 	red_area = 0

@@ -17,7 +17,7 @@ def main():
     theta_correct = calibration.standarize_angle(theta_correct)
     theta_old = theta_correct
 
-    for i in range (20):
+    for i in range (50):
         magx, magy, magz = bmx055.mag_dataRead()
         theta = calibration.angle(magx,magy)
         theta = calibration.standarize_angle(theta_correct)

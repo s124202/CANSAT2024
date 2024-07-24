@@ -21,6 +21,8 @@ def main():
 
     for i in range (50):
         magx, magy, magz = bmx055.mag_dataRead()
+        print(magx)
+        print(magy)
         theta = calibration.angle(magx,magy)
         theta = calibration.standarize_angle(theta_correct)
         mp = (theta_correct - theta) * kp
@@ -30,8 +32,8 @@ def main():
         m = min(m,5)
         m = max(m,-5)
 
-        strength_l = s_l + m
-        strength_r = s_r - m
+        strength_l = s_l - m
+        strength_r = s_r + m
 
         motor.motor_move(strength_l, strength_r, 0.05)
         theta_old = theta

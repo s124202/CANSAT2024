@@ -13,6 +13,7 @@ import co2_sensor as co2
 import gps
 import motor
 import melt
+import blt_sub
 
 #send
 import send.mode3 as mode3
@@ -186,3 +187,5 @@ if __name__ == '__main__':
 	send.log("melt test finished")
 
 	t_motor()
+
+	blt_sub.blt()

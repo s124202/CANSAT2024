@@ -14,6 +14,7 @@ import voc_index
 import gps
 import motor
 import melt
+import blt_main
 
 #send
 import send.mode3 as mode3
@@ -186,3 +187,5 @@ if __name__ == '__main__':
 	send.log("melt test finished")
 
 	t_motor()
+
+	blt_main.blt()

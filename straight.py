@@ -31,7 +31,7 @@ def main():
         strength_l = s_l - m
         strength_r = s_r + m
 
-        motor.move(strength_l, strength_r, 0.05)
+        motor.motor_move(strength_l, strength_r, 0.05)
         theta_old = theta
 
 

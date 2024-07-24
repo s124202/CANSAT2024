@@ -55,7 +55,7 @@ def sensor():
 			lat,lon = gps.test()
 
 			#log
-			send.log(str(cycle) + "," + str(lat) + "," + str(lon) + "," + str(temp) + str(pres) + "," + str(hum) + "," + str(alt) + "," + str(accx) + "," + str(accy) + "," + str(accz) + "," + str(gyrx) + "," + str(gyrz) + "," + str(magx) + "," + str(magy) + "," + str(magz) + "," + str(m_co2))
+			send.log(str(cycle) + "," + str(lat) + "," + str(lon) + "," + str(temp) + "," + str(pres) + "," + str(hum) + "," + str(alt) + "," + str(accx) + "," + str(accy) + "," + str(accz) + "," + str(gyrx) + "," + str(gyrz) + "," + str(magx) + "," + str(magy) + "," + str(magz) + "," + str(m_co2))
 			print("cycle", cycle)
 			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
 			print("accx:" + str(accx) + "\t" + "accy:" + str(accy) + "\t" + "accz:" + str(accz))

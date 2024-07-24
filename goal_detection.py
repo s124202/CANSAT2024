@@ -9,6 +9,7 @@ def main():
 	angle = 0
 	isReach_goal = 0
 
+	LITTLE_ROTATE_PWR = 20
 	ROTATE_PWR = 30
 	THD_RED_RATIO = 75 #画面を占める赤色の割合の閾値
 
@@ -24,17 +25,18 @@ def main():
 	elif 0 < area_ratio < THD_RED_RATIO:
 		###-----ゴールが真正面にあるときの処理-----###
 		if angle == 2:
-			#target_azimuth = rover_azimuth
-		
+			pass
+
 		###------ゴールが真正面にないときの処理------###
 		###-----目標角度を少しずらす-----###
 		elif angle == 1:
-			#target_azimuth = rover_azimuth - 15
+			motor.motor_move(LITTLE_ROTATE_PWR, -LITTLE_ROTATE_PWR, 0.15)
+
 		elif angle == 3:
-			#target_azimuth = rover_azimuth + 15
+			motor.motor_move(LITTLE_ROTATE_PWR, -LITTLE_ROTATE_PWR, 0.15)
 			
 		###-----PID制御により前進-----###
-		straight(motor_pwr = 30, move_time = 8)
+		straight(motor_pwr = 30, move_time = 2)
 
 	###-----撮像した画像の中にゴールが映っていない場合の処理-----###
 	elif area_ratio == 0:

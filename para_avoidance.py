@@ -58,6 +58,7 @@ def main():
 		print(f'red_area : {red_area}')
 		if red_area > 10:
 			motor(20, -20, 0.3)
+			motor.motor_stop(0.5)
 			straight(motor_pwr = 30, move_time = 8)
 		else:
 			break

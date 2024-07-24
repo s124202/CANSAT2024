@@ -19,7 +19,7 @@ def blt():
         client_sock.settimeout(10)
         print("Accepted connection from ",address)
 
-        for i in range (5):
+        for i in range (6):
             if synchro == 1:
                 print("synchro")
                 break
@@ -38,7 +38,6 @@ def blt():
                 break
         client_sock.close()
         server_sock.close()
-        print("try reconnect")
 
     except KeyboardInterrupt:
         print("finish")

@@ -28,7 +28,7 @@ def blt():
             time.sleep(3)
             pass
 
-    for i in range (5):
+    for i in range (6):
         if synchro == 1:
             print("synchro")
             break

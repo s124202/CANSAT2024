@@ -19,7 +19,7 @@ def main():
 	###-----撮像した画像の中にゴールが映っていた場合の処理-----###
 	if 0 < area_ratio:
 	#追従走行ここにいれてー
-		isReach_goal
+		isReach_goal = 1
 	###-----撮像した画像の中にゴールが映っていない場合の処理-----###
 	elif area_ratio == 0:
 		print('Lost Goal')

@@ -178,7 +178,7 @@ if __name__ == '__main__':
 		while 1:
 			bmxData = bmx055_read()
 			print(bmxData)
-			time.sleep(2)
+			time.sleep(0.05)
 	except KeyboardInterrupt:
 		print("\r\n")
 	except Exception as e:

@@ -188,4 +188,8 @@ if __name__ == '__main__':
 
 	t_motor()
 
+	print("start bluetooth test")
+	send.log("start bluetooth test")
 	blt_sub.blt()
+	print("bluetooth test finished")
+	send.log("bluetooth test finished")

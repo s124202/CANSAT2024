@@ -33,7 +33,6 @@ def main():
 
         motor.move(strength_l, strength_r, 0.05)
         theta_old = theta
-        time.sleep(0.05)
 
 
 

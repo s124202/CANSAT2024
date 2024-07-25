@@ -50,7 +50,7 @@ def sensor():
 		while time.time() - start_time < TIME_THD:
 			temp, pres, hum, alt = bme280.bme280_read()
 			accx, accy, accz, gyrx, gyry, gyrz, magx, magy, magz = bmx055.bmx055_read()
-			lat,lon = gps.test()
+			lat,lon = 0.0,0.0
 
 			#log
 			send.log(str(cycle) + "," + str(lat) + "," + str(lon) + "," + str(temp) + "," + str(pres) + "," + str(hum) + "," + str(alt) + "," + str(accx) + "," + str(accy) + "," + str(accz) + "," + str(gyrx) + "," + str(gyrz) + "," + str(magx) + "," + str(magy) + "," + str(magz) + "," + str(sgp.raw))

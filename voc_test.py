@@ -53,7 +53,7 @@ def sensor():
 			lat,lon = gps.test()
 
 			#log
-			send.log(str(cycle) + "," + str(lat) + "," + str(lon) + "," + str(temp) + str(pres) + "," + str(hum) + "," + str(alt) + "," + str(accx) + "," + str(accy) + "," + str(accz) + "," + str(gyrx) + "," + str(gyrz) + "," + str(magx) + "," + str(magy) + "," + str(magz) + "," + str(sgp.raw))
+			send.log(str(cycle) + "," + str(lat) + "," + str(lon) + "," + str(temp) + "," + str(pres) + "," + str(hum) + "," + str(alt) + "," + str(accx) + "," + str(accy) + "," + str(accz) + "," + str(gyrx) + "," + str(gyrz) + "," + str(magx) + "," + str(magy) + "," + str(magz) + "," + str(sgp.raw))
 			print("cycle", cycle)
 			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
 			print("accx:" + str(accx) + "\t" + "accy:" + str(accy) + "\t" + "accz:" + str(accz))
@@ -186,4 +186,8 @@ if __name__ == '__main__':
 
 	t_motor()
 
+	print("start bluetooth test")
+	send.log("start bluetooth test")
 	blt_main.blt()
+	print("bluetooth test finished")
+	send.log("bluetooth test finished")

@@ -3,7 +3,7 @@ import time
 import release
 import land
 import bme280
-#import bmx055
+import bmx055
 import motor
 import blt_child
 #import para_fall_test
@@ -13,7 +13,7 @@ import send.send2 as send
 
 bme280.bme280_setup()
 bme280.bme280_calib_param()
-#bmx055.bmx055_setup()
+bmx055.bmx055_setup()
 motor.setup()
 #mode3.mode3_change()
 
@@ -47,3 +47,19 @@ send.log("melt end")
 #パラ回避
 #para_fall_test.para_child_main()
 #send.log("para avoiding finished")
+
+#追従準備
+
+
+#追従開始
+
+
+#親機子機入れ替え(親機に変更)
+
+
+#自律走行開始(被追従)
+
+
+#ゴール判定
+
+

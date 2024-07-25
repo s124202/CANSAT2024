@@ -180,7 +180,7 @@ if __name__ == '__main__':
 	#melt
 	print("start melt test")
 	send.log("start melt test")
-	melt.melt_down(meltPin=17, t_melt = 10.0)
+	#melt.melt_down(meltPin=17, t_melt = 10.0)
 	print("melt test finished")
 	send.log("melt test finished")
 

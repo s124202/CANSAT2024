@@ -39,7 +39,7 @@ def sensor():
 	writer = csv.writer(f)
 
 	#const
-	TIME_THD = 10
+	TIME_THD = 360
 	cycle = 1
 
 	time.sleep(1)
@@ -168,7 +168,7 @@ def t_motor():
 	send.log("start motor test")
 	motor.setup()
 	time.sleep(20)
-	motor.move(10, 20, 3)
+	motor.move(20, 10, 3)
 	print("motor test finished")
 	send.log("motor test finished")
 
@@ -180,7 +180,7 @@ if __name__ == '__main__':
 	#melt
 	print("start melt test")
 	send.log("start melt test")
-	#melt.melt_down(meltPin=17, t_melt = 10.0)
+	melt.melt_down(meltPin=17, t_melt = 10.0)
 	print("melt test finished")
 	send.log("melt test finished")
 

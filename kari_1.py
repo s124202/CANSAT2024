@@ -3,7 +3,6 @@ from gpiozero import Motor
 import time
 import cv2
 import numpy as np
-import threading
  
 def motor_setup():
 	"""
@@ -117,7 +116,6 @@ def main_detect():
     default_l = 43
     default_r= default_l - 20
 
-    lose = 0
     discover = 1
     old_center = [320,0]
     count = 0
@@ -141,12 +139,10 @@ def main_detect():
 
         if center is None:
             center = old_center
-            lose += 1
             discover = 1
             count += 1
         else:
              discover += 1
-             lose = 0
              count = 0
         
         if size is None:

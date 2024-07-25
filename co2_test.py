@@ -40,7 +40,7 @@ def sensor():
 	writer = csv.writer(f)
 
 	#const
-	TIME_THD = 360
+	TIME_THD = 0
 	cycle = 1
 
 	time.sleep(1)

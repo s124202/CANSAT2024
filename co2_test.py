@@ -29,7 +29,7 @@ def sensor():
 
 	#setup
 	mode3.mode3_change()
-	bmx055.bmx055_setup()
+	#bmx055.bmx055_setup()
 	bme280.bme280_setup()
 	bme280.bme280_calib_param()
 	scd30 = SCD30()
@@ -50,21 +50,21 @@ def sensor():
 	try:
 		while time.time() - start_time < TIME_THD:
 			temp, pres, hum, alt = bme280.bme280_read()
-			accx, accy, accz, gyrx, gyry, gyrz, magx, magy, magz = bmx055.bmx055_read()
+			#accx, accy, accz, gyrx, gyry, gyrz, magx, magy, magz = bmx055.bmx055_read()
 			m_co2 = co2.scd30_get()
 			lat,lon = gps.test()
 
 			#log
-			send.log(str(cycle) + "," + str(lat) + "," + str(lon) + "," + str(temp) + "," + str(pres) + "," + str(hum) + "," + str(alt) + "," + str(accx) + "," + str(accy) + "," + str(accz) + "," + str(gyrx) + "," + str(gyrz) + "," + str(magx) + "," + str(magy) + "," + str(magz) + "," + str(m_co2))
+			send.log(str(cycle) + "," + str(lat) + "," + str(lon) + "," + str(temp) + "," + str(pres) + "," + str(hum) + "," + str(alt) + "," + str(m_co2))
 			print("cycle", cycle)
 			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
-			print("accx:" + str(accx) + "\t" + "accy:" + str(accy) + "\t" + "accz:" + str(accz))
-			print("gyrx:" + str(gyrx) + "\t" + "gyry:" + str(gyry) + "\t" + "gyrz:" + str(gyrz))
-			print("magx:" + str(magx) + "\t" + "magy:" + str(magy) + "\t" + "magz:" + str(magz))
+			#print("accx:" + str(accx) + "\t" + "accy:" + str(accy) + "\t" + "accz:" + str(accz))
+			#print("gyrx:" + str(gyrx) + "\t" + "gyry:" + str(gyry) + "\t" + "gyrz:" + str(gyrz))
+			#print("magx:" + str(magx) + "\t" + "magy:" + str(magy) + "\t" + "magz:" + str(magz))
 			print("co2:" + str(m_co2))
 			print("lat:" + str(lat) + "\t" + "lon:" + str(lon))
 
-			writer.writerows([[cycle, lat, lon, temp, pres, hum, alt, accx, accy, accz, gyrx, gyry, gyrz, magx, magy, magz, m_co2]])
+			writer.writerows([[cycle, lat, lon, temp, pres, hum, alt, m_co2]])
 
 			time.sleep(1)
 			cycle += 1
@@ -131,35 +131,35 @@ def land():
 			break
 
 	#加速度(絶対値)による着地判定
-	acc_count = 0
-	acc_array = [0]
-	bmxData = bmx055.bmx055_read()
-	acc_abs = math.sqrt(bmxData[0]**2 + bmxData[1]**2 + bmxData[2]**2)
-	acc_array.append(acc_abs)
+	#acc_count = 0
+	#acc_array = [0]
+	#bmxData = bmx055.bmx055_read()
+	#acc_abs = math.sqrt(bmxData[0]**2 + bmxData[1]**2 + bmxData[2]**2)
+	#acc_array.append(acc_abs)
 
-	while True:
-		acc_array.pop(0)
-		time.sleep(LAND_JUDGE_TIME)
-		bmxData = bmx055.bmx055_read()
-		acc_abs = math.sqrt(bmxData[0]**2 + bmxData[1]**2 + bmxData[2]**2)
-		acc_array.append(acc_abs)
-		
-		delta_acc = abs(acc_array[0] - acc_array[1])
-		if delta_acc < LAND_ACC_THD:
-			acc_count += 1
-		else:
-			acc_count = 0
-		
-		print(acc_array, acc_count)
-		writer.writerows([[bmxData, acc_array, acc_count]])
-		
-		if acc_count == LAND_JUDGE_COUNT:
-			print("Acceleration OK")
-			break
+	#while True:
+	#	acc_array.pop(0)
+	#	time.sleep(LAND_JUDGE_TIME)
+	#	bmxData = bmx055.bmx055_read()
+	#	acc_abs = math.sqrt(bmxData[0]**2 + bmxData[1]**2 + bmxData[2]**2)
+	#	acc_array.append(acc_abs)
+	#	
+	#	delta_acc = abs(acc_array[0] - acc_array[1])
+	#	if delta_acc < LAND_ACC_THD:
+	#		acc_count += 1
+	#	else:
+	#		acc_count = 0
+	#	
+	#	print(acc_array, acc_count)
+	#	writer.writerows([[bmxData, acc_array, acc_count]])
+	#	
+	#	if acc_count == LAND_JUDGE_COUNT:
+	#		print("Acceleration OK")
+	#		break
 
-		if time.time() - time_start > time_timeout:
-			print("Land Timeout")
-			break
+	#	if time.time() - time_start > time_timeout:
+	#		print("Land Timeout")
+	#		break
 
 	print("land test finished")
 	send.log("land test finished")

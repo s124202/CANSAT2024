@@ -2,6 +2,8 @@
 
 #standard
 import time
+import bluetooth
+import threading
 
 #src
 import gps
@@ -12,9 +14,51 @@ import gps_navigate
 import stuck
 
 #send
-#import send.mode3 as mode3
-#import send.send_11 as send_11
+import send.mode3 as mode3
+import send.send_11 as send_11
 
+def blt():
+    global send
+    global receive
+    global synchro
+
+    send = 0
+    receive = "0"
+    synchro = 0
+    
+    try:
+        server_sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+        port = 1
+        server_sock.bind(("",port))
+        server_sock.listen(1)
+        client_sock,address = server_sock.accept()
+        client_sock.settimeout(10)
+        print("Accepted connection from ",address)
+
+        while True:
+            if synchro == 1:
+                print("synchro")
+                break
+            try:
+                data = client_sock.recv(1024)
+                receive = data.decode()
+                print(receive)
+                time.sleep(1)
+                client_sock.send(str(send))
+            except KeyboardInterrupt:
+                print("finish")
+                break
+            except bluetooth.btcommon.BluetoothError as err:
+                print("close")
+                break
+        client_sock.close()
+        server_sock.close()
+
+    except KeyboardInterrupt:
+        print("finish")
+        client_sock.close()
+        server_sock.close()
+    
 
 #angle correction
 def standarize_angle(angle):
@@ -117,6 +161,19 @@ def differential_control(Kd, theta_array: list):
 
     #最新のthetaの微分値を取得
     theta_differential = theta_differential_array[-1]
+
+    md = Kd * theta_differential
+
+    return md
+
+
+#これはどう？D
+#len(theta_array)をtheta_array[]の中に入れるとエラー吐きそうだから二行に分割
+def differential_controlkai(Kd, theta_array: list):
+    #D制御
+
+    num = len(theta_array)
+    theta_differential = theta_array[num-1] - theta_array[num-2]
 
     md = Kd * theta_differential
 
@@ -343,19 +400,19 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
             PID_run(target_azimuth, magx_off, magy_off, theta_array, loop_num)
         else:
             isReach_dest = 1
+            break
 
         stuck_count += 1
-
-        if isReach_dest == 1:
-            break
 
     motor.motor_stop(1)
 
     return lat_now, lon_now, distance_to_dest, rover_azimuth, isReach_dest
 
+def main():
+    global receive
+    global send
+    global synchro
 
-
-if __name__ == "__main__":
     #target
     lat_test = 35.924508
     lon_test = 139.911867
@@ -372,18 +429,37 @@ if __name__ == "__main__":
     #setup
     motor.setup()
     bmx055.bmx055_setup()
-    #mode3.mode3_change()
+    mode3.mode3_change()
 
 
     #main
     while True:
         lat_now, lon_now, distance_to_dest, rover_azimuth, isReach_dest = drive(lon_dest=lon_test, lat_dest=lat_test, thd_distance=THD_DISTANCE_DEST, t_cal=T_CAL, loop_num=LOOP_NUM)
 
+        #追従しているか確認
+        if receive == str(1):
+            print("no followed")
+            synchro = 1
+            break
+
         #check
         if isReach_dest == 1:
             print('end gps running')
-            #send_11.log("end gps running")
+            send_11.log("end gps running")
             break
         else:
             print("not Goal", "distance=",distance_to_dest)
-            #send_11.log("distance=" + str(distance_to_dest))
+            send_11.log("distance=" + str(distance_to_dest))
+
+
+if __name__ == "__main__":
+    thread1 = threading.Thread(target=main)
+    thread2 = threading.Thread(target=blt)
+
+    thread1.start()
+    thread2.start()
+
+    thread1.join()
+    thread2.join()
+
+

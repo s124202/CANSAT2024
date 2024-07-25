@@ -4,53 +4,7 @@ import time
 import cv2
 import numpy as np
 import threading
-import bluetooth
  
-def blt():
-    global send
-    global receive
-    global synchro
-
-    bd_addr = "B8:27:EB:1B:C5:BF" # サーバー側のデバイスアドレスを入力
-    port = 1
-
-    send = 0
-    receive = "0"
-    synchro = 0
-    
-    while True:
-        try:
-            sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-            sock.connect((bd_addr, port))
-            sock.settimeout(10)
-            print("connect success")
-            break
-        except KeyboardInterrupt:
-            print("finish")
-            break
-        except:
-            print("try again")
-            time.sleep(3)
-            pass
-
-    while True:
-        if synchro == 1:
-            print("synchro")
-            break
-        try:
-            time.sleep(1)
-            sock.send(str(send))
-            data = sock.recv(1024)
-            receive = data.decode()
-            print(receive)
-        except KeyboardInterrupt:
-            print("finish")
-            break
-        except bluetooth.btcommon.BluetoothError as err:
-            print("close")
-            break
-    sock.close()
-
 def motor_setup():
     """
     motorを使うときに必要な初期化を行う関数
@@ -65,7 +19,7 @@ def motor_move():
     
     global strength_l
     global strength_r
-    t_moving = 0.05 
+    global t_moving
 
     """
     引数は左のmotorの強さ、右のmotorの強さ、走る時間。
@@ -124,8 +78,7 @@ def move():
     """
 
     global synchro
-    synchro = 0
-    time.sleep(3)
+    time.sleep(5)
 
     while True:
         motor_move()
@@ -185,8 +138,7 @@ def get_largest_red_object(mask):
 
 def main_detect():
 
-    global send
-    global receive
+    global blt_send
     global synchro
 
     global strength_l
@@ -198,6 +150,7 @@ def main_detect():
     lose = 0
     discover = 1
     old_center = [320,0]
+    count = 0
     # カメラのキャプチャ
     cap = cv2.VideoCapture(0)
 
@@ -217,9 +170,11 @@ def main_detect():
             center = old_center
             lose += 1
             discover = 1
+            count += 1
         else:
              discover += 1
              lose = 0
+             count = 0
         
         if size is None:
              size = 5000
@@ -245,10 +200,9 @@ def main_detect():
         #    synchro = 1
         #    break
              
-        if lose == 60:
-            print("no discover")
-            send = 1
-            time.sleep(3)
+        if count == 60:
+            print("out")
+            synchro = 1
             break
 
         strength_l = default_l - s + m
@@ -256,25 +210,31 @@ def main_detect():
 
         #print(old_center[0]-center[0])
         old_center = center
+   
+        # qキーが押されたら途中終了
+        if cv2.waitKey(25) & 0xFF == ord('q'):
+            break
 
-    synchro = 1
     cap.release()
     cv2.destroyAllWindows()
-
-    
+  
 
 if __name__ == '__main__':
+
+    blt_send = 0
+    synchro = 0
+    
+    strength_l = 25
+    strength_r = 32
+    t_moving = 0.05
     
     thread1 = threading.Thread(target = main_detect)
     thread2 = threading.Thread(target = move)
-    thread3 = threading.Thread(target = blt)
 
     motor_setup()
     
     thread1.start()
     thread2.start()
-    thread3.start()
 
     thread1.join()
     thread2.join()
-    thread3.join()

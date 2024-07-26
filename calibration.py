@@ -65,8 +65,8 @@ def magdata_matrix(l, r, n):
         モータを連続的に動かして回転して地磁気データを得る。
         """
     try:
-        stuck.yoko_jug()
-        stuck.ue_jug()
+        #stuck.yoko_jug()
+        #stuck.ue_jug()
         magx, magy, magz = get_data()
         magdata = np.array([[magx, magy, magz]])
         prev_magx, prev_magy = magx, magy

@@ -343,6 +343,10 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
         ログの保存先インスタンス
     '''
 
+    global receive
+    global send
+    global synchro
+
     #init(flag)
     isReach_dest = 0
     stuck_count = 1
@@ -395,6 +399,12 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
                 stuck.stuck_avoid()
             lat_old, lon_old = gps.location()
 
+        #追従しているか確認
+        if receive == str(1):
+            print("no followed")
+            synchro = 1
+            break
+
         #run
         if distance_to_dest > thd_distance:
             PID_run(target_azimuth, magx_off, magy_off, theta_array, loop_num)
@@ -409,9 +419,6 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
     return lat_now, lon_now, distance_to_dest, rover_azimuth, isReach_dest
 
 def main():
-    global receive
-    global send
-    global synchro
 
     #target
     lat_test = 35.924508
@@ -435,12 +442,6 @@ def main():
     #main
     while True:
         lat_now, lon_now, distance_to_dest, rover_azimuth, isReach_dest = drive(lon_dest=lon_test, lat_dest=lat_test, thd_distance=THD_DISTANCE_DEST, t_cal=T_CAL, loop_num=LOOP_NUM)
-
-        #追従しているか確認
-        if receive == str(1):
-            print("no followed")
-            synchro = 1
-            break
 
         #check
         if isReach_dest == 1:

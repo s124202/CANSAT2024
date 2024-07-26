@@ -13,8 +13,8 @@ import straight
 def main():
 	PARA_THD_COVERED = 300000
 	PARA_TIMEOUT = 300
-	LAT_DEST = 
-	LON_DEST = 
+	LAT_DEST = 35.924582
+	LON_DEST = 139.911343
 
 	red_area = 0
 	goal_azimuth = 0
@@ -66,8 +66,6 @@ def main():
 def main2():
 	PARA_THD_COVERED = 300000
 	PARA_TIMEOUT = 300
-	LAT_DEST = 
-	LON_DEST = 
 
 	red_area = 0
 	goal_azimuth = 0

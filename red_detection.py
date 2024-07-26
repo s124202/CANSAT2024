@@ -132,7 +132,7 @@ def detect_goal():
 	angle = get_angle(cx, cy, original_img)
 
 	#return area_ratio, angle
-	print(area_ratio, angle)
+	return (area_ratio, angle)
 
 if __name__ == '__main__':
 	detect_goal()

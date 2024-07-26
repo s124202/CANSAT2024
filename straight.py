@@ -44,7 +44,7 @@ def test(motor_pwr, move_time):
     kp = float(input("kp"))
     kd = float(input("kd"))
 
-    s_l = motor_pwr + 23
+    s_l = motor_pwr
     s_r = motor_pwr
 
     magx_off, magy_off = calibration.cal(s_l,-s_r,60) 

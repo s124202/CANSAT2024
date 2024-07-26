@@ -36,6 +36,7 @@ def main():
 
 	time.sleep(1)
 
+
 	#para avoid sequence
 	print("start para avoid sequence")
 	send.log("start para avoid sequence")
@@ -47,6 +48,7 @@ def main():
 
 	time.sleep(1)
 
+
 	#gps run sequence
 	print("start gps run sequence")
 	send.log("start gps run sequence")
@@ -57,6 +59,7 @@ def main():
 	send.log("end gps run sequence")
 
 	time.sleep(1)
+
 
 	#goal detect sequence
 	print("start goal detect sequence")
@@ -70,14 +73,16 @@ def main():
 	time.sleep(1)
 
 
-
 if __name__ == '__main__':
-	setup()
+	try:
+		setup()
 
-	time.sleep(1)
+		time.sleep(1)
 
-	print("start main program")
-	send.log("start main program")
-	main()
-	print("end goal main program")
-	send.log("end goal main program")
+		print("start main program")
+		send.log("start main program")
+		main()
+		print("end goal main program")
+		send.log("end goal main program")
+	except KeyboardInterrupt:
+		print("stop!!!!")

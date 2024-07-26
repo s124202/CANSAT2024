@@ -15,7 +15,7 @@ import stuck
 
 #send
 import send.mode3 as mode3
-import send.send_11 as send_11
+import send.send_11 as send
 
 
 #angle correction
@@ -344,7 +344,7 @@ def test():
     #const
     LOOP_NUM = 20
     THD_DISTANCE_DEST = 5
-    T_CAL = 60
+    T_CAL = 30
     STUCK_JUDGE_THD_DISTANCE = 1.0
 
     #setup
@@ -354,15 +354,16 @@ def test():
     #main
     while True:
         distance_to_dest, isReach_dest = drive(lat_dest=lat_test, lon_dest=lon_test, thd_distance=THD_DISTANCE_DEST, stack_distance=STUCK_JUDGE_THD_DISTANCE, t_cal=T_CAL, loop_num=LOOP_NUM)
+        print("Raw Gas: ", sgp.raw)
 
         #check
         if isReach_dest == 1:
             print('end gps running')
-            send_11.log("end gps running")
+            send.log("end gps running")
             break
         else:
             print("not Goal", "distance=",distance_to_dest)
-            send_11.log("distance=" + str(distance_to_dest))
+            send.log("distance=" + str(distance_to_dest))
 
 
 if __name__ == "__main__":
@@ -393,8 +394,8 @@ if __name__ == "__main__":
         #check
         if isReach_dest == 1:
             print('end gps running')
-            send_11.log("end gps running")
+            send.log("end gps running")
             break
         else:
             print("not Goal", "distance=",distance_to_dest)
-            send_11.log("distance=" + str(distance_to_dest))
+            send.log("distance=" + str(distance_to_dest))

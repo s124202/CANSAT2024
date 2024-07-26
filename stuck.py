@@ -172,6 +172,7 @@ def stuck_avoid():
 
 if __name__ == '__main__':
     motor.setup()
+    yoko_jug()
     ue_jug()
     while 1:
         a = int(input('出力入力しろ'))

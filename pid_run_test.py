@@ -2,6 +2,8 @@
 
 #standard
 import time
+import board
+import adafruit_sgp40
 
 #src
 import gps
@@ -261,7 +263,7 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         count += 1
 
 
-def drive(lat_dest: float, lon_dest :float, thd_distance: int, t_cal: float, loop_num: int):
+def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: float, t_cal: float, loop_num: int):
     '''  
     Parameters
     ----------
@@ -314,7 +316,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, t_cal: float, loo
             if yoko_count > 0:
                 break
 
-            if stuck.stuck_jug(lat_old, lon_old, lat_now, lon_old, thd=STUCK_JUDGE_THD_DISTANCE):
+            if stuck.stuck_jug(lat_old, lon_old, lat_now, lon_old, thd=stack_distance):
                 pass
             else:
                 stuck.stuck_avoid()
@@ -334,6 +336,34 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, t_cal: float, loo
     return distance_to_dest, isReach_dest
 
 
+def test():
+    #target
+    lat_test = 35.924508
+    lon_test = 139.911867
+
+    #const
+    LOOP_NUM = 20
+    THD_DISTANCE_DEST = 5
+    T_CAL = 60
+    STUCK_JUDGE_THD_DISTANCE = 1.0
+
+    #setup
+    i2c = board.I2C() 
+    sgp = adafruit_sgp40.SGP40(i2c)
+
+    #main
+    while True:
+        distance_to_dest, isReach_dest = drive(lat_dest=lat_test, lon_dest=lon_test, thd_distance=THD_DISTANCE_DEST, stack_distance=STUCK_JUDGE_THD_DISTANCE, t_cal=T_CAL, loop_num=LOOP_NUM)
+
+        #check
+        if isReach_dest == 1:
+            print('end gps running')
+            send_11.log("end gps running")
+            break
+        else:
+            print("not Goal", "distance=",distance_to_dest)
+            send_11.log("distance=" + str(distance_to_dest))
+
 
 if __name__ == "__main__":
     #target
@@ -348,7 +378,7 @@ if __name__ == "__main__":
     LOOP_NUM = 20
     THD_DISTANCE_DEST = 5
     T_CAL = 60
-    STUCK_JUDGE_THD_DISTANCE = 1
+    STUCK_JUDGE_THD_DISTANCE = 1.0
 
     #setup
     motor.setup()
@@ -358,7 +388,7 @@ if __name__ == "__main__":
 
     #main
     while True:
-        distance_to_dest, isReach_dest = drive(lat_dest=lat_test, lon_dest=lon_test, thd_distance=THD_DISTANCE_DEST, t_cal=T_CAL, loop_num=LOOP_NUM)
+        distance_to_dest, isReach_dest = drive(lat_dest=lat_test, lon_dest=lon_test, thd_distance=THD_DISTANCE_DEST, stack_distance=STUCK_JUDGE_THD_DISTANCE, t_cal=T_CAL, loop_num=LOOP_NUM)
 
         #check
         if isReach_dest == 1:

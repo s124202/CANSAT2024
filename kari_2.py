@@ -14,7 +14,7 @@ while True:
     # フレームをキャプチャ
     ret, frame = cap.read()
     frame = cv2.resize(frame, (640,320))
-	frame = cv2.rotate(frame, cv2.ROTATE_180)
+    frame = cv2.rotate(frame, cv2.ROTATE_180)
     
     # フレームをHSVに変換
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)

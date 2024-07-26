@@ -272,5 +272,5 @@ def test(reset_time=60):
 
 if __name__ == '__main__':
 	main()
-	a,b = med()
-	print(a,b)
+	#a,b = med()
+	#print(a,b)

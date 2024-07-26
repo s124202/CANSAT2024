@@ -48,7 +48,7 @@ def test(motor_pwr, move_time):
     s_r = motor_pwr
 
     magx, magy, magz = bmx055.mag_dataRead()
-    theta_correct = calibration.angle(magx,magy,)
+    theta_correct = calibration.angle(magx,magy)
     theta_correct = calibration.standarize_angle(theta_correct)
     print(theta_correct)
     theta_old = theta_correct

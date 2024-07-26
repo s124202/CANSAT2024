@@ -41,8 +41,6 @@ def main(motor_pwr, move_time):
     motor.deceleration()
 
 def test(motor_pwr, move_time):
-    stuck.ue_jug
-    
     kp = float(input("kp"))
     kd = float(input("kd"))
 
@@ -78,5 +76,7 @@ def test(motor_pwr, move_time):
 if __name__ == "__main__":
     bmx055.bmx055_setup()
     motor.setup()
+
+    calibration.cal(40, -40, 40)
 
     test(motor_pwr = 30, move_time = 2)

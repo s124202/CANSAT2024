@@ -115,7 +115,7 @@ def main3():
 	red_area = 0
 	goal_azimuth = 0
 
-	stuck.ue_jug()
+	#stuck.ue_jug()
 
 	red_area = red_detection.detect_para()
 	print(f'red_area : {red_area}')

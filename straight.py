@@ -46,8 +46,8 @@ def test(motor_pwr, move_time):
     kp = float(input("kp"))
     kd = float(input("kd"))
 
-    s_l = motor_pwr
-    s_r = s_l
+    s_l = motor_pwr + 20
+    s_r = motor_pwr
 
     magx, magy, magz = bmx055.mag_dataRead()
     theta_correct = calibration.angle(magx,magy)

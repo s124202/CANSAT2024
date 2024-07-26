@@ -151,7 +151,7 @@ def main3():
 		if red_area > 0:
 			motor(30, 34, 0.3)
 			motor.motor_stop(0.5)
-			motor.motor_move(30, -34, 8)
+			motor.motor_move(30, -34, 5)
 		else:
 			break
 	

@@ -92,13 +92,13 @@ def kari(motor_pwr, move_time):
         theta = calibration.angle(magx,magy)
         theta_dest = theta - theta_correct
         theta_dest = calibration.standarize_angle(theta_dest)
-        print(theta)
+        print(theta_dest)
         mp = (theta - theta_correct) * kp
         md = (theta - theta_old) * kd
         m = mp - md
 
-        m = min(m,5)
-        m = max(m,-5)
+        m = min(m,10)
+        m = max(m,-10)
 
         strength_l = s_l - m
         strength_r = -s_r - m

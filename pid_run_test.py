@@ -1,4 +1,5 @@
-#2024/07/22 生川
+#2024/07/26 生川
+#VOC基盤 両モーター回転逆で作成
 
 #standard
 import time
@@ -257,7 +258,7 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         pwr_r = m + s_r
 
         #move
-        motor.motor_move(pwr_l, pwr_r, 0.02)
+        motor.motor_move(-pwr_l, -pwr_r, 0.02)
         time.sleep(0.08)
 
         count += 1
@@ -286,7 +287,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
     #cal
     magx_off, magy_off = calibration.cal(40,-40,60) 
     while magx_off == 0 and magy_off == 0:
-        motor.motor_move(80, 75, 3)
+        motor.motor_move(-80, -75, 1)
         magx_off, magy_off = calibration.cal(40,-40,60) 
 
     #get param(mag)

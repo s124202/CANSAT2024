@@ -1,18 +1,38 @@
-import threading
-import motor
+import cv2
+import numpy as np
 
-import blt_sub
+# カメラのキャプチャを開始
+cap = cv2.VideoCapture(0)
 
+def nothing(x):
+    pass
 
-def main():
-    thread1 = threading.Thread(target = motor.test)
-    thread2 = threading.Thread(target = blt_sub.blt)
+# ウィンドウを作成
+cv2.namedWindow('frame')
 
-    thread1.start()
-    thread2.start()
+while True:
+    # フレームをキャプチャ
+    ret, frame = cap.read()
+    
+    # フレームをHSVに変換
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    
+    # マウスのコールバック関数
+    def show_hsv(event, x, y, flags, param):
+        if event == cv2.EVENT_MOUSEMOVE:
+            hsv_value = hsv[y, x]
+            print(f'HSV: {hsv_value}')
+    
+    # マウスのコールバック関数を設定
+    cv2.setMouseCallback('frame', show_hsv)
+    
+    # フレームを表示
+    cv2.imshow('frame', frame)
+    
+    # 'q'キーが押されたらループを終了
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
-    thread1.join()
-    thread2.join()
-
-if __name__ == "__main__":
-    main()
+# キャプチャを解放し、ウィンドウを閉じる
+cap.release()
+cv2.destroyAllWindows()

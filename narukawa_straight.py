@@ -97,11 +97,11 @@ def kari(motor_pwr, move_time):
         md = (theta - theta_old) * kd
         m = mp - md
 
-        m = min(m,10)
-        m = max(m,-10)
+        m = min(m,15)
+        m = max(m,-15)
 
-        strength_l = s_l + m
-        strength_r = -s_r + m
+        strength_l = s_l - m
+        strength_r = -s_r - m
 
         motor.motor_move(strength_l, strength_r, 0.05)
         theta_old = theta

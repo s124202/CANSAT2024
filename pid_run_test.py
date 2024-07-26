@@ -373,7 +373,9 @@ if __name__ == "__main__":
     lat_test,lon_test = gps.med()
 
     print("移動してください")
-    time.sleep(30)
+    time.sleep(20)
+    print("start")
+    time.sleep(5)
 
     #const
     LOOP_NUM = 20

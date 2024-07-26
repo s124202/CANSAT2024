@@ -169,6 +169,6 @@ if __name__ == '__main__':
 
 	print("Para Avoid Start")
 	
-	main()
+	main3()
 
 	print("#####-----Parachute Avoid Sequence: Finish-----#####")

@@ -399,3 +399,11 @@ if __name__ == "__main__":
         else:
             print("not Goal", "distance=",distance_to_dest)
             send.log("distance=" + str(distance_to_dest))
+
+    #test
+    #setup
+    #motor.setup()
+    #bmx055.bmx055_setup()
+    #mode3.mode3_change()
+
+    #test()

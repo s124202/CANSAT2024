@@ -46,7 +46,7 @@ def test(motor_pwr, move_time):
     kp = float(input("kp"))
     kd = float(input("kd"))
 
-    s_l = motor_pwr + 20 
+    s_l = motor_pwr + 23 
     s_r = motor_pwr
 
     magx, magy, magz = bmx055.mag_dataRead()
@@ -67,8 +67,8 @@ def test(motor_pwr, move_time):
         m = min(m,5)
         m = max(m,-5)
 
-        strength_l = s_l - m
-        strength_r = s_r + m
+        strength_l = s_l + m
+        strength_r = s_r - m
 
         motor.motor_move(strength_l, strength_r, 0.05)
         theta_old = theta

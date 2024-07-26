@@ -132,17 +132,17 @@ def main3():
 
 	if red_area > 50:
 		print("Move Backwward")
-		motor.motor_move(-40, 40, 2)
+		motor.motor_move(-30, 34, 2)
 		#motor.motor_stop(0.2)
 
 	else:
 		print("Move Forward")
-		motor.motor_move(40, -40, 2)
+		motor.motor_move(30, -34, 2)
 		#motor.motor_stop(0.2)
 	
 	while True:
 		print('Starting Calibration')
-		magx_off, magy_off = calibration.cal(40, 40, 30)
+		magx_off, magy_off = calibration.cal(30, 34, 30)
 		lat_now, lon_now = gps.location()
 		goal_info = gps_navigate.vincenty_inverse(lat_now, lon_now, lat2 = LAT_DEST, lon2 = LON_DEST)
 		goal_azimuth = goal_info['azimuth1']
@@ -151,14 +151,14 @@ def main3():
 		red_area = red_detection.detect_para()
 		print(f'red_area : {red_area}')
 		if red_area > 0:
-			motor(30, 30, 0.3)
+			motor(30, 34, 0.3)
 			motor.motor_stop(0.5)
-			motor.motor_move(30, -30, 8)
+			motor.motor_move(30, -34, 8)
 		else:
 			break
 	
 	print("Last Move Forwward")
-	motor.motor_move(30, -30, 5)
+	motor.motor_move(30, -34, 5)
 
 if __name__ == '__main__':
 	gps.open_gps()

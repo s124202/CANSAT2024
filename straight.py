@@ -46,7 +46,7 @@ def test(motor_pwr, move_time):
     kp = float(input("kp"))
     kd = float(input("kd"))
 
-    s_l = motor_pwr + 20
+    s_l = motor_pwr + 25
     s_r = motor_pwr
 
     magx, magy, magz = bmx055.mag_dataRead()
@@ -73,7 +73,7 @@ def test(motor_pwr, move_time):
         motor.motor_move(strength_l, strength_r, 0.05)
         theta_old = theta
         time.sleep(0.05)
-    motor.deceleration()
+    motor.deceleration(s_l, s_r, 0.1)
 
 if __name__ == "__main__":
     bmx055.bmx055_setup()

@@ -46,7 +46,7 @@ def test(motor_pwr, move_time):
     kp = float(input("kp"))
     kd = float(input("kd"))
 
-    s_l = motor_pwr + 24
+    s_l = motor_pwr + 34
     s_r = motor_pwr
 
     magx, magy, magz = bmx055.mag_dataRead()

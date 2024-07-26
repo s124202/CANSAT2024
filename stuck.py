@@ -172,6 +172,7 @@ def stuck_avoid():
 
 if __name__ == '__main__':
     motor.setup()
+    bmx055.bmx055_setup()
     yoko_jug()
     ue_jug()
     while 1:

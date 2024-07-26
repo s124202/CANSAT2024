@@ -32,7 +32,7 @@ def main():
 		else:
 			break
 
-	if red_area > 50:
+	if red_area > 100:
 		print("Move Backwward")
 		straight(motor_pwr = -40, move_time = 2)
 		#motor.motor_stop(0.2)
@@ -83,7 +83,7 @@ def main2():
 		else:
 			break
 
-	if red_area > 50:
+	if red_area > 100:
 		print("Move Backwward")
 		motor.motor_move(-40, -40, 2)
 		#motor.motor_stop(0.2)
@@ -128,7 +128,7 @@ def main3():
 		else:
 			break
 
-	if red_area > 50:
+	if red_area > 100:
 		print("Move Backwward")
 		motor.motor_move(-30, 34, 2)
 		#motor.motor_stop(0.2)

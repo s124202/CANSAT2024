@@ -110,7 +110,7 @@ def detect_para():
 	#赤色が占める割合を求める
 	red_area = get_para_area(max_contour, para_img)
 
-	print(red_area)
+	return(red_area)
 
 def detect_goal():
 	#画像の撮影から「角度」と「占める割合」を求めるまでの一連の流れ
@@ -132,7 +132,7 @@ def detect_goal():
 	angle = get_angle(cx, cy, original_img)
 
 	#return area_ratio, angle
-	print(area_ratio, angle)
+	return(area_ratio, angle)
 
 if __name__ == '__main__':
 	detect_para()

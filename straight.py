@@ -79,4 +79,4 @@ if __name__ == "__main__":
     bmx055.bmx055_setup()
     motor.setup()
 
-    test(motor_pwr = 20, move_time = 2)
+    test(motor_pwr = 30, move_time = 2)

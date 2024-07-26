@@ -9,7 +9,7 @@ def main(motor_pwr, move_time):
     stuck.ue_jug
     
     kp = 3
-    kd = 3
+    kd = 2
     
     s_l = motor_pwr
     s_r = s_l

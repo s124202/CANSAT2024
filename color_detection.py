@@ -8,6 +8,10 @@ def red_detect(img):
     # HSV色空間に変換
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
+    hsv_min = np.array([h_min,s_min,v_min])
+    hsv_max = np.array([h_max,s_max,v_max])
+    mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+
     # 緑色のHSVの値域1
     #hsv_min = np.array([40,64,50])
     #hsv_max = np.array([90,255,255])
@@ -19,9 +23,9 @@ def red_detect(img):
     #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # オレンジ色のHSVの値域1
-    hsv_min = np.array([10,100,100])
-    hsv_max = np.array([25,255,255])
-    mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+    #hsv_min = np.array([10,100,100])
+    #hsv_max = np.array([25,255,255])
+    #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # 黄色のHSVの値域1
     #hsv_min = np.array([20,64,100])
@@ -106,4 +110,11 @@ def main_image():
         return 0.1
 
 if __name__ == '__main__':
+    h_min = float(input("h_min : "))
+    h_max = float(input("h_max : "))
+    s_min = float(input("s_min : "))
+    s_max = float(input("s_max : "))
+    v_min = float(input("v_min : "))
+    v_max = float(input("v_max : "))
+
     main_movie()

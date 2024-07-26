@@ -77,6 +77,6 @@ if __name__ == "__main__":
     bmx055.bmx055_setup()
     motor.setup()
 
-    calibration.cal(60, -60, 40)
+    calibration.cal(60, -40, 40)
 
     test(motor_pwr = 30, move_time = 2)

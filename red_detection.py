@@ -114,24 +114,25 @@ def detect_para():
 
 def detect_goal():
 	#画像の撮影から「角度」と「占める割合」を求めるまでの一連の流れ
-    path_all_photo = 'photo/detect_goal/'
-    photoname = take_photo.Capture(path_all_photo)
-    original_img = cv2.imread(photoname)
+	path_all_photo = 'photo/detect_goal/'
+	photoname = take_photo.Capture(path_all_photo)
+	original_img = cv2.imread(photoname)
 
-    #画像を圧縮
-    small_img = mosaic(original_img, 0.8)
-    
-    mask = detect_red(small_img)
+	#画像を圧縮
+	small_img = mosaic(original_img, 0.8)
+	
+	mask = detect_red(small_img)
 
-    original_img, max_contour, cx, cy = get_center(mask, small_img)
+	original_img, max_contour, cx, cy = get_center(mask, small_img)
 
-    #赤が占める割合を求める
-    area_ratio = get_area(max_contour, original_img)
+	#赤が占める割合を求める
+	area_ratio = get_area(max_contour, original_img)
 
-    #重心から現在位置とゴールの相対角度を大まかに計算
-    angle = get_angle(cx, cy, original_img)
+	#重心から現在位置とゴールの相対角度を大まかに計算
+	angle = get_angle(cx, cy, original_img)
 
-    return area_ratio, angle
+	#return area_ratio, angle
+	print(area_ratio, angle)
 
 if __name__ == '__main__':
 	detect_para()

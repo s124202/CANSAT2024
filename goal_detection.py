@@ -74,7 +74,7 @@ def main2():
 	elif 0 < area_ratio < THD_RED_RATIO:
 		###-----ゴールが真正面にあるときの処理-----###
 		if angle == 2:
-			motor.motor_move(GO_STRAIGHT_PWR + 5, -GO_STRAIGHT_PWR, 1)
+			motor.move(GO_STRAIGHT_PWR + 20, -GO_STRAIGHT_PWR, 1)
 
 		###------ゴールが真正面にないときの処理------###
 		###-----目標角度を少しずらす-----###
@@ -89,7 +89,7 @@ def main2():
 	###-----撮像した画像の中にゴールが映っていない場合の処理-----###
 	elif area_ratio == 0:
 		print('Lost Goal')
-		motor.motor_move(25, 25, 0.2)
+		motor.motor_move(30, 30, 0.2)
 		motor.motor_stop(0.5)
 	
 	###-----ゴールした場合の処理-----###

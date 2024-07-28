@@ -1,3 +1,5 @@
+import time
+
 import gps
 import bmx055
 import motor
@@ -119,6 +121,7 @@ def main3():
 	elif 0 < area_ratio < THD_RED_RATIO:
 		###-----ゴールが真正面にあるときの処理-----###
 		if angle == 2:
+			time.sleep(1)
 			motor.move(15, -10, 1)
 
 		###------ゴールが真正面にないときの処理------###

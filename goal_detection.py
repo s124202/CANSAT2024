@@ -89,7 +89,7 @@ def main2():
 	###-----撮像した画像の中にゴールが映っていない場合の処理-----###
 	elif area_ratio == 0:
 		print('Lost Goal')
-		motor.motor_move(ROTATE_PWR, ROTATE_PWR, 0.15)
+		motor.motor_move(30, 30, 0.15)
 		motor.motor_stop(0.5)
 	
 	###-----ゴールした場合の処理-----###

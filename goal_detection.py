@@ -57,8 +57,7 @@ def main2():
 	angle = 0
 	isReach_goal = 0
 
-	LITTLE_ROTATE_PWR = 20
-	ROTATE_PWR = 30
+	ROTATE_PWR = 20
 	GO_STRAIGHT_PWR = 30
 	THD_RED_RATIO = 75 #画面を占める赤色の割合の閾値
 
@@ -75,16 +74,16 @@ def main2():
 	elif 0 < area_ratio < THD_RED_RATIO:
 		###-----ゴールが真正面にあるときの処理-----###
 		if angle == 2:
-			motor.motor_move(GO_STRAIGHT_PWR, -GO_STRAIGHT_PWR, 3)
+			motor.motor_move(GO_STRAIGHT_PWR + 5, -GO_STRAIGHT_PWR, 2)
 
 		###------ゴールが真正面にないときの処理------###
 		###-----目標角度を少しずらす-----###
 		elif angle == 1:
-			motor.motor_move(-LITTLE_ROTATE_PWR, -LITTLE_ROTATE_PWR, 0.15)
+			motor.motor_move(-ROTATE_PWR, -ROTATE_PWR, 0.1)
 			motor.motor_stop(0.5)
 
 		elif angle == 3:
-			motor.motor_move(LITTLE_ROTATE_PWR, LITTLE_ROTATE_PWR, 0.15)
+			motor.motor_move(ROTATE_PWR, ROTATE_PWR, 0.1)
 			motor.motor_stop(0.5)
 
 	###-----撮像した画像の中にゴールが映っていない場合の処理-----###

@@ -127,17 +127,17 @@ def main3():
 		###------ゴールが真正面にないときの処理------###
 		###-----目標角度を少しずらす-----###
 		elif angle == 1:
-			motor.motor_move(-ROTATE_PWR, -ROTATE_PWR, 0.1)
+			motor.motor_move(-ROTATE_PWR, -ROTATE_PWR, 0.15)
 			motor.motor_stop(0.5)
 
 		elif angle == 3:
-			motor.motor_move(ROTATE_PWR, ROTATE_PWR, 0.1)
+			motor.motor_move(ROTATE_PWR, ROTATE_PWR, 0.15)
 			motor.motor_stop(0.5)
 
 	###-----撮像した画像の中にゴールが映っていない場合の処理-----###
 	elif area_ratio == 0:
 		print('Lost Goal')
-		motor.motor_move(25, 25, 0.1)
+		motor.motor_move(30, 30, 0.15)
 		motor.motor_stop(0.5)
 	
 	###-----ゴールした場合の処理-----###

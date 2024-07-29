@@ -32,7 +32,7 @@ def main():
 			motor.motor_stop(0.5)
 
 		elif angle == 3:
-			motor.motor_move(ROTATE_PWR, ROTATE_PWR, 0.1)
+			motor.motor_move(ROTATE_PWR, -ROTATE_PWR, 0.1)
 			motor.motor_stop(0.5)
 
 	###-----撮像した画像の中にゴールが映っていない場合の処理-----###

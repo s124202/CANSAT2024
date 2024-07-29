@@ -72,7 +72,7 @@ def main2():
 	if area_ratio >= THD_RED_RATIO:
 		isReach_goal = 1
 		
-	elif 0 < area_ratio < THD_RED_RATIO:
+	elif (0 < area_ratio < THD_RED_RATIO) or (angle > 0):
 		###-----ゴールが真正面にあるときの処理-----###
 		if angle == 2:
 			motor.move(50, -30, 0.7)
@@ -118,7 +118,7 @@ def main3():
 	if area_ratio >= THD_RED_RATIO:
 		isReach_goal = 1
 		
-	elif 0 < area_ratio < THD_RED_RATIO:
+	elif (0 < area_ratio < THD_RED_RATIO) or (angle > 0):
 		###-----ゴールが真正面にあるときの処理-----###
 		if angle == 2:
 			motor.move(15, -10, 1)

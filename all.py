@@ -9,7 +9,8 @@ import bmx055
 import pid_run_test
 import land
 import motor
-import gps
+import para_avoid_alone
+import goal_detection
 
 #send
 import send.mode3 as mode3
@@ -41,7 +42,7 @@ def main():
 	print("start para avoid sequence")
 	send.log("start para avoid sequence")
 
-	#main
+	para_avoid_alone.main()
 
 	print("end para avoid sequence")
 	send.log("end para avoid sequence")
@@ -65,7 +66,7 @@ def main():
 	print("start goal detect sequence")
 	send.log("start goal detect sequence")
 
-	#main
+	goal_detection.main()
 
 	print("end goal detect sequence")
 	send.log("end goal detect sequence")

@@ -255,7 +255,7 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 
         #param
         s_r = 60
-        s_l = 65
+        s_l = 60
         pwr_l = -m + s_l
         pwr_r = m + s_r
 
@@ -287,10 +287,10 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
     '''
 
     #cal
-    magx_off, magy_off = calibration.cal(40,40,60) 
+    magx_off, magy_off = calibration.cal(40,-40,60) 
     while magx_off == 0 and magy_off == 0:
         motor.motor_move(80, -75, 1)
-        magx_off, magy_off = calibration.cal(40,40,60) 
+        magx_off, magy_off = calibration.cal(40,-40,60) 
 
     #get param(mag)
     lat_old, lon_old = gps.location()

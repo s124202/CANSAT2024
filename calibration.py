@@ -66,7 +66,7 @@ def magdata_matrix(l, r, n):
             print(magx, magy)
 
             # --- Check for small changes ---#
-            if abs(magx - prev_magx) <= 15 and abs(magy - prev_magy) <= 15:
+            if abs(magx - prev_magx) <= 5 and abs(magy - prev_magy) <= 5:
                 consecutive_small_changes += 1
             else:
                 consecutive_small_changes = 0

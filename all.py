@@ -1,4 +1,4 @@
-#2024/07/26 生川
+#2024/07/29 生川
 
 #standard
 import time
@@ -80,10 +80,10 @@ if __name__ == '__main__':
 
 		time.sleep(1)
 
-		print("start main program")
-		send.log("start main program")
+		print("start main program CO2")
+		send.log("start main program CO2")
 		main()
-		print("end goal main program")
-		send.log("end goal main program")
+		print("end goal main program CO2")
+		send.log("end goal main program CO2")
 	except KeyboardInterrupt:
 		print("stop!!!!")

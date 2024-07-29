@@ -186,7 +186,7 @@ def main2():
 			strength_l = default_l - s + m
 			strength_r = default_r - s - m
 
-			motor.move(strength_l, -strength_r, 0.05)
+			motor.move(strength_l, strength_r, 0.05)
 	
 			#print(old_center[0]-center[0])
 			old_center = center    

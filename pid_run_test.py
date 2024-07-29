@@ -421,4 +421,4 @@ if __name__ == "__main__":
 	#		print("not Goal", "distance=",distance_to_dest)
 	#		send.log("distance=" + str(distance_to_dest))
 
-	test(35.924477, 139.912433)
+	test(35.9243407, 139.9124849)

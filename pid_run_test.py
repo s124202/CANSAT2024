@@ -2,9 +2,8 @@
 
 #standard
 import time
-import board
-import adafruit_sgp40
 import csv
+from scd30_i2c import SCD30
 
 #src
 import gps
@@ -13,7 +12,7 @@ import bme280
 import motor
 import calibration
 import gps_navigate
-#import stuck
+import co2_sensor as co2
 
 #send
 import send.mode3 as mode3
@@ -351,9 +350,10 @@ def test(lat_test, lon_test):
 	STUCK_JUDGE_THD_DISTANCE = 1.0
 
 	#setup
-	i2c = board.I2C() 
-	sgp = adafruit_sgp40.SGP40(i2c)
-	filename = "voc_etoe_pid_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	scd30 = SCD30()
+	scd30.set_measurement_interval(2)
+	scd30.start_periodic_measurement()
+	filename = "co2_etoe_pid_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 	f = open(filename,"w")
 	writer = csv.writer(f)
 
@@ -361,7 +361,8 @@ def test(lat_test, lon_test):
 	while True:
 		distance_to_dest, isReach_dest, lat_log, lon_log, theta_log = drive(lat_dest=lat_test, lon_dest=lon_test, thd_distance=THD_DISTANCE_DEST, stack_distance=STUCK_JUDGE_THD_DISTANCE, t_cal=T_CAL, loop_num=LOOP_NUM)
 		temp,pres,hum,alt = bme280.bme280_read()
-		writer.writerows([[lat_log, lon_log, theta_log, sgp.raw, temp, pres, hum, alt]])
+		m_co2 = co2.scd30_get()
+		writer.writerows([[lat_log, lon_log, theta_log, temp, pres, hum, alt, m_co2]])
 
 		#check
 		if isReach_dest == 1:

@@ -111,20 +111,15 @@ def integral_control(Ki, theta_array: list):
 
 
 #D
-def differential_control(Kd, theta_array: list):
-	#D制御
+def differential_controlkai(Kd, theta_array: list):
+    #D制御
 
-	#thetaの微分処理
-	for i in range(len(theta_array)):
-		theta_differential_value = theta_array[i] - theta_array[i-1]
-		theta_differential_array.append(theta_differential_value)
+    num = len(theta_array)
+    theta_differential = theta_array[num-1] - theta_array[num-2]
 
-	#最新のthetaの微分値を取得
-	theta_differential = theta_differential_array[-1]
+    md = Kd * theta_differential
 
-	md = Kd * theta_differential
-
-	return md
+    return md
 
 
 #PID

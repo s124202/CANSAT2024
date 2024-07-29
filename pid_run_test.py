@@ -1,10 +1,11 @@
 #2024/07/26 生川
-#VOC基盤 両モーター回転逆で作成
+#VOC基盤 両モーター回転逆で作成　
+#CO2基盤 右モーター回転逆で作成　2024/07/29
 
 #standard
 import time
-import board
-import adafruit_sgp40
+#import board
+#import adafruit_sgp40
 
 #src
 import gps
@@ -258,7 +259,7 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         pwr_r = m + s_r
 
         #move
-        motor.motor_move(-pwr_l, -pwr_r, 0.02)
+        motor.motor_move(pwr_l, -pwr_r, 0.02)
         time.sleep(0.08)
 
         count += 1
@@ -285,10 +286,10 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
     '''
 
     #cal
-    magx_off, magy_off = calibration.cal(40,-40,60) 
+    magx_off, magy_off = calibration.cal(40,40,60) 
     while magx_off == 0 and magy_off == 0:
-        motor.motor_move(-80, -75, 1)
-        magx_off, magy_off = calibration.cal(40,-40,60) 
+        motor.motor_move(80, -75, 1)
+        magx_off, magy_off = calibration.cal(40,40,60) 
 
     #get param(mag)
     lat_old, lon_old = gps.location()
@@ -349,13 +350,13 @@ def test():
     STUCK_JUDGE_THD_DISTANCE = 1.0
 
     #setup
-    i2c = board.I2C() 
-    sgp = adafruit_sgp40.SGP40(i2c)
+    #i2c = board.I2C() 
+    #sgp = adafruit_sgp40.SGP40(i2c)
 
     #main
     while True:
         distance_to_dest, isReach_dest = drive(lat_dest=lat_test, lon_dest=lon_test, thd_distance=THD_DISTANCE_DEST, stack_distance=STUCK_JUDGE_THD_DISTANCE, t_cal=T_CAL, loop_num=LOOP_NUM)
-        print("Raw Gas: ", sgp.raw)
+        #print("Raw Gas: ", sgp.raw)
 
         #check
         if isReach_dest == 1:

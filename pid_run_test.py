@@ -259,8 +259,8 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         pwr_r = m + s_r
 
         #move
-        motor.motor_move(pwr_l, -pwr_r, 0.02)
-        time.sleep(0.08)
+        motor.motor_move(pwr_l, -pwr_r, 0.01)
+        time.sleep(0.04)
 
         count += 1
 

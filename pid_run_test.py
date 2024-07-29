@@ -366,6 +366,7 @@ def test(lat_test, lon_test):
 
 		#check
 		if isReach_dest == 1:
+			f.close()
 			print('end gps running')
 			send.log("end gps running")
 			break

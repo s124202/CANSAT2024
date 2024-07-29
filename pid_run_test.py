@@ -253,8 +253,8 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         m = max(m, -5)
 
         #param
-        s_r = 70
-        s_l = 65
+        s_r = 50
+        s_l = 70
         pwr_l = -m + s_l
         pwr_r = m + s_r
 

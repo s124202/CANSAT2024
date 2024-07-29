@@ -1,19 +1,20 @@
-#2024/07/26 生川
-#VOC基盤 両モーター回転逆で作成　
+#2024/07/29 生川
+#VOC基盤 両モーター回転逆で作成　2024/07/26
 #CO2基盤 右モーター回転逆で作成　2024/07/29
 
 #standard
 import time
-#import board
-#import adafruit_sgp40
+import board
+import adafruit_sgp40
 
 #src
 import gps
 import bmx055
+import bme280
 import motor
 import calibration
 import gps_navigate
-import stuck
+#import stuck
 
 #send
 import send.mode3 as mode3
@@ -312,17 +313,17 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
         print("distance = ", distance_to_dest, "arg = ", target_azimuth)
 
         #stuck check
-        if stuck_count % 10 == 0:
-            #yoko check
-            yoko_count = stuck.yoko_jug()
-            if yoko_count > 0:
-                break
+        #if stuck_count % 10 == 0:
+        #    #yoko check
+        #    yoko_count = stuck.yoko_jug()
+        #    if yoko_count > 0:
+        #        break
 
-            if stuck.stuck_jug(lat_old, lon_old, lat_now, lon_old, thd=stack_distance):
-                pass
-            else:
-                stuck.stuck_avoid()
-            lat_old, lon_old = gps.location()
+        #    if stuck.stuck_jug(lat_old, lon_old, lat_now, lon_old, thd=stack_distance):
+        #        pass
+        #    else:
+        #        stuck.stuck_avoid()
+        #    lat_old, lon_old = gps.location()
 
         #run
         if distance_to_dest > thd_distance:
@@ -350,13 +351,13 @@ def test():
     STUCK_JUDGE_THD_DISTANCE = 1.0
 
     #setup
-    #i2c = board.I2C() 
-    #sgp = adafruit_sgp40.SGP40(i2c)
+    i2c = board.I2C() 
+    sgp = adafruit_sgp40.SGP40(i2c)
 
     #main
     while True:
         distance_to_dest, isReach_dest = drive(lat_dest=lat_test, lon_dest=lon_test, thd_distance=THD_DISTANCE_DEST, stack_distance=STUCK_JUDGE_THD_DISTANCE, t_cal=T_CAL, loop_num=LOOP_NUM)
-        #print("Raw Gas: ", sgp.raw)
+        print("Raw Gas: ", sgp.raw)
 
         #check
         if isReach_dest == 1:

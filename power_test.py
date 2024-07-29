@@ -14,7 +14,7 @@ while time.time() - time_start < 9000:
     while time.time() - time_start_sub < 180:
         motor.motor_move(30,30,0.05)
         ret, frame = cap.read()
-        if frame in None:
+        if frame is None:
             print("camera error")
             print(time.time() - time_start)
             break

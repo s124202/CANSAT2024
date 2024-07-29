@@ -54,7 +54,7 @@ def main():
 	print("start gps run sequence")
 	send.log("start gps run sequence")
 
-	pid_run_test.test()
+	pid_run_test.test(35.924477, 139.912433)
 
 	print("end gps run sequence")
 	send.log("end gps run sequence")

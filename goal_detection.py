@@ -1,7 +1,7 @@
-import time
+#import time
 
-import gps
-import bmx055
+#import gps
+#import bmx055
 import motor
 import red_detection
 import straight

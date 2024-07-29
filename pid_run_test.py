@@ -13,7 +13,6 @@ import bme280
 import motor
 import calibration
 import gps_navigate
-#import stuck
 
 #send
 import send.mode3 as mode3
@@ -153,7 +152,7 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
 	#const
 	Kp = 0.3
 	Kd = 0.1
-	Ki = 0
+	Ki = 0.05
 
 	t_adj_start = time.time()
 
@@ -228,7 +227,7 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 	#const
 	Kp = 0.1
 	Kd = 0.05
-	Ki_ = 0
+	Ki_ = 0.05
 
 	count = 0
 
@@ -341,13 +340,6 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 
 
 def test(lat_test, lon_test):
-	#target
-	#lat_test = 35.924508
-	#lon_test = 139.911867
-
-	#init
-	theta_differential_array = []
-
 	#const
 	LOOP_NUM = 20
 	THD_DISTANCE_DEST = 3
@@ -399,9 +391,6 @@ if __name__ == "__main__":
 	motor.setup()
 	bmx055.bmx055_setup()
 	mode3.mode3_change()
-
-	#init
-	theta_differential_array = []
 
 	#main
 	#while True:

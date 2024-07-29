@@ -369,9 +369,10 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
 
 
 if __name__ == "__main__":
+    #test(35.924477, 139.912433)
     #target
-    lat_test = 35.924508
-    lon_test = 139.911867
+    lat_test = 35.924477
+    lon_test = 139.912433
 
     #const
     LOOP_NUM = 20

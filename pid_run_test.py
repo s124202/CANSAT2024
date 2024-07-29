@@ -111,7 +111,7 @@ def integral_control(Ki, theta_array: list):
 
 
 #D
-def differential_controlkai(Kd, theta_array: list):
+def differential_control(Kd, theta_array: list):
     #D制御
 
     num = len(theta_array)

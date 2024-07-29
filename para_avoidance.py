@@ -68,7 +68,6 @@ def main2():
 	PARA_TIMEOUT = 300
 
 	red_area = 0
-	goal_azimuth = 0
 
 	stuck.ue_jug()
 

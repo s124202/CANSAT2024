@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 import take_photo
-import save_photo
 
 def detect_red(small_img):
 	# HSV色空間に変換

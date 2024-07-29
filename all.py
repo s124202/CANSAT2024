@@ -1,4 +1,4 @@
-#2024/07/26 生川
+#2024/07/29 生川
 
 #standard
 import time
@@ -66,7 +66,11 @@ def main():
 	print("start goal detect sequence")
 	send.log("start goal detect sequence")
 
-	goal_detection.main()
+	while True:
+		isReach_goal = goal_detection.main()
+
+		if isReach_goal == 1:
+			break
 
 	print("end goal detect sequence")
 	send.log("end goal detect sequence")
@@ -80,10 +84,10 @@ if __name__ == '__main__':
 
 		time.sleep(1)
 
-		print("start main program")
-		send.log("start main program")
+		print("start main program VOC")
+		send.log("start main program VOC")
 		main()
-		print("end goal main program")
-		send.log("end goal main program")
+		print("end goal main program VOC")
+		send.log("end goal main program VOC")
 	except KeyboardInterrupt:
 		print("stop!!!!")

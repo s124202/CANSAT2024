@@ -114,8 +114,13 @@ def integral_control(Ki, theta_array: list):
 def differential_control(Kd, theta_array: list):
 	#D制御
 
-	num = len(theta_array)
-	theta_differential = theta_array[num-1] - theta_array[num-2]
+	#thetaの微分処理
+	for i in range(len(theta_array)):
+		theta_differential_value = theta_array[i] - theta_array[i-1]
+		theta_differential_array.append(theta_differential_value)
+
+	#最新のthetaの微分値を取得
+	theta_differential = theta_differential_array[-1]
 
 	md = Kd * theta_differential
 
@@ -344,9 +349,12 @@ def test(lat_test, lon_test):
 	#lat_test = 35.924508
 	#lon_test = 139.911867
 
+	#init
+	theta_differential_array = []
+
 	#const
 	LOOP_NUM = 20
-	THD_DISTANCE_DEST = 5
+	THD_DISTANCE_DEST = 3
 	T_CAL = 30
 	STUCK_JUDGE_THD_DISTANCE = 1.0
 
@@ -396,6 +404,8 @@ if __name__ == "__main__":
 	bmx055.bmx055_setup()
 	mode3.mode3_change()
 
+	#init
+	theta_differential_array = []
 
 	#main
 	#while True:

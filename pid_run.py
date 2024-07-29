@@ -316,7 +316,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
 
     #adj direction
     theta_array = [0]*5
-    PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array)
+    #PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array)
 
     #get param(mag)
     magdata = bmx055.mag_dataRead()
@@ -376,7 +376,7 @@ if __name__ == "__main__":
 
     #const
     LOOP_NUM = 20
-    THD_DISTANCE_DEST = 5
+    THD_DISTANCE_DEST = 3
     T_CAL = 60
     STUCK_JUDGE_THD_DISTANCE = 1
 

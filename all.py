@@ -66,7 +66,11 @@ def main():
 	print("start goal detect sequence")
 	send.log("start goal detect sequence")
 
-	goal_detection.main()
+	while True:
+		isReach_goal = goal_detection.main()
+
+		if isReach_goal == 1:
+			break
 
 	print("end goal detect sequence")
 	send.log("end goal detect sequence")

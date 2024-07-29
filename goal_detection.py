@@ -153,7 +153,7 @@ if __name__ == '__main__':
 	print("#####-----Goal Detect Sequence: Start-----#####")
 
 	while True:
-		isReach_goal = main3()
+		isReach_goal = main2()
 		
 		if isReach_goal == 1:
 			break

@@ -156,8 +156,8 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
 	'''
 
 	#const
-	Kp = 0.4
-	Kd = 3
+	Kp = 0.3
+	Kd = 0.1
 	Ki = 0
 
 	t_adj_start = time.time()

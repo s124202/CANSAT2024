@@ -57,12 +57,13 @@ def main():
 
 	#pid_run_test.test(35.9243106, 139.912492)
 
-	print("run")
-	send.log("run")
+	print("start run sequence")
+	send.log("start run sequence")
+
 	motor.move(40, 40, 8)
 
-	print("arrived goal area")
-	send.log("arrived goal area")
+	print("end run sequence")
+	send.log("end run sequence")
 
 	stuck.ue_jug
 

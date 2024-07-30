@@ -240,8 +240,8 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
     '''
 
     #const
-    Kp = 0.1
-    Kd = 10
+    Kp = 2
+    Kd = 0.5
     Ki_ = 0.1
 
     count = 0
@@ -316,7 +316,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
 
     #adj direction
     theta_array = [0]*5
-    PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array)
+    #PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array)
 
     #get param(mag)
     magdata = bmx055.mag_dataRead()
@@ -369,13 +369,14 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
 
 
 if __name__ == "__main__":
+    #test(35.924477, 139.912433)
     #target
-    lat_test = 35.924508
-    lon_test = 139.911867
+    lat_test = 35.924477
+    lon_test = 139.912433
 
     #const
     LOOP_NUM = 20
-    THD_DISTANCE_DEST = 5
+    THD_DISTANCE_DEST = 3
     T_CAL = 60
     STUCK_JUDGE_THD_DISTANCE = 1
 

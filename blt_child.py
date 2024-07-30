@@ -2,7 +2,7 @@ import bluetooth
 import time
 
 def main(send):
-    bd_addr = "B8:27:EB:1B:C5:BF" # サーバー側のデバイスアドレスを入力
+    bd_addr = "B8:27:EB:20:4F:0D" # サーバー側のデバイスアドレスを入力
     port = 1
     timeout = 0 
 

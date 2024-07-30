@@ -13,7 +13,7 @@ def main():
 
 	else:
 		print("Move Forward")
-		motor.move(19, 16, 2)
+		motor.move(16, 18, 2)
 
 if __name__ == '__main__':
 	motor.setup()

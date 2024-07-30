@@ -54,7 +54,6 @@ def main():
 	print("start gps run sequence")
 	send.log("start gps run sequence")
 
-	theta_differential_array = []
 	pid_run_test.test(35.9243407, 139.9124849)
 
 	print("end gps run sequence")

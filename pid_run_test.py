@@ -13,7 +13,6 @@ import bme280
 import motor
 import calibration
 import gps_navigate
-#import stuck
 
 #send
 import send.mode3 as mode3
@@ -112,14 +111,14 @@ def integral_control(Ki, theta_array: list):
 
 #D
 def differential_control(Kd, theta_array: list):
-	#D制御
+    #D制御
 
-	num = len(theta_array)
-	theta_differential = theta_array[num-1] - theta_array[num-2]
+    num = len(theta_array)
+    theta_differential = theta_array[num-1] - theta_array[num-2]
 
-	md = Kd * theta_differential
+    md = Kd * theta_differential
 
-	return md
+    return md
 
 
 #PID
@@ -151,9 +150,9 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
 	'''
 
 	#const
-	Kp = 0.4
-	Kd = 3
-	Ki = 0
+	Kp = 0.3
+	Kd = 0.1
+	Ki = 0.05
 
 	t_adj_start = time.time()
 
@@ -226,9 +225,9 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 	'''
 
 	#const
-	Kp = 3
-	Kd = 0.5
-	Ki_ = 0
+	Kp = 0.1
+	Kd = 0.05
+	Ki_ = 0.05
 
 	count = 0
 
@@ -253,12 +252,13 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 		m = max(m, -5)
 
 		#param
-		s_r = 60
-		s_l = 60
+		s_r = 25
+		s_l = 25
 		pwr_l = -m + s_l
 		pwr_r = m + s_r
 
 		#move
+		print(pwr_l, pwr_r)
 		motor.motor_move(pwr_l, pwr_r, 0.01)
 		time.sleep(0.04)
 
@@ -286,10 +286,10 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 	'''
 
 	#cal
-	magx_off, magy_off = calibration.cal(40,-40,60) 
+	magx_off, magy_off = calibration.cal(25,-25,60) 
 	while magx_off == 0 and magy_off == 0:
 		motor.motor_move(80, 80, 1)
-		magx_off, magy_off = calibration.cal(40,-40,60) 
+		magx_off, magy_off = calibration.cal(25,-25,60) 
 
 	#get param(mag)
 	lat_old, lon_old = gps.location()
@@ -374,34 +374,35 @@ if __name__ == "__main__":
 	#target
 	#lat_test = 35.924508
 	#lon_test = 139.911867
-	lat_test,lon_test = gps.med()
-
-	print("移動してください")
-	time.sleep(20)
-	print("start")
-	time.sleep(5)
-
-	#const
-	LOOP_NUM = 20
-	THD_DISTANCE_DEST = 5
-	T_CAL = 60
-	STUCK_JUDGE_THD_DISTANCE = 1.0
+	#lat_test,lon_test = gps.med()
+#
+	#print("移動してください")
+	#time.sleep(20)
+	#print("start")
+	#time.sleep(5)
+#
+	##const
+	#LOOP_NUM = 20
+	#THD_DISTANCE_DEST = 5
+	#T_CAL = 60
+	#STUCK_JUDGE_THD_DISTANCE = 1.0
 
 	#setup
 	motor.setup()
 	bmx055.bmx055_setup()
 	mode3.mode3_change()
 
-
 	#main
-	while True:
-		distance_to_dest, isReach_dest, lat_log, lon_log, theta_log = drive(lat_dest=lat_test, lon_dest=lon_test, thd_distance=THD_DISTANCE_DEST, stack_distance=STUCK_JUDGE_THD_DISTANCE, t_cal=T_CAL, loop_num=LOOP_NUM)
+	#while True:
+	#	distance_to_dest, isReach_dest, lat_log, lon_log, theta_log = drive(lat_dest=lat_test, lon_dest=lon_test, thd_distance=THD_DISTANCE_DEST, stack_distance=STUCK_JUDGE_THD_DISTANCE, t_cal=T_CAL, loop_num=LOOP_NUM)
+#
+	#	#check
+	#	if isReach_dest == 1:
+	#		print('end gps running')
+	#		send.log("end gps running")
+	#		break
+	#	else:
+	#		print("not Goal", "distance=",distance_to_dest)
+	#		send.log("distance=" + str(distance_to_dest))
 
-		#check
-		if isReach_dest == 1:
-			print('end gps running')
-			send.log("end gps running")
-			break
-		else:
-			print("not Goal", "distance=",distance_to_dest)
-			send.log("distance=" + str(distance_to_dest))
+	test(35.9243407, 139.9124849)

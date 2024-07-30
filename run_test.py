@@ -152,12 +152,19 @@ def main(lat_test, lon_test):
 
 
 if __name__ == "__main__":
-	#target
-	lat_test = 1
-	lon_test = 1
-
 	print("start setup")
 	setup()
+
+	#target
+	#lat_test = 1
+	#lon_test = 1
+
+	lat_test,lon_test = gps.med()
+
+	print("移動してください")
+	time.sleep(20)
+	print("start")
+	time.sleep(5)
 
 	print("main")
 	main(lat_test, lon_test)

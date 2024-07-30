@@ -77,6 +77,7 @@ def run_calibration():
 	magx_off, magy_off = calibration.cal(20,-20,40) 
 	while magx_off == 0 and magy_off == 0:
 		motor.motor_move(50, 50, 1)
+		print("one more")
 		magx_off, magy_off = calibration.cal(20,-20,40) 
 	
 	return magx_off, magy_off
@@ -89,7 +90,7 @@ def get_param(magx_off, magy_off, lat_dest, lon_dest):
 	error_theta = get_theta_dest(target_azimuth, magx_off, magy_off)
 	print("distance = ", distance_to_dest, "error = ", error_theta)
 
-	return error_theta, direction
+	return error_theta, distance_to_dest
 
 
 def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):

@@ -12,12 +12,11 @@ import motor
 import para_avoid_alone
 import goal_detection
 import stuck
-import melt
-import blt_sub
+import blt_main
 
 #send
 import send.mode3 as mode3
-import send.send_11 as send
+import send.send_10 as send
 
 
 def setup():
@@ -41,11 +40,6 @@ def main():
 	time.sleep(1)
 
 
-	#melt sequence
-	print("start melt sequence")
-	send.log("start melt sequence")
-	melt.melt_down(17,5)
-
 	#para avoid sequence
 	print("start para avoid sequence")
 	send.log("start para avoid sequence")
@@ -67,7 +61,8 @@ def main():
 
 	print("start run sequence")
 	send.log("start run sequence")
-	motor.move(28, 25, 3)
+
+	motor.move(23, 20, 3)
 
 	print("end run sequence")
 	send.log("end run sequence")
@@ -78,6 +73,7 @@ def main():
 	#send.log("end gps run sequence")
 
 	time.sleep(1)
+
 
 	#goal detect sequence
 	print("start goal detect sequence")
@@ -101,10 +97,10 @@ if __name__ == '__main__':
 
 		time.sleep(1)
 
-		print("start main program CO2")
-		send.log("start main program CO2")
+		print("start main program VOC")
+		send.log("start main program VOC")
 		main()
-		print("end goal main program CO2")
-		send.log("end goal main program CO2")
+		print("end goal main program VOC")
+		send.log("end goal main program VOC")
 	except KeyboardInterrupt:
 		print("stop!!!!")

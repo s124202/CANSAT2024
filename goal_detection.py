@@ -46,7 +46,6 @@ def main():
 		print('Goal')
 
 	return isReach_goal
-	return isReach_goal
 
 if __name__ == '__main__':
 	motor.setup()

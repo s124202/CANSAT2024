@@ -74,10 +74,10 @@ def setup():
 
 
 def run_calibration():
-	magx_off, magy_off = calibration.cal(30,-30,40) 
+	magx_off, magy_off = calibration.cal(20,-20,40) 
 	while magx_off == 0 and magy_off == 0:
 		motor.motor_move(50, 50, 1)
-		magx_off, magy_off = calibration.cal(30,-30,40) 
+		magx_off, magy_off = calibration.cal(20,-20,40) 
 	
 	return magx_off, magy_off
 
@@ -97,16 +97,17 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 	t_out = 30
 	t_start = time.time()
 
-	#get param(azimuth,distance)
-	error_theta, direction = get_param(magx_off, magy_off, lat_dest, lon_dest)
-
 	while time.time() - t_start < t_out:
+		error_theta, direction = get_param(magx_off, magy_off, lat_dest, lon_dest)
+
 		if error_theta < -15:
 			motor.move(30,-30,0.05)
 		elif error_theta > 15:
 			motor.move(-30,30,0.05)
 		else:
 			break
+
+		time.sleep(0.3)
 	
 	print("finish adjust")
 

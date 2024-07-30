@@ -43,6 +43,7 @@ def main():
 	print("start para avoid sequence")
 	send.log("start para avoid sequence")
 
+	stuck.ue_jug()
 	para_avoid_alone.main()
 
 	print("end para avoid sequence")

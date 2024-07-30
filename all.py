@@ -6,7 +6,7 @@ import time
 #src
 import bme280
 import bmx055
-import pid_run_test
+#import pid_run_test
 import land
 import motor
 import para_avoid_alone

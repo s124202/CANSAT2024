@@ -59,7 +59,7 @@ def main():
 
 	print("start run sequence")
 	send.log("start run sequence")
-	motor.move(40, 40, 8)
+	motor.move(28, 25, 3)
 
 	print("end run sequence")
 	send.log("end run sequence")

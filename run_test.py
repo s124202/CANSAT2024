@@ -115,7 +115,7 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 def run(lat_test, lon_test):
 	#const
 	THD_DIRECTION = 5.0
-	T_CAL = 15
+	T_CAL = 6
 	isReach_dest = 0
 
 	#cal
@@ -130,7 +130,7 @@ def run(lat_test, lon_test):
 
 	#move
 	while time.time() - t_start < T_CAL:
-		motor.move(20,20,1)
+		motor.move(20,22,1)
 		error_theta, direction = get_param(magx_off, magy_off, lat_test, lon_test)
 
 		if direction < THD_DIRECTION:

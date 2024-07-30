@@ -343,7 +343,7 @@ def test(lat_test, lon_test):
 	#const
 	LOOP_NUM = 20
 	THD_DISTANCE_DEST = 5
-	T_CAL = 30
+	T_CAL = 10
 	STUCK_JUDGE_THD_DISTANCE = 1.0
 
 	#setup

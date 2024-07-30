@@ -340,10 +340,6 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 
 
 def test(lat_test, lon_test):
-	#target
-	#lat_test = 35.924508
-	#lon_test = 139.911867
-
 	#const
 	LOOP_NUM = 20
 	THD_DISTANCE_DEST = 5

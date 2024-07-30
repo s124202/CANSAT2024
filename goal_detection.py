@@ -12,7 +12,7 @@ def main():
 	isReach_goal = 0
 
 	ROTATE_PWR = 30
-	THD_RED_RATIO = 20 #画面を占める赤色の割合の閾値
+	THD_RED_RATIO = 15 #画面を占める赤色の割合の閾値
 
 	###-----画像誘導モードの範囲内にいた場合の処理-----###
 	
@@ -27,7 +27,7 @@ def main():
 	elif (0 < area_ratio < THD_RED_RATIO) or (angle > 0):
 		###-----ゴールが真正面にあるときの処理-----###
 		if angle == 2:
-			motor.move(20, 20, 0.25)
+			motor.move(20, 20, 0.15)
 
 		###------ゴールが真正面にないときの処理------###
 		###-----目標角度を少しずらす-----###

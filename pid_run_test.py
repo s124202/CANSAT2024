@@ -376,42 +376,42 @@ if __name__ == "__main__":
 	#target
 	#lat_test = 35.924508
 	#lon_test = 139.911867
-	lat_test,lon_test = gps.med()
+	#lat_test,lon_test = gps.med()
+#
+	#print("移動してください")
+	#time.sleep(20)
+	#print("start")
+	#time.sleep(5)
+#
+	##const
+	#LOOP_NUM = 20
+	#THD_DISTANCE_DEST = 5
+	#T_CAL = 60
+	#STUCK_JUDGE_THD_DISTANCE = 1.0
+#
+	##setup
+	#motor.setup()
+	#bmx055.bmx055_setup()
+	#mode3.mode3_change()
+#
+#
+	##main
+	#while True:
+	#	distance_to_dest, isReach_dest = drive(lat_dest=lat_test, lon_dest=lon_test, thd_distance=THD_DISTANCE_DEST, stack_distance=STUCK_JUDGE_THD_DISTANCE, t_cal=T_CAL, loop_num=LOOP_NUM)
+#
+	#	#check
+	#	if isReach_dest == 1:
+	#		print('end gps running')
+	#		send.log("end gps running")
+	#		break
+	#	else:
+	#		print("not Goal", "distance=",distance_to_dest)
+	#		send.log("distance=" + str(distance_to_dest))
 
-	print("移動してください")
-	time.sleep(20)
-	print("start")
-	time.sleep(5)
-
-	#const
-	LOOP_NUM = 20
-	THD_DISTANCE_DEST = 5
-	T_CAL = 60
-	STUCK_JUDGE_THD_DISTANCE = 1.0
-
+	#test
 	#setup
 	motor.setup()
 	bmx055.bmx055_setup()
 	mode3.mode3_change()
 
-
-	#main
-	while True:
-		distance_to_dest, isReach_dest = drive(lat_dest=lat_test, lon_dest=lon_test, thd_distance=THD_DISTANCE_DEST, stack_distance=STUCK_JUDGE_THD_DISTANCE, t_cal=T_CAL, loop_num=LOOP_NUM)
-
-		#check
-		if isReach_dest == 1:
-			print('end gps running')
-			send.log("end gps running")
-			break
-		else:
-			print("not Goal", "distance=",distance_to_dest)
-			send.log("distance=" + str(distance_to_dest))
-
-	#test
-	#setup
-	#motor.setup()
-	#bmx055.bmx055_setup()
-	#mode3.mode3_change()
-
-	#test()
+	test(35.9243106, 139.912492)

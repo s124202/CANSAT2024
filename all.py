@@ -11,6 +11,7 @@ import land
 import motor
 import para_avoid_alone
 import goal_detection
+import stuck
 
 #send
 import send.mode3 as mode3
@@ -49,15 +50,24 @@ def main():
 
 	time.sleep(1)
 
+	stuck.ue_jug()
+	##gps run sequence
+	#print("start gps run sequence")
+	#send.log("start gps run sequence")
 
-	#gps run sequence
-	print("start gps run sequence")
-	send.log("start gps run sequence")
+	#pid_run_test.test(35.9243106, 139.912492)
 
-	pid_run_test.test(35.9243106, 139.912492)
+	print("run")
+	send.log("run")
+	motor.move(40, 40, 8)
 
-	print("end gps run sequence")
-	send.log("end gps run sequence")
+	print("arrived goal area")
+	send.log("arrived goal area")
+
+	stuck.ue_jug
+
+	#print("end gps run sequence")
+	#send.log("end gps run sequence")
 
 	time.sleep(1)
 

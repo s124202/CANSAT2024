@@ -77,7 +77,6 @@ def run_calibration():
 	magx_off, magy_off = calibration.cal(20,-20,40) 
 	while magx_off == 0 and magy_off == 0:
 		motor.motor_move(50, 50, 1)
-		print("one more")
 		magx_off, magy_off = calibration.cal(20,-20,40) 
 	
 	return magx_off, magy_off
@@ -116,11 +115,8 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 def run(lat_test, lon_test):
 	#const
 	THD_DIRECTION = 5.0
-	T_CAL = 10
+	T_CAL = 15
 	isReach_dest = 0
-
-	#init
-	t_start = time.time()
 
 	#cal
 	magx_off, magy_off = run_calibration()
@@ -129,8 +125,11 @@ def run(lat_test, lon_test):
 	adjust_direction(magx_off, magy_off, lat_test, lon_test)
 	error_theta, direction = get_param(magx_off, magy_off, lat_test, lon_test)
 
+	#init
+	t_start = time.time()
+
 	#move
-	while time.time() - t_start > T_CAL:
+	while time.time() - t_start < T_CAL:
 		motor.move(20,20,1)
 		error_theta, direction = get_param(magx_off, magy_off, lat_test, lon_test)
 

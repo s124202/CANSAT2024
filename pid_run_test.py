@@ -225,9 +225,9 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 	'''
 
 	#const
-	Kp = 3
-	Kd = 0.5
-	Ki_ = 0
+	Kp = 0.1
+	Kd = 0.05
+	Ki_ = 0.05
 
 	count = 0
 
@@ -252,12 +252,13 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 		m = max(m, -5)
 
 		#param
-		s_r = 60
-		s_l = 60
+		s_r = 25
+		s_l = 25
 		pwr_l = -m + s_l
 		pwr_r = m + s_r
 
 		#move
+		print(pwr_l, pwr_r)
 		motor.motor_move(pwr_l, pwr_r, 0.01)
 		time.sleep(0.04)
 

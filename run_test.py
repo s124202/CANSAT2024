@@ -7,7 +7,6 @@ import time
 import motor
 import calibration
 import bmx055
-import stuck
 import gps
 import gps_navigate
 

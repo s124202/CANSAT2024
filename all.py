@@ -12,6 +12,7 @@ import motor
 import para_avoid_alone
 import goal_detection
 import stuck
+import blt_adalt
 
 #send
 import send.mode3 as mode3
@@ -38,6 +39,14 @@ def main():
 
 	time.sleep(1)
 
+	#land wait
+	print("start land wait")
+	send.log("start land wait")
+
+	blt_adalt.main(0)
+
+	print("end land wait")
+	send.log("end land wait")
 
 	#para avoid sequence
 	print("start para avoid sequence")
@@ -57,6 +66,26 @@ def main():
 	#send.log("start gps run sequence")
 
 	#pid_run_test.test(35.9243106, 139.912492)
+
+
+	#para wait
+	print("start para wait")
+	send.log("start para wait")
+
+	blt_adalt.main(1)
+
+	print("end para wait")
+	send.log("end para wait")
+
+	#run start wait
+	print("start run wait")
+	send.log("start run wait")
+
+	blt_adalt.main(2)
+
+	print("end run wait")
+	send.log("end run wait")
+
 
 	print("start run sequence")
 	send.log("start run sequence")

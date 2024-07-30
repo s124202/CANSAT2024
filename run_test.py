@@ -101,9 +101,9 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 		error_theta, direction = get_param(magx_off, magy_off, lat_dest, lon_dest)
 
 		if error_theta < -15:
-			motor.move(30,-30,0.05)
+			motor.move(20,-20,0.05)
 		elif error_theta > 15:
-			motor.move(-30,30,0.05)
+			motor.move(-20,20,0.05)
 		else:
 			break
 
@@ -130,7 +130,7 @@ def run(lat_test, lon_test):
 
 	#move
 	while time.time() - t_start > T_CAL:
-		motor.move(25,25,1)
+		motor.move(20,20,1)
 		error_theta, direction = get_param()
 
 		if direction < THD_DIRECTION:

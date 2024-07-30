@@ -12,6 +12,7 @@ import motor
 import para_avoid_alone
 import goal_detection
 import stuck
+import melt
 
 #send
 import send.mode3 as mode3
@@ -38,6 +39,11 @@ def main():
 
 	time.sleep(1)
 
+
+	#melt sequence
+	print("start melt sequence")
+	send.log("start melt sequence")
+	melt.melt_down(17,5)
 
 	#para avoid sequence
 	print("start para avoid sequence")

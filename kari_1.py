@@ -1,9 +1,54 @@
 from gpiozero import Motor
 
 import time
-import cv2
-import numpy as np
- 
+import bluetooth
+import threading
+
+
+def blt():
+	global send
+	global receive
+	global synchro
+
+	send = 0
+	receive = "0"
+	synchro = 0
+	
+	try:
+		server_sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+		port = 1
+		server_sock.bind(("",port))
+		server_sock.listen(1)
+		client_sock,address = server_sock.accept()
+		client_sock.settimeout(10)
+		print("Accepted connection from ",address)
+		while True:
+			if synchro == 1:
+				print("synchro")
+				break
+			try:
+				data = client_sock.recv(1024)
+				receive = data.decode()
+				print(receive)
+				time.sleep(1)
+				client_sock.send(str(send))
+				send += 1
+			except KeyboardInterrupt:
+				print("finish")
+				break
+			except bluetooth.btcommon.BluetoothError as err:
+				print("close")
+				break
+		client_sock.close()
+		server_sock.close()
+		print("try reconnect")
+		
+	except KeyboardInterrupt:
+		print("finish")
+		client_sock.close()
+		server_sock.close()
+
+
 def motor_setup():
 	"""
 	motorを使うときに必要な初期化を行う関数
@@ -13,6 +58,18 @@ def motor_setup():
 	Lpin1, Lpin2 = 23, 18
 	motor_r = Motor(Rpin1, Rpin2)
 	motor_l = Motor(Lpin1, Lpin2)
+
+def move(strength_l, strength_r, t_moving):
+	"""
+	一定時間モータを動かすための関数
+	strengthは-100~100
+	t_movingはモータを動かす時間
+	"""
+	motor_move(strength_l, strength_r, t_moving)
+	if abs(strength_l) == abs(strength_r) and strength_l * strength_r < 0:
+		motor_stop(0.1)
+	else:
+		deceleration(strength_l, strength_r)
 
 def motor_move(strength_l, strength_r, t_moving):
 	"""
@@ -37,7 +94,7 @@ def motor_move(strength_l, strength_r, t_moving):
 		motor_r.forward(abs(strength_r))
 		motor_l.backward(abs(strength_l))
 		time.sleep(t_moving)
-    # 左回転
+	# 左回転
 	elif strength_r < 0 and strength_l >= 0:
 		motor_r.backward(abs(strength_r))
 		motor_l.forward(abs(strength_l))
@@ -61,123 +118,40 @@ def deceleration(strength_l, strength_r):
 		motor_move(strength_l * coefficient_power, strength_r * coefficient_power, 0.1)
 		if i == 9:
 			motor_stop(0.1)
-        
-        
+		
+def main():
+	global send
+	global receive
+	global synchro
 
-def red_detect(img):
-    # HSV色空間に変換
-    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+	receive = "0"
 
-    # 緑色のHSVの値域1
-    #hsv_min = np.array([40,64,50])
-    #hsv_max = np.array([90,255,255])
-    #mask = cv2.inRange(hsv, hsv_min, hsv_max)
+	while True:
+		if receive == str(1):
+			break
+		print("wait discovery")
+		time.sleep(1)
 
-    # 黄色のHSVの値域1
-    #hsv_min = np.array([20,64,100])
-    #hsv_max = np.array([30,255,255])
-    #mask = cv2.inRange(hsv, hsv_min, hsv_max)
+	time.sleep(5)
+	move(30,30,5)
 
-    # オレンジ色のHSVの値域1
-    hsv_min = np.array([10,100,100])
-    hsv_max = np.array([25,255,255])
-    mask = cv2.inRange(hsv, hsv_min, hsv_max)
+	time.sleep(1)
+	move(30,-30,0.1)
 
-    # 赤色のHSVの値域1
-    #hsv_min = np.array([0,100,100])
-    #hsv_max = np.array([5,255,255])
-    #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+	time.sleep(1)
+	move(30,30,5)
 
-    # 赤色のHSVの値域2
-    #hsv_min = np.array([174,100,100])
-    #hsv_max = np.array([179,255,255])
-    #mask2 = cv2.inRange(hsv, hsv_min, hsv_max)
-
-    #mask = mask1 + mask2
-
-    return mask
-
-def get_largest_red_object(mask):
-    # 最小領域の設定
-    minarea = 300
-    nlabels, labels, stats, centroids = cv2.connectedComponentsWithStats(mask)
-    if nlabels > 1:
-        largest_label = 1 + np.argmax(stats[1:, cv2.CC_STAT_AREA])
-        center = centroids[largest_label]
-        size = stats[largest_label,cv2.CC_STAT_AREA]
-        if size > minarea:
-            return center, size
-        return None, None
-    else:
-        return None, None
-
-def main_detect():
-
-    default_l = 43
-    default_r= default_l - 20
-
-    discover = 1
-    old_center = [320,0]
-    count = 0
-    # カメラのキャプチャ
-    cap = cv2.VideoCapture(0)
-
-    while(cap.isOpened()):
-        # フレームを取得
-        ret, frame = cap.read()
-        if not ret:
-            print("fail")
-            continue
-        frame = cv2.resize(frame, (640,320))
-        frame = cv2.rotate(frame, cv2.ROTATE_180)
-
-        # 赤色検出
-        mask = red_detect(frame)
-
-        # 最大の赤色物体の中心を取得
-        center, size = get_largest_red_object(mask)
-
-        if center is None:
-            center = old_center
-            discover = 1
-            count += 1
-        else:
-             discover += 1
-             count = 0
-        
-        if size is None:
-             size = 5000
-        
-        #-100 ~ 100 の範囲で設定
-        mp = (int(center[0]) - 320) / 3.2   
-        mp = mp / 22
-
-        md = (center[0] - old_center[0]) / 100
-
-        m = mp - md
-
-        if size < 1000:
-            s = 0
-        else:
-            s = size / 2000 + 5
-             
-        if count == 60:
-            print("out")
-            deceleration(strength_l,strength_r)
-            break
-
-        strength_l = default_l - s + m
-        strength_r = default_r - s - m
-
-        motor_move(strength_l,strength_r, 0.05)
-
-        #print(old_center[0]-center[0])
-        old_center = center
-
-    cap.release()
-    cv2.destroyAllWindows()
+	synchro = 1
   
 
 if __name__ == '__main__':
-    motor_setup()
-    main_detect()
+	motor_setup()
+	
+	thread1 = threading.Thread(target = blt)
+	thread2 = threading.Thread(target = main)
+
+	thread1.start()
+	thread2.start()
+
+	thread1.join()
+	thread2.join()

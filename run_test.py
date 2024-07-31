@@ -103,9 +103,9 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_dest, lon_dest)
 
 		if error_theta < -10:
-			motor.move(25,-25,0.1)
+			motor.move(30,-30,0.1)
 		elif error_theta > 10:
-			motor.move(-25,25,0.1)
+			motor.move(-30,30,0.1)
 		else:
 			break
 

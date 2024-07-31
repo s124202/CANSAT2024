@@ -1,30 +1,42 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import csv
 
 import gps_navigate
 
-# サンプルデータ
-data = [
-    {"latitude": 35.924045, "longitude": 139.91266, "azimuth": 3.715958091904213},
-    {"latitude": 35.92411, "longitude": 139.912622, "azimuth": 17.174510829165627},
-    {"latitude": 35.924192, "longitude": 139.912572, "azimuth": -90.01633832991769},
-    {"latitude": 35.924277, "longitude": 139.912513, "azimuth": -11.67693538236773}
-]
 
-# ゴール地点
-goal = {"latitude": 35.9243106, "longitude": 139.912492} 
+#input
+data = []
+with open('voc_data.csv', mode='r') as file:
+    csv_reader = csv.DictReader(file)
+    for row in csv_reader:
+        data.append({
+            "latitude": float(row["latitude"]),
+            "longitude": float(row["longitude"]),
+            "azimuth": float(row["azimuth"])
+        })
 
-# 緯度と経度のリストを作成
+#fixed point
+start = {"latitude": 35.924427, "longitude": 139.912225}
+goal = {"latitude": 35.9243193, "longitude": 139.9124873}
+
+#list
 latitudes = [point["latitude"] for point in data]
 longitudes = [point["longitude"] for point in data]
 azimuths = [point["azimuth"] for point in data]
 
-# 矢印の方向を計算
-u = np.cos(np.radians(azimuths))
-v = np.sin(np.radians(azimuths))
-
 # 各地点とゴール地点の距離を計算
-distances = [gps_navigate.vincenty_inverse(point["latitude"], point["longitude"], goal["latitude"], goal["longitude"])["distance"] for point in data]
+# distances, degrees = [gps_navigate.vincenty_inverse(point["latitude"], point["longitude"], goal["latitude"], goal["longitude"])["distance"] for point in data]
+results = [gps_navigate.vincenty_inverse(point["latitude"], point["longitude"], goal["latitude"], goal["longitude"]) for point in data]
+distances = [result["distance"] for result in results]
+degrees = [result["azimuth1"] for result in results]
+
+# azimuthsにdegreesを足す
+adjusted_azimuths = [azimuth + degree for azimuth, degree in zip(azimuths, degrees)]
+
+# 矢印の方向を計算
+u = np.cos(np.radians(adjusted_azimuths))
+v = np.sin(np.radians(adjusted_azimuths))
 
 # グラフを作成
 plt.figure(figsize=(10, 6))
@@ -32,11 +44,14 @@ plt.figure(figsize=(10, 6))
 plt.plot(latitudes, longitudes, marker='o', linestyle='-', color='blue')
 
 # 矢印を追加
-plt.quiver(latitudes, longitudes, u, v, angles='xy', scale_units='xy', scale=100000, color='red')
+plt.quiver(latitudes, longitudes, u, v, angles='xy', scale_units='xy', scale=30000, color='red')
 
 # ゴール地点をプロット
 plt.scatter(goal["latitude"], goal["longitude"], color='green', marker='x', s=100, label='Goal')
 plt.text(goal["latitude"], goal["longitude"], 'GOAL', fontsize=12, ha='left', color='green')
+
+plt.scatter(start["latitude"], start["longitude"], color='green', marker='x', s=100, label='Start')
+plt.text(start["latitude"], start["longitude"], 'START', fontsize=12, ha='left', color='green')
 
 # 各地点に距離を表示
 for i, (lat, lon, dist) in enumerate(zip(latitudes, longitudes, distances)):

@@ -102,10 +102,10 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 	while time.time() - t_start < t_out:
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_dest, lon_dest)
 
-		if error_theta < -15:
-			motor.move(25,-25,0.1)
-		elif error_theta > 15:
-			motor.move(-25,25,0.1)
+		if error_theta < -10:
+			motor.move(30,-30,0.1)
+		elif error_theta > 10:
+			motor.move(-30,30,0.1)
 		else:
 			break
 
@@ -173,12 +173,12 @@ if __name__ == "__main__":
 	setup()
 
 	#target
-	lat_test,lon_test = gps.med()
+	# lat_test,lon_test = gps.med()
 
-	print("移動してください")
-	time.sleep(20)
-	print("start")
-	time.sleep(5)
+	# print("移動してください")
+	# time.sleep(20)
+	# print("start")
+	# time.sleep(5)
 
 	print("main")
-	main(lat_test, lon_test)
+	main(35.9243193, 139.9124873)

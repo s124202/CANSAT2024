@@ -7,8 +7,8 @@ def main():
 	angle = 0
 	isReach_goal = 0
 
-	ROTATE_PWR = 26
-	THD_RED_RATIO = 20 #画面を占める赤色の割合の閾値
+	ROTATE_PWR = 30
+	THD_RED_RATIO = 15 #画面を占める赤色の割合の閾値
 
 	###-----画像誘導モードの範囲内にいた場合の処理-----###
 	
@@ -23,22 +23,22 @@ def main():
 	elif (0 < area_ratio < THD_RED_RATIO) or (angle > 0):
 		###-----ゴールが真正面にあるときの処理-----###
 		if angle == 2:
-			motor.move(17, 15, 0.25)
+			motor.move(20, 25, 0.25)
 
 		###------ゴールが真正面にないときの処理------###
 		###-----目標角度を少しずらす-----###
 		elif angle == 1:
-			motor.motor_move(-ROTATE_PWR, ROTATE_PWR, 0.15)
+			motor.motor_move(-ROTATE_PWR, ROTATE_PWR, 0.1)
 			motor.motor_stop(0.5)
 
 		elif angle == 3:
-			motor.motor_move(ROTATE_PWR, -ROTATE_PWR, 0.15)
+			motor.motor_move(ROTATE_PWR, -ROTATE_PWR, 0.1)
 			motor.motor_stop(0.5)
 
 	###-----撮像した画像の中にゴールが映っていない場合の処理-----###
 	elif area_ratio == 0:
 		print('Lost Goal')
-		motor.motor_move(26, -26, 0.15)
+		motor.motor_move(30, -30, 0.13)
 		motor.motor_stop(0.5)
 	
 	###-----ゴールした場合の処理-----###

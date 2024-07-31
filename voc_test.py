@@ -49,7 +49,9 @@ def sensor():
 	try:
 		while time.time() - start_time < TIME_THD:
 			temp, pres, hum, alt = bme280.bme280_read()
+			time.sleep(1)
 			accx, accy, accz, gyrx, gyry, gyrz, magx, magy, magz = bmx055.bmx055_read()
+			time.sleep(1)
 			lat,lon = gps.location()
 
 			#log

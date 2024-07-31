@@ -76,10 +76,10 @@ def setup():
 
 
 def run_calibration():
-	magx_off, magy_off = calibration.cal(20,-20,40) 
+	magx_off, magy_off = calibration.cal(25,-25,40) 
 	while magx_off == 0 and magy_off == 0:
 		motor.motor_move(50, 50, 1)
-		magx_off, magy_off = calibration.cal(20,-20,40) 
+		magx_off, magy_off = calibration.cal(25,-25,40) 
 	
 	return magx_off, magy_off
 
@@ -102,10 +102,10 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 	while time.time() - t_start < t_out:
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_dest, lon_dest)
 
-		if error_theta < -15:
-			motor.move(20,-20,0.1)
-		elif error_theta > 15:
-			motor.move(-20,20,0.1)
+		if error_theta < -10:
+			motor.move(25,-25,0.1)
+		elif error_theta > 10:
+			motor.move(-25,25,0.1)
 		else:
 			break
 
@@ -117,7 +117,7 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 def run(lat_test, lon_test, writer):
 	#const
 	THD_DIRECTION = 5.0
-	T_CAL = 5
+	T_CAL = 30
 	isReach_dest = 0
 
 	#cal
@@ -133,7 +133,7 @@ def run(lat_test, lon_test, writer):
 	#move
 	while time.time() - t_start < T_CAL:
 		writer.writerows([[lat_now, lon_now, error_theta]])
-		motor.move(20,22,1)
+		motor.move(20,25,3)
 		stuck.ue_jug()
 		adjust_direction(magx_off, magy_off, lat_test, lon_test)
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
@@ -149,7 +149,7 @@ def main(lat_test, lon_test):
 	isReach_dest = 0
 
 	#init
-	filename = "voc_gps_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	filename = "co2_gps_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 	f = open(filename,"w")
 	writer = csv.writer(f)
 

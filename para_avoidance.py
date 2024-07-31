@@ -78,28 +78,28 @@ def main2():
 		if PARA_THD_COVERED < red_area:
 			print("Parachute on top")
 			time.sleep(PARA_TIMEOUT)
-			motor.motor_move(70, 70, 2)
+			motor.move(70, 70, 2)
 		else:
 			break
-
+	
 	if red_area > 100:
 		print("Move Backwward")
-		motor.motor_move(-40, -40, 2)
+		motor.move(-40, -40, 2)
 		#motor.motor_stop(0.2)
 
 	else:
 		print("Move Forward")
-		motor.motor_move(40, 40, 2)
+		motor.move(40, 40, 2)
 		#motor.motor_stop(0.2)
 	
 	while True:
 		red_area = red_detection.detect_para()
 		print(f'red_area : {red_area}')
 		if red_area > 0:
-			motor(30, -30, 0.3)
+			motor.motor_move(30, -30, 0.3)
 			motor.motor_stop(0.5)
-			motor.motor_move(30, 30, 8)
 		else:
+			motor.move(30, 30, 8)
 			break
 	
 	print("Last Move Forwward")
@@ -114,7 +114,7 @@ def main3():
 	red_area = 0
 	goal_azimuth = 0
 
-	#stuck.ue_jug()
+	stuck.ue_jug()
 
 	red_area = red_detection.detect_para()
 	print(f'red_area : {red_area}')
@@ -123,18 +123,18 @@ def main3():
 		if PARA_THD_COVERED < red_area:
 			print("Parachute on top")
 			time.sleep(PARA_TIMEOUT)
-			motor.motor_move(70, -70, 2)
+			motor.motor_move(70, 70, 2)
 		else:
 			break
 
 	if red_area > 100:
 		print("Move Backwward")
-		motor.motor_move(-30, 34, 2)
+		motor.motor_move(-30, -34, 2)
 		#motor.motor_stop(0.2)
 
 	else:
 		print("Move Forward")
-		motor.motor_move(30, -34, 2)
+		motor.motor_move(30, 34, 2)
 		#motor.motor_stop(0.2)
 	
 	while True:
@@ -148,14 +148,14 @@ def main3():
 		red_area = red_detection.detect_para()
 		print(f'red_area : {red_area}')
 		if red_area > 0:
-			motor(30, 34, 0.3)
+			motor(30, -34, 0.3)
 			motor.motor_stop(0.5)
-			motor.motor_move(30, -34, 5)
 		else:
+			motor.motor_move(30, 34, 5)
 			break
 	
 	print("Last Move Forwward")
-	motor.motor_move(30, -34, 5)
+	motor.motor_move(30, 34, 5)
 
 if __name__ == '__main__':
 	gps.open_gps()

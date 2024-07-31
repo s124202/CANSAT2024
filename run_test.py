@@ -147,7 +147,7 @@ def main(lat_test, lon_test):
 	isReach_dest = 0
 
 	#init
-	filename = "voc_gps_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	filename = "co2_gps_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 	f = open(filename,"w")
 	writer = csv.writer(f)
 

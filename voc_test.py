@@ -170,7 +170,7 @@ def t_motor():
 	send.log("start motor test")
 	motor.setup()
 	time.sleep(20)
-	motor.move(20, 10, 3)
+	motor.move(50, 50, 3)
 	print("motor test finished")
 	send.log("motor test finished")
 

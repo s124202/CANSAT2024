@@ -75,10 +75,10 @@ def setup():
 
 
 def run_calibration():
-	magx_off, magy_off = calibration.cal(20,-20,40) 
+	magx_off, magy_off = calibration.cal(25,-25,40) 
 	while magx_off == 0 and magy_off == 0:
 		motor.motor_move(50, 50, 1)
-		magx_off, magy_off = calibration.cal(20,-20,40) 
+		magx_off, magy_off = calibration.cal(25,-25,40) 
 	
 	return magx_off, magy_off
 
@@ -132,7 +132,7 @@ def run(lat_test, lon_test, writer):
 	#move
 	while time.time() - t_start < T_CAL:
 		writer.writerows([[lat_now, lon_now, error_theta]])
-		motor.move(20,22,1)
+		motor.move(17,25,1)
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
 
 		if direction < THD_DIRECTION:

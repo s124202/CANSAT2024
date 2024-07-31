@@ -64,7 +64,7 @@ def sensor():
 			print("co2:" + str(m_co2))
 			print("lat:" + str(lat) + "\t" + "lon:" + str(lon))
 
-			writer.writerows([[cycle, lat, lon, temp, pres, hum, alt, m_co2]])
+			writer.writerows([[cycle, lat, lon, temp, pres, hum, alt, accx, accy, accz, gyrx, gyry, gyrz, magx, magy, magz, m_co2]])
 
 			time.sleep(1)
 			cycle += 1

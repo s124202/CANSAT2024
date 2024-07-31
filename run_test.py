@@ -103,9 +103,9 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_dest, lon_dest)
 
 		if error_theta < -15:
-			motor.move(20,-20,0.1)
+			motor.move(25,-25,0.1)
 		elif error_theta > 15:
-			motor.move(-20,20,0.1)
+			motor.move(-25,25,0.1)
 		else:
 			break
 
@@ -133,7 +133,7 @@ def run(lat_test, lon_test, writer):
 	#move
 	while time.time() - t_start < T_CAL:
 		writer.writerows([[lat_now, lon_now, error_theta]])
-		motor.move(17,25,3)
+		motor.move(20,24,3)
 		stuck.ue_jug()
 		adjust_direction(magx_off, magy_off, lat_test, lon_test)
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
@@ -150,7 +150,7 @@ def main(lat_test, lon_test):
 	isReach_dest = 0
 
 	#init
-	filename = "co2_gps_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	filename = "voc_gps_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 	f = open(filename,"w")
 	writer = csv.writer(f)
 

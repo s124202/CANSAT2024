@@ -6,7 +6,7 @@ import time
 #src
 import bme280
 import bmx055
-#import pid_run_test
+import run_test
 import land
 import motor
 import para_avoid_alone
@@ -40,6 +40,7 @@ def main():
 
 	time.sleep(1)
 
+
 	#land wait
 	print("start land wait")
 	send.log("start land wait")
@@ -49,10 +50,16 @@ def main():
 	print("end land wait")
 	send.log("end land wait")
 
+
 	#melt sequence
 	print("start melt sequence")
 	send.log("start melt sequence")
+
 	melt.melt_down(17,5)
+
+	print("end melt sequence")
+	send.log("end melt sequence")
+
 
 	#para avoid sequence
 	print("start para avoid sequence")
@@ -66,13 +73,6 @@ def main():
 
 	time.sleep(1)
 
-	stuck.ue_jug()
-	##gps run sequence
-	#print("start gps run sequence")
-	#send.log("start gps run sequence")
-
-	#pid_run_test.test(35.9243106, 139.912492)
-
 
 	#para wait
 	print("start para wait")
@@ -82,6 +82,7 @@ def main():
 
 	print("end para wait")
 	send.log("end para wait")
+
 
 	#run start wait
 	print("start run wait")
@@ -93,18 +94,14 @@ def main():
 	send.log("end run wait")
 
 
+	#gps run sequence
 	print("start run sequence")
 	send.log("start run sequence")
 
-	motor.move(16, 18, 2)
+	run_test.main()
 
 	print("end run sequence")
 	send.log("end run sequence")
-
-	stuck.ue_jug
-
-	#print("end gps run sequence")
-	#send.log("end gps run sequence")
 
 	time.sleep(1)
 
@@ -131,10 +128,10 @@ if __name__ == '__main__':
 
 		time.sleep(1)
 
-		print("start main program VOC")
-		send.log("start main program VOC")
+		print("start main program CO2")
+		send.log("start main program CO2")
 		main()
-		print("end goal main program VOC")
-		send.log("end goal main program VOC")
+		print("end goal main program CO2")
+		send.log("end goal main program CO2")
 	except KeyboardInterrupt:
 		print("stop!!!!")

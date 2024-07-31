@@ -97,11 +97,11 @@ if __name__ == '__main__':
 
 		time.sleep(1)
 
-		print("start main program")
-		send.log("start main program")
+		print("start main program VOC")
+		send.log("start main program VOC")
 		main()
-		print("end goal main program")
-		send.log("end goal main program")
+		print("end goal main program VOC")
+		send.log("end goal main program VOC")
 
 	except KeyboardInterrupt:
 		print("stop!!!!")

@@ -10,6 +10,7 @@ import calibration
 import bmx055
 import gps
 import gps_navigate
+import stuck
 
 #send
 import send.mode3 as mode3
@@ -133,13 +134,15 @@ def run(lat_test, lon_test, writer):
 	while time.time() - t_start < T_CAL:
 		writer.writerows([[lat_now, lon_now, error_theta]])
 		motor.move(20,22,1)
+		stuck.ue_jug()
+		adjust_direction(magx_off, magy_off, lat_test, lon_test)
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
 
 		if direction < THD_DIRECTION:
 			isReach_dest = 1
 			break
 
-	return isReach_dest, direction
+	return isReach_dest
 
 def main(lat_test, lon_test):
 	#const

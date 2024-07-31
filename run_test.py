@@ -116,7 +116,7 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 
 def run(lat_test, lon_test, writer):
 	#const
-	THD_DIRECTION = 3.0
+	THD_DIRECTION = 5.0
 	T_CAL = 30
 	isReach_dest = 0
 

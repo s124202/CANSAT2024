@@ -105,6 +105,7 @@ def main2():
 	print("Last Move Forwward")
 	motor.motor_move(30, 30, 5)
 
+#ちょっとPID
 def main3():
 	PARA_THD_COVERED = 300000
 	PARA_TIMEOUT = 300
@@ -146,6 +147,142 @@ def main3():
 		theta_array = [0]*5
 		PID.PID_adjust_direction(target_azimuth=goal_azimuth, magx_off=magx_off, magy_off=magy_off, theta_array=theta_array)
 		red_area = red_detection.detect_para()
+		print(f'red_area : {red_area}')
+		if red_area > 0:
+			motor(30, -34, 0.3)
+			motor.motor_stop(0.5)
+		else:
+			motor.motor_move(30, 34, 5)
+			break
+	
+	print("Last Move Forwward")
+	motor.motor_move(30, 34, 5)
+
+
+
+
+
+
+def standarize_angle(angle):
+	'''
+	角度を-180～180度に収める関数
+	'''
+	angle = angle % 360
+	
+	if angle >180:
+		angle -= 360
+	elif angle < -180:
+		angle += 360
+
+	return angle
+
+def get_theta_dest(target_azimuth, magx_off, magy_off):
+	'''
+	#ローバーから目標地点までの方位角が既知の場合に目標地点(dest)との相対角度を算出する関数
+	ローバーが向いている角度を基準に、時計回りを正とする。
+
+	theta_dest = 60 のとき、目標地点はローバーから見て右手60度の方向にある。
+
+	-180 < theta_dest < 180
+
+	Parameters
+	----------
+	lon2 : float
+		目標地点の経度
+	lat2 : float
+		目標地点の緯度
+	magx_off : int
+		地磁気x軸オフセット
+	magy_off : int
+		地磁気y軸オフセット
+
+	'''
+	#-----ローバーの角度を取得-----#
+	magdata= bmx055.mag_dataRead()
+	mag_x, mag_y = magdata[0], magdata[1]
+
+	rover_azimuth = calibration.angle(mag_x, mag_y, magx_off, magy_off)
+
+	#-----目標地点との相対角度を算出-----#
+	#ローバーが向いている角度を0度としたときの、目的地への相対角度。このとき時計回りを正とする。
+	theta_dest = rover_azimuth - target_azimuth
+
+	#-----相対角度の範囲を-180~180度にする-----#
+	theta_dest = standarize_angle(theta_dest)
+
+	return theta_dest
+
+def run_calibration():
+	magx_off, magy_off = calibration.cal(25,-25,40) 
+	while magx_off == 0 and magy_off == 0:
+		motor.motor_move(50, 50, 1)
+		magx_off, magy_off = calibration.cal(25,-25,40) 
+	
+	return magx_off, magy_off
+
+def get_param(magx_off, magy_off, lat_dest, lon_dest):
+	lat_now, lon_now = gps.location()
+	direction = gps_navigate.vincenty_inverse(lat_now, lon_now, lat_dest, lon_dest)
+	distance_to_dest, target_azimuth = direction["distance"], direction["azimuth1"]
+	error_theta = get_theta_dest(target_azimuth, magx_off, magy_off)
+	print("distance = ", distance_to_dest, "error = ", error_theta)
+
+	return error_theta, distance_to_dest, lat_now, lon_now
+
+def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
+	#init
+	t_out = 30
+	t_start = time.time()
+
+	while time.time() - t_start < t_out:
+		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_dest, lon_dest)
+
+		if error_theta < -10:
+			motor.move(30,-30,0.1)
+		elif error_theta > 10:
+			motor.move(-30,30,0.1)
+		else:
+			break
+
+		time.sleep(0.3)
+
+	print("finish adjust")
+
+def main4():
+	PARA_THD_COVERED = 300000
+	PARA_TIMEOUT = 300
+	LAT_DEST = 35.924582
+	LON_DEST = 139.911343
+
+	red_area = 0
+
+	stuck.ue_jug()
+
+	red_area = red_detection.detect_para()
+	print(f'red_area : {red_area}')
+
+	while True:
+		if PARA_THD_COVERED < red_area:
+			print("Parachute on top")
+			time.sleep(PARA_TIMEOUT)
+			motor.motor_move(70, 70, 2)
+		else:
+			break
+
+	if red_area > 100:
+		print("Move Backwward")
+		motor.motor_move(-30, -34, 2)
+		#motor.motor_stop(0.2)
+
+	else:
+		print("Move Forward")
+		motor.motor_move(30, 34, 2)
+		#motor.motor_stop(0.2)
+	
+	while True:
+		print('Starting Calibration')
+		magx_off, magy_off = run_calibration()
+		adjust_direction(magx_off, magy_off, lat_test = LAT_DEST, lon_test = LON_DEST)
 		print(f'red_area : {red_area}')
 		if red_area > 0:
 			motor(30, -34, 0.3)

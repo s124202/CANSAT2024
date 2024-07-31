@@ -26,6 +26,7 @@ def scd30_main():
 				time.sleep(0.2)
 		except KeyboardInterrupt:
 			print("\r\n")
+			break
 
 
 def scd30_get():

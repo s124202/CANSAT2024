@@ -2,6 +2,7 @@
 
 #standard
 import time
+import csv
 
 #src
 import motor
@@ -89,7 +90,7 @@ def get_param(magx_off, magy_off, lat_dest, lon_dest):
 	error_theta = get_theta_dest(target_azimuth, magx_off, magy_off)
 	print("distance = ", distance_to_dest, "error = ", error_theta)
 
-	return error_theta, distance_to_dest
+	return error_theta, distance_to_dest, lat_now, lon_now
 
 
 def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
@@ -98,7 +99,7 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 	t_start = time.time()
 
 	while time.time() - t_start < t_out:
-		error_theta, direction = get_param(magx_off, magy_off, lat_dest, lon_dest)
+		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_dest, lon_dest)
 
 		if error_theta < -15:
 			motor.move(20,-20,0.1)
@@ -108,14 +109,14 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 			break
 
 		time.sleep(0.3)
-	
+
 	print("finish adjust")
 
 
-def run(lat_test, lon_test):
+def run(lat_test, lon_test, writer):
 	#const
 	THD_DIRECTION = 5.0
-	T_CAL = 6
+	T_CAL = 5
 	isReach_dest = 0
 
 	#cal
@@ -123,33 +124,44 @@ def run(lat_test, lon_test):
 
 	#adjust direction
 	adjust_direction(magx_off, magy_off, lat_test, lon_test)
-	error_theta, direction = get_param(magx_off, magy_off, lat_test, lon_test)
+	error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
 
 	#init
 	t_start = time.time()
 
 	#move
 	while time.time() - t_start < T_CAL:
+		writer.writerows([[lat_now, lon_now, error_theta]])
 		motor.move(20,22,1)
-		error_theta, direction = get_param(magx_off, magy_off, lat_test, lon_test)
+		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
 
 		if direction < THD_DIRECTION:
 			isReach_dest = 1
 			break
 
-	return isReach_dest
+	return isReach_dest, direction
 
 def main(lat_test, lon_test):
 	#const
 	isReach_dest = 0
+
+	#init
+	filename = "gps_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	f = open(filename,"w")
+	writer = csv.writer(f)
+
+	#main
 	try:
 		while isReach_dest == 0:
-			isReach_dest = run(lat_test, lon_test)
+			isReach_dest = run(lat_test, lon_test, writer)
 
 		print("end gps run")
 
 	except KeyboardInterrupt:
 		print("interrupt!")
+
+	finally:
+		f.close()
 
 
 if __name__ == "__main__":

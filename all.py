@@ -98,7 +98,7 @@ def main():
 	print("start run sequence")
 	send.log("start run sequence")
 
-	run_test.main()
+	run_test.main(35.9243193, 139.9124873)
 
 	print("end run sequence")
 	send.log("end run sequence")

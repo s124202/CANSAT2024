@@ -55,7 +55,7 @@ def main():
 	print("start melt sequence")
 	send.log("start melt sequence")
 
-	#melt.melt_down(17,5)
+	melt.melt_down(17,5)
 
 	print("end melt sequence")
 	send.log("end melt sequence")
@@ -92,18 +92,6 @@ def main():
 
 	print("end run wait")
 	send.log("end run wait")
-
-
-	#gps run sequence
-	print("start run sequence")
-	send.log("start run sequence")
-
-	run_test.main(35.9243193, 139.9124873)
-
-	print("end run sequence")
-	send.log("end run sequence")
-
-	time.sleep(1)
 
 
 	#gps run sequence

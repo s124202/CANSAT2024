@@ -42,13 +42,13 @@ def main():
 
 
 	#land wait
-	#print("start land wait")
-	#send.log("start land wait")
-#
-	#blt_child.main(0)
-#
-	#print("end land wait")
-	#send.log("end land wait")
+	print("start land wait")
+	send.log("start land wait")
+
+	blt_child.main(0)
+
+	print("end land wait")
+	send.log("end land wait")
 
 
 	#melt sequence
@@ -62,13 +62,13 @@ def main():
 
 
 	#para wait
-	#print("start para wait")
-	#send.log("start para wait")
-#
-	#blt_child.main(1)
-#
-	#print("end para wait")
-	#send.log("end para wait")
+	print("start para wait")
+	send.log("start para wait")
+
+	blt_child.main(1)
+
+	print("end para wait")
+	send.log("end para wait")
 
 
 	#para avoid sequence
@@ -85,13 +85,13 @@ def main():
 
 
 	#run start wait
-	# print("start run wait")
-	# send.log("start run wait")
+	print("start run wait")
+	send.log("start run wait")
 
-	# blt_child.main(2)
+	blt_child.main(2)
 
-	# print("end run wait")
-	# send.log("end run wait")
+	print("end run wait")
+	send.log("end run wait")
 
 
 	#gps run sequence

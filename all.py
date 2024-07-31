@@ -106,6 +106,18 @@ def main():
 	time.sleep(1)
 
 
+	#gps run sequence
+	print("start run sequence")
+	send.log("start run sequence")
+
+	run_test.main(35.9243193, 139.9124873)
+
+	print("end run sequence")
+	send.log("end run sequence")
+
+	time.sleep(1)
+
+
 	#goal detect sequence
 	print("start goal detect sequence")
 	send.log("start goal detect sequence")

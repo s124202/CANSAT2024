@@ -8,7 +8,7 @@ def main():
 	isReach_goal = 0
 
 	ROTATE_PWR = 30
-	THD_RED_RATIO = 15 #画面を占める赤色の割合の閾値
+	THD_RED_RATIO = 20 #画面を占める赤色の割合の閾値
 
 	###-----画像誘導モードの範囲内にいた場合の処理-----###
 	

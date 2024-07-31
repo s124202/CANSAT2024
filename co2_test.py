@@ -52,7 +52,7 @@ def sensor():
 			temp, pres, hum, alt = bme280.bme280_read()
 			accx, accy, accz, gyrx, gyry, gyrz, magx, magy, magz = bmx055.bmx055_read()
 			m_co2 = co2.scd30_get()
-			lat,lon = gps.test()
+			lat,lon = gps.location()
 
 			#log
 			send.log(str(cycle) + "," + str(lat) + "," + str(lon) + "," + str(temp) + "," + str(pres) + "," + str(hum) + "," + str(alt) + "," + str(accx) + "," + str(accy) + "," + str(accz) + "," + str(gyrx) + "," + str(gyry) + "," + str(gyrz) + "," + str(magx) + "," + str(magy) + "," + str(magz) + "," + str(m_co2))

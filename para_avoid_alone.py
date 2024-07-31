@@ -9,11 +9,11 @@ def main():
 
 	if red_area > 100:
 		print("Move Backward")
-		motor.move(-17, -15, 1.5)
+		motor.move(-20, -24, 2)
 
 	else:
 		print("Move Forward")
-		motor.move(17, 15, 1.5)
+		motor.move(20, 24, 2)
 
 if __name__ == '__main__':
 	motor.setup()

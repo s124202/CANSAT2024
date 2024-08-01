@@ -11,13 +11,15 @@ def power_motor():
 
 
     while time.time() - time_start < 9000:
-        motor.motor_move(-30,30,30)
-        motor.deceleration(-30,30)
+        motor.motor_move(30,-30,120)
+        motor.deceleration(30,-30)
+
         time.sleep(10)
 
-        motor.motor_move(30,30,2)
-        motor.deceleration(30,30)
-        time.sleep(3)
+        motor.motor_move(-30,30,120)
+        motor.deceleration(-30,30)
+
+        time.sleep(10)
 
         count += 1
         print("cycle : " + str(count))

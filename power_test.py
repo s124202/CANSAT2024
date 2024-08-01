@@ -13,11 +13,12 @@ try:
     while time.time() - time_start < 9000:
         time_start_sub = time.time()
         while time.time() - time_start_sub < 180:
-            motor.motor_move(-30,30,0.05)
+            motor.motor_move(-30,30,0.5)
             ret, frame = cap.read()
             if frame is None:
                 print("camera error")
                 time.sleep(0.1)
+            time.sleep(0.5)
         motor.deceleration(-30,30)
         time.sleep(10)
 

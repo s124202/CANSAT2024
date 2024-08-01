@@ -11,7 +11,7 @@ def power_motor():
 
 
     while time.time() - time_start < 9000:
-        motor.motor_move(-30,30,60)
+        motor.motor_move(-30,30,30)
         motor.deceleration(-30,30)
         time.sleep(10)
 

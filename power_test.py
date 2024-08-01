@@ -17,8 +17,7 @@ try:
             ret, frame = cap.read()
             if frame is None:
                 print("camera error")
-                time.sleep(0.1)
-            time.sleep(0.5)
+            time.sleep(1)
         motor.deceleration(-30,30)
         time.sleep(10)
 

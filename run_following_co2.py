@@ -5,13 +5,15 @@ import cv2
 import numpy as np
 import threading
 import bluetooth
+
+import motor
  
 def blt():
     global send
     global receive
     global synchro
 
-    bd_addr = "B8:27:EB:1B:C5:BF" # サーバー側のデバイスアドレスを入力
+    bd_addr = "B8:27:EB:A9:5B:64" # サーバー側のデバイスアドレスを入力
     port = 1
 
     send = 0
@@ -123,14 +125,22 @@ def move():
     t_movingはモータを動かす時間
     """
 
+    global send
+    global receive
     global synchro
+
+    send = 0
+    receive = "0"
     synchro = 0
     time.sleep(3)
 
     while True:
-        motor_move()
         if synchro == 1:
             break
+        if send != str(0) or receive != str(0):
+            time.sleep(1)
+            continue
+        motor_move()
     
     deceleration()
         
@@ -182,6 +192,34 @@ def get_largest_red_object(mask):
         return None, None
     else:
         return None, None
+
+def discovery(cap):
+    while True():
+        # フレームを取得
+        ret, frame = cap.read()
+        frame = cv2.resize(frame, (640,320))
+        frame = cv2.rotate(frame, cv2.ROTATE_180)
+
+        # 赤色検出
+        mask = red_detect(frame)
+
+        # 最大の赤色物体の中心を取得
+        center, size = get_largest_red_object(mask)
+
+        if center is None:
+            motor.motor_move(30,-30,0.1)
+            time.sleep(2)
+            continue
+        elif center[0] < 100:
+            motor.motor_move(30,-30,0.1)
+        elif center[0] > 540:
+            motor.motor_move(-30,30,0.1)
+        break
+    return 0
+            
+
+
+
 
 def main_detect():
 
@@ -247,7 +285,7 @@ def main_detect():
              
         if lose == 60:
             print("no discover")
-            send = 1
+            send = 10
             time.sleep(3)
             break
 
@@ -256,6 +294,15 @@ def main_detect():
 
         #print(old_center[0]-center[0])
         old_center = center
+
+        #親機のキャリブレーション待ち
+        if receive == str(1):
+            while (receive != str(1)):
+                time.sleep(1)
+            a = discovery()
+            send = 1
+            time.sleep(3)
+            send = 0
 
     synchro = 1
     cap.release()

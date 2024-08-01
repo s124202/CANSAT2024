@@ -7,7 +7,7 @@ import gps_navigate
 
 #input
 data = []
-with open('voc_data.csv', mode='r') as file:
+with open('co2_data.csv', mode='r') as file:
     csv_reader = csv.DictReader(file)
     for row in csv_reader:
         data.append({
@@ -17,7 +17,7 @@ with open('voc_data.csv', mode='r') as file:
         })
 
 #fixed point
-start = {"latitude": 35.924427, "longitude": 139.912225}
+start = {"latitude": 35.924377, "longitude": 139.912343}
 goal = {"latitude": 35.9243193, "longitude": 139.9124873}
 
 #list
@@ -44,7 +44,7 @@ plt.figure(figsize=(10, 6))
 plt.plot(latitudes, longitudes, marker='o', linestyle='-', color='blue')
 
 # 矢印を追加
-plt.quiver(latitudes, longitudes, u, v, angles='xy', scale_units='xy', scale=30000, color='red')
+plt.quiver(latitudes, longitudes, u, v, angles='xy', scale_units='xy', scale=20000, color='red')
 
 # ゴール地点をプロット
 plt.scatter(goal["latitude"], goal["longitude"], color='green', marker='x', s=100, label='Goal')

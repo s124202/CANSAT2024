@@ -17,8 +17,7 @@ try:
             ret, frame = cap.read()
             if frame is None:
                 print("camera error")
-                print(time.time() - time_start)
-                break
+                time.sleep(0.1)
         motor.deceleration(-30,30)
         time.sleep(10)
 
@@ -31,7 +30,7 @@ try:
 
         count += 1
         print("cycle : " + str(count))
-        print(time.time()-time_start)
+        print(int(time.time()-time_start))
     
     cap.release()
     cv2.destroyAllWindows()

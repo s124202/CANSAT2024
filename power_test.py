@@ -30,6 +30,7 @@ while time.time() - time_start < 9000:
 
     count += 1
     print("cycle : " + str(count))
+    print(time.time()-time_start)
 
 print("finish")
 

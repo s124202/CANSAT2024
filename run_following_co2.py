@@ -1,245 +1,280 @@
-#2024/07/30 生川
+from gpiozero import Motor
 
-#standard
 import time
-import csv
+import cv2
+import numpy as np
+import threading
 import bluetooth
-
-#src
-import motor
-import calibration
-import bmx055
-import gps
-import gps_navigate
-import stuck
-
-#send
-import send.mode3 as mode3
-
+ 
 def blt():
     global send
     global receive
     global synchro
 
+    bd_addr = "B8:27:EB:1B:C5:BF" # サーバー側のデバイスアドレスを入力
+    port = 1
+
+    send = 0
+    receive = "0"
+    synchro = 0
+    
     while True:
-        send = 0
-        receive = "0"
-        synchro = 0
-        
         try:
-            server_sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-            port = 1
-            server_sock.bind(("",port))
-            server_sock.listen(1)
-            client_sock,address = server_sock.accept()
-            client_sock.settimeout(10)
-            print("Accepted connection from ",address)
-
-            while True:
-                if synchro == 1:
-                    print("synchro")
-                    break
-                try:
-                    data = client_sock.recv(1024)
-                    receive = data.decode()
-                    print(receive)
-                    time.sleep(1)
-                    client_sock.send(str(send))
-                    send += 1
-                except KeyboardInterrupt:
-                    print("finish")
-                    break
-                except bluetooth.btcommon.BluetoothError as err:
-                    print("close")
-                    break
-            client_sock.close()
-            server_sock.close()
-
-            print("try reconnect")
+            sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+            sock.connect((bd_addr, port))
+            sock.settimeout(10)
+            print("connect success")
+            break
         except KeyboardInterrupt:
             print("finish")
-            client_sock.close()
-            server_sock.close()
             break
+        except:
+            print("try again")
+            time.sleep(3)
+            pass
+
+    while True:
+        if synchro == 1:
+            print("synchro")
+            break
+        try:
+            time.sleep(1)
+            sock.send(str(send))
+            data = sock.recv(1024)
+            receive = data.decode()
+            print(receive)
+        except KeyboardInterrupt:
+            print("finish")
+            break
+        except bluetooth.btcommon.BluetoothError as err:
+            print("close")
+            break
+    sock.close()
+
+def motor_setup():
+    """
+    motorを使うときに必要な初期化を行う関数
+    """
+    global motor_r, motor_l
+    Rpin1, Rpin2 = 16,26
+    Lpin1, Lpin2 = 23,18
+    motor_r = Motor(Rpin1, Rpin2)
+    motor_l = Motor(Lpin1, Lpin2)
+
+def motor_move():
+    
+    global strength_l
+    global strength_r
+    t_moving = 0.05 
+
+    """
+    引数は左のmotorの強さ、右のmotorの強さ、走る時間。
+    strength_l、strength_rは-1~1で表す。負の値だったら後ろ走行。
+    必ずmotor_stop()セットで用いる。めんどくさかったら下にあるmotor()を使用
+    """
+    local_strength_l = strength_l / 100
+    local_strength_r = strength_r / 100
+    # 前進
+    if local_strength_r >= 0 and local_strength_l >= 0:
+        motor_r.forward(local_strength_r)
+        motor_l.forward(local_strength_l)
+        time.sleep(t_moving)
+    # 後進
+    elif local_strength_r < 0 and local_strength_l < 0:
+        #motor_r.backward(abs(local_strength_r))
+        #motor_l.backward(abs(local_strength_l))
+        motor_r.forward(0.001)
+        motor_l.forward(0.001)
+        time.sleep(t_moving)
+    else:
+        motor_stop(0.05)
+
+
+def motor_stop(x=1):
+    """
+    motor_move()とセットで使用
+    """
+    motor_r.stop()
+    motor_l.stop()
+    time.sleep(x)
+
+def deceleration():
+    global strength_l
+    global strength_r
+
+    local_strength_l = strength_l
+    local_strength_r = strength_r   
+    """
+    穏やかに減速するための関数
+    """
+    for i in range(10):
+        coefficient_power = 10 - i
+        coefficient_power /= 10
+        motor_r.forward((local_strength_r / 100) * coefficient_power)
+        motor_l.forward((local_strength_l /100) * coefficient_power)
+        time.sleep(0.1)
+        if i == 9:
+            motor_stop(0.1)
+
+def move():
+    """
+    一定時間モータを動かすための関数
+    strengthは-100~100
+    t_movingはモータを動かす時間
+    """
+
+    global synchro
+    synchro = 0
+    time.sleep(3)
+
+    while True:
+        motor_move()
         if synchro == 1:
             break
+    
+    deceleration()
+        
+        
 
+def red_detect(img):
+    # HSV色空間に変換
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-#angle correction
-def standarize_angle(angle):
-	'''
-	角度を-180～180度に収める関数
-	'''
-	angle = angle % 360
-	
-	if angle >180:
-		angle -= 360
-	elif angle < -180:
-		angle += 360
+    # 緑色のHSVの値域1
+    #hsv_min = np.array([40,64,50])
+    #hsv_max = np.array([90,255,255])
+    #mask = cv2.inRange(hsv, hsv_min, hsv_max)
 
-	return angle
+    # 黄色のHSVの値域1
+    #hsv_min = np.array([20,64,100])
+    #hsv_max = np.array([30,255,255])
+    #mask = cv2.inRange(hsv, hsv_min, hsv_max)
 
+    # オレンジ色のHSVの値域1
+    hsv_min = np.array([10,100,100])
+    hsv_max = np.array([25,255,255])
+    mask = cv2.inRange(hsv, hsv_min, hsv_max)
 
-#return theta_dest
-def get_theta_dest(target_azimuth, magx_off, magy_off):
-	'''
-	#ローバーから目標地点までの方位角が既知の場合に目標地点(dest)との相対角度を算出する関数
-	ローバーが向いている角度を基準に、時計回りを正とする。
+    # 赤色のHSVの値域1
+    #hsv_min = np.array([0,100,100])
+    #hsv_max = np.array([5,255,255])
+    #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
 
-	theta_dest = 60 のとき、目標地点はローバーから見て右手60度の方向にある。
+    # 赤色のHSVの値域2
+    #hsv_min = np.array([174,100,100])
+    #hsv_max = np.array([179,255,255])
+    #mask2 = cv2.inRange(hsv, hsv_min, hsv_max)
 
-	-180 < theta_dest < 180
+    #mask = mask1 + mask2
 
-	Parameters
-	----------
-	lon2 : float
-		目標地点の経度
-	lat2 : float
-		目標地点の緯度
-	magx_off : int
-		地磁気x軸オフセット
-	magy_off : int
-		地磁気y軸オフセット
+    return mask
 
-	'''
-	#-----ローバーの角度を取得-----#
-	magdata= bmx055.mag_dataRead()
-	mag_x, mag_y = magdata[0], magdata[1]
+def get_largest_red_object(mask):
+    # 最小領域の設定
+    minarea = 300
+    nlabels, labels, stats, centroids = cv2.connectedComponentsWithStats(mask)
+    if nlabels > 1:
+        largest_label = 1 + np.argmax(stats[1:, cv2.CC_STAT_AREA])
+        center = centroids[largest_label]
+        size = stats[largest_label,cv2.CC_STAT_AREA]
+        if size > minarea:
+            return center, size
+        return None, None
+    else:
+        return None, None
 
-	rover_azimuth = calibration.angle(mag_x, mag_y, magx_off, magy_off)
+def main_detect():
 
-	#-----目標地点との相対角度を算出-----#
-	#ローバーが向いている角度を0度としたときの、目的地への相対角度。このとき時計回りを正とする。
-	theta_dest = rover_azimuth - target_azimuth
+    global send
+    global receive
+    global synchro
 
-	#-----相対角度の範囲を-180~180度にする-----#
-	theta_dest = standarize_angle(theta_dest)
+    global strength_l
+    global strength_r
 
-	return theta_dest
+    default_l = 26
+    default_r= default_l + 3
 
+    lose = 0
+    discover = 1
+    old_center = [320,0]
+    # カメラのキャプチャ
+    cap = cv2.VideoCapture(0)
 
-def setup():
-	motor.setup()
-	bmx055.bmx055_setup()
-	mode3.mode3_change()
+    while(cap.isOpened()):
+        # フレームを取得
+        ret, frame = cap.read()
+        frame = cv2.resize(frame, (640,320))
+        frame = cv2.rotate(frame, cv2.ROTATE_180)
 
+        # 赤色検出
+        mask = red_detect(frame)
 
-def run_calibration():
-	magx_off, magy_off = calibration.cal(25,-25,40) 
-	while magx_off == 0 and magy_off == 0:
-		motor.motor_move(50, 50, 1)
-		magx_off, magy_off = calibration.cal(25,-25,40) 
-	
-	return magx_off, magy_off
+        # 最大の赤色物体の中心を取得
+        center, size = get_largest_red_object(mask)
 
+        if center is None:
+            center = old_center
+            lose += 1
+            discover = 1
+        else:
+             discover += 1
+             lose = 0
+        
+        if size is None:
+             size = 5000
+        
+        #-100 ~ 100 の範囲で設定
+        mp = (int(center[0]) - 320) / 3.2   
+        mp = mp / 22
 
-def get_param(magx_off, magy_off, lat_dest, lon_dest):
-	lat_now, lon_now = gps.location()
-	direction = gps_navigate.vincenty_inverse(lat_now, lon_now, lat_dest, lon_dest)
-	distance_to_dest, target_azimuth = direction["distance"], direction["azimuth1"]
-	error_theta = get_theta_dest(target_azimuth, magx_off, magy_off)
-	print("distance = ", distance_to_dest, "error = ", error_theta)
+        md = (center[0] - old_center[0]) / 100
 
-	return error_theta, distance_to_dest, lat_now, lon_now
+        m = mp - md
 
+        if size < 1000:
+            s = 0
+        else:
+            s = size / 2000 + 5
+        #elif size < 10000:
+        #    s = size / 2000 + 5
+        #elif size < 30000:
+        #    s = 10
+        #else:
+        #    print("stop")
+        #    synchro = 1
+        #    break
+             
+        if lose == 60:
+            print("no discover")
+            send = 1
+            time.sleep(3)
+            break
 
-def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
-	#init
-	t_out = 30
-	t_start = time.time()
+        strength_l = default_l - s + m
+        strength_r = default_r - s - m
 
-	while time.time() - t_start < t_out:
-		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_dest, lon_dest)
+        #print(old_center[0]-center[0])
+        old_center = center
 
-		if error_theta < -15:
-			motor.move(20,-20,0.1)
-		elif error_theta > 15:
-			motor.move(-20,20,0.1)
-		else:
-			break
+    synchro = 1
+    cap.release()
+    cv2.destroyAllWindows()
 
-		time.sleep(0.3)
+    
 
-	print("finish adjust")
+if __name__ == '__main__':
+    
+    thread1 = threading.Thread(target = main_detect)
+    thread2 = threading.Thread(target = move)
+    thread3 = threading.Thread(target = blt)
 
+    motor_setup()
+    
+    thread1.start()
+    thread2.start()
+    thread3.start()
 
-def run(lat_test, lon_test, writer):
-	#const
-	THD_DIRECTION = 5.0
-	T_CAL = 30
-	isReach_dest = 0
-
-	#cal
-	magx_off, magy_off = run_calibration()
-
-	#adjust direction
-	adjust_direction(magx_off, magy_off, lat_test, lon_test)
-	error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
-
-	#init
-	t_start = time.time()
-
-	#move
-	while time.time() - t_start < T_CAL:
-		writer.writerows([[lat_now, lon_now, error_theta]])
-		motor.move(17,25,3)
-		#追従確認
-
-		stuck.ue_jug()
-		adjust_direction(magx_off, magy_off, lat_test, lon_test)
-		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
-
-		if direction < THD_DIRECTION:
-			isReach_dest = 1
-			break
-
-	return isReach_dest
-
-
-def main(lat_test, lon_test):
-	#const
-	isReach_dest = 0
-
-	#init
-	filename = "co2_gps_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
-	f = open(filename,"w")
-	writer = csv.writer(f)
-
-	server_sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-	port = 1
-	server_sock.bind(("",port))
-	server_sock.listen(1)
-	client_sock,address = server_sock.accept()
-	client_sock.settimeout(10)
-	print("Accepted connection from ",address)
-
-	#main
-	try:
-		while isReach_dest == 0:
-			isReach_dest = run(lat_test, lon_test, writer)
-
-		print("end gps run")
-
-	except KeyboardInterrupt:
-		print("interrupt!")
-
-	finally:
-		f.close()
-		client_sock.close()
-		server_sock.close()
-
-
-if __name__ == "__main__":
-	print("start setup")
-	setup()
-
-	#target
-	lat_test,lon_test = gps.med()
-
-	print("移動してください")
-	time.sleep(20)
-	print("start")
-	time.sleep(5)
-
-	print("main")
-	main(lat_test, lon_test)
+    thread1.join()
+    thread2.join()
+    thread3.join()

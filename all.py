@@ -6,11 +6,13 @@ import time
 #src
 import bme280
 import bmx055
-import pid_run_test
+import run_test
 import land
 import motor
 import para_avoid_alone
 import goal_detection
+import melt
+import stuck
 
 #send
 import send.mode3 as mode3
@@ -38,10 +40,23 @@ def main():
 	time.sleep(1)
 
 
+	#melt sequence
+	print("start melt sequence")
+	send.log("start melt sequence")
+
+	melt.melt_down(17,5)
+
+	print("end melt sequence")
+	send.log("end melt sequence")
+
+	time.sleep(1)
+
+
 	#para avoid sequence
 	print("start para avoid sequence")
 	send.log("start para avoid sequence")
 
+	stuck.ue_jug()
 	para_avoid_alone.main()
 
 	print("end para avoid sequence")
@@ -54,7 +69,7 @@ def main():
 	print("start gps run sequence")
 	send.log("start gps run sequence")
 
-	pid_run_test.test()
+	run_test.main()
 
 	print("end gps run sequence")
 	send.log("end gps run sequence")
@@ -66,7 +81,9 @@ def main():
 	print("start goal detect sequence")
 	send.log("start goal detect sequence")
 
-	goal_detection.main()
+	isReach_goal = 0
+	while isReach_goal == 0:
+		isReach_goal = goal_detection.main()
 
 	print("end goal detect sequence")
 	send.log("end goal detect sequence")
@@ -85,5 +102,6 @@ if __name__ == '__main__':
 		main()
 		print("end goal main program")
 		send.log("end goal main program")
+
 	except KeyboardInterrupt:
 		print("stop!!!!")

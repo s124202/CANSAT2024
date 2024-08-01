@@ -29,7 +29,7 @@ def sensor():
 
 	#setup
 	mode3.mode3_change()
-	#bmx055.bmx055_setup()
+	bmx055.bmx055_setup()
 	bme280.bme280_setup()
 	bme280.bme280_calib_param()
 	scd30 = SCD30()

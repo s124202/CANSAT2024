@@ -42,6 +42,7 @@ def camera():
 
             time.sleep(1)
     except:
+        print("pass")
         pass
 
     cap.release()

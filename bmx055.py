@@ -171,15 +171,17 @@ def bmx055_csv():
 
 if __name__ == '__main__':
 	bmx055_setup()
-	bmx055_csv()
-	#try:
-	#	bmx055_setup()
-	#	time.sleep(0.2)
-	#	while 1:
-	#		bmxData = bmx055_read()
-	#		print(bmxData)
-	#		time.sleep(2)
-	#except KeyboardInterrupt:
-	#	print("\r\n")
-	#except Exception as e:
-	#	print(e)
+	#bmx055_csv()
+	time.sleep(1)
+
+	try:
+		#bmx055_setup()
+		#time.sleep(0.2)
+		while 1:
+			bmxData = bmx055_read()
+			print(bmxData)
+			time.sleep(1)
+	except KeyboardInterrupt:
+		print("\r\n")
+	except Exception as e:
+		print(e)

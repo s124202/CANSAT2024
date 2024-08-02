@@ -288,7 +288,6 @@ def main4():
 			motor(30, -30, 0.25)
 			motor.motor_stop(0.5)
 		else:
-			motor.motor_move(34, 30, 2)
 			break
 	
 	print("Last Move Forwward")

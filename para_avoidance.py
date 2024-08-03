@@ -279,6 +279,8 @@ def main4():
 		motor.motor_move(34, 30, 2)
 		#motor.motor_stop(0.2)
 	
+	stuck.ue_jug()
+
 	while True:
 		print('Starting Calibration')
 		magx_off, magy_off = run_calibration()

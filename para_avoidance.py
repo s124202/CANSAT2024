@@ -285,7 +285,7 @@ def main4():
 	while True:
 		print('Starting Calibration')
 		magx_off, magy_off = run_calibration()
-		adjust_direction(magx_off, magy_off, lat_test = LAT_DEST, lon_test = LON_DEST)
+		adjust_direction(magx_off, magy_off, lat_dest = LAT_DEST, lon_dest = LON_DEST)
 		print(f'red_area : {red_area}')
 		if red_area > 0:
 			motor(30, -30, 0.25)
@@ -334,7 +334,7 @@ def main5():
 	while True:
 		print('Starting Calibration')
 		magx_off, magy_off = run_calibration()
-		adjust_direction(magx_off, magy_off, lat_test = LAT_DEST, lon_test = LON_DEST)
+		adjust_direction(magx_off, magy_off, lat_dest = LAT_DEST, lon_dest = LON_DEST)
 		print(f'red_area : {red_area}')
 		if red_area > 0:
 			motor(24, -24, 0.25)

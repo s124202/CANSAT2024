@@ -353,11 +353,7 @@ def main5():
 			break
 	
 	print("Last Move Forwward")
-	motor.motor_move(33, 27, 3)
-
-	time.sleep(1)
-	
-	stuck.ue_jug()
+	motor.motor_move(33, 27, 2)
 
 if __name__ == '__main__':
 	gps.open_gps()

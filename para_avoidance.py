@@ -320,13 +320,13 @@ def main5():
 
 	if red_area > 0:
 		print("Move Backwward")
-		motor.motor_move(-33, -27, 2)
-		#motor.motor_stop(0.2)
+		motor.motor_move(-33, -27, 1)
+		motor.motor_stop(0.2)
 
 	else:
 		print("Move Forward")
-		motor.motor_move(33, 27, 2)
-		#motor.motor_stop(0.2)
+		motor.motor_move(33, 27, 1)
+		motor.motor_stop(0.2)
 	
 	time.sleep(5)
 	stuck.ue_jug()

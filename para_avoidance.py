@@ -280,12 +280,14 @@ def main4():
 		motor.motor_move(34, 30, 2)
 		#motor.motor_stop(0.2)
 	
+	time.sleep(5)
 	stuck.ue_jug()
 
 	while True:
 		print('Starting Calibration')
 		magx_off, magy_off = run_calibration()
 		adjust_direction(magx_off, magy_off, lat_dest = LAT_DEST, lon_dest = LON_DEST)
+		red_area = red_detection.detect_para()
 		print(f'red_area : {red_area}')
 		if red_area > 0:
 			motor(30, -30, 0.25)
@@ -335,6 +337,7 @@ def main5():
 		print('Starting Calibration')
 		magx_off, magy_off = run_calibration()
 		adjust_direction(magx_off, magy_off, lat_dest = LAT_DEST, lon_dest = LON_DEST)
+		red_area = red_detection.detect_para()
 		print(f'red_area : {red_area}')
 		if red_area > 0:
 			motor(24, -24, 0.25)

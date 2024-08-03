@@ -340,7 +340,7 @@ def main5():
 		red_area = red_detection.detect_para()
 		print(f'red_area : {red_area}')
 		if red_area > 0:
-			motor(24, -24, 0.25)
+			motor.motor_move(24, -24, 0.25)
 			motor.motor_stop(0.5)
 		else:
 			break

@@ -270,17 +270,17 @@ def main4():
 		else:
 			break
 
-	if red_area > 0:
+	if red_area > 100:
 		print("Move Backwward")
 		motor.motor_move(-34, -30, 2)
-		#motor.motor_stop(0.2)
+		motor.motor_stop(0.2)
 
 	else:
 		print("Move Forward")
 		motor.motor_move(34, 30, 2)
-		#motor.motor_stop(0.2)
+		motor.motor_stop(0.2)
 	
-	time.sleep(5)
+	time.sleep(3)
 	stuck.ue_jug()
 
 	while True:
@@ -289,14 +289,21 @@ def main4():
 		adjust_direction(magx_off, magy_off, lat_dest = LAT_DEST, lon_dest = LON_DEST)
 		red_area = red_detection.detect_para()
 		print(f'red_area : {red_area}')
-		if red_area > 0:
-			motor(30, -30, 0.25)
+		if red_area > 100:
+			motor.motor_move(30, -30, 0.25)
 			motor.motor_stop(0.5)
+
+			time.sleep(1)
+
+			motor.motor_move(34, 30, 1)
+
+			time.sleep(1)
+			stuck.ue_jug()
 		else:
 			break
 	
 	print("Last Move Forwward")
-	motor.motor_move(30, 34, 3)
+	motor.motor_move(34, 30, 2)
 
 #青色ローバー（EM）
 def main5():

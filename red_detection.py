@@ -133,6 +133,26 @@ def detect_goal():
 	#return area_ratio, angle
 	return(area_ratio, angle)
 
+def detect_para_test():
+	path_all_para = 'photo/detect_para/'
+	photoname = take_photo.Capture(path_all_para)
+	para_img = cv2.imread(photoname)
+	angle = 0
+
+	#画像を圧縮
+	small_img = mosaic(para_img, ratio=0.8)
+
+	#赤色であると認識させる範囲の設定
+	mask = detect_red(small_img)
+
+	#圧縮した画像から重心と輪郭を求めて、画像に反映
+	para_img, max_contour, cx, cy = get_center(mask, small_img)
+
+	#赤色が占める割合を求める
+	red_area = get_para_area(max_contour, para_img)
+
+	print(red_area)
+
 def detect_goal_test():
 	#画像の撮影から「角度」と「占める割合」を求めるまでの一連の流れ
 	path_all_photo = 'photo/detect_goal/'
@@ -156,4 +176,4 @@ def detect_goal_test():
 	print(area_ratio, angle)
 
 if __name__ == '__main__':
-	detect_goal_test()
+	detect_para_test()

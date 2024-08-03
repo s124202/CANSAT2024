@@ -320,7 +320,7 @@ def main5():
 		else:
 			break
 
-	if red_area > 0:
+	if red_area > 100:
 		print("Move Backwward")
 		motor.motor_move(-33, -27, 1)
 		motor.motor_stop(0.2)
@@ -342,6 +342,8 @@ def main5():
 		if red_area > 0:
 			motor.motor_move(24, -24, 0.25)
 			motor.motor_stop(0.5)
+			motor.motor_move(25, 19, 1)
+			motor.motor_stop(0.2)
 		else:
 			break
 	

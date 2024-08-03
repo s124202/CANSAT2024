@@ -330,7 +330,7 @@ def main5():
 		motor.motor_move(33, 27, 1)
 		motor.motor_stop(0.2)
 	
-	time.sleep(5)
+	time.sleep(3)
 	stuck.ue_jug()
 
 	while True:
@@ -339,15 +339,25 @@ def main5():
 		adjust_direction(magx_off, magy_off, lat_dest = LAT_DEST, lon_dest = LON_DEST)
 		red_area = red_detection.detect_para()
 		print(f'red_area : {red_area}')
-		if red_area > 0:
+		if red_area > 100:
 			motor.motor_move(24, -24, 0.25)
 			motor.motor_stop(0.5)
+
+			time.sleep(1)
+
 			motor.motor_move(33, 29, 1)
+
+			time.sleep(1)
+			stuck.ue_jug()
 		else:
 			break
 	
 	print("Last Move Forwward")
 	motor.motor_move(33, 27, 3)
+
+	time.sleep(1)
+	
+	stuck.ue_jug()
 
 if __name__ == '__main__':
 	gps.open_gps()

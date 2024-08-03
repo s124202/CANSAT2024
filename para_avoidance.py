@@ -328,6 +328,7 @@ def main5():
 		motor.motor_move(33, 27, 2)
 		#motor.motor_stop(0.2)
 	
+	time.sleep(5)
 	stuck.ue_jug()
 
 	while True:

@@ -248,7 +248,56 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 
 	print("finish adjust")
 
+#黄色ローバー（EM）
 def main4():
+	PARA_THD_COVERED = 300000
+	PARA_TIMEOUT = 300
+	LAT_DEST = 35.9243193
+	LON_DEST = 139.9124873
+
+	red_area = 0
+
+	stuck.ue_jug()
+
+	red_area = red_detection.detect_para()
+	print(f'red_area : {red_area}')
+
+	while True:
+		if PARA_THD_COVERED < red_area:
+			print("Parachute on top")
+			time.sleep(PARA_TIMEOUT)
+			motor.motor_move(55, 50, 3)
+		else:
+			break
+
+	if red_area > 0:
+		print("Move Backwward")
+		motor.motor_move(-34, -30, 2)
+		#motor.motor_stop(0.2)
+
+	else:
+		print("Move Forward")
+		motor.motor_move(34, 30, 2)
+		#motor.motor_stop(0.2)
+	
+	stuck.ue_jug()
+
+	while True:
+		print('Starting Calibration')
+		magx_off, magy_off = run_calibration()
+		adjust_direction(magx_off, magy_off, lat_test = LAT_DEST, lon_test = LON_DEST)
+		print(f'red_area : {red_area}')
+		if red_area > 0:
+			motor(30, -30, 0.25)
+			motor.motor_stop(0.5)
+		else:
+			break
+	
+	print("Last Move Forwward")
+	motor.motor_move(30, 34, 3)
+
+#青色ローバー（EM）
+def main5():
 	PARA_THD_COVERED = 300000
 	PARA_TIMEOUT = 300
 	LAT_DEST = 35.9243193
@@ -304,6 +353,6 @@ if __name__ == '__main__':
 
 	print("Para Avoid Start")
 	
-	main4()
+	main5()
 
 	print("#####-----Parachute Avoid Sequence: Finish-----#####")

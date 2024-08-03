@@ -251,8 +251,8 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 def main4():
 	PARA_THD_COVERED = 300000
 	PARA_TIMEOUT = 300
-	LAT_DEST = 35.924582
-	LON_DEST = 139.911343
+	LAT_DEST = 35.9243193
+	LON_DEST = 139.9124873
 
 	red_area = 0
 

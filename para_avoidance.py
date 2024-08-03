@@ -269,7 +269,7 @@ def main4():
 		else:
 			break
 
-	if red_area > 100:
+	if red_area > 0:
 		print("Move Backwward")
 		motor.motor_move(-34, -30, 2)
 		#motor.motor_stop(0.2)

@@ -314,18 +314,18 @@ def main5():
 		if PARA_THD_COVERED < red_area:
 			print("Parachute on top")
 			time.sleep(PARA_TIMEOUT)
-			motor.motor_move(55, 50, 3)
+			motor.motor_move(46, 40, 3)
 		else:
 			break
 
 	if red_area > 0:
 		print("Move Backwward")
-		motor.motor_move(-34, -30, 2)
+		motor.motor_move(-33, -27, 2)
 		#motor.motor_stop(0.2)
 
 	else:
 		print("Move Forward")
-		motor.motor_move(34, 30, 2)
+		motor.motor_move(33, 27, 2)
 		#motor.motor_stop(0.2)
 	
 	stuck.ue_jug()
@@ -336,13 +336,13 @@ def main5():
 		adjust_direction(magx_off, magy_off, lat_test = LAT_DEST, lon_test = LON_DEST)
 		print(f'red_area : {red_area}')
 		if red_area > 0:
-			motor(30, -30, 0.25)
+			motor(24, -24, 0.25)
 			motor.motor_stop(0.5)
 		else:
 			break
 	
 	print("Last Move Forwward")
-	motor.motor_move(30, 34, 3)
+	motor.motor_move(33, 27, 3)
 
 if __name__ == '__main__':
 	gps.open_gps()

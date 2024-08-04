@@ -17,7 +17,7 @@ def blt():
 	global receive
 	global synchro
 
-	send = 0
+	send = 1
 	receive = "0"
 	synchro = 0
 	
@@ -59,7 +59,7 @@ def main():
 	global receive
 	global synchro
 	
-	send = 0
+	send = 1
 	receive = "0"
 
 	#main
@@ -84,10 +84,10 @@ def main():
 				time.sleep(0.5)
 			
 			#子機の発見待ち
-			send = 1
-			while (receive != str(1)):
-				time.sleep(1)
 			send = 0
+			time.sleep(1)
+			while (receive == str(0)):
+				time.sleep(1)
 			time.sleep(5)
 
 			#move(2sec)

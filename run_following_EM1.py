@@ -17,7 +17,7 @@ def blt():
     port = 1
 
     send = 0
-    receive = "0"
+    receive = "1"
     synchro = 0
     
     while True:
@@ -282,7 +282,7 @@ def main_detect():
 
         #親機のキャリブレーション待ち
         if receive == str(1):
-            while (receive != str(1)):
+            while (receive == str(1)):
                 time.sleep(1)
             a = discovery(cap)
             send = 1

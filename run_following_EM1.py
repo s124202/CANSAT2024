@@ -277,8 +277,8 @@ def main_detect():
 			lose += 1
 			discover = 1
 		else:
-			 discover += 1
-			 lose = 0
+			discover += 1
+			lose = 0
 		
 		if size is None:
 			 size = 5000

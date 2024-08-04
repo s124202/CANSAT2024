@@ -55,7 +55,32 @@ def blt():
 		server_sock.close()
 
 def main():
-	aaa
+	#const
+	T_FIN = 30 #全体タイムアウト
+
+	t_start = time.time()
+
+	#main
+	try:
+		while time.time() - t_start < T_FIN:
+			#stuck
+			stuck.ue_jug()
+
+			#cal(2sec)
+			motor.move(30,-30,2)
+
+			#adjust direction(3.6sec)
+			for _ in range(3):
+				motor.move(30,-30,0.1)
+				time.sleep(0.5)
+				motor.move(-30,30,0.1)
+				time.sleep(0.5)
+
+			#move(2sec)
+			motor.move(20,20,2)
+
+	except KeyboardInterrupt:
+		print("interrupt!")
 
 
 if __name__ == "__main__":

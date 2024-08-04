@@ -334,7 +334,6 @@ if __name__ == '__main__':
     thread3 = threading.Thread(target = blt)
 
     motor_setup()
-    motor.setup()
     
     thread1.start()
     thread2.start()

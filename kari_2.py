@@ -48,7 +48,6 @@ def blt():
 				break
 		client_sock.close()
 		server_sock.close()
-		print("try reconnect")
 		
 	except KeyboardInterrupt:
 		print("finish")

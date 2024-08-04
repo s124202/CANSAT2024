@@ -23,8 +23,8 @@ def blt():
     while True:
         try:
             sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-            sock.settimeout(10)
             sock.connect((bd_addr, port))
+            sock.settimeout(10)
             print("connect success")
             break
         except KeyboardInterrupt:

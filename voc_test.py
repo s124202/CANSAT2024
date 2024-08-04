@@ -52,7 +52,7 @@ def sensor():
 			time.sleep(1)
 			accx, accy, accz, gyrx, gyry, gyrz, magx, magy, magz = bmx055.bmx055_read()
 			time.sleep(1)
-			lat,lon = gps.location()
+			lat,lon = gps.test()
 
 			#log
 			send.log(str(cycle) + "," + str(lat) + "," + str(lon) + "," + str(temp) + "," + str(pres) + "," + str(hum) + "," + str(alt) + "," + str(accx) + "," + str(accy) + "," + str(accz) + "," + str(gyrx) + "," + str(gyrz) + "," + str(magx) + "," + str(magy) + "," + str(magz) + "," + str(sgp.raw))

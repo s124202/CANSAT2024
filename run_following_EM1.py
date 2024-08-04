@@ -174,6 +174,7 @@ def move():
 			time.sleep(1)
 			continue
 		motor_move()
+		print("koko")
 	
 	deceleration()   
 

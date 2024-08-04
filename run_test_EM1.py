@@ -4,6 +4,7 @@
 import time
 import csv
 import bluetooth
+import threading
 
 #src
 import motor
@@ -21,7 +22,7 @@ def blt():
 	global receive
 	global synchro
 
-	send = 0
+	send = 1
 	receive = "0"
 	synchro = 0
 	
@@ -115,7 +116,7 @@ def get_theta_dest(target_azimuth, magx_off, magy_off):
 def setup():
 	motor.setup()
 	bmx055.bmx055_setup()
-	#ode3.mode3_change()
+	#mode3.mode3_change()
 
 
 def run_calibration():
@@ -178,11 +179,12 @@ def run(lat_test, lon_test, writer):
 	error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
 
 	#子機の発見待ち
-	send = 1
+	send = 2
+	time.sleep(1)
 	while (receive != str(1)):
 		time.sleep(1)
 	send = 0
-	time.sleep(5)
+	time.sleep(3)
 
 	#init
 	t_start = time.time()
@@ -231,10 +233,14 @@ if __name__ == "__main__":
 	#target
 	lat_test,lon_test = gps.med()
 
-	print("移動してください")
-	time.sleep(20)
-	print("start")
-	time.sleep(5)
+	# Create threads for main and another_function
+	thread1 = threading.Thread(target=main, args=(lat_test, lon_test))
+	thread2 = threading.Thread(target=blt)
 
-	print("main")
-	main(lat_test, lon_test)
+	# Start the threads
+	thread1.start()
+	thread2.start()
+
+	# Wait for both threads to complete
+	thread1.join()
+	thread2.join()

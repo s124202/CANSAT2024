@@ -5,8 +5,6 @@ import cv2
 import numpy as np
 import threading
 import bluetooth
-
-import motor
  
 def blt():
     global send
@@ -90,6 +88,37 @@ def motor_move():
         time.sleep(t_moving)
     else:
         motor_stop(0.1)
+
+def motor_move_default(strength_l, strength_r, t_moving):
+	"""
+	引数は左のmotorの強さ、右のmotorの強さ、走る時間。
+	strength_l、strength_rは-1~1で表す。負の値だったら後ろ走行。
+	必ずmotor_stop()セットで用いる。めんどくさかったら下にあるmotor()を使用
+	"""
+	global motor_r, motor_l
+	
+	strength_l = strength_l / 100
+	strength_r = strength_r / 100
+	# 前進するときのみスタック判定
+	if strength_r >= 0 and strength_l >= 0:
+		motor_r.forward(strength_r)
+		motor_l.forward(strength_l)
+		time.sleep(t_moving)
+	# 後進
+	elif strength_r < 0 and strength_l < 0:
+		motor_r.backward(abs(strength_r))
+		motor_l.backward(abs(strength_l))
+		time.sleep(t_moving)
+	# 右回転
+	elif strength_r >= 0 and strength_l < 0:
+		motor_r.forward(abs(strength_r))
+		motor_l.backward(abs(strength_l))
+		time.sleep(t_moving)
+    # 左回転
+	elif strength_r < 0 and strength_l >= 0:
+		motor_r.backward(abs(strength_r))
+		motor_l.forward(abs(strength_l))
+		time.sleep(t_moving)
 
 
 def motor_stop(x=1):
@@ -192,13 +221,13 @@ def discovery(cap):
         center, size = get_largest_red_object(mask)
 
         if center is None:
-            motor.motor_move(30,-30,0.1)
+            motor_move_default(30,-30,0.1)
             time.sleep(2)
             continue
         elif center[0] < 100:
-            motor.motor_move(30,-30,0.1)
+            motor_move_default(30,-30,0.1)
         elif center[0] > 540:
-            motor.motor_move(-30,30,0.1)
+            motor_move_default(-30,30,0.1)
         break
     return 0
             

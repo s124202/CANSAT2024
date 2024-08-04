@@ -171,10 +171,11 @@ def move():
 		if synchro == 1:
 			break
 		if send != str(0) or receive != str(0):
+			print("nande")
 			time.sleep(1)
 			continue
-		motor_move()
 		print("koko")
+		motor_move()
 	
 	deceleration()   
 

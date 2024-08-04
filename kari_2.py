@@ -89,7 +89,7 @@ def main():
 			while (receive != str(1)):
 				time.sleep(1)
 			send = 0
-			time.sleep(10)
+			time.sleep(5)
 
 			#move(2sec)
 			motor.move(20,22,4)

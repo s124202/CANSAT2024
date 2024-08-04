@@ -222,6 +222,7 @@ def discovery(cap):
 
         if center is None:
             motor_move_default(30,-30,0.1)
+            motor_stop()
             time.sleep(2)
             continue
         elif center[0] < 100:

@@ -230,6 +230,9 @@ def main_detect():
         frame = cv2.resize(frame, (640,320))
         frame = cv2.rotate(frame, cv2.ROTATE_180)
 
+        if frame is None:
+            print("frame is None")
+
         # 赤色検出
         mask = red_detect(frame)
 
@@ -282,7 +285,7 @@ def main_detect():
 
         #親機のキャリブレーション待ち
         if receive == str(1):
-            while (receive == str(1)):
+            while (receive != str(2)):
                 time.sleep(1)
             a = discovery(cap)
             send = 1

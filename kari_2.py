@@ -84,10 +84,11 @@ def main():
 				time.sleep(0.5)
 			
 			#子機の発見待ち
-			send = 0
+			send = 2
 			time.sleep(1)
-			while (receive == str(0)):
+			while (receive != str(1)):
 				time.sleep(1)
+			send = 0
 			time.sleep(5)
 
 			#move(2sec)

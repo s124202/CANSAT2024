@@ -103,7 +103,7 @@ if __name__ == "__main__":
 	thread1 = threading.Thread(target = blt)
 	thread2 = threading.Thread(target = main)
 
-	motor.motor_setup()
+	motor.setup()
 	
 	thread1.start()
 	thread2.start()

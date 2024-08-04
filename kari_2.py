@@ -3,6 +3,7 @@
 #standard
 import time
 import bluetooth
+import threading
 
 #src
 import motor
@@ -55,14 +56,20 @@ def blt():
 		server_sock.close()
 
 def main():
-	#const
-	T_FIN = 30 #全体タイムアウト
-
-	t_start = time.time()
+	global send
+	global receive
+	global synchro
+	
+	send = 0
+	receive = "0"
 
 	#main
 	try:
-		while time.time() - t_start < T_FIN:
+		for i in range(3):
+
+			#子機を待たせる
+			send = 1
+			
 			#stuck
 			stuck.ue_jug()
 
@@ -75,24 +82,29 @@ def main():
 				time.sleep(0.5)
 				motor.move(-30,30,0.1)
 				time.sleep(0.5)
+			
+			#子機の発見待ち
+			send = 1
+			while (receive != str(1)):
+				time.sleep(1)
+			send = 0
+			time.sleep(5)
 
 			#move(2sec)
-			motor.move(20,20,2)
+			motor.move(20,20,8)
 
 	except KeyboardInterrupt:
 		print("interrupt!")
 
 
 if __name__ == "__main__":
+	thread1 = threading.Thread(target = blt)
+	thread2 = threading.Thread(target = main)
 
+	motor.motor_setup()
+	
+	thread1.start()
+	thread2.start()
 
-	#target
-	lat_test,lon_test = gps.med()
-
-	print("移動してください")
-	time.sleep(20)
-	print("start")
-	time.sleep(5)
-
-	print("main")
-	main(lat_test, lon_test)
+	thread1.join()
+	thread2.join()

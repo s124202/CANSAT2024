@@ -67,7 +67,7 @@ def motor_move():
     
     global strength_l
     global strength_r
-    t_moving = 0.05 
+    t_moving = 0.1
 
     """
     引数は左のmotorの強さ、右のmotorの強さ、走る時間。
@@ -89,7 +89,7 @@ def motor_move():
         motor_l.forward(0.001)
         time.sleep(t_moving)
     else:
-        motor_stop(0.05)
+        motor_stop(0.1)
 
 
 def motor_stop(x=1):

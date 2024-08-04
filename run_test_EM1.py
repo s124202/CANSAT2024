@@ -158,7 +158,8 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 	print("finish adjust")
 
 
-def run(lat_test, lon_test, writer):
+def run(lat_test, lon_test):
+# def run(lat_test, lon_test, writer):
 	global send
 	global receive
 	global synchro
@@ -191,7 +192,7 @@ def run(lat_test, lon_test, writer):
 
 	#move
 	while time.time() - t_start < T_CAL:
-		writer.writerows([[lat_now, lon_now, error_theta]])
+		#writer.writerows([[lat_now, lon_now, error_theta]])
 		motor.move(20,25,3)
 		stuck.ue_jug()
 		adjust_direction(magx_off, magy_off, lat_test, lon_test)
@@ -208,22 +209,23 @@ def main(lat_test, lon_test):
 	isReach_dest = 0
 
 	#init
-	filename = "co2_gps_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
-	f = open(filename,"w")
-	writer = csv.writer(f)
+	# filename = "co2_gps_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	# f = open(filename,"w")
+	# writer = csv.writer(f)
 
 	#main
 	try:
 		while isReach_dest == 0:
-			isReach_dest = run(lat_test, lon_test, writer)
+			isReach_dest = run(lat_test, lon_test)
+			# isReach_dest = run(lat_test, lon_test, writer)
 
 		print("end gps run")
 
 	except KeyboardInterrupt:
 		print("interrupt!")
 
-	finally:
-		f.close()
+	# finally:
+	# 	f.close()
 
 
 if __name__ == "__main__":

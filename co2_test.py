@@ -40,7 +40,7 @@ def sensor():
 	writer = csv.writer(f)
 
 	#const
-	TIME_THD = 30
+	TIME_THD = 180
 	cycle = 1
 
 	time.sleep(1)
@@ -55,7 +55,7 @@ def sensor():
 			time.sleep(1)
 			m_co2 = co2.scd30_get()
 			time.sleep(1)
-			lat,lon = gps.location()
+			lat,lon = gps.test()
 
 			#log
 			send.log(str(cycle) + "," + str(lat) + "," + str(lon) + "," + str(temp) + "," + str(pres) + "," + str(hum) + "," + str(alt) + "," + str(accx) + "," + str(accy) + "," + str(accz) + "," + str(gyrx) + "," + str(gyry) + "," + str(gyrz) + "," + str(magx) + "," + str(magy) + "," + str(magz) + "," + str(m_co2))
@@ -172,7 +172,9 @@ def t_motor():
 	print("start motor test")
 	send.log("start motor test")
 	motor.setup()
-	time.sleep(20)
+	time.sleep(15)
+	print("motor move")
+	time.sleep(5)
 	motor.move(10, 10, 3)
 	print("motor test finished")
 	send.log("motor test finished")
@@ -185,7 +187,7 @@ if __name__ == '__main__':
 	#melt
 	print("start melt test")
 	send.log("start melt test")
-	melt.melt_down(meltPin=17, t_melt = 10.0)
+	melt.melt_down(meltPin=17, t_melt = 5.0)
 	print("melt test finished")
 	send.log("melt test finished")
 

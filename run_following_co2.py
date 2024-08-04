@@ -150,32 +150,17 @@ def red_detect(img):
     # HSV色空間に変換
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-    # 緑色のHSVの値域1
-    #hsv_min = np.array([40,64,50])
-    #hsv_max = np.array([90,255,255])
-    #mask = cv2.inRange(hsv, hsv_min, hsv_max)
-
-    # 黄色のHSVの値域1
-    #hsv_min = np.array([20,64,100])
-    #hsv_max = np.array([30,255,255])
-    #mask = cv2.inRange(hsv, hsv_min, hsv_max)
-
-    # オレンジ色のHSVの値域1
-    hsv_min = np.array([10,100,100])
-    hsv_max = np.array([25,255,255])
-    mask = cv2.inRange(hsv, hsv_min, hsv_max)
-
     # 赤色のHSVの値域1
-    #hsv_min = np.array([0,100,100])
-    #hsv_max = np.array([5,255,255])
-    #mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
+    hsv_min = np.array([0,100,100])
+    hsv_max = np.array([5,255,255])
+    mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # 赤色のHSVの値域2
-    #hsv_min = np.array([174,100,100])
-    #hsv_max = np.array([179,255,255])
-    #mask2 = cv2.inRange(hsv, hsv_min, hsv_max)
+    hsv_min = np.array([174,100,100])
+    hsv_max = np.array([179,255,255])
+    mask2 = cv2.inRange(hsv, hsv_min, hsv_max)
 
-    #mask = mask1 + mask2
+    mask = mask1 + mask2
 
     return mask
 

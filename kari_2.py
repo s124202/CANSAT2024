@@ -89,10 +89,10 @@ def main():
 			while (receive != str(1)):
 				time.sleep(1)
 			send = 0
-			time.sleep(5)
+			time.sleep(10)
 
 			#move(2sec)
-			motor.move(20,22,4)
+			motor.move(18,20,4)
 			time.sleep(3)
 
 	except KeyboardInterrupt:

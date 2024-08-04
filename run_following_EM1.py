@@ -281,7 +281,7 @@ def main_detect():
 			lose = 0
 		
 		if size is None:
-			 size = 5000
+			size = 5000
 		
 		#-100 ~ 100 の範囲で設定
 		mp = (int(center[0]) - 320) / 3.2   

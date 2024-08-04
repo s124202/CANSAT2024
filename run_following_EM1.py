@@ -159,9 +159,8 @@ def move():
     global synchro
 
     send = 0
-    receive = "0"
+    receive = "1"
     synchro = 0
-    time.sleep(3)
 
     while True:
         if synchro == 1:

@@ -75,6 +75,7 @@ def main():
 
 			#cal(2sec)
 			motor.move(30,-30,2)
+			time.sleep(3)
 
 			#adjust direction(3.6sec)
 			for _ in range(3):
@@ -92,6 +93,7 @@ def main():
 
 			#move(2sec)
 			motor.move(20,20,8)
+			time.sleep(3)
 
 	except KeyboardInterrupt:
 		print("interrupt!")

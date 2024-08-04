@@ -167,7 +167,6 @@ def move():
             break
         if send != str(0) or receive != str(0):
             time.sleep(1)
-            continue
         motor_move()
     
     deceleration()   
@@ -324,7 +323,6 @@ def main_detect():
     cap.release()
     cv2.destroyAllWindows()
 
-    
 
 if __name__ == '__main__':
     

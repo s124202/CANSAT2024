@@ -284,7 +284,7 @@ def main_detect():
         if receive == str(1):
             while (receive != str(1)):
                 time.sleep(1)
-            a = discovery()
+            a = discovery(cap)
             send = 1
             time.sleep(3)
             send = 0

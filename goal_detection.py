@@ -1,8 +1,9 @@
+#2024/08/04 生川
+
 import motor
 import red_detection
 
-#PID直進が使えないとき（外）
-def main():
+def main(re_count):
 	area_ratio = 0
 	angle = 0
 	isReach_goal = 0
@@ -19,6 +20,7 @@ def main():
 	###-----撮像した画像の中にゴールが映っていた場合の処理-----###
 	if area_ratio >= THD_RED_RATIO:
 		isReach_goal = 1
+		re_count = 0
 		
 	elif (0 < area_ratio < THD_RED_RATIO) or (angle > 0):
 		###-----ゴールが真正面にあるときの処理-----###
@@ -35,17 +37,21 @@ def main():
 			motor.motor_move(ROTATE_PWR, ROTATE_PWR, 0.1)
 			motor.motor_stop(0.5)
 
+		re_count = 0
+
 	###-----撮像した画像の中にゴールが映っていない場合の処理-----###
 	elif area_ratio == 0:
 		print('Lost Goal')
 		motor.motor_move(30, 30, 0.2)
 		motor.motor_stop(0.5)
+		re_count += 1
 	
 	###-----ゴールした場合の処理-----###
 	if isReach_goal == 1:
 		print('Goal')
+		re_count += 1
 
-	return isReach_goal
+	return isReach_goal, re_count
 
 if __name__ == '__main__':
 	motor.setup()

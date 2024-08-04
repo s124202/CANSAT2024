@@ -14,7 +14,7 @@ import gps_navigate
 import stuck
 
 #send
-import send.mode3 as mode3
+#import send.mode3 as mode3
 
 def blt():
 	global send
@@ -115,7 +115,7 @@ def get_theta_dest(target_azimuth, magx_off, magy_off):
 def setup():
 	motor.setup()
 	bmx055.bmx055_setup()
-	mode3.mode3_change()
+	#ode3.mode3_change()
 
 
 def run_calibration():

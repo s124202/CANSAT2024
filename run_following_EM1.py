@@ -179,7 +179,7 @@ def get_largest_red_object(mask):
         return None, None
 
 def discovery(cap):
-    while True():
+    while True:
         # フレームを取得
         ret, frame = cap.read()
         frame = cv2.resize(frame, (640,320))

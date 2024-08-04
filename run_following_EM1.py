@@ -167,6 +167,7 @@ def move():
             break
         if send != str(0) or receive != str(0):
             time.sleep(1)
+            continue
         motor_move()
     
     deceleration()   

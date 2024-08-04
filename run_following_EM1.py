@@ -230,6 +230,9 @@ def main_detect():
         frame = cv2.resize(frame, (640,320))
         frame = cv2.rotate(frame, cv2.ROTATE_180)
 
+        if frame is None:
+            print("frame is None")
+
         # 赤色検出
         mask = red_detect(frame)
 

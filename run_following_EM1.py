@@ -282,7 +282,7 @@ def main_detect():
 
         #親機のキャリブレーション待ち
         if receive == str(1):
-            while (receive == str(1)):
+            while (receive != str(2)):
                 time.sleep(1)
             a = discovery(cap)
             send = 1

@@ -168,13 +168,14 @@ def move():
 	synchro = 0
 
 	while True:
+		count = 0
 		if synchro == 1:
 			break
-		if send != str(0) or receive != str(0):
-			print("nande")
+		if send != 0 or receive != str(0):
+			motor_r.stop()
+			motor_l.stop()
 			time.sleep(1)
 			continue
-		print("koko")
 		motor_move()
 	
 	deceleration()   

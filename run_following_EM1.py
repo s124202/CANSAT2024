@@ -171,9 +171,8 @@ def move():
             continue
         motor_move()
     
-    deceleration()
-        
-        
+    deceleration()   
+
 
 def red_detect(img):
     # HSV色空間に変換
@@ -244,8 +243,8 @@ def main_detect():
     global strength_l
     global strength_r
 
-    default_l = 26
-    default_r= default_l + 3
+    default_l = 22
+    default_r= default_l
 
     lose = 0
     discover = 1

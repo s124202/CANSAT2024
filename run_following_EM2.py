@@ -239,10 +239,6 @@ def discovery(cap):
 			motor_stop()
 		break
 	return 0
-			
-
-
-
 
 def main_detect():
 
@@ -312,8 +308,9 @@ def main_detect():
 		if lose == 60:
 			print("no discover")
 			send = 10
-			time.sleep(3)
-			break
+			discovery(cap)
+			send = 0
+			
 
 		strength_l = default_l - s + m
 		strength_r = default_r - s - m
@@ -325,7 +322,7 @@ def main_detect():
 		if receive == str(1):
 			while (receive != str(2)):
 				time.sleep(1)
-			a = discovery(cap)
+			discovery(cap)
 			send = 1
 			time.sleep(3)
 			send = 0

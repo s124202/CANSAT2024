@@ -201,7 +201,7 @@ def red_detect(img):
 
 def get_largest_red_object(mask):
 	# 最小領域の設定
-	minarea = 150
+	minarea = 100
 	nlabels, labels, stats, centroids = cv2.connectedComponentsWithStats(mask)
 	if nlabels > 1:
 		largest_label = 1 + np.argmax(stats[1:, cv2.CC_STAT_AREA])
@@ -251,7 +251,7 @@ def main_detect():
 	global strength_l
 	global strength_r
 
-	default_l = 15
+	default_l = 17
 	default_r= default_l
 
 	lose = 0

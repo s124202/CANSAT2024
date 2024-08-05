@@ -92,7 +92,7 @@ def main():
 			time.sleep(3)
 
 			#move(2sec)
-			motor.move(22,19,3)
+			motor.move(18,17,3)
 			time.sleep(3)
 
 	except KeyboardInterrupt:

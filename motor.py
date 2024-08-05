@@ -59,7 +59,7 @@ def deceleration(strength_l, strength_r):
 	for i in range(10):
 		coefficient_power = 10 - i
 		coefficient_power /= 10
-		motor_move(strength_l * coefficient_power, strength_r * coefficient_power, 0.1)
+		motor_move(strength_l * coefficient_power, strength_r * coefficient_power, 0.2)
 		if i == 9:
 			motor_stop(0.1)
 

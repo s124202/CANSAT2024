@@ -233,7 +233,7 @@ if __name__ == "__main__":
 	setup()
 
 	#target
-	lat_test,lon_test = gps.med()
+	lat_test,lon_test = 35.9185287, 139.9085766
 
 	# Create threads for main and another_function
 	thread1 = threading.Thread(target=main, args=(lat_test, lon_test))

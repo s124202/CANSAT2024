@@ -177,8 +177,6 @@ def move():
 			time.sleep(1)
 			continue
 		motor_move()
-	
-	deceleration()   
 
 
 def red_detect(img):
@@ -240,10 +238,6 @@ def discovery(cap):
 		break
 	print("discover success. start to follow.")
 	return 0
-			
-
-
-
 
 def main_detect():
 
@@ -300,7 +294,7 @@ def main_detect():
 		if size < 1000:
 			s = 0
 		else:
-			s = size / 1500 + 7
+			s = size / 1500 + 5
 		#elif size < 10000:
 		#    s = size / 2000 + 5
 		#elif size < 30000:

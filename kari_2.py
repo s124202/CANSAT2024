@@ -65,9 +65,6 @@ def main():
 	#main
 	try:
 		for i in range(3):
-
-			#子機を待たせる
-			send = 1
 			
 			#stuck
 			stuck.ue_jug()
@@ -92,7 +89,9 @@ def main():
 			time.sleep(2)
 
 			#move(2sec)
-			motor.move(17,15,3)
+			motor.motor_move(15,13,2.5)
+			send = 1
+			motor.move(15,13,0.5)
 			time.sleep(3)
 
 	except KeyboardInterrupt:

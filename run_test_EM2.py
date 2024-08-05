@@ -193,7 +193,7 @@ def run(lat_test, lon_test):
 	#move
 	while time.time() - t_start < T_CAL:
 		#writer.writerows([[lat_now, lon_now, error_theta]])
-		motor.move(20,25,3)
+		motor.move(21,20,3)
 		stuck.ue_jug()
 		adjust_direction(magx_off, magy_off, lat_test, lon_test)
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)

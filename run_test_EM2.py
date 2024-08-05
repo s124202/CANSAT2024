@@ -43,7 +43,7 @@ def blt():
 				data = client_sock.recv(1024)
 				receive = data.decode()
 				print(receive)
-				time.sleep(1)
+				time.sleep(0.5)
 				client_sock.send(str(send))
 			except KeyboardInterrupt:
 				print("finish")
@@ -166,8 +166,13 @@ def run(lat_test, lon_test):
 
 	#const
 	THD_DIRECTION = 5.0
-	T_CAL = 4
+	T_CAL = 120
 	isReach_dest = 0
+	m_l = 20
+	m_r = 17
+
+	while (receive != str(0)):
+		time.sleep(1)
 
 	#子機を待たせる
 	send = 1
@@ -193,8 +198,15 @@ def run(lat_test, lon_test):
 	#move
 	while time.time() - t_start < T_CAL:
 		#writer.writerows([[lat_now, lon_now, error_theta]])
-		motor.move(21,20,3)
+		if receive != 10:
+			for _ in range (10):
+				motor.motor_move(m_l,m_r,1)
+				if receive == str(10):
+					break
+		motor.deceleration(m_l,m_r)
 		stuck.ue_jug()
+		if receive == str(10):
+			break
 		adjust_direction(magx_off, magy_off, lat_test, lon_test)
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
 

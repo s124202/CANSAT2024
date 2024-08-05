@@ -177,8 +177,6 @@ def move():
 			time.sleep(1)
 			continue
 		motor_move()
-	
-	deceleration()   
 
 
 def red_detect(img):
@@ -240,10 +238,6 @@ def discovery(cap):
 		break
 	print("discover success. start to follow.")
 	return 0
-			
-
-
-
 
 def main_detect():
 

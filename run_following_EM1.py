@@ -297,7 +297,7 @@ def main_detect():
 		if size < 1000:
 			s = 0
 		else:
-			s = size / 1500 + 5
+			s = size / 1500 + 7
 		#elif size < 10000:
 		#    s = size / 2000 + 5
 		#elif size < 30000:

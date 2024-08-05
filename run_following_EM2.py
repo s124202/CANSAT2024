@@ -38,7 +38,7 @@ def blt():
 			print("synchro")
 			break
 		try:
-			time.sleep(1)
+			time.sleep(0.5)
 			sock.send(str(send))
 			data = sock.recv(1024)
 			receive = data.decode()

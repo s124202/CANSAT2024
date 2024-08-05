@@ -43,7 +43,7 @@ def blt():
 				data = client_sock.recv(1024)
 				receive = data.decode()
 				print(receive)
-				time.sleep(1)
+				time.sleep(0.5)
 				client_sock.send(str(send))
 			except KeyboardInterrupt:
 				print("finish")

@@ -216,7 +216,8 @@ def get_largest_red_object(mask):
 def discovery(cap):
 	while True:
 		# フレームを取得
-		ret, frame = cap.read()
+		for _ in range(5):  # 5回フレームを取得
+			ret, frame = cap.read()
 		frame = cv2.resize(frame, (640,320))
 		frame = cv2.rotate(frame, cv2.ROTATE_180)
 
@@ -227,6 +228,7 @@ def discovery(cap):
 		center, size = get_largest_red_object(mask)
 
 		if center is None:
+			print("trun around")
 			motor_move_default(30,-30,0.1)
 			motor_stop()
 			time.sleep(2)
@@ -236,6 +238,7 @@ def discovery(cap):
 		elif center[0] > 540:
 			motor_move_default(-30,30,0.1)
 		break
+	print("discover success. start to follow.")
 	return 0
 			
 

@@ -233,8 +233,10 @@ def discovery(cap):
 			continue
 		elif center[0] < 100:
 			motor_move_default(30,-30,0.1)
+			motor_stop()
 		elif center[0] > 540:
 			motor_move_default(-30,30,0.1)
+			motor_stop()
 		break
 	return 0
 			

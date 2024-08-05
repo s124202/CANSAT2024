@@ -250,8 +250,8 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         m = PID_control(error_theta, theta_array, Kp, Ki, Kd)
 
         #limit m
-        m = min(m, 10)
-        m = max(m, -10)
+        m = min(m, 5)
+        m = max(m, -5)
 
         #param
         s_r = 20
@@ -381,7 +381,7 @@ if __name__ == "__main__":
     time.sleep(5)
 
     #const
-    LOOP_NUM = 20
+    LOOP_NUM = 10
     THD_DISTANCE_DEST = 5
     T_CAL = 60
     STUCK_JUDGE_THD_DISTANCE = 1.0

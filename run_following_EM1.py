@@ -254,8 +254,8 @@ def main_detect():
 	global strength_l
 	global strength_r
 
-	default_l = 16
-	default_r= default_l
+	default_l = 17
+	default_r= default_l + 1
 
 	lose = 0
 	discover = 1

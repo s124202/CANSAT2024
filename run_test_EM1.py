@@ -166,7 +166,7 @@ def run(lat_test, lon_test):
 
 	#const
 	THD_DIRECTION = 5.0
-	T_CAL = 4
+	T_CAL = 15
 	isReach_dest = 0
 
 	#子機を待たせる

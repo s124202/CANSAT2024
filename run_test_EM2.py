@@ -185,7 +185,7 @@ def run(lat_test, lon_test):
 	while (receive != str(1)):
 		time.sleep(1)
 	send = 0
-	time.sleep(3)
+	time.sleep(2.8)
 
 	#init
 	t_start = time.time()

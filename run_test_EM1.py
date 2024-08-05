@@ -185,7 +185,7 @@ def run(lat_test, lon_test):
 	while (receive != str(1)):
 		time.sleep(1)
 	send = 0
-	time.sleep(3)
+	time.sleep(2.8)
 
 	#init
 	t_start = time.time()
@@ -193,7 +193,7 @@ def run(lat_test, lon_test):
 	#move
 	while time.time() - t_start < T_CAL:
 		#writer.writerows([[lat_now, lon_now, error_theta]])
-		motor.move(20,25,3)
+		motor.move(18,16,3)
 		stuck.ue_jug()
 		adjust_direction(magx_off, magy_off, lat_test, lon_test)
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
@@ -233,7 +233,7 @@ if __name__ == "__main__":
 	setup()
 
 	#target
-	lat_test,lon_test = gps.med()
+	lat_test,lon_test = 35.9185287, 139.9085766
 
 	# Create threads for main and another_function
 	thread1 = threading.Thread(target=main, args=(lat_test, lon_test))

@@ -341,7 +341,8 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 
 	receive = "1"
 
-	while (receive != str(0))
+	while (receive != str(0)):
+		time.sleep(1)
 
 	#子機を待たせる
 	send = 1

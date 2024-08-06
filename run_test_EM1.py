@@ -207,7 +207,7 @@ def run(lat_test, lon_test):
 	while time.time() - t_start < T_CAL:
 		#writer.writerows([[lat_now, lon_now, error_theta]])
 		for i in range (10):
-			motor.motor_move(m_l-10+i, m_r-10+1, 1)
+			motor.motor_move(m_l-10+i, m_r-10+i, 1)
 			if receive == str(10):
 				motor.deceleration(m_l,m_r)
 				time.sleep(2)

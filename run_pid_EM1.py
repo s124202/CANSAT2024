@@ -310,9 +310,14 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 
 		while (receive == str(10)):
 			print("wait")
-			time.sleep(10)
+			break
 
 		count += 1
+	
+	if receive == str(10):
+		return 10
+	else:
+		return 0
 
 
 def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: float, t_cal: float, loop_num: int):
@@ -397,9 +402,12 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 
 		#run
 		if distance_to_dest > thd_distance:
-			PID_run(target_azimuth, magx_off, magy_off, theta_array, loop_num)
+			check = PID_run(target_azimuth, magx_off, magy_off, theta_array, loop_num)
 		else:
 			isReach_dest = 1
+			break
+
+		if check == 10:
 			break
 
 		stuck_count += 1

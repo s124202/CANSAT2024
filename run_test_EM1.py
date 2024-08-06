@@ -170,8 +170,8 @@ def run(lat_test, lon_test):
 	THD_DIRECTION = 5.0
 	T_CAL = 120
 	isReach_dest = 0
-	m_l = 20
-	m_r = 17
+	m_l = 19
+	m_r = 15
 
 	while (receive != str(0)):
 		time.sleep(1)
@@ -204,6 +204,9 @@ def run(lat_test, lon_test):
 			for _ in range (10):
 				motor.motor_move(m_l,m_r,1)
 				if receive == str(10):
+					motor.deceleration(m_l,m_r)
+					time.sleep(2)
+					motor.move(-20,-20,2)
 					break
 		motor.deceleration(m_l,m_r)
 		stuck.ue_jug()

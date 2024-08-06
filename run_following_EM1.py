@@ -216,7 +216,8 @@ def get_largest_red_object(mask):
 def discovery(cap):
 	while True:
 		# フレームを取得
-		ret, frame = cap.read()
+		for _ in range(5):
+			ret, frame = cap.read()
 		frame = cv2.resize(frame, (640,320))
 		frame = cv2.rotate(frame, cv2.ROTATE_180)
 
@@ -227,15 +228,15 @@ def discovery(cap):
 		center, size = get_largest_red_object(mask)
 
 		if center is None:
-			motor_move_default(30,-30,0.1)
+			motor_move_default(40,-40,0.1)
 			motor_stop()
 			time.sleep(2)
 			continue
 		elif center[0] < 100:
-			motor_move_default(30,-30,0.1)
+			motor_move_default(40,-40,0.1)
 			motor_stop()
 		elif center[0] > 540:
-			motor_move_default(-30,30,0.1)
+			motor_move_default(-40,40,0.1)
 			motor_stop()
 		break
 	return 0
@@ -249,7 +250,7 @@ def main_detect():
 	global strength_l
 	global strength_r
 
-	default_l = 17
+	default_l = 20
 	default_r= default_l
 
 	lose = 0

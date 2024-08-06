@@ -4,6 +4,7 @@
 
 #standard
 import time
+import bluetooth
 #import board
 #import adafruit_sgp40
 
@@ -268,9 +269,7 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 	loop_num : int
 		PID制御を行う回数 loop_num=20のとき1秒でこのプログラムが終了する
 	'''
-	global send
 	global receive
-	global synchro
 
 	#const
 	Kp = 3
@@ -306,10 +305,11 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 		pwr_r = m + s_r
 
 		#move
-		motor.motor_move(pwr_l, -pwr_r, 1)
+		motor.motor_move(pwr_l, pwr_r, 1)
 		time.sleep(0.1)
 
 		while (receive == str(10)):
+			print("wait")
 			time.sleep(10)
 
 		count += 1
@@ -356,8 +356,12 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 	#子機の発見待ち
 	send = 2
 	time.sleep(1)
-	while (receive != str(1)):
+	for i in range(100):
 		time.sleep(1)
+		if receive == str(1):
+			break
+		if i % 10 == 9:
+			motor.move(30,-30,0.1)
 	send = 0
 	time.sleep(2.8)
 

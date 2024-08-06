@@ -173,6 +173,12 @@ def run(lat_test, lon_test):
 	m_l = 19
 	m_r = 15
 
+	# for i in range (100):
+	# 	if receive == 0:
+	# 		break
+	# 	time.sleep(1)
+	# 	if i % 10 == 9:
+	# 		motor.move(30,-30,0.1)
 	while (receive != str(0)):
 		time.sleep(1)
 
@@ -200,14 +206,13 @@ def run(lat_test, lon_test):
 	#move
 	while time.time() - t_start < T_CAL:
 		#writer.writerows([[lat_now, lon_now, error_theta]])
-		if receive != 10:
-			for _ in range (10):
-				motor.motor_move(m_l,m_r,1)
-				if receive == str(10):
-					motor.deceleration(m_l,m_r)
-					time.sleep(2)
-					motor.move(-20,-20,2)
-					break
+		for i in range (10):
+			motor.motor_move(m_l-10+i, m_r-10+1, 1)
+			if receive == str(10):
+				motor.deceleration(m_l,m_r)
+				time.sleep(2)
+				motor.move(-20,-20,2)
+				break
 		motor.deceleration(m_l,m_r)
 		stuck.ue_jug()
 		if receive == str(10):

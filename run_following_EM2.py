@@ -216,7 +216,8 @@ def get_largest_red_object(mask):
 def discovery(cap):
 	while True:
 		# フレームを取得
-		ret, frame = cap.read()
+		for _ in range(5):
+			ret, frame = cap.read()
 		frame = cv2.resize(frame, (640,320))
 		frame = cv2.rotate(frame, cv2.ROTATE_180)
 

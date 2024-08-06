@@ -11,7 +11,7 @@ def blt():
 	global receive
 	global synchro
 
-	bd_addr = "B8:27:EB:AD:E6:38" # サーバー側のデバイスアドレスを入力
+	bd_addr = "B8:27:EB:A9:5B:64" # サーバー側のデバイスアドレスを入力
 	port = 1
 
 	send = 0
@@ -38,7 +38,7 @@ def blt():
 			print("synchro")
 			break
 		try:
-			time.sleep(1)
+			time.sleep(0.5)
 			sock.send(str(send))
 			data = sock.recv(1024)
 			receive = data.decode()
@@ -177,6 +177,8 @@ def move():
 			time.sleep(1)
 			continue
 		motor_move()
+	
+	deceleration()   
 
 
 def red_detect(img):
@@ -189,7 +191,7 @@ def red_detect(img):
 	mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
 
 	# 赤色のHSVの値域2
-	hsv_min = np.array([165,100,100])
+	hsv_min = np.array([160,100,100])
 	hsv_max = np.array([179,255,255])
 	mask2 = cv2.inRange(hsv, hsv_min, hsv_max)
 
@@ -214,8 +216,7 @@ def get_largest_red_object(mask):
 def discovery(cap):
 	while True:
 		# フレームを取得
-		for _ in range(5):  # 5回フレームを取得
-			ret, frame = cap.read()
+		ret, frame = cap.read()
 		frame = cv2.resize(frame, (640,320))
 		frame = cv2.rotate(frame, cv2.ROTATE_180)
 
@@ -226,17 +227,17 @@ def discovery(cap):
 		center, size = get_largest_red_object(mask)
 
 		if center is None:
-			print("trun around")
 			motor_move_default(30,-30,0.1)
 			motor_stop()
 			time.sleep(2)
 			continue
 		elif center[0] < 100:
 			motor_move_default(30,-30,0.1)
+			motor_stop()
 		elif center[0] > 540:
 			motor_move_default(-30,30,0.1)
+			motor_stop()
 		break
-	print("discover success. start to follow.")
 	return 0
 
 def main_detect():
@@ -249,7 +250,7 @@ def main_detect():
 	global strength_r
 
 	default_l = 17
-	default_r= default_l + 1
+	default_r= default_l
 
 	lose = 0
 	discover = 1
@@ -294,7 +295,7 @@ def main_detect():
 		if size < 1000:
 			s = 0
 		else:
-			s = size / 1500 + 5
+			s = size / 1500 + 7
 		#elif size < 10000:
 		#    s = size / 2000 + 5
 		#elif size < 30000:
@@ -307,8 +308,9 @@ def main_detect():
 		if lose == 60:
 			print("no discover")
 			send = 10
-			time.sleep(3)
-			break
+			discovery(cap)
+			send = 0
+			
 
 		strength_l = default_l - s + m
 		strength_r = default_r - s - m
@@ -320,7 +322,7 @@ def main_detect():
 		if receive == str(1):
 			while (receive != str(2)):
 				time.sleep(1)
-			a = discovery(cap)
+			discovery(cap)
 			send = 1
 			time.sleep(3)
 			send = 0

@@ -341,8 +341,12 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 
 	receive = "1"
 
-	while (receive != str(0)):
+	for i in range (100):
+		if receive == str(0):
+			break
 		time.sleep(1)
+		if i % 10 == 9:
+			motor.move(30,-30,0.1)
 
 	#子機を待たせる
 	send = 1

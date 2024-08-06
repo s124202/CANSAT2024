@@ -164,6 +164,8 @@ def run(lat_test, lon_test):
 	global receive
 	global synchro
 
+	receive = "1"
+
 	#const
 	THD_DIRECTION = 5.0
 	T_CAL = 120

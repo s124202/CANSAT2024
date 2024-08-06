@@ -308,7 +308,7 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 		motor.motor_move(pwr_l, pwr_r, 1)
 		time.sleep(0.1)
 
-		while (receive == str(10)):
+		if receive == str(10):
 			print("wait")
 			break
 

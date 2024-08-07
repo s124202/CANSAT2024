@@ -353,8 +353,6 @@ def main():
 	thread1 = threading.Thread(target = main_detect, args=(q,))
 	thread2 = threading.Thread(target = move)
 	thread3 = threading.Thread(target = blt)
-
-	motor_setup()
 	
 	thread1.start()
 	thread2.start()
@@ -367,5 +365,8 @@ def main():
 	return q.get()	
 
 if __name__ == '__main__':
+	
+	motor_setup()
+	
 	a = main()
 	print(a)

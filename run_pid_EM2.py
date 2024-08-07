@@ -465,10 +465,6 @@ def test(q):
 
 def main():
 	q = Queue()
-	#setup
-	motor.setup()
-	bmx055.bmx055_setup()
-	#mode3.mode3_change()
 
 	thread1 = threading.Thread(target = blt)
 	thread2 = threading.Thread(target = test, args=(q,))
@@ -483,5 +479,10 @@ def main():
 
 
 if __name__ == "__main__":
+	#setup
+	motor.setup()
+	bmx055.bmx055_setup()
+	#mode3.mode3_change()
+	
 	a = main()
 	print(a)

@@ -446,12 +446,12 @@ def test():
 
 		#check
 		if receive == str(4):
-			retun
+			return 1
 
 		if isReach_dest == 1:
 			print('end gps running')
 			#send.log("end gps running")
-			break
+			return 0
 		else:
 			print("not Goal", "distance=",distance_to_dest)
 			#send.log("distance=" + str(distance_to_dest))

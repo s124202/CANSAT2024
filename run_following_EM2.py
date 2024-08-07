@@ -264,7 +264,6 @@ def main_detect():
 
 	check = 0
 	lose = 0
-	discover = 1
 	old_center = [320,0]
 	# カメラのキャプチャ
 	cap = cv2.VideoCapture(0)
@@ -287,9 +286,7 @@ def main_detect():
 		if center is None:
 			center = old_center
 			lose += 1
-			discover = 1
 		else:
-			discover += 1
 			lose = 0
 		
 		if size is None:
@@ -307,14 +304,6 @@ def main_detect():
 			s = 0
 		else:
 			s = size / 1500 + 7
-		#elif size < 10000:
-		#    s = size / 2000 + 5
-		#elif size < 30000:
-		#    s = 10
-		#else:
-		#    print("stop")
-		#    synchro = 1
-		#    break
 			 
 		if lose == 60:
 			print("no discover")

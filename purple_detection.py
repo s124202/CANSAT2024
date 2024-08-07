@@ -2,13 +2,13 @@ import cv2
 import numpy as np
 import take_photo
 
-def detect_purple(small_img):
+def detect_purple(img):
 	# HSV色空間に変換
-	hsv = cv2.cvtColor(small_img, cv2.COLOR_BGR2HSV)
+	hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-	# 赤色のHSVの値域1
-	hsv_min = np.array([110,50,0])
-	hsv_max = np.array([130,210,255])
+	# 紫色のHSVの値域
+	hsv_min = np.array([110,210,0])
+	hsv_max = np.array([130,255,255])
 	mask = cv2.inRange(hsv, hsv_min, hsv_max)
 
 	return mask
@@ -18,7 +18,7 @@ def mosaic(original_img, ratio):
 	
 	return cv2.resize(small_img, original_img.shape[:2][::-1], interpolation=cv2.INTER_NEAREST)
 
-def get_para_area(max_contour):
+def get_para_area(max_contour, para_img):
 	try:
 		# 輪郭の面積を計算
 		area = cv2.contourArea(max_contour)
@@ -54,22 +54,6 @@ def get_center(mask, original_img):
 	
 	return original_img, max_contour, cx, cy
 
-def get_angle(cx, cy, original_img):
-	angle = 0
-	# 重心から現在位置とゴールの相対角度を大まかに計算
-	img_width = original_img.shape[1]
-	quat_width = img_width / 5
-	x0, x1, x2, x3, x4, x5 = 0, quat_width, quat_width*2, quat_width*3, quat_width*4, quat_width*5
-
-	if x0 < cx <x1:
-		angle = 1
-	elif x1 < cx < x4:
-		angle = 2
-	elif x4 < cx < x5:
-		angle = 3
-
-	return angle
-
 def detect_para():
 	path_all_para = 'photo/detect_para/'
 	photoname = take_photo.Capture(path_all_para)
@@ -85,7 +69,7 @@ def detect_para():
 	para_img, max_contour, cx, cy = get_center(mask, small_img)
 
 	#赤色が占める割合を求める
-	purple_area = get_para_area(max_contour)
+	purple_area = get_para_area(max_contour, para_img)
 
 	return(purple_area)
 
@@ -104,7 +88,7 @@ def detect_para_test():
 	para_img, max_contour, cx, cy = get_center(mask, small_img)
 
 	#赤色が占める割合を求める
-	purple_area = get_para_area(max_contour)
+	purple_area = get_para_area(max_contour, para_img)
 
 	print(purple_area)
 

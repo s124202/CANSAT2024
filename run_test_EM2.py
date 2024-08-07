@@ -270,8 +270,6 @@ def main(lat_test, lon_test, q):
 
 def main_thread():
 	q = Queue()
-	print("start setup")
-	setup()
 
 	#target
 	lat_test,lon_test = 35.9242707, 139.9124209
@@ -291,4 +289,7 @@ def main_thread():
 	return q.get()
 
 if __name__ == "__main__":
+	print("start setup")
+	setup()
+
 	a = main_thread()

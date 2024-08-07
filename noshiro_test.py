@@ -62,7 +62,7 @@ def mission():
 	#-----3_Melt_sequence-----#
 	print("-----Start 3_Melt_sequence-----")
 
-	melt.melt_down(17,MELT_TIME)
+	melt.melt_down(MELT_PIN, MELT_TIME)
 
 	print("-----Finish 3_Melt_sequence-----")
 	time.sleep(1)

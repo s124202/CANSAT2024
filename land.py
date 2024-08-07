@@ -1,9 +1,13 @@
+#2024/08/07 生川
+
 #standard
 import time
 import math
 
+#src
 import bme280
 import bmx055
+
 
 def detect():
 	#const

@@ -20,7 +20,18 @@ import send.send_11 as send
 
 
 #const
-T_RELEASE = 100
+RELEASE_TIMEOUT = 100
+RELEASE_PRESS_THD = 0.2
+RELEASE_JUDGE_COUNT = 3
+RELEASE_JUDGE_TIME = 1
+
+LAND_TIMEOUT = 300
+LAND_PRESS_THD = 0.05
+LAND_ACC_THD = 0.2
+LAND_JUDGE_COUNT = 3
+LAND_JUDGE_TIME = 2
+
+MELT_TIME = 5.0
 
 
 def setup():
@@ -36,27 +47,66 @@ def mission():
 	t_start = time.time()
 
 	#-----1_Release_sequence-----#
-	print("-----1_Release_sequence start-----")
+	print("-----Start 1_Release_sequence-----")
 
-	#detect
-	while True:
-		#timeout
-		if t_start - time.time() > T_RELEASE:
-			print("Release_sequence timeout")
-		
-		
+	release.detect()
+
+	print("-----Finish 1_Release_sequence-----")
+
+
+	#-----2_Land_sequence-----#
+	print("-----Start 2_Land_sequence-----")
+
+	land.detect()#landファイルの書き換えする！！！！
+
+	print("-----Finish 2_Land_sequence-----")
+
+
+	#-----3_Melt_sequence-----#
+	print("-----Start 3_Melt_sequence-----")
+
+	melt.melt_down(17,MELT_TIME)
+
+	print("-----Finish 3_Melt_sequence-----")
+
+
+	#-----4_Avoid_sequence-----#
+	print("-----Start 4_Avoid_sequence-----")
+
+	#どうするか佐藤と相談
+
+	print("-----Finish 4_Avoid_sequence-----")
+
+
+	#-----5_Run_sequence-----#
+	print("-----Start 5_Run_sequence-----")
+
+	#runファイル作ります
+	#pid用
+	#pid無し用
+
+	print("-----Finish 5_Run_sequence-----")
+
+
+	#-----6_Goal_sequence-----#
+	print("-----Start 6_Goal_sequence-----")
+
+	#どうするか佐藤と相談
+
+	print("-----Finish 6_Goal_sequence-----")
+
 
 if __name__ == '__main__':
 	try:
-		print("-----Start setup-----")
+		print("####-----Start setup-----#####")
 		setup()
-		print("-----Finish setup-----")
+		print("####-----Finish setup-----####")
 
 		time.sleep(1)
 		
-		print("-----Start mission-----")
+		print("####-----Start mission-----####")
 		mission()
-		print("-----Finish mission-----")
+		print("####-----Finish mission-----####")
 
 	except KeyboardInterrupt:
-		print("-----Keyboard interrupt-----")
+		print("####-----Keyboard interrupt-----####")

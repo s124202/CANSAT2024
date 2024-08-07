@@ -1,14 +1,16 @@
+#2024/08/07 生川
+
 import time
 import bme280
 
-#気圧による放出判定
-def release_main():
+
+def detect():
 	time_start = time.time()
-	time_timeout = 300
-	
+
 	RELEASE_PRESS_THD = 0.2
 	RELEASE_JUDGE_COUNT = 3
 	RELEASE_JUDGE_TIME = 1
+	RELEASE_TIMEOUT = 100
 
 	press_count = 0
 	press_array = [0]
@@ -36,10 +38,9 @@ def release_main():
 			print("Release Detected")
 			break
 
-		if time.time() - time_start > time_timeout:
+		if time.time() - time_start > RELEASE_TIMEOUT:
 			print("Release Timeout")
 			break
-
 
 
 if __name__ == "__main__":
@@ -47,7 +48,7 @@ if __name__ == "__main__":
 	bme280.bme280_calib_param()
 
 	try:
-		release_main()
+		detect()
 
 	except KeyboardInterrupt:
 		print("\r\n")

@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-import time
 
 def detect_purple(img):
 	# HSV色空間に変換

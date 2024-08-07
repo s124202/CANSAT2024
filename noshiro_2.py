@@ -92,25 +92,29 @@ def mission():
 	
 	if check == 1:
 		#自律誘導
-		aaa
-
-	#-----6_second_follow_sequence-----#
-	print("-----Start 6_second_follow_sequence-----")
-
-	check = run_pid_EM2.main()
-
-	print("-----Finish 6_second_follow_sequence-----")
-	time.sleep(1)
+		while isReach_dest == 0:
+			isReach_dest = run.run()
+			
+	if isReach_dest == 0:
+		#-----6_second_follow_sequence-----#
+		print("-----Start 6_second_follow_sequence-----")
 	
-	if check == 1:
-		#自律誘導
-		aaa
+		check = run_pid_EM2.main()
+	
+		print("-----Finish 6_second_follow_sequence-----")
+		time.sleep(1)
+	
+		if check == 1:
+			#自律誘導
+			while isReach_dest == 0:
+				isReach_dest = run.run()
 	
 
 
 	while True:
 		#-----6_Goal_sequence-----#
 		print("-----Start 6_Goal_sequence-----")
+		re_count = 1
 
 		while isReach_goal == 0:
 			isReach_goal, re_count = goal_detection.main(re_count)
@@ -121,6 +125,8 @@ def mission():
 
 		print("-----Finish 6_Goal_sequence-----")
 		time.sleep(1)
+		if isReach_goal == 1:
+			break
 		
 		#-----6_Run_sequence-----#
 		print("-----Start extra_Run_sequence-----")

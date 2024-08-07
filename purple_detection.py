@@ -2,21 +2,14 @@ import cv2
 import numpy as np
 import take_photo
 
-def detect_red(small_img):
+def detect_purple(small_img):
 	# HSV色空間に変換
 	hsv = cv2.cvtColor(small_img, cv2.COLOR_BGR2HSV)
 
 	# 赤色のHSVの値域1
 	hsv_min = np.array([0,50,50])
 	hsv_max = np.array([5,255,255])
-	mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
-
-	# 赤色のHSVの値域2
-	hsv_min = np.array([170,50,50])
-	hsv_max = np.array([179,255,255])
-	mask2 = cv2.inRange(hsv, hsv_min, hsv_max)
-
-	mask = mask1 + mask2
+	mask = cv2.inRange(hsv, hsv_min, hsv_max)
 
 	return mask
 
@@ -77,20 +70,6 @@ def get_angle(cx, cy, original_img):
 
 	return angle
 
-def get_area(max_contour, original_img):
-	try:
-		# 輪郭の面積を計算
-		area = cv2.contourArea(max_contour)
-		img_area = original_img.shape[0] * original_img.shape[1] #画像の縦横の積
-		area_ratio = area / img_area * 100 #面積の割合を計算
-		if area_ratio < 0.1:
-			area_ratio = 0.0
-		# print(f"Area ratio = {area_ratio:.1f}%")
-	except:
-		area_ratio = 0
-
-	return area_ratio
-
 def detect_para():
 	path_all_para = 'photo/detect_para/'
 	photoname = take_photo.Capture(path_all_para)
@@ -100,37 +79,15 @@ def detect_para():
 	small_img = mosaic(para_img, ratio=0.8)
 
 	#赤色であると認識させる範囲の設定
-	mask = detect_red(small_img)
+	mask = detect_purple(small_img)
 
 	#圧縮した画像から重心と輪郭を求めて、画像に反映
 	para_img, max_contour, cx, cy = get_center(mask, small_img)
 
 	#赤色が占める割合を求める
-	red_area = get_para_area(max_contour, para_img)
+	purple_area = get_para_area(max_contour, para_img)
 
-	return(red_area)
-
-def detect_goal():
-	#画像の撮影から「角度」と「占める割合」を求めるまでの一連の流れ
-	path_all_photo = 'photo/detect_goal/'
-	photoname = take_photo.Capture(path_all_photo)
-	original_img = cv2.imread(photoname)
-
-	#画像を圧縮
-	small_img = mosaic(original_img, 0.8)
-	
-	mask = detect_red(small_img)
-
-	original_img, max_contour, cx, cy = get_center(mask, small_img)
-
-	#赤が占める割合を求める
-	area_ratio = get_area(max_contour, original_img)
-
-	#重心から現在位置とゴールの相対角度を大まかに計算
-	angle = get_angle(cx, cy, original_img)
-
-	#return area_ratio, angle
-	return(area_ratio, angle)
+	return(purple_area)
 
 def detect_para_test():
 	path_all_para = 'photo/detect_para/'
@@ -141,37 +98,15 @@ def detect_para_test():
 	small_img = mosaic(para_img, ratio=0.8)
 
 	#赤色であると認識させる範囲の設定
-	mask = detect_red(small_img)
+	mask = detect_purple(small_img)
 
 	#圧縮した画像から重心と輪郭を求めて、画像に反映
 	para_img, max_contour, cx, cy = get_center(mask, small_img)
 
 	#赤色が占める割合を求める
-	red_area = get_para_area(max_contour, para_img)
+	purple_area = get_para_area(max_contour, para_img)
 
-	print(red_area)
-
-def detect_goal_test():
-	#画像の撮影から「角度」と「占める割合」を求めるまでの一連の流れ
-	path_all_photo = 'photo/detect_goal/'
-	photoname = take_photo.Capture(path_all_photo)
-	original_img = cv2.imread(photoname)
-
-	#画像を圧縮
-	small_img = mosaic(original_img, 0.8)
-	
-	mask = detect_red(small_img)
-
-	original_img, max_contour, cx, cy = get_center(mask, small_img)
-
-	#赤が占める割合を求める
-	area_ratio = get_area(max_contour, original_img)
-
-	#重心から現在位置とゴールの相対角度を大まかに計算
-	angle = get_angle(cx, cy, original_img)
-
-	#return area_ratio, angle
-	print(area_ratio, angle)
+	print(purple_area)
 
 if __name__ == '__main__':
 	detect_para_test()

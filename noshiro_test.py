@@ -33,6 +33,9 @@ LAND_JUDGE_TIME = 2
 
 MELT_TIME = 5.0
 
+THD_DIRECTION = 5.0
+T_CAL = 5
+
 
 def setup():
 	mode3.mode3_change()

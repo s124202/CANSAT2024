@@ -25,7 +25,7 @@ RELEASE_PRESS_THD = 0.2
 RELEASE_JUDGE_COUNT = 3
 RELEASE_JUDGE_TIME = 1
 
-LAND_TIMEOUT = 300
+LAND_TIMEOUT = 100
 LAND_PRESS_THD = 0.05
 LAND_ACC_THD = 0.2
 LAND_JUDGE_COUNT = 3
@@ -60,7 +60,7 @@ def mission():
 	#-----2_Land_sequence-----#
 	print("-----Start 2_Land_sequence-----")
 
-	land.detect()#landファイルの書き換えする！！！！
+	land.detect()
 
 	print("-----Finish 2_Land_sequence-----")
 
@@ -94,7 +94,7 @@ def mission():
 	#-----6_Goal_sequence-----#
 	print("-----Start 6_Goal_sequence-----")
 
-	#どうするか佐藤と相談
+
 
 	print("-----Finish 6_Goal_sequence-----")
 

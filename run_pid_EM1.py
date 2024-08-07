@@ -344,6 +344,8 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 	for i in range (100):
 		if receive == str(0):
 			break
+		if receive == str(4):
+			return
 		time.sleep(1)
 		if i % 10 == 9:
 			motor.move(30,-30,0.1)
@@ -367,6 +369,8 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 		time.sleep(1)
 		if receive == str(1):
 			break
+		if receive == str(4):
+			return
 		if i % 10 == 9:
 			motor.move(30,-30,0.1)
 	send = 0
@@ -420,6 +424,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 
 
 def test():
+	global receive
 	#target
 	lat_test = 35.9242707
 	lon_test = 139.9124209
@@ -440,6 +445,9 @@ def test():
 		#print("Raw Gas: ", sgp.raw)
 
 		#check
+		if receive == str(4):
+			retun
+
 		if isReach_dest == 1:
 			print('end gps running')
 			#send.log("end gps running")

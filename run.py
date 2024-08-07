@@ -1,8 +1,7 @@
-#2024/07/30 生川
+#2024/08/07 生川
 
 #standard
 import time
-import csv
 
 #src
 import motor
@@ -10,6 +9,7 @@ import calibration
 import bmx055
 import gps
 import gps_navigate
+import stuck
 
 #send
 import send.mode3 as mode3
@@ -79,7 +79,7 @@ def run_calibration():
 	while magx_off == 0 and magy_off == 0:
 		motor.motor_move(50, 50, 1)
 		magx_off, magy_off = calibration.cal(20,-20,40) 
-	
+
 	return magx_off, magy_off
 
 
@@ -116,7 +116,7 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 def run(lat_test, lon_test):
 	#const
 	THD_DIRECTION = 5.0
-	T_CAL = 30
+	T_CAL = 60
 	isReach_dest = 0
 
 	#cal
@@ -131,8 +131,9 @@ def run(lat_test, lon_test):
 
 	#move
 	while time.time() - t_start < T_CAL:
+		adjust_direction(magx_off, magy_off, lat_test, lon_test)
 		motor.move(20,20,1)
-		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
+		stuck.ue_jug()
 
 		if direction < THD_DIRECTION:
 			isReach_dest = 1

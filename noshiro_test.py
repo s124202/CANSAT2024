@@ -12,6 +12,7 @@ import motor
 import release
 import land
 import melt
+import avoid
 import run
 import goal_detection
 
@@ -63,6 +64,7 @@ def mission():
 	release.detect()
 
 	print("-----Finish 1_Release_sequence-----")
+	time.sleep(1)
 
 
 	#-----2_Land_sequence-----#
@@ -71,6 +73,7 @@ def mission():
 	land.detect()
 
 	print("-----Finish 2_Land_sequence-----")
+	time.sleep(1)
 
 
 	#-----3_Melt_sequence-----#
@@ -79,14 +82,16 @@ def mission():
 	melt.melt_down(17,MELT_TIME)
 
 	print("-----Finish 3_Melt_sequence-----")
+	time.sleep(1)
 
 
 	#-----4_Avoid_sequence-----#
 	print("-----Start 4_Avoid_sequence-----")
 
-	#どうするか佐藤と相談
+	avoid.main()
 
 	print("-----Finish 4_Avoid_sequence-----")
+	time.sleep(1)
 
 
 	while re_count > 0:
@@ -97,6 +102,7 @@ def mission():
 			isReach_dest = run.run()
 
 		print("-----Finish 5_Run_sequence-----")
+		time.sleep(1)
 
 
 		#-----6_Goal_sequence-----#
@@ -110,6 +116,7 @@ def mission():
 				break
 
 		print("-----Finish 6_Goal_sequence-----")
+		time.sleep(1)
 
 
 if __name__ == '__main__':
@@ -119,7 +126,7 @@ if __name__ == '__main__':
 		print("####-----Finish setup-----####")
 
 		time.sleep(1)
-		
+
 		print("####-----Start mission-----####")
 		mission()
 		print("####-----Finish mission-----####")

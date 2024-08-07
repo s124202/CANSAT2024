@@ -81,6 +81,7 @@ def mission():
 		#-----5_Run_sequence-----#
 		print("-----Start 5_Run_sequence-----")
 
+		isReach_dest = 0
 		while isReach_dest == 0:
 			isReach_dest = run.run()
 

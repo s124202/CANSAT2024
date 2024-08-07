@@ -4,7 +4,7 @@
 import cv2
 import numpy as np
 
-def red_detect(img):
+def color_detect(img):
     # HSV色空間に変換
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
@@ -14,7 +14,7 @@ def red_detect(img):
 
     return mask
 
-def get_largest_red_object(mask):
+def get_largest_color_object(mask):
     # 最小領域の設定
     minarea = 100
     nlabels, labels, stats, centroids = cv2.connectedComponentsWithStats(mask)
@@ -45,10 +45,10 @@ def main_movie():
             break
 
         # 赤色検出
-        mask = red_detect(frame)
+        mask = color_detect(frame)
 
         # 最大の赤色物体の中心を取得
-        center, size = get_largest_red_object(mask)
+        center, size = get_largest_color_object(mask)
 
         if center is not None:
             cv2.circle(frame, (int(center[0]), int(center[1])), 5, (255, 0, 0), -1)
@@ -76,10 +76,10 @@ def main_image():
     frame = cv2.rotate(frame, cv2.ROTATE_180)
 
     # 赤色検出
-    mask = red_detect(frame)
+    mask = color_detect(frame)
 
     # 最大の赤色物体の中心を取得
-    center, size = get_largest_red_object(mask)
+    center, size = get_largest_color_object(mask)
 
     cap.release()
     cv2.destroyAllWindows()

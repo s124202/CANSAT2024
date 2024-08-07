@@ -1,7 +1,8 @@
-#2024/08/07 生川
+#2024/07/30 生川
 
 #standard
 import time
+import csv
 
 #src
 import motor
@@ -78,7 +79,7 @@ def run_calibration():
 	while magx_off == 0 and magy_off == 0:
 		motor.motor_move(50, 50, 1)
 		magx_off, magy_off = calibration.cal(20,-20,40) 
-
+	
 	return magx_off, magy_off
 
 
@@ -112,10 +113,10 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 	print("finish adjust")
 
 
-def run(lat_test, lon_test, writer):
+def run(lat_test, lon_test):
 	#const
 	THD_DIRECTION = 5.0
-	T_CAL = 5
+	T_CAL = 30
 	isReach_dest = 0
 
 	#cal
@@ -130,7 +131,6 @@ def run(lat_test, lon_test, writer):
 
 	#move
 	while time.time() - t_start < T_CAL:
-		writer.writerows([[lat_now, lon_now, error_theta]])
 		motor.move(20,20,1)
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
 
@@ -138,7 +138,7 @@ def run(lat_test, lon_test, writer):
 			isReach_dest = 1
 			break
 
-	return isReach_dest, direction
+	return isReach_dest
 
 def main(lat_test, lon_test):
 	#const
@@ -149,8 +149,6 @@ def main(lat_test, lon_test):
 		while isReach_dest == 0:
 			isReach_dest = run(lat_test, lon_test)
 
-		print("end gps run")
-
 	except KeyboardInterrupt:
 		print("interrupt!")
 
@@ -160,9 +158,6 @@ if __name__ == "__main__":
 	setup()
 
 	#target
-	#lat_test = 1
-	#lon_test = 1
-
 	lat_test,lon_test = gps.med()
 
 	print("移動してください")

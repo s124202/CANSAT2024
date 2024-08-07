@@ -1,7 +1,12 @@
 #2024/08/07 生川
 
+#src
 import red_detection
 import motor
+
+#const
+from main_const import *
+
 
 def main():
 	red_area = 0

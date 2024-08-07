@@ -8,15 +8,11 @@ import math
 import bme280
 import bmx055
 
+#const
+from main_const import *
+
 
 def detect():
-	#const
-	LAND_PRESS_THD = 0.05
-	LAND_JUDGE_COUNT = 3
-	LAND_JUDGE_TIME = 2
-	LAND_ACC_THD = 0.2
-	LAND_TIMEOUT = 100
-
 	#-----press_check-----#
 	#init
 	time_start = time.time()

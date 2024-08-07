@@ -20,25 +20,8 @@ import goal_detection
 import send.mode3 as mode3
 import send.send_11 as send
 
-
 #const
-RELEASE_TIMEOUT = 100
-RELEASE_PRESS_THD = 0.2
-RELEASE_JUDGE_COUNT = 3
-RELEASE_JUDGE_TIME = 1
-
-LAND_TIMEOUT = 100
-LAND_PRESS_THD = 0.05
-LAND_ACC_THD = 0.2
-LAND_JUDGE_COUNT = 3
-LAND_JUDGE_TIME = 2
-
-MELT_TIME = 5.0
-
-THD_DIRECTION = 5.0
-T_CAL = 5
-RUN_LAT  = 1
-RUN_LON = 1
+from main_const import *
 
 
 def setup():

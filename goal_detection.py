@@ -1,15 +1,17 @@
-#2024/08/04 生川
+#2024/08/07 生川
 
+#src
 import motor
 import red_detection
+
+#const
+from main_const import *
+
 
 def main(re_count):
 	area_ratio = 0
 	angle = 0
 	isReach_goal = 0
-
-	ROTATE_PWR = 20
-	THD_RED_RATIO = 20 #画面を占める赤色の割合の閾値
 
 	###-----画像誘導モードの範囲内にいた場合の処理-----###
 	

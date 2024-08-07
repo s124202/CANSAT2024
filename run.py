@@ -14,6 +14,9 @@ import stuck
 #send
 import send.mode3 as mode3
 
+#const
+from main_const import *
+
 
 #angle correction
 def standarize_angle(angle):
@@ -115,8 +118,6 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 
 def run(lat_test, lon_test):
 	#const
-	THD_DIRECTION = 5.0
-	T_CAL = 60
 	isReach_dest = 0
 
 	#cal

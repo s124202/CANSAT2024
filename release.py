@@ -1,16 +1,16 @@
 #2024/08/07 生川
 
+#standard
 import time
+
+#src
 import bme280
+
+#const
+from main_const import *
 
 
 def detect():
-    #const
-	RELEASE_PRESS_THD = 0.2
-	RELEASE_JUDGE_COUNT = 3
-	RELEASE_JUDGE_TIME = 1
-	RELEASE_TIMEOUT = 100
-
     #init
 	time_start = time.time()
 	press_count = 0

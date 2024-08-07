@@ -29,7 +29,7 @@ def blt():
 	send = 1
 	receive = "0"
 	synchro = 0
-	
+
 	try:
 		server_sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 		port = 1
@@ -38,7 +38,7 @@ def blt():
 		client_sock,address = server_sock.accept()
 		client_sock.settimeout(10)
 		print("Accepted connection from ",address)
-		
+
 		while True:
 			if synchro == 1:
 				print("synchro")
@@ -58,7 +58,7 @@ def blt():
 		client_sock.close()
 		server_sock.close()
 		print("try reconnect")
-		
+
 	except KeyboardInterrupt:
 		print("finish")
 		client_sock.close()
@@ -78,7 +78,6 @@ def standarize_angle(angle):
 		angle += 360
 
 	return angle
-
 
 #return theta_dest
 def get_theta_dest(target_azimuth, magx_off, magy_off):

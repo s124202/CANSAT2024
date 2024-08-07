@@ -164,15 +164,25 @@ def run(lat_test, lon_test):
 	global receive
 	global synchro
 
+	receive = "1"
+
 	#const
 	THD_DIRECTION = 5.0
 	T_CAL = 120
 	isReach_dest = 0
-	m_l = 20
-	m_r = 17
+	m_l = 19
+	m_r = 15
 
+	# for i in range (100):
+	# 	if receive == 0:
+	# 		break
+	# 	time.sleep(1)
+	# 	if i % 10 == 9:
+	# 		motor.move(30,-30,0.1)
 	while (receive != str(0)):
 		time.sleep(1)
+		if receive == str(4):
+			return 4
 
 	#子機を待たせる
 	send = 1
@@ -189,6 +199,8 @@ def run(lat_test, lon_test):
 	time.sleep(1)
 	while (receive != str(1)):
 		time.sleep(1)
+		if receive == str(4):
+			return 4
 	send = 0
 	time.sleep(2.8)
 
@@ -198,11 +210,13 @@ def run(lat_test, lon_test):
 	#move
 	while time.time() - t_start < T_CAL:
 		#writer.writerows([[lat_now, lon_now, error_theta]])
-		if receive != 10:
-			for _ in range (10):
-				motor.motor_move(m_l,m_r,1)
-				if receive == str(10):
-					break
+		for i in range (10):
+			motor.motor_move(m_l-10+i, m_r-10+i, 1)
+			if receive == str(10):
+				motor.deceleration(m_l,m_r)
+				time.sleep(2)
+				motor.move(-20,-20,2)
+				break
 		motor.deceleration(m_l,m_r)
 		stuck.ue_jug()
 		if receive == str(10):
@@ -231,6 +245,9 @@ def main(lat_test, lon_test):
 			isReach_dest = run(lat_test, lon_test)
 			# isReach_dest = run(lat_test, lon_test, writer)
 
+			if isReach_dest == 4:
+				return 1
+
 		print("end gps run")
 
 	except KeyboardInterrupt:
@@ -238,6 +255,7 @@ def main(lat_test, lon_test):
 
 	# finally:
 	# 	f.close()
+	return 0
 
 
 if __name__ == "__main__":

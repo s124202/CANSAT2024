@@ -181,6 +181,8 @@ def run(lat_test, lon_test):
 	# 		motor.move(30,-30,0.1)
 	while (receive != str(0)):
 		time.sleep(1)
+		if receive == str(4):
+			return 4
 
 	#子機を待たせる
 	send = 1
@@ -197,6 +199,8 @@ def run(lat_test, lon_test):
 	time.sleep(1)
 	while (receive != str(1)):
 		time.sleep(1)
+		if receive == str(4):
+			return 4
 	send = 0
 	time.sleep(2.8)
 
@@ -241,6 +245,9 @@ def main(lat_test, lon_test):
 			isReach_dest = run(lat_test, lon_test)
 			# isReach_dest = run(lat_test, lon_test, writer)
 
+			if isReach_dest == 4:
+				return 1
+
 		print("end gps run")
 
 	except KeyboardInterrupt:
@@ -248,6 +255,7 @@ def main(lat_test, lon_test):
 
 	# finally:
 	# 	f.close()
+	return 0
 
 
 if __name__ == "__main__":

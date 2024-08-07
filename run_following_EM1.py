@@ -214,7 +214,16 @@ def get_largest_red_object(mask):
 		return None, None
 
 def discovery(cap):
-	while True:
+	global send
+	check = 0
+
+	#見つからなかった時の回数制限
+	for i in range (30):
+		if i == 29:
+			check = 10
+			send = 4
+			return
+
 		# フレームを取得
 		for _ in range(5):
 			ret, frame = cap.read()
@@ -238,8 +247,8 @@ def discovery(cap):
 		elif center[0] > 540:
 			motor_move_default(-40,40,0.1)
 			motor_stop()
-		break
-	return 0
+		return
+
 
 def main_detect():
 
@@ -253,8 +262,8 @@ def main_detect():
 	default_l = 20
 	default_r= default_l
 
+	check = 0
 	lose = 0
-	discover = 1
 	old_center = [320,0]
 	# カメラのキャプチャ
 	cap = cv2.VideoCapture(0)
@@ -277,9 +286,7 @@ def main_detect():
 		if center is None:
 			center = old_center
 			lose += 1
-			discover = 1
 		else:
-			discover += 1
 			lose = 0
 		
 		if size is None:
@@ -297,21 +304,16 @@ def main_detect():
 			s = 0
 		else:
 			s = size / 1500 + 7
-		#elif size < 10000:
-		#    s = size / 2000 + 5
-		#elif size < 30000:
-		#    s = 10
-		#else:
-		#    print("stop")
-		#    synchro = 1
-		#    break
 			 
 		if lose == 60:
 			print("no discover")
 			send = 10
 			discovery(cap)
+			if send == 4:
+				cap.release()
+				cv2.destroyAllWindows()
+				return
 			send = 0
-			
 
 		strength_l = default_l - s + m
 		strength_r = default_r - s - m
@@ -324,6 +326,10 @@ def main_detect():
 			while (receive != str(2)):
 				time.sleep(1)
 			discovery(cap)
+			if send == 4:
+				cap.release()
+				cv2.destroyAllWindows()
+				return
 			send = 1
 			time.sleep(3)
 			send = 0

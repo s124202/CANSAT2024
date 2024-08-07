@@ -445,7 +445,7 @@ def test():
 
 		#check
 		if receive == str(4):
-			return 1
+			return 4
 
 		if isReach_dest == 1:
 			print('end gps running')

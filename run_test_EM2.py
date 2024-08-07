@@ -5,6 +5,7 @@ import time
 import csv
 import bluetooth
 import threading
+from queue import Queue
 
 #src
 import motor
@@ -179,9 +180,11 @@ def run(lat_test, lon_test):
 	# 	time.sleep(1)
 	# 	if i % 10 == 9:
 	# 		motor.move(30,-30,0.1)
+	timeout = time.time()
 	while (receive != str(0)):
 		time.sleep(1)
-		if receive == str(4):
+		if receive == str(4) or time.time() - timeout > 60:
+			print("switch to autonomy")
 			return 4
 
 	#子機を待たせる
@@ -197,9 +200,11 @@ def run(lat_test, lon_test):
 	#子機の発見待ち
 	send = 2
 	time.sleep(1)
+	timeout =time.time()
 	while (receive != str(1)):
 		time.sleep(1)
-		if receive == str(4):
+		if receive == str(4) or time.time() - timeout > 60:
+			print("switch to autonomy")
 			return 4
 	send = 0
 	time.sleep(2.8)
@@ -230,7 +235,9 @@ def run(lat_test, lon_test):
 
 	return isReach_dest
 
-def main(lat_test, lon_test):
+def main(lat_test, lon_test, q):
+	global synchro
+	synchro = 0
 	#const
 	isReach_dest = 0
 
@@ -246,7 +253,9 @@ def main(lat_test, lon_test):
 			# isReach_dest = run(lat_test, lon_test, writer)
 
 			if isReach_dest == 4:
-				return 1
+				q.put(1)
+				synchro = 1
+				return
 
 		print("end gps run")
 
@@ -255,10 +264,12 @@ def main(lat_test, lon_test):
 
 	# finally:
 	# 	f.close()
-	return 0
+	q.put(0)
+	synchro = 1
+	return
 
-
-if __name__ == "__main__":
+def main_thread():
+	q = Queue()
 	print("start setup")
 	setup()
 
@@ -266,7 +277,7 @@ if __name__ == "__main__":
 	lat_test,lon_test = 35.9242707, 139.9124209
 
 	# Create threads for main and another_function
-	thread1 = threading.Thread(target=main, args=(lat_test, lon_test))
+	thread1 = threading.Thread(target=main, args=(lat_test, lon_test, q,))
 	thread2 = threading.Thread(target=blt)
 
 	# Start the threads
@@ -276,3 +287,8 @@ if __name__ == "__main__":
 	# Wait for both threads to complete
 	thread1.join()
 	thread2.join()
+
+	return q.get()
+
+if __name__ == "__main__":
+	a = main_thread()

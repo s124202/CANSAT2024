@@ -6,6 +6,7 @@
 import time
 import bluetooth
 import threading
+from queue import Queue
 #import board
 #import adafruit_sgp40
 
@@ -337,7 +338,6 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 
 	global send
 	global receive
-	global synchro
 
 	receive = "1"
 
@@ -423,8 +423,10 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 	return distance_to_dest, isReach_dest
 
 
-def test():
+def test(q):
 	global receive
+	global synchro
+	synchro = 0
 	#target
 	lat_test = 35.9242707
 	lon_test = 139.9124209
@@ -446,28 +448,38 @@ def test():
 
 		#check
 		if receive == str(4):
-			return 4
+			q.put(1)
+			synchro = 1
+			return
 
 		if isReach_dest == 1:
 			print('end gps running')
 			#send.log("end gps running")
-			return 0
+			q.put(0)
+			synchro = 1
+			return
 		else:
 			print("not Goal", "distance=",distance_to_dest)
 			#send.log("distance=" + str(distance_to_dest))
 
-
-if __name__ == "__main__":
+def main():
+	q = Queue()
 	#setup
 	motor.setup()
 	bmx055.bmx055_setup()
 	#mode3.mode3_change()
 
 	thread1 = threading.Thread(target = blt)
-	thread2 = threading.Thread(target = test)
+	thread2 = threading.Thread(target = test, args=(q,))
 
 	thread1.start()
 	thread2.start()
 
 	thread1.join()
 	thread2.join()
+
+	return q.get()
+
+
+if __name__ == "__main__":
+	a = main()

@@ -4,6 +4,7 @@ import time
 import cv2
 import numpy as np
 import threading
+from queue import Queue
 import bluetooth
  
 def blt():
@@ -250,7 +251,7 @@ def discovery(cap):
 		return
 
 
-def main_detect():
+def main_detect(q):
 
 	global send
 	global receive
@@ -312,6 +313,8 @@ def main_detect():
 			if send == 4:
 				cap.release()
 				cv2.destroyAllWindows()
+				q.put(1)
+				synchro = 1
 				return
 			send = 0
 
@@ -329,6 +332,8 @@ def main_detect():
 			if send == 4:
 				cap.release()
 				cv2.destroyAllWindows()
+				q.put(1)
+				synchro = 1
 				return
 			send = 1
 			time.sleep(3)
@@ -337,11 +342,13 @@ def main_detect():
 	synchro = 1
 	cap.release()
 	cv2.destroyAllWindows()
+	q.put(0)
+	return
 
-
-if __name__ == '__main__':
+def main():
+	q = Queue()
 	
-	thread1 = threading.Thread(target = main_detect)
+	thread1 = threading.Thread(target = main_detect, args=(q,))
 	thread2 = threading.Thread(target = move)
 	thread3 = threading.Thread(target = blt)
 
@@ -354,3 +361,8 @@ if __name__ == '__main__':
 	thread1.join()
 	thread2.join()
 	thread3.join()
+
+	return q.get()	
+
+if __name__ == '__main__':
+	a = main()

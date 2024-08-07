@@ -18,7 +18,7 @@ def mosaic(original_img, ratio):
 	
 	return cv2.resize(small_img, original_img.shape[:2][::-1], interpolation=cv2.INTER_NEAREST)
 
-def get_para_area(max_contour, para_img):
+def get_para_area(max_contour):
 	try:
 		# 輪郭の面積を計算
 		area = cv2.contourArea(max_contour)
@@ -85,7 +85,7 @@ def detect_para():
 	para_img, max_contour, cx, cy = get_center(mask, small_img)
 
 	#赤色が占める割合を求める
-	purple_area = get_para_area(max_contour, para_img)
+	purple_area = get_para_area(max_contour)
 
 	return(purple_area)
 
@@ -104,7 +104,7 @@ def detect_para_test():
 	para_img, max_contour, cx, cy = get_center(mask, small_img)
 
 	#赤色が占める割合を求める
-	purple_area = get_para_area(max_contour, para_img)
+	purple_area = get_para_area(max_contour)
 
 	print(purple_area)
 

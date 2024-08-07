@@ -1,64 +1,149 @@
+#2024/08/07 生川
+
+#standard
 import time
 
-import release
-import land
+#src
 import bme280
 import bmx055
 import motor
-import blt_child
-#import para_fall_test
+
+#seq
+import release
+import land
 import melt
-import send.send2 as send
-#import send.mode3 as mode3
+import avoid
+import run
+import goal_detection
+import blt_adalt
+import run_pid_EM2
+import run_following_EM2
 
-bme280.bme280_setup()
-bme280.bme280_calib_param()
-bmx055.bmx055_setup()
-motor.setup()
-#mode3.mode3_change()
+#send
+import send.mode3 as mode3
+import send.send_11 as send
 
-#放出判定
-release.release_main()
-time.sleep(1)
-send.log("Release Detected")
-
-#放出判定確認
-blt_child.main(0)
-time.sleep(1)
-send.log("release_check_ble")
-
-#着地判定
-land.land_main()
-time.sleep(1)
-send.log("Land Detected")
-
-#着地判定確認
-blt_child.main(1)
-time.sleep(1)
-send.log("land_check_ble")
-
-#テグス溶断
-send.log("melt start")
-print("melt start")
-melt.melt_down(17,3)
-time.sleep(1)
-send.log("melt end")
-
-#パラ回避
-#para_fall_test.para_child_main()
-#send.log("para avoiding finished")
-
-#追従準備
+#const
+from main_const import *
 
 
-#追従開始
+def setup():
+	mode3.mode3_change()
+	bmx055.bmx055_setup()
+	bme280.bme280_setup()
+	bme280.bme280_calib_param()
+	motor.setup()
 
 
-#親機子機入れ替え(親機に変更)
+def mission():
+	#const
+	isReach_dest = 0
+	isReach_goal = 0
+	re_count = 1
+
+	#clock setup
+	t_start = time.time()
+
+	#-----1_Release_sequence-----#
+	print("-----Start 1_Release_sequence-----")
+
+	release.detect()
+
+	print("-----Finish 1_Release_sequence-----")
+	time.sleep(1)
 
 
-#自律走行開始(被追従)
+	#-----2_Land_sequence-----#
+	print("-----Start 2_Land_sequence-----")
+
+	land.detect()
+	blt_adalt.main(102)
+
+	print("-----Finish 2_Land_sequence-----")
+	time.sleep(1)
 
 
-#ゴール判定
+	#-----3_Melt_sequence-----#
+	print("-----Start 3_Melt_sequence-----")
 
+	melt.melt_down(MELT_PIN, MELT_TIME)
+	blt_adalt.main(103)
+
+	print("-----Finish 3_Melt_sequence-----")
+	time.sleep(1)
+
+
+	#-----4_Avoid_sequence-----#
+	print("-----Start 4_Avoid_sequence-----")
+
+	avoid.main()
+
+	print("-----Finish 4_Avoid_sequence-----")
+	time.sleep(1)
+	
+
+	#-----5_first_follow_sequence-----#
+	print("-----Start 5_first_follow_sequence-----")
+
+	check = run_following_EM2.main()
+
+	print("-----Finish 5_first_follow_sequence-----")
+	time.sleep(1)
+	
+	if check == 1:
+		#自律誘導
+		aaa
+
+	#-----6_second_follow_sequence-----#
+	print("-----Start 6_second_follow_sequence-----")
+
+	check = run_pid_EM2.main()
+
+	print("-----Finish 6_second_follow_sequence-----")
+	time.sleep(1)
+	
+	if check == 1:
+		#自律誘導
+		aaa
+	
+
+
+	while True:
+		#-----6_Goal_sequence-----#
+		print("-----Start 6_Goal_sequence-----")
+
+		while isReach_goal == 0:
+			isReach_goal, re_count = goal_detection.main(re_count)
+			print("count:", re_count)
+
+			if re_count == 20 or re_count == 0:
+				break
+
+		print("-----Finish 6_Goal_sequence-----")
+		time.sleep(1)
+		
+		#-----6_Run_sequence-----#
+		print("-----Start extra_Run_sequence-----")
+
+		while isReach_dest == 0:
+			isReach_dest = run.run()
+
+		print("-----Finish extra_Run_sequence-----")
+		time.sleep(1)
+
+
+
+if __name__ == '__main__':
+	try:
+		print("####-----Start setup-----#####")
+		setup()
+		print("####-----Finish setup-----####")
+
+		time.sleep(1)
+
+		print("####-----Start mission-----####")
+		mission()
+		print("####-----Finish mission-----####")
+
+	except KeyboardInterrupt:
+		print("####-----Keyboard interrupt-----####")

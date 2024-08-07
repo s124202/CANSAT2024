@@ -314,6 +314,7 @@ def main_detect(q):
 				cap.release()
 				cv2.destroyAllWindows()
 				q.put(1)
+				print("switch to autonomy")
 				synchro = 1
 				return
 			send = 0
@@ -333,6 +334,7 @@ def main_detect(q):
 				cap.release()
 				cv2.destroyAllWindows()
 				q.put(1)
+				print("switch to autonomy")
 				synchro = 1
 				return
 			send = 1

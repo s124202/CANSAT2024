@@ -223,6 +223,7 @@ def discovery(cap):
 		if i == 29:
 			check = 10
 			send = 4
+			time.sleep(2)
 			return
 
 		# フレームを取得
@@ -365,6 +366,7 @@ def main():
 	return q.get()	
 
 if __name__ == '__main__':
+	
 	motor_setup()
 	
 	a = main()

@@ -345,7 +345,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 		if receive == str(0):
 			break
 		if receive == str(4):
-			return
+			return 100,0
 		time.sleep(1)
 		if i % 10 == 9:
 			motor.move(30,-30,0.1)
@@ -354,10 +354,10 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 	send = 1
 
 	#cal
-	magx_off, magy_off = calibration.cal(40,40,60) 
-	while magx_off == 0 and magy_off == 0:
-		motor.motor_move(80, -75, 1)
-		magx_off, magy_off = calibration.cal(40,40,60) 
+	magx_off, magy_off = calibration.cal(40,-40,60) 
+	# while magx_off == 0 and magy_off == 0:
+	# 	motor.motor_move(80, -75, 1)
+	# 	magx_off, magy_off = calibration.cal(40,40,60) 
 
 	#get param(mag)
 	lat_old, lon_old = gps.location()
@@ -370,7 +370,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 		if receive == str(1):
 			break
 		if receive == str(4):
-			return
+			return 100,0
 		if i % 10 == 9:
 			motor.move(30,-30,0.1)
 	send = 0

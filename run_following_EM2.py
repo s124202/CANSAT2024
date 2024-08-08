@@ -223,6 +223,7 @@ def discovery(cap):
 		if i == 29:
 			check = 10
 			send = 4
+			time.sleep(2)
 			return
 
 		# フレームを取得

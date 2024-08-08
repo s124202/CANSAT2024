@@ -345,7 +345,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 		if receive == str(0):
 			break
 		if receive == str(4):
-			return
+			return 100,0
 		time.sleep(1)
 		if i % 10 == 9:
 			motor.move(30,-30,0.1)

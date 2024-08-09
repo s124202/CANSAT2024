@@ -85,7 +85,7 @@ def mission():
 	#-----5_first_follow_sequence-----#
 	print("-----Start 5_first_follow_sequence-----")
 
-	check = run_following_EM1.main(lat, lon)
+	check = run_pid_EM1.main(lat, lon)
 
 	print("-----Finish 5_first_follow_sequence-----")
 	time.sleep(1)
@@ -99,7 +99,7 @@ def mission():
 		#-----6_second_follow_sequence-----#
 		print("-----Start 6_second_follow_sequence-----")
 	
-		check = run_pid_EM1.main()
+		check = run_following_EM1.main()
 	
 		print("-----Finish 6_second_follow_sequence-----")
 		time.sleep(1)

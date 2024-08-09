@@ -342,6 +342,9 @@ def main_detect(q):
 			time.sleep(3)
 			send = 0
 
+		if receive == str(5):
+			break
+
 	synchro = 1
 	cap.release()
 	cv2.destroyAllWindows()

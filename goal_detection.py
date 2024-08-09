@@ -27,7 +27,7 @@ def main(re_count):
 	elif (0 < area_ratio < THD_RED_RATIO) or (angle > 0):
 		###-----ゴールが真正面にあるときの処理-----###
 		if angle == 2:
-			run_following_EM2.move_default(25, 25, 0.5)
+			run_following_EM2.move_default(25, 25, 0.25)
 
 		###------ゴールが真正面にないときの処理------###
 		###-----目標角度を少しずらす-----###

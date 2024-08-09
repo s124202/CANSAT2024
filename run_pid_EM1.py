@@ -432,7 +432,7 @@ def test(q):
 	lon_test = 139.9124209
 
 	#const
-	LOOP_NUM = 20
+	LOOP_NUM = 5
 	THD_DISTANCE_DEST = 5
 	T_CAL = 30
 	STUCK_JUDGE_THD_DISTANCE = 1.0

@@ -30,5 +30,5 @@ ROTATE_PWR = 20
 THD_RED_RATIO = 25 #画面を占める赤色の割合の閾値
 
 #目標地点
-RUN_LAT  = 1
-RUN_LON = 1
+RUN_LAT  = 35.9242984
+RUN_LON = 139.9124802

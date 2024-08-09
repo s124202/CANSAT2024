@@ -64,7 +64,10 @@ def motor_setup():
 
 def motor_move():
 
-	global motor_r, motor_l
+	Rpin1, Rpin2 = 16,26
+	Lpin1, Lpin2 = 23,18
+	motor_r = Motor(Rpin1, Rpin2)
+	motor_l = Motor(Lpin1, Lpin2)
 	global strength_l
 	global strength_r
 	t_moving = 0.1
@@ -97,7 +100,10 @@ def motor_move_default(strength_l, strength_r, t_moving):
 	strength_l、strength_rは-1~1で表す。負の値だったら後ろ走行。
 	必ずmotor_stop()セットで用いる。めんどくさかったら下にあるmotor()を使用
 	"""
-	global motor_r, motor_l
+	Rpin1, Rpin2 = 16,26
+	Lpin1, Lpin2 = 23,18
+	motor_r = Motor(Rpin1, Rpin2)
+	motor_l = Motor(Lpin1, Lpin2)
 	
 	strength_l = strength_l / 100
 	strength_r = strength_r / 100
@@ -127,14 +133,20 @@ def motor_stop(x=1):
 	"""
 	motor_move()とセットで使用
 	"""
-	global motor_r, motor_l
+	Rpin1, Rpin2 = 16,26
+	Lpin1, Lpin2 = 23,18
+	motor_r = Motor(Rpin1, Rpin2)
+	motor_l = Motor(Lpin1, Lpin2)
 
 	motor_r.stop()
 	motor_l.stop()
 	time.sleep(x)
 
 def deceleration():
-	global motor_r, motor_l
+	Rpin1, Rpin2 = 16,26
+	Lpin1, Lpin2 = 23,18
+	motor_r = Motor(Rpin1, Rpin2)
+	motor_l = Motor(Lpin1, Lpin2)
 
 	global strength_l
 	global strength_r

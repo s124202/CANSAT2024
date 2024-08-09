@@ -341,6 +341,9 @@ def main_detect(q):
 			send = 1
 			time.sleep(3)
 			send = 0
+		
+		if receive == str(5):
+			break
 
 	synchro = 1
 	cap.release()

@@ -78,10 +78,10 @@ def setup():
 
 
 def run_calibration():
-	magx_off, magy_off = calibration.cal(20,-20,40) 
+	magx_off, magy_off = calibration.cal(30,-30,40) 
 	while magx_off == 0 and magy_off == 0:
 		motor.motor_move(50, 50, 1)
-		magx_off, magy_off = calibration.cal(20,-20,40) 
+		magx_off, magy_off = calibration.cal(30,-30,40) 
 
 	return magx_off, magy_off
 
@@ -132,9 +132,10 @@ def run(lat_test, lon_test):
 
 	#move
 	while time.time() - t_start < T_CAL:
-		adjust_direction(magx_off, magy_off, lat_test, lon_test)
 		motor.move(20,20,1)
 		stuck.ue_jug()
+		adjust_direction(magx_off, magy_off, lat_test, lon_test)
+		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
 
 		if direction < THD_DIRECTION:
 			isReach_dest = 1

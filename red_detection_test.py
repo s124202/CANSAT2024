@@ -204,11 +204,14 @@ def detect_goal_movie():
 		# 赤が占める割合を求める
 		area_ratio = get_area(max_contour, original_img)
 
+		#重心から現在位置とゴールの相対角度を大まかに計算
+		angle = get_angle(cx, cy, original_img)
+
 		# リサイズ
 		#frame = cv2.resize(frame, (640,640))
 		#mask = cv2.resize(mask, (640, 640))
 
-		cv2.putText(frame, str(int(area_ratio)), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+		cv2.putText(frame, str(int(area_ratio, angle)), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
 		# 結果表示
 		cv2.imshow("Frame", frame)

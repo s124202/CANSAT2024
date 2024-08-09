@@ -67,6 +67,7 @@ if __name__ == '__main__':
 	# 		break
 
 	re_count = 1
+	isReach_goal = 0
 
 	while isReach_goal == 0:
 		isReach_goal, re_count = main(re_count)

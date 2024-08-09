@@ -314,7 +314,7 @@ def main_detect(q):
 	global strength_l
 	global strength_r
 
-	default_l = 20
+	default_l = 18
 	default_r= default_l
 
 	check = 0

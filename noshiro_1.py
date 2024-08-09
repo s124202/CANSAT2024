@@ -56,7 +56,7 @@ def mission():
 	#-----2_Land_sequence-----#
 	print("-----Start 2_Land_sequence-----")
 
-	land.detect()
+	lat, lon = land.detect()
 	blt_adalt.main(102)
 
 	print("-----Finish 2_Land_sequence-----")
@@ -85,7 +85,7 @@ def mission():
 	#-----5_first_follow_sequence-----#
 	print("-----Start 5_first_follow_sequence-----")
 
-	check = run_following_EM1.main()
+	check = run_following_EM1.main(lat, lon)
 
 	print("-----Finish 5_first_follow_sequence-----")
 	time.sleep(1)

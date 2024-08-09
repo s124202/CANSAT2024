@@ -423,14 +423,14 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 	return distance_to_dest, isReach_dest
 
 
-def test(q):
+def test(lat,lon,q):
 	global receive
 	global synchro
 	global send
 	synchro = 0
 	#target
-	lat_test = 35.9242707
-	lon_test = 139.9124209
+	lat_test = (lat + 35.9242707) / 2
+	lon_test = (lon + 139.9124209) / 2
 
 	#const
 	LOOP_NUM = 5
@@ -466,11 +466,11 @@ def test(q):
 			print("not Goal", "distance=",distance_to_dest)
 			#send.log("distance=" + str(distance_to_dest))
 
-def main():
+def main(lat,lon):
 	q = Queue()
 
 	thread1 = threading.Thread(target = blt)
-	thread2 = threading.Thread(target = test, args=(q,))
+	thread2 = threading.Thread(target = test, args=(lat,lon,q,))
 
 	thread1.start()
 	thread2.start()

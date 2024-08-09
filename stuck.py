@@ -5,7 +5,7 @@ import time
 import random
 
 #src
-import motor
+import run_following_EM2
 import gps
 import bmx055
 import gps_navigate
@@ -34,13 +34,13 @@ def ue_jug():
             print(f'下だよ{ue_count}')
             print(f'acc: {z}')
             if ue_count >= 2 and ue_count < 4:
-                motor.move(40, 40, 0.08)
+                run_following_EM2.move_default(40, 40, 0.08)
             elif ue_count >= 4 and ue_count < 6:
-                motor.move(70, 70, 0.08)
+                run_following_EM2.move_default(70, 70, 0.08)
             elif ue_count >= 6 and ue_count < 8:
-                motor.move(100, 100, 0.5)
+                run_following_EM2.move_default(100, 100, 0.5)
             else:
-                motor.move(12, 12, 1)
+                run_following_EM2.move_default(12, 12, 1)
             time.sleep(2)
             ue_count += 1
 
@@ -66,9 +66,9 @@ def yoko_jug():
             print(f'横だよ{yoko_count}')
             print(f'abs(acc): {x}')
             if yoko_count % 2 == 0:
-                motor.move(10, 0, 3)
+                run_following_EM2.move_default(10, 0, 3)
             else:
-                motor.move(0, 10, 3)
+                run_following_EM2.move_default(0, 10, 3)
             time.sleep(1)
             yoko_count += 1
     
@@ -96,39 +96,39 @@ def random(a, b, k):
 
 def stuck_avoid_move(x):
     if x == 0:
-        motor.move(-100, -100, 2)
+        run_following_EM2.move_default(-100, -100, 2)
         time.sleep(1)
-        motor.move(-60, -60, 5)
+        run_following_EM2.move_default(-60, -60, 5)
         time.sleep(1)
     elif x == 1:
-        motor.move(40, -40, 1)
+        run_following_EM2.move_default(40, -40, 1)
         time.sleep(1)
-        motor.move(80, 80, 5)
+        run_following_EM2.move_default(80, 80, 5)
         time.sleep(1)
     elif x == 2:
-        motor.move(-100, 100, 2)
+        run_following_EM2.move_default(-100, 100, 2)
         time.sleep(1)
-        motor.move(80, 80, 5)
+        run_following_EM2.move_default(80, 80, 5)
         time.sleep(1)
     elif x == 3:
-        motor.move(100, -100, 2)
+        run_following_EM2.move_default(100, -100, 2)
         time.sleep(1)
-        motor.move(80, 80, 5)
+        run_following_EM2.move_default(80, 80, 5)
         time.sleep(1)
     elif x == 4:
-        motor.move(40, -40, 1)
+        run_following_EM2.move_default(40, -40, 1)
         time.sleep(1)
-        motor.move(-80, -80, 5)
+        run_following_EM2.move_default(-80, -80, 5)
         time.sleep(1)
     elif x == 5:
-        motor.move(40, -40, 1)
+        run_following_EM2.move_default(40, -40, 1)
         time.sleep(1)
-        motor.move(-80, -80, 5)
+        run_following_EM2.move_default(-80, -80, 5)
         time.sleep(1)
     elif x == 6:
-        motor.move(100, -100, 3)
+        run_following_EM2.move_default(100, -100, 3)
         time.sleep(1)
-        motor.move(80, 80, 3)
+        run_following_EM2.move_default(80, 80, 3)
         time.sleep(1)
 
 def stuck_avoid():
@@ -171,11 +171,11 @@ def stuck_avoid():
 
 
 if __name__ == '__main__':
-    motor.setup()
+    run_following_EM2.setup()
     bmx055.bmx055_setup()
     yoko_jug()
     ue_jug()
     while 1:
         a = int(input('出力入力しろ'))
         b = float(input('時間入力しろ'))
-        motor.move(a, a, b)
+        run_following_EM2.move_default(a, a, b)

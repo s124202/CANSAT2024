@@ -14,7 +14,7 @@ from queue import Queue
 import gps
 import bmx055
 import bme280
-import motor
+import run_following_EM2
 import calibration
 import gps_navigate
 #import stuck
@@ -234,7 +234,7 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
 		pwr_r = m
 
 		#move
-		motor.motor_move(pwr_l, pwr_r, 0.01)
+		run_following_EM2.motor_move_default(pwr_l, pwr_r, 0.01)
 		time.sleep(0.04)
 
 		#check
@@ -250,7 +250,7 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
 		if time.time() - t_adj_start > 1:
 			break
 
-	motor.motor_stop(1)
+	run_following_EM2.motor_stop_default(1)
 
 
 def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array: list, loop_num: int=20):
@@ -306,7 +306,7 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 		pwr_r = m + s_r
 
 		#move
-		motor.motor_move(pwr_l, pwr_r, 1)
+		run_following_EM2.motor_move_default(pwr_l, pwr_r, 1)
 		time.sleep(0.1)
 
 		if receive == str(10):
@@ -348,7 +348,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 			return 100,0
 		time.sleep(1)
 		if i % 10 == 9:
-			motor.move(30,-30,0.1)
+			run_following_EM2.move_default(30,-30,0.1)
 
 	#子機を待たせる
 	send = 1
@@ -372,7 +372,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 		if receive == str(4):
 			return 100,0
 		if i % 10 == 9:
-			motor.move(30,-30,0.1)
+			run_following_EM2.move_default(30,-30,0.1)
 	send = 0
 	time.sleep(2.8)
 
@@ -418,7 +418,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 
 		stuck_count += 1
 
-	motor.motor_stop(1)
+	run_following_EM2.motor_stop_default(1)
 
 	return distance_to_dest, isReach_dest
 
@@ -483,7 +483,7 @@ def main():
 
 if __name__ == "__main__":
 	#setup
-	motor.setup()
+	run_following_EM2.setup()
 	bmx055.bmx055_setup()
 	#mode3.mode3_change()
 	

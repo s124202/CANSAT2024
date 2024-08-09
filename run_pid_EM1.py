@@ -424,6 +424,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 
 
 def test(q):
+	global send
 	global receive
 	global synchro
 	synchro = 0
@@ -457,6 +458,8 @@ def test(q):
 			print('end gps running')
 			#send.log("end gps running")
 			q.put(0)
+			send = 5
+			time.sleep(3)
 			synchro = 1
 			return
 		else:

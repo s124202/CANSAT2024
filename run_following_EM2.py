@@ -63,9 +63,9 @@ def deceleration_default(strength_l, strength_r):
 	for i in range(10):
 		coefficient_power = 10 - i
 		coefficient_power /= 10
-		motor_move(strength_l * coefficient_power, strength_r * coefficient_power, 0.2)
+		motor_move_default(strength_l * coefficient_power, strength_r * coefficient_power, 0.2)
 		if i == 9:
-			motor_stop(0.1)
+			motor_stop_default(0.1)
 
 def motor_continue_default(strength_l, strength_r):
     """
@@ -98,9 +98,9 @@ def move_default(strength_l, strength_r, t_moving):
 	"""
 	motor_move_default(strength_l, strength_r, t_moving)
 	if abs(strength_l) == abs(strength_r) and strength_l * strength_r < 0:
-		motor_stop(0.1)
+		motor_stop_default(0.1)
 	else:
-		deceleration(strength_l, strength_r)
+		deceleration_default(strength_l, strength_r)
 
 def blt():
 	global send

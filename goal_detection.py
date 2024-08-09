@@ -60,8 +60,17 @@ if __name__ == '__main__':
 
 	print("#####-----Goal Detect Sequence: Start-----#####")
 
-	while True:
-		isReach_goal = main()
+	# while True:
+	# 	isReach_goal = main()
 		
-		if isReach_goal == 1:
+	# 	if isReach_goal == 1:
+	# 		break
+
+	re_count = 1
+
+	while isReach_goal == 0:
+		isReach_goal, re_count = main(re_count)
+		print("count:", re_count)
+
+		if re_count == 20 or re_count == 0:
 			break

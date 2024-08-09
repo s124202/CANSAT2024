@@ -392,7 +392,7 @@ def main_detect(q):
 				synchro = 1
 				return
 			send = 1
-			time.sleep(3)
+			time.sleep(3.5)
 			send = 0
 		
 		if receive == str(5):

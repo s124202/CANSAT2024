@@ -93,7 +93,7 @@ def mission():
 	if check == 1:
 		#自律誘導
 		while isReach_dest == 0:
-			isReach_dest = run.run(35.9242707,139.9124209)
+			isReach_dest = run.run(35.9242984,139.9124802)
 			
 	if isReach_dest == 0:
 		#-----6_second_follow_sequence-----#
@@ -107,7 +107,7 @@ def mission():
 		if check == 1:
 			#自律誘導
 			while isReach_dest == 0:
-				isReach_dest = run.run(35.9242707,139.9124209)
+				isReach_dest = run.run(35.9242984,139.9124802)
 	
 
 

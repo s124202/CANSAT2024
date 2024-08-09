@@ -429,8 +429,8 @@ def test(lat,lon,q):
 	global synchro
 	synchro = 0
 	#target
-	lat_test = (lat + 35.9242707) / 2
-	lon_test = (lon + 139.9124209) /2
+	lat_test = (lat + 35.9242984) / 2
+	lon_test = (lon + 139.9124802) /2
 
 	#const
 	LOOP_NUM = 5

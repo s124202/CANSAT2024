@@ -79,7 +79,7 @@ def detect():
 			print("Acc Timeout")
 			break
 	
-	lat,lon = gps.location
+	lat,lon = gps.location()
 	return lat,lon
 
 

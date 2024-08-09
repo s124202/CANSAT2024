@@ -115,7 +115,7 @@ def para_adalt():
 			if PARA_THD_COVERED < purple_area:
 				print("Parachute on top")
 				time.sleep(PARA_SLEEP)
-				motor.motor_move(50, 50, 3)
+				motor.motor_move(30, 30, 3)
 			else:
 				break
 
@@ -177,7 +177,7 @@ def para_child():
 			if PARA_THD_COVERED < purple_area:
 				print("Parachute on top")
 				time.sleep(PARA_SLEEP)
-				motor.motor_move(50, 50, 3)
+				motor.motor_move(30, 30, 3)
 			else:
 				break
 

@@ -174,4 +174,4 @@ def detect_goal_test():
 	print(area_ratio, angle)
 
 if __name__ == '__main__':
-	detect_para_test()
+	detect_goal_test()

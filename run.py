@@ -78,10 +78,10 @@ def setup():
 
 
 def run_calibration():
-	magx_off, magy_off = calibration.cal(20,-20,40) 
+	magx_off, magy_off = calibration.cal(30,-30,40) 
 	while magx_off == 0 and magy_off == 0:
 		run_following_EM2.motor_move_default(50, 50, 1)
-		magx_off, magy_off = calibration.cal(20,-20,40) 
+		magx_off, magy_off = calibration.cal(30,-30,40) 
 
 	return magx_off, magy_off
 

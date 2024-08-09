@@ -123,23 +123,23 @@ def run(lat_test, lon_test):
 	#cal
 	magx_off, magy_off = run_calibration()
 
-	#adjust direction
-	adjust_direction(magx_off, magy_off, lat_test, lon_test)
-	error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
-
 	#init
 	t_start = time.time()
 
 	#move
 	while time.time() - t_start < T_CAL:
-		run_following_EM2.move_default(20,20,2)
-		stuck.ue_jug()
+		#adjust direction
 		adjust_direction(magx_off, magy_off, lat_test, lon_test)
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
 
+		#check
 		if direction < THD_DIRECTION:
 			isReach_dest = 1
 			break
+
+		#run
+		run_following_EM2.move_default(20,20,2)
+		stuck.ue_jug()
 
 	return isReach_dest
 

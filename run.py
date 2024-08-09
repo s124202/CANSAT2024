@@ -132,9 +132,10 @@ def run(lat_test, lon_test):
 
 	#move
 	while time.time() - t_start < T_CAL:
-		adjust_direction(magx_off, magy_off, lat_test, lon_test)
 		run_following_EM2.move_default(20,20,1)
 		stuck.ue_jug()
+		adjust_direction(magx_off, magy_off, lat_test, lon_test)
+		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
 
 		if direction < THD_DIRECTION:
 			isReach_dest = 1

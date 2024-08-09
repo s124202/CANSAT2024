@@ -243,34 +243,5 @@ def location(reset_time=60):
 		return lat,lon
 
 
-def test(reset_time=60):
-	#init
-	time_start = time.time()
-
-	#main
-	try:
-		open_gps()
-		while True:
-			utc, lat, lon, sHeight, gHeight = read_gps()
-			if utc == -1.0 and lat != -1.0:
-				break
-
-			time.sleep(1)
-
-			if time.time() - time_start > reset_time:
-				print("timeout_gps")
-				break
-	except KeyboardInterrupt:
-		print("\r\nKeyboard Intruppted at location")
-	except:
-		print(traceback.format_exc())
-	finally:
-		close_gps()
-		lat,lon = 0.0,0.0
-		return lat,lon
-
-
 if __name__ == '__main__':
 	main()
-	#a,b = med()
-	#print(a,b)

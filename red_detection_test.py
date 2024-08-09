@@ -211,7 +211,8 @@ def detect_goal_movie():
 		#frame = cv2.resize(frame, (640,640))
 		#mask = cv2.resize(mask, (640, 640))
 
-		cv2.putText(frame, str(int(area_ratio, angle)), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+		cv2.putText(frame, str(int(area_ratio)), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+		cv2.putText(frame, str(int(angle)), (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
 		# 結果表示
 		cv2.imshow("Frame", frame)

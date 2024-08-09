@@ -105,9 +105,9 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_dest, lon_dest)
 
 		if error_theta < -15:
-			run_following_EM2.move_default(20,-20,0.1)
+			run_following_EM2.move_default(25,-25,0.1)
 		elif error_theta > 15:
-			run_following_EM2.move_default(-20,20,0.1)
+			run_following_EM2.move_default(-25,25,0.1)
 		else:
 			break
 
@@ -132,7 +132,7 @@ def run(lat_test, lon_test):
 
 	#move
 	while time.time() - t_start < T_CAL:
-		run_following_EM2.move_default(20,20,1)
+		run_following_EM2.move_default(20,20,2)
 		stuck.ue_jug()
 		adjust_direction(magx_off, magy_off, lat_test, lon_test)
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)

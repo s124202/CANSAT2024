@@ -32,7 +32,7 @@ def setup():
 	bmx055.bmx055_setup()
 	bme280.bme280_setup()
 	bme280.bme280_calib_param()
-	motor.setup()
+	run_following_EM1.setup()
 
 
 def mission():
@@ -56,7 +56,7 @@ def mission():
 	#-----2_Land_sequence-----#
 	print("-----Start 2_Land_sequence-----")
 
-	lat,lon = land.detect()
+	land.detect()
 	blt_adalt.main(102)
 
 	print("-----Finish 2_Land_sequence-----")
@@ -85,7 +85,7 @@ def mission():
 	#-----5_first_follow_sequence-----#
 	print("-----Start 5_first_follow_sequence-----")
 
-	check = run_pid_EM1.main(lat,lon)
+	check = run_following_EM1.main()
 
 	print("-----Finish 5_first_follow_sequence-----")
 	time.sleep(1)
@@ -99,7 +99,7 @@ def mission():
 		#-----6_second_follow_sequence-----#
 		print("-----Start 6_second_follow_sequence-----")
 	
-		check = run_following_EM1.main()
+		check = run_pid_EM1.main()
 	
 		print("-----Finish 6_second_follow_sequence-----")
 		time.sleep(1)

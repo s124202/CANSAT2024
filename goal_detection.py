@@ -1,7 +1,7 @@
 #2024/08/07 生川
 
 #src
-import motor
+import run_following_EM1
 import red_detection
 
 #const
@@ -27,25 +27,25 @@ def main(re_count):
 	elif (0 < area_ratio < THD_RED_RATIO) or (angle > 0):
 		###-----ゴールが真正面にあるときの処理-----###
 		if angle == 2:
-			motor.move(20, 20, 0.1)
+			run_following_EM1.move_default(20, 20, 0.1)
 
 		###------ゴールが真正面にないときの処理------###
 		###-----目標角度を少しずらす-----###
 		elif angle == 1:
-			motor.motor_move(-ROTATE_PWR, ROTATE_PWR, 0.15)
-			motor.motor_stop(0.5)
+			run_following_EM1.motor_move_default(-ROTATE_PWR, ROTATE_PWR, 0.15)
+			run_following_EM1.motor_stop_default(0.5)
 
 		elif angle == 3:
-			motor.motor_move(ROTATE_PWR, -ROTATE_PWR, 0.15)
-			motor.motor_stop(0.5)
+			run_following_EM1.motor_move_default(ROTATE_PWR, -ROTATE_PWR, 0.15)
+			run_following_EM1.motor_stop_default(0.5)
 
 		re_count = 1
 
 	###-----撮像した画像の中にゴールが映っていない場合の処理-----###
 	elif area_ratio == 0:
 		print('Lost Goal')
-		motor.motor_move(25, -25, 0.15)
-		motor.motor_stop(0.5)
+		run_following_EM1.motor_move_default(25, -25, 0.15)
+		run_following_EM1.motor_stop_default(0.5)
 		re_count += 1
 	
 	###-----ゴールした場合の処理-----###
@@ -56,12 +56,22 @@ def main(re_count):
 	return isReach_goal, re_count
 
 if __name__ == '__main__':
-	motor.setup()
+	run_following_EM1.setup()
 
 	print("#####-----Goal Detect Sequence: Start-----#####")
 
-	while True:
-		isReach_goal = main()
+	# while True:
+	# 	isReach_goal = main()
 		
-		if isReach_goal == 1:
+	# 	if isReach_goal == 1:
+	# 		break
+
+	re_count = 1
+	isReach_goal = 0
+
+	while isReach_goal == 0:
+		isReach_goal, re_count = main(re_count)
+		print("count:", re_count)
+
+		if re_count == 20 or re_count == 0:
 			break

@@ -2,7 +2,7 @@
 #2024/07/10　shoji
 
 import purple_detection
-import motor
+import run_following_EM1
 from main_const import *
 
 import bluetooth
@@ -115,17 +115,17 @@ def para_adalt():
 			if PARA_THD_COVERED < purple_area:
 				print("Parachute on top")
 				time.sleep(PARA_SLEEP)
-				motor.motor_move(30, 30, 3)
+				run_following_EM1.motor_move_default(30, 30, 3)
 			else:
 				break
 
 	if purple_area > 100:
 		print("Move Backward")
-		motor.move(-30, -30, 3)
+		run_following_EM1.move_default(-30, -30, 3)
 
 	else:
 		print("Move Forward")
-		motor.move(30, 30, 3) 
+		run_following_EM1.move_default(30, 30, 3) 
 	
 	#子機のパラ回避待ち
 	send = 1
@@ -177,16 +177,16 @@ def para_child():
 			if PARA_THD_COVERED < purple_area:
 				print("Parachute on top")
 				time.sleep(PARA_SLEEP)
-				motor.motor_move(30, 30, 3)
+				run_following_EM1.motor_move_default(30, 30, 3)
 			else:
 				break
 
 	if purple_area > 100:
 		print("Move Backward")
-		motor.move(-30, -30, 3)
+		run_following_EM1.move_default(-30, -30, 3)
 	else:
 		print("Move Forward")
-		motor.move(30, 30, 3)
+		run_following_EM1.move_default(30, 30, 3)
 
 	#親機に終了報告
 	send = 1
@@ -216,5 +216,5 @@ def para_child_main():
 	thread2.join()
 
 if __name__ == "__main__":
-	motor.setup()
+	run_following_EM1.setup()
 	para_adalt_main()

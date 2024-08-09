@@ -23,6 +23,8 @@ import gps_navigate
 #import send.mode3 as mode3
 #import send.send_11 as send
 
+from main_const import *
+
 def blt():
 	global send
 	global receive
@@ -429,8 +431,8 @@ def test(q):
 	global send
 	synchro = 0
 	#target
-	lat_test = 35.9242707
-	lon_test = 139.9124209
+	lat_test = RUN_LAT
+	lon_test = RUN_LON
 
 	#const
 	LOOP_NUM = 5

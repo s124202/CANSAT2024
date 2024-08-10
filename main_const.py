@@ -24,13 +24,14 @@ MELT_TIME = 5.0
 #走行
 THD_DIRECTION = 5.0
 T_CAL = 60
+
+#モーター
 RUN_STRAIGHT_R = 20
 RUN_STRAIGHT_L = 20
-RUN_ADJ = 25
 RUN_CAL = 30
+ROTATE_PWR = 20
 
 #画像認識
-ROTATE_PWR = 20
 THD_RED_RATIO = 25 #画面を占める赤色の割合の閾値
 
 #目標地点

@@ -105,9 +105,9 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_dest, lon_dest)
 
 		if error_theta < -15:
-			run_following_EM2.move_default(RUN_ADJ,-RUN_ADJ,0.1)
+			run_following_EM2.move_default(ROTATE_PWR, -ROTATE_PWR, 0.2)
 		elif error_theta > 15:
-			run_following_EM2.move_default(-RUN_ADJ,RUN_ADJ,0.1)
+			run_following_EM2.move_default(-ROTATE_PWR, ROTATE_PWR, 0.2)
 		else:
 			break
 

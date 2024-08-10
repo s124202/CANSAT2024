@@ -23,6 +23,8 @@ import gps_navigate
 #import send.mode3 as mode3
 #import send.send_11 as send
 
+from main_const import *
+
 def blt():
 	global send
 	global receive
@@ -300,8 +302,8 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 		m = max(m, -5)
 
 		#param
-		s_r = 18
-		s_l = s_r
+		s_r = RUN_PID_R
+		s_l = RUN_PID_L
 		pwr_l = -m + s_l
 		pwr_r = m + s_r
 
@@ -344,17 +346,17 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 	for i in range (100):
 		if receive == str(0):
 			break
-		if receive == str(4):
+		if receive == str(4) or i == 99:
 			return 100,0
 		time.sleep(1)
 		if i % 10 == 9:
-			run_following_EM2.move_default(30,-30,0.1)
+			run_following_EM2.move_default(ROTATE_PWR,-ROTATE_PWR,0.1)
 
 	#子機を待たせる
 	send = 1
 
 	#cal
-	magx_off, magy_off = calibration.cal(40,-40,60) 
+	magx_off, magy_off = calibration.cal(RUN_CAL,-RUN_CAL,60) 
 	# while magx_off == 0 and magy_off == 0:
 	# 	motor.motor_move(80, -75, 1)
 	# 	magx_off, magy_off = calibration.cal(40,40,60) 
@@ -369,10 +371,10 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 		time.sleep(1)
 		if receive == str(1):
 			break
-		if receive == str(4):
+		if receive == str(4) or i == 99:
 			return 100,0
 		if i % 10 == 9:
-			run_following_EM2.move_default(30,-30,0.1)
+			run_following_EM2.move_default(ROTATE_PWR,-ROTATE_PWR,0.1)
 	send = 0
 	time.sleep(2.8)
 
@@ -429,8 +431,8 @@ def test(q):
 	global send
 	synchro = 0
 	#target
-	lat_test = 35.9242707
-	lon_test = 139.9124209
+	lat_test = RUN_LAT
+	lon_test = RUN_LON
 
 	#const
 	LOOP_NUM = 5

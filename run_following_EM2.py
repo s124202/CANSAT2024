@@ -7,6 +7,8 @@ import threading
 from queue import Queue
 import bluetooth
 
+from main_const import *
+
 def setup():
 	"""
 	motorを使うときに必要な初期化を行う関数
@@ -314,8 +316,8 @@ def main_detect(q):
 	global strength_l
 	global strength_r
 
-	default_l = 18
-	default_r= default_l
+	default_l = RUN_FOLLOW_L
+	default_r= RUN_FOLLOW_R
 
 	check = 0
 	lose = 0
@@ -423,7 +425,7 @@ def main():
 
 if __name__ == '__main__':
 	
-	motor_setup()
+	setup()
 	
 	a = main()
 	print(a)

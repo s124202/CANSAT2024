@@ -302,8 +302,8 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 		m = max(m, -5)
 
 		#param
-		s_r = 18
-		s_l = s_r
+		s_r = RUN_PID_R
+		s_l = RUN_PID_L
 		pwr_l = -m + s_l
 		pwr_r = m + s_r
 
@@ -350,7 +350,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 			return 100,0
 		time.sleep(1)
 		if i % 10 == 9:
-			run_following_EM2.move_default(30,-30,0.1)
+			run_following_EM2.move_default(ROTATE_PWR,-ROTATE_PWR,0.1)
 
 	#子機を待たせる
 	send = 1
@@ -374,7 +374,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 		if receive == str(4):
 			return 100,0
 		if i % 10 == 9:
-			run_following_EM2.move_default(30,-30,0.1)
+			run_following_EM2.move_default(ROTATE_PWR,-ROTATE_PWR,0.1)
 	send = 0
 	time.sleep(2.8)
 

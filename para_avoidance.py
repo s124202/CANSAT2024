@@ -25,6 +25,7 @@ def blt_adalt():
 			port = 1
 			server_sock.bind(("",port))
 			server_sock.listen(1)
+			client_sock.settimeout(30)
 			client_sock,address = server_sock.accept()
 			client_sock.settimeout(10)
 			print("Accepted connection from ",address)
@@ -69,7 +70,7 @@ def blt_child():
 
 	port = 1
 
-	while True:
+	for _ in range (15):
 		try:
 			sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 			sock.connect((bd_addr, port))

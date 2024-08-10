@@ -346,7 +346,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 	for i in range (100):
 		if receive == str(0):
 			break
-		if receive == str(4):
+		if receive == str(4) or i == 99:
 			return 100,0
 		time.sleep(1)
 		if i % 10 == 9:
@@ -371,7 +371,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 		time.sleep(1)
 		if receive == str(1):
 			break
-		if receive == str(4):
+		if receive == str(4) or i == 99:
 			return 100,0
 		if i % 10 == 9:
 			run_following_EM2.move_default(ROTATE_PWR,-ROTATE_PWR,0.1)

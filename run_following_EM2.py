@@ -271,12 +271,10 @@ def get_largest_red_object(mask):
 
 def discovery(cap):
 	global send
-	check = 0
 
 	#見つからなかった時の回数制限
 	for i in range (30):
 		if i == 29:
-			check = 10
 			send = 4
 			time.sleep(2)
 			return

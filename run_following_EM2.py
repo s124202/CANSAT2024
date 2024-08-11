@@ -316,7 +316,6 @@ def main_detect(q):
 	global strength_l
 	global strength_r
 
-	count = 0
 	check = 0
 	lose = 0
 	old_center = [320,0]
@@ -380,6 +379,7 @@ def main_detect(q):
 		old_center = center
 
 		#親機のキャリブレーション待ち
+		count = 0
 		if receive == str(1):
 			while (receive != str(2)):
 				count += 1

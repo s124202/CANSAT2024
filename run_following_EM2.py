@@ -381,6 +381,7 @@ def main_detect(q):
 		#親機のキャリブレーション待ち
 		count = 0
 		if receive == str(1):
+			print("wait to calibration")
 			while (receive != str(2)):
 				count += 1
 				time.sleep(1)

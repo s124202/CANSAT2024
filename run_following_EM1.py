@@ -314,7 +314,6 @@ def main_detect(q):
 	global strength_l
 	global strength_r
 
-	check = 0
 	lose = 0
 	old_center = [320,0]
 	# カメラのキャプチャ

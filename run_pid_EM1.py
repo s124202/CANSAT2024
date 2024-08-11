@@ -340,7 +340,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 	global send
 	global receive
 
-	receive = "1"
+	receive = "0"
 
 	for i in range (100):
 		if receive == str(0):

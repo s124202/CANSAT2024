@@ -116,7 +116,7 @@ def blt():
 	receive = "1"
 	synchro = 0
 	
-	while True:
+	for _ in range (15):
 		try:
 			sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 			sock.connect((bd_addr, port))

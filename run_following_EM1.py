@@ -379,9 +379,19 @@ def main_detect(q):
 		old_center = center
 
 		#親機のキャリブレーション待ち
+		count = 0
 		if receive == str(1):
+			print("wait to calibration")
 			while (receive != str(2)):
+				count += 1
 				time.sleep(1)
+				if count == 30:
+					cap.release()
+					cv2.destroyAllWindows()
+					q.put(1)
+					print("switch to autonomy")
+					synchro = 1
+					return
 			discovery(cap)
 			if send == 4:
 				cap.release()

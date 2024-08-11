@@ -385,6 +385,9 @@ def main_detect(q):
 				count += 1
 				time.sleep(1)
 				if count == 30:
+					cap.release()
+					cv2.destroyAllWindows()
+					q.put(1)
 					print("switch to autonomy")
 					synchro = 1
 					return

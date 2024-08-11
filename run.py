@@ -78,10 +78,10 @@ def setup():
 
 
 def run_calibration():
-	magx_off, magy_off = calibration.cal(30,-30,40) 
+	magx_off, magy_off = calibration.cal(ROTATE_PWR,-ROTATE_PWR,40) 
 	while magx_off == 0 and magy_off == 0:
 		run_following_EM1.motor_move_default(50, 50, 1)
-		magx_off, magy_off = calibration.cal(30,-30,40) 
+		magx_off, magy_off = calibration.cal(ROTATE_PWR,-ROTATE_PWR,40) 
 
 	return magx_off, magy_off
 
@@ -138,7 +138,7 @@ def run(lat_test, lon_test):
 			break
 
 		#run
-		run_following_EM1.move_default(20,20,2)
+		run_following_EM1.move_default(RUN_STRAIGHT_L,RUN_STRAIGHT_R,2)
 		stuck.ue_jug()
 
 	return isReach_dest

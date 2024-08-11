@@ -316,6 +316,7 @@ def main_detect(q):
 	global strength_l
 	global strength_r
 
+	count = 0
 	check = 0
 	lose = 0
 	old_center = [320,0]
@@ -381,7 +382,12 @@ def main_detect(q):
 		#親機のキャリブレーション待ち
 		if receive == str(1):
 			while (receive != str(2)):
+				count += 1
 				time.sleep(1)
+				if count == 30:
+					print("switch to autonomy")
+					synchro = 1
+					return
 			discovery(cap)
 			if send == 4:
 				cap.release()

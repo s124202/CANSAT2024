@@ -31,7 +31,7 @@ def blt():
 	global synchro
 
 	send = 1
-	receive = "0"
+	receive = "1"
 	synchro = 0
 
 	try:

@@ -108,24 +108,30 @@ def para_adalt():
 
 	purple_area = 0
 
-	purple_area = purple_detection.detect_para()
-	print(f'purple_area : {purple_area}')
+	try:
+		purple_area = purple_detection.detect_para()
+		print(f'purple_area : {purple_area}')
 
-	while True:
-			if PARA_THD_COVERED < purple_area:
-				print("Parachute on top")
-				time.sleep(PARA_SLEEP)
-				run_following_EM1.motor_move_default(30, 30, 3)
-			else:
-				break
+		while True:
+				if PARA_THD_COVERED < purple_area:
+					print("Parachute on top")
+					time.sleep(PARA_SLEEP)
+					run_following_EM1.motor_move_default(30, 30, 3)
+				else:
+					break
 
-	if purple_area > 100:
-		print("Move Backward")
-		run_following_EM1.move_default(-30, -30, 3)
+		if purple_area > 100:
+			print("Move Backward")
+			run_following_EM1.move_default(-30, -30, 3)
 
-	else:
-		print("Move Forward")
-		run_following_EM1.move_default(30, 30, 3) 
+		else:
+			print("Move Forward")
+			run_following_EM1.move_default(30, 30, 3) 
+	
+	except:
+		print("Camera died")
+		run_following_EM1.move_default(30, 30, 3)
+
 	
 	#子機のパラ回避待ち
 	send = 1
@@ -170,22 +176,28 @@ def para_child():
 
 	purple_area = 0
 
-	purple_area = purple_detection.detect_para()
-	print(f'purple_area : {purple_area}')
+	try:
+		purple_area = purple_detection.detect_para()
+		print(f'purple_area : {purple_area}')
 
-	while True:
-			if PARA_THD_COVERED < purple_area:
-				print("Parachute on top")
-				time.sleep(PARA_SLEEP)
-				run_following_EM1.motor_move_default(30, 30, 3)
-			else:
-				break
+		while True:
+				if PARA_THD_COVERED < purple_area:
+					print("Parachute on top")
+					time.sleep(PARA_SLEEP)
+					run_following_EM1.motor_move_default(30, 30, 3)
+				else:
+					break
 
-	if purple_area > 100:
-		print("Move Backward")
-		run_following_EM1.move_default(-30, -30, 3)
-	else:
-		print("Move Forward")
+		if purple_area > 100:
+			print("Move Backward")
+			run_following_EM1.move_default(-30, -30, 3)
+
+		else:
+			print("Move Forward")
+			run_following_EM1.move_default(30, 30, 3) 
+	
+	except:
+		print("Camera died")
 		run_following_EM1.move_default(30, 30, 3)
 
 	#親機に終了報告

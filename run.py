@@ -9,9 +9,13 @@ import calibration
 import bmx055
 import gps
 import gps_navigate
+import stuck
 
 #send
 import send.mode3 as mode3
+
+#const
+from main_const import *
 
 
 #angle correction
@@ -112,10 +116,8 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 	print("finish adjust")
 
 
-def run(lat_test, lon_test, writer):
+def run(lat_test, lon_test):
 	#const
-	THD_DIRECTION = 5.0
-	T_CAL = 5
 	isReach_dest = 0
 
 	#cal
@@ -130,15 +132,15 @@ def run(lat_test, lon_test, writer):
 
 	#move
 	while time.time() - t_start < T_CAL:
-		writer.writerows([[lat_now, lon_now, error_theta]])
+		adjust_direction(magx_off, magy_off, lat_test, lon_test)
 		motor.move(20,20,1)
-		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
+		stuck.ue_jug()
 
 		if direction < THD_DIRECTION:
 			isReach_dest = 1
 			break
 
-	return isReach_dest, direction
+	return isReach_dest
 
 def main(lat_test, lon_test):
 	#const
@@ -149,8 +151,6 @@ def main(lat_test, lon_test):
 		while isReach_dest == 0:
 			isReach_dest = run(lat_test, lon_test)
 
-		print("end gps run")
-
 	except KeyboardInterrupt:
 		print("interrupt!")
 
@@ -160,9 +160,6 @@ if __name__ == "__main__":
 	setup()
 
 	#target
-	#lat_test = 1
-	#lon_test = 1
-
 	lat_test,lon_test = gps.med()
 
 	print("移動してください")

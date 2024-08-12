@@ -1,15 +1,17 @@
-#2024/08/04 生川
+#2024/08/07 生川
 
+#src
 import motor
 import red_detection
+
+#const
+from main_const import *
+
 
 def main(re_count):
 	area_ratio = 0
 	angle = 0
 	isReach_goal = 0
-
-	ROTATE_PWR = 20
-	THD_RED_RATIO = 20 #画面を占める赤色の割合の閾値
 
 	###-----画像誘導モードの範囲内にいた場合の処理-----###
 	
@@ -20,7 +22,7 @@ def main(re_count):
 	###-----撮像した画像の中にゴールが映っていた場合の処理-----###
 	if area_ratio >= THD_RED_RATIO:
 		isReach_goal = 1
-		re_count = 0
+		re_count = 1
 		
 	elif (0 < area_ratio < THD_RED_RATIO) or (angle > 0):
 		###-----ゴールが真正面にあるときの処理-----###
@@ -37,7 +39,7 @@ def main(re_count):
 			motor.motor_move(ROTATE_PWR, ROTATE_PWR, 0.1)
 			motor.motor_stop(0.5)
 
-		re_count = 0
+		re_count = 1
 
 	###-----撮像した画像の中にゴールが映っていない場合の処理-----###
 	elif area_ratio == 0:
@@ -49,7 +51,7 @@ def main(re_count):
 	###-----ゴールした場合の処理-----###
 	if isReach_goal == 1:
 		print('Goal')
-		re_count += 1
+		re_count = 0
 
 	return isReach_goal, re_count
 

@@ -7,34 +7,21 @@ import time
 import bme280
 import bmx055
 import motor
-import stuck
 
 #seq
 import release
 import land
 import melt
+import avoid
+import run
+import goal_detection
 
 #send
 import send.mode3 as mode3
 import send.send_11 as send
 
-
 #const
-RELEASE_TIMEOUT = 100
-RELEASE_PRESS_THD = 0.2
-RELEASE_JUDGE_COUNT = 3
-RELEASE_JUDGE_TIME = 1
-
-LAND_TIMEOUT = 300
-LAND_PRESS_THD = 0.05
-LAND_ACC_THD = 0.2
-LAND_JUDGE_COUNT = 3
-LAND_JUDGE_TIME = 2
-
-MELT_TIME = 5.0
-
-THD_DIRECTION = 5.0
-T_CAL = 5
+from main_const import *
 
 
 def setup():
@@ -46,6 +33,11 @@ def setup():
 
 
 def mission():
+	#const
+	isReach_dest = 0
+	isReach_goal = 0
+	re_count = 1
+
 	#clock setup
 	t_start = time.time()
 
@@ -55,48 +47,60 @@ def mission():
 	release.detect()
 
 	print("-----Finish 1_Release_sequence-----")
+	time.sleep(1)
 
 
 	#-----2_Land_sequence-----#
 	print("-----Start 2_Land_sequence-----")
 
-	land.detect()#landファイルの書き換えする！！！！
+	land.detect()
 
 	print("-----Finish 2_Land_sequence-----")
+	time.sleep(1)
 
 
 	#-----3_Melt_sequence-----#
 	print("-----Start 3_Melt_sequence-----")
 
-	melt.melt_down(17,MELT_TIME)
+	melt.melt_down(MELT_PIN, MELT_TIME)
 
 	print("-----Finish 3_Melt_sequence-----")
+	time.sleep(1)
 
 
 	#-----4_Avoid_sequence-----#
 	print("-----Start 4_Avoid_sequence-----")
 
-	#どうするか佐藤と相談
+	avoid.main()
 
 	print("-----Finish 4_Avoid_sequence-----")
+	time.sleep(1)
 
 
-	#-----5_Run_sequence-----#
-	print("-----Start 5_Run_sequence-----")
+	while re_count > 0:
+		#-----5_Run_sequence-----#
+		print("-----Start 5_Run_sequence-----")
 
-	#runファイル作ります
-	#pid用
-	#pid無し用
+		isReach_dest = 0
+		while isReach_dest == 0:
+			isReach_dest = run.run()
 
-	print("-----Finish 5_Run_sequence-----")
+		print("-----Finish 5_Run_sequence-----")
+		time.sleep(1)
 
 
-	#-----6_Goal_sequence-----#
-	print("-----Start 6_Goal_sequence-----")
+		#-----6_Goal_sequence-----#
+		print("-----Start 6_Goal_sequence-----")
 
-	#どうするか佐藤と相談
+		while isReach_goal == 0:
+			isReach_goal, re_count = goal_detection.main(re_count)
+			print("count:", re_count)
 
-	print("-----Finish 6_Goal_sequence-----")
+			if re_count == 20 or re_count == 0:
+				break
+
+		print("-----Finish 6_Goal_sequence-----")
+		time.sleep(1)
 
 
 if __name__ == '__main__':
@@ -106,7 +110,7 @@ if __name__ == '__main__':
 		print("####-----Finish setup-----####")
 
 		time.sleep(1)
-		
+
 		print("####-----Start mission-----####")
 		mission()
 		print("####-----Finish mission-----####")

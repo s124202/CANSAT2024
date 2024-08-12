@@ -122,15 +122,15 @@ def para_adalt():
 
 		if purple_area > 100:
 			print("Move Backward")
-			run_following_EM1.move_default(-30, -30, 3)
+			run_following_EM1.move_default(-30, -30, 2)
 
 		else:
 			print("Move Forward")
-			run_following_EM1.move_default(30, 30, 3) 
+			run_following_EM1.move_default(30, 30, 2) 
 	
 	except:
 		print("Camera died")
-		run_following_EM1.move_default(30, 30, 3)
+		run_following_EM1.move_default(30, 30, 2)
 
 	
 	#子機のパラ回避待ち
@@ -190,15 +190,15 @@ def para_child():
 
 		if purple_area > 100:
 			print("Move Backward")
-			run_following_EM1.move_default(-30, -30, 3)
+			run_following_EM1.move_default(-30, -30, 2)
 
 		else:
 			print("Move Forward")
-			run_following_EM1.move_default(30, 30, 3) 
+			run_following_EM1.move_default(30, 30, 2) 
 	
 	except:
 		print("Camera died")
-		run_following_EM1.move_default(30, 30, 3)
+		run_following_EM1.move_default(30, 30, 2)
 
 	#親機に終了報告
 	send = 1

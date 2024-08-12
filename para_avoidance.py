@@ -117,21 +117,21 @@ def para_adalt():
 				if PARA_THD_COVERED < purple_area:
 					print("Parachute on top")
 					time.sleep(PARA_SLEEP)
-					run_following_EM2.motor_move_default(RUN_STRAIGHT_L, RUN_STRAIGHT_R, 3)
+					run_following_EM2.motor_move_default(30, 30, 3)
 				else:
 					break
 
 		if purple_area > 100:
 			print("Move Backward")
-			run_following_EM2.move_default(-RUN_STRAIGHT_L, -RUN_STRAIGHT_R, 2)
+			run_following_EM2.move_default(-30, -30, 1)
 
 		else:
 			print("Move Forward")
-			run_following_EM2.move_default(RUN_STRAIGHT_L, RUN_STRAIGHT_R, 2) 
+			run_following_EM2.move_default(30, 30, 1) 
 	
 	except:
 		print("Camera died")
-		run_following_EM2.move_default(RUN_STRAIGHT_L, RUN_STRAIGHT_R, 2) 
+		run_following_EM2.move_default(30, 30, 1) 
 	
 	#子機のパラ回避待ち
 	send = 1
@@ -184,21 +184,21 @@ def para_child():
 				if PARA_THD_COVERED < purple_area:
 					print("Parachute on top")
 					time.sleep(PARA_SLEEP)
-					run_following_EM2.motor_move_default(RUN_STRAIGHT_L, RUN_STRAIGHT_R, 3)
+					run_following_EM2.motor_move_default(30, 30, 3)
 				else:
 					break
 
 		if purple_area > 100:
 			print("Move Backward")
-			run_following_EM2.move_default(-RUN_STRAIGHT_L, -RUN_STRAIGHT_R, 2)
+			run_following_EM2.move_default(-30, -30, 1)
 
 		else:
 			print("Move Forward")
-			run_following_EM2.move_default(RUN_STRAIGHT_L, RUN_STRAIGHT_R, 2) 
+			run_following_EM2.move_default(30, 30, 1) 
 	
 	except:
 		print("Camera died")
-		run_following_EM2.move_default(RUN_STRAIGHT_L, RUN_STRAIGHT_R, 2) 
+		run_following_EM2.move_default(30, 30, 1) 
 
 	#親機に終了報告
 	send = 1

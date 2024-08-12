@@ -34,7 +34,7 @@ def setup():
 	bmx055.bmx055_setup()
 	bme280.bme280_setup()
 	bme280.bme280_calib_param()
-	motor.setup()
+	run_following_EM1.setup()
 
 
 def mission():

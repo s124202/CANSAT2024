@@ -456,6 +456,12 @@ def test(q):
 			print("switch to autonomy")
 			synchro = 1
 			return
+		
+		if  distance_to_dest == 100 and isReach_dest == 0:
+			q.put(1)
+			print("switch to autonomy")
+			synchro = 1
+			return
 
 		if isReach_dest == 1:
 			print('end gps running')

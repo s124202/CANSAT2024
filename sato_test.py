@@ -23,7 +23,7 @@ def main():
 			print("Move Forward")
 
 	except:
-		print("Go!!!!!!!!!!!!!!!!")
+		print("Go!!!!!!!!!!!!!!!")
 		
 
 if __name__ == '__main__':

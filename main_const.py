@@ -39,7 +39,7 @@ ROTATE_PWR = 20
 
 #画像認識
 ROTATE_PWR = 20
-THD_RED_RATIO = 25 #画面を占める赤色の割合の閾値
+THD_RED_RATIO = 20 #画面を占める赤色の割合の閾値
 
 #目標地点
 RUN_LAT  = 35.924366

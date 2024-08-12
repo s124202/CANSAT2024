@@ -1,29 +1,30 @@
-import red_detection
-import motor
+import purple_detection
+import time
 
-motor.setup()
-
-THD_RED_RATIO = 80
+PARA_THD_COVERED = 30000
+PARA_TIMEOUT = 60
 
 def main():
-	isReach_goal = 0
-	area_ratio, angle = red_detection.detect_goal()
-	
-	if 0 < area_ratio < THD_RED_RATIO:
-		print('Found Goal')
-		motor(10, 10, 3)
-		isReach_goal = 1
-	elif area_ratio == 0:
-		print('Lost Goal')
-		pwr_unfound = 30
-		motor.motor_move(pwr_unfound, -pwr_unfound, 0.15)
-		motor.motor_stop(0.5)
-	
-	return isReach_goal
+	try:
+		purple_area = purple_detection.detect_para()
+
+		while True:
+				if PARA_THD_COVERED < purple_area:
+					print("Parachute on top")
+					time.sleep(PARA_TIMEOUT)
+					print("Go!!!")
+				else:
+					break
+				
+		if purple_area > 100:
+			print("Move Backwward")
+
+		else:
+			print("Move Forward")
+
+	except:
+		print("Go!!!!!!!!!!!!!!!!")
+		
 
 if __name__ == '__main__':
-	while True:
-		isReach_goal = main()
-
-		if isReach_goal == 1:
-			break
+	main()

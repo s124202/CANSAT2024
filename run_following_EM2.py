@@ -7,12 +7,14 @@ import threading
 from queue import Queue
 import bluetooth
 
+from main_const import *
+
 def setup():
 	"""
 	motorを使うときに必要な初期化を行う関数
 	"""
 	global motor_r, motor_l
-	Rpin1, Rpin2 = 26, 16
+	Rpin1, Rpin2 = 16, 26
 	Lpin1, Lpin2 = 23, 18
 	motor_r = Motor(Rpin1, Rpin2)
 	motor_l = Motor(Lpin1, Lpin2)
@@ -114,7 +116,7 @@ def blt():
 	receive = "1"
 	synchro = 0
 	
-	while True:
+	for _ in range (10):
 		try:
 			sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 			sock.connect((bd_addr, port))
@@ -269,12 +271,10 @@ def get_largest_red_object(mask):
 
 def discovery(cap):
 	global send
-	check = 0
 
 	#見つからなかった時の回数制限
 	for i in range (30):
 		if i == 29:
-			check = 10
 			send = 4
 			time.sleep(2)
 			return
@@ -292,15 +292,15 @@ def discovery(cap):
 		center, size = get_largest_red_object(mask)
 
 		if center is None:
-			motor_move_default(30,-30,0.1)
+			motor_move_default(ROTATE_PWR,-ROTATE_PWR,0.1)
 			motor_stop()
 			time.sleep(2)
 			continue
 		elif center[0] < 100:
-			motor_move_default(30,-30,0.1)
+			motor_move_default(ROTATE_PWR,-ROTATE_PWR,0.1)
 			motor_stop()
 		elif center[0] > 540:
-			motor_move_default(-30,30,0.1)
+			motor_move_default(-ROTATE_PWR,ROTATE_PWR,0.1)
 			motor_stop()
 		return
 
@@ -314,10 +314,6 @@ def main_detect(q):
 	global strength_l
 	global strength_r
 
-	default_l = 18
-	default_r= default_l
-
-	check = 0
 	lose = 0
 	old_center = [320,0]
 	# カメラのキャプチャ
@@ -373,16 +369,26 @@ def main_detect(q):
 				return
 			send = 0
 
-		strength_l = default_l - s + m
-		strength_r = default_r - s - m
+		strength_l = RUN_FOLLOW_L - s + m
+		strength_r = RUN_FOLLOW_R - s - m
 
 		#print(old_center[0]-center[0])
 		old_center = center
 
 		#親機のキャリブレーション待ち
+		count = 0
 		if receive == str(1):
+			print("wait to calibration")
 			while (receive != str(2)):
+				count += 1
 				time.sleep(1)
+				if count == 30:
+					cap.release()
+					cv2.destroyAllWindows()
+					q.put(1)
+					print("switch to autonomy")
+					synchro = 1
+					return
 			discovery(cap)
 			if send == 4:
 				cap.release()
@@ -423,7 +429,7 @@ def main():
 
 if __name__ == '__main__':
 	
-	motor_setup()
+	setup()
 	
 	a = main()
 	print(a)

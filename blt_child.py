@@ -18,7 +18,7 @@ def main(send):
             break
         except:
             print("try again")
-            time.sleep(3)
+            time.sleep(1)
             if i == 9:
                 timeout = 1
                 break
@@ -26,7 +26,7 @@ def main(send):
     if timeout == 1:
         print("blt connect timeout")
 
-    for i in range(15):
+    for i in range(10):
         try:
             if timeout == 1:
                 break

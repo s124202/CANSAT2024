@@ -78,10 +78,10 @@ def setup():
 
 
 def run_calibration():
-	magx_off, magy_off = calibration.cal(30,-30,40) 
+	magx_off, magy_off = calibration.cal(RUN_CAL,-RUN_CAL,60) 
 	while magx_off == 0 and magy_off == 0:
-		run_following_EM2.motor_move_default(50, 50, 1)
-		magx_off, magy_off = calibration.cal(30,-30,40) 
+		run_following_EM2.motor_move_default(RUN_STRAIGHT_L + 30, RUN_STRAIGHT_R + 30, 1)
+		magx_off, magy_off = calibration.cal(RUN_CAL,-RUN_CAL,60) 
 
 	return magx_off, magy_off
 
@@ -105,9 +105,9 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_dest, lon_dest)
 
 		if error_theta < -15:
-			run_following_EM2.move_default(25,-25,0.1)
+			run_following_EM2.move_default(ROTATE_PWR, -ROTATE_PWR, 0.1)
 		elif error_theta > 15:
-			run_following_EM2.move_default(-25,25,0.1)
+			run_following_EM2.move_default(-ROTATE_PWR, ROTATE_PWR, 0.1)
 		else:
 			break
 
@@ -123,23 +123,23 @@ def run(lat_test, lon_test):
 	#cal
 	magx_off, magy_off = run_calibration()
 
-	#adjust direction
-	adjust_direction(magx_off, magy_off, lat_test, lon_test)
-	error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
-
 	#init
 	t_start = time.time()
 
 	#move
 	while time.time() - t_start < T_CAL:
-		run_following_EM2.move_default(20,20,2)
-		stuck.ue_jug()
+		#adjust direction
 		adjust_direction(magx_off, magy_off, lat_test, lon_test)
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
 
+		#check
 		if direction < THD_DIRECTION:
 			isReach_dest = 1
 			break
+
+		#run
+		run_following_EM2.move_default(RUN_STRAIGHT_L,RUN_STRAIGHT_R,2)
+		stuck.ue_jug()
 
 	return isReach_dest
 

@@ -25,6 +25,7 @@ def blt_adalt():
 			port = 1
 			server_sock.bind(("",port))
 			server_sock.listen(1)
+			client_sock.settimeout(30)
 			client_sock,address = server_sock.accept()
 			client_sock.settimeout(10)
 			print("Accepted connection from ",address)
@@ -69,7 +70,7 @@ def blt_child():
 
 	port = 1
 
-	while True:
+	for _ in range (10):
 		try:
 			sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 			sock.connect((bd_addr, port))
@@ -115,17 +116,17 @@ def para_adalt():
 			if PARA_THD_COVERED < purple_area:
 				print("Parachute on top")
 				time.sleep(PARA_SLEEP)
-				run_following_EM2.motor_move_default(30, 30, 3)
+				run_following_EM2.motor_move_default(RUN_STRAIGHT_L, RUN_STRAIGHT_R, 3)
 			else:
 				break
 
 	if purple_area > 100:
 		print("Move Backward")
-		run_following_EM2.move_default(-30, -30, 3)
+		run_following_EM2.move_default(-RUN_STRAIGHT_L, -RUN_STRAIGHT_R, 3)
 
 	else:
 		print("Move Forward")
-		run_following_EM2.move_default(30, 30, 3) 
+		run_following_EM2.move_default(RUN_STRAIGHT_L, RUN_STRAIGHT_R, 3) 
 	
 	#子機のパラ回避待ち
 	send = 1
@@ -177,16 +178,16 @@ def para_child():
 			if PARA_THD_COVERED < purple_area:
 				print("Parachute on top")
 				time.sleep(PARA_SLEEP)
-				run_following_EM2.motor_move_default(30, 30, 3)
+				run_following_EM2.motor_move_default(RUN_STRAIGHT_L, RUN_STRAIGHT_R, 3)
 			else:
 				break
 
 	if purple_area > 100:
 		print("Move Backward")
-		run_following_EM2.move_default(-30, -30, 3)
+		run_following_EM2.move_default(-RUN_STRAIGHT_L, -RUN_STRAIGHT_R, 3)
 	else:
 		print("Move Forward")
-		run_following_EM2.move_default(30, 30, 3)
+		run_following_EM2.move_default(RUN_STRAIGHT_L, RUN_STRAIGHT_R, 3)
 
 	#親機に終了報告
 	send = 1

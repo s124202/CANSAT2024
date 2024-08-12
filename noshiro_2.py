@@ -136,7 +136,9 @@ def mission():
 		print("-----Start extra_Run_sequence-----")
 
 		while isReach_dest == 0:
-			isReach_dest = run.run()
+			isReach_dest = run.run(RUN_LAT,RUN_LON)
+			temp,pres,hum,alt = bme280.bme280_read()
+			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
 
 		print("-----Finish extra_Run_sequence-----")
 		time.sleep(1)

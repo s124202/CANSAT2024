@@ -14,7 +14,7 @@ from queue import Queue
 import gps
 import bmx055
 import bme280
-import motor
+import run_following_EM1
 import calibration
 import gps_navigate
 #import stuck
@@ -23,13 +23,15 @@ import gps_navigate
 #import send.mode3 as mode3
 #import send.send_11 as send
 
+from main_const import *
+
 def blt():
 	global send
 	global receive
 	global synchro
 
 	send = 1
-	receive = "0"
+	receive = "1"
 	synchro = 0
 
 	try:
@@ -37,6 +39,7 @@ def blt():
 		port = 1
 		server_sock.bind(("",port))
 		server_sock.listen(1)
+		client_sock.settimeout(10)
 		client_sock,address = server_sock.accept()
 		client_sock.settimeout(10)
 		print("Accepted connection from ",address)
@@ -234,7 +237,7 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
 		pwr_r = m
 
 		#move
-		motor.motor_move(pwr_l, pwr_r, 0.01)
+		run_following_EM1.motor_move_default(pwr_l, pwr_r, 0.01)
 		time.sleep(0.04)
 
 		#check
@@ -250,7 +253,7 @@ def PID_adjust_direction(target_azimuth, magx_off, magy_off, theta_array: list):
 		if time.time() - t_adj_start > 1:
 			break
 
-	motor.motor_stop(1)
+	run_following_EM1.motor_stop_default(1)
 
 
 def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array: list, loop_num: int=20):
@@ -296,17 +299,15 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 		m = PID_control(error_theta, theta_array, Kp, Ki, Kd)
 
 		#limit m
-		m = min(m, 3)
-		m = max(m, -3)
+		m = min(m, 5)
+		m = max(m, -5)
 
 		#param
-		s_r = 18
-		s_l = s_r
-		pwr_l = -m + s_l
-		pwr_r = m + s_r
+		pwr_l = -m + RUN_PID_L
+		pwr_r = m + RUN_PID_R
 
 		#move
-		motor.motor_move(pwr_l, pwr_r, 1)
+		run_following_EM1.motor_move_default(pwr_l, pwr_r, 1)
 		time.sleep(0.1)
 
 		if receive == str(10):
@@ -344,11 +345,11 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 	for i in range (100):
 		if receive == str(0):
 			break
-		if receive == str(4):
+		if receive == str(4) or i == 99:
 			return 100,0
 		time.sleep(1)
 		if i % 10 == 9:
-			motor.move(30,-30,0.1)
+			run_following_EM1.move_default(ROTATE_PWR,-ROTATE_PWR,0.1)
 
 	#子機を待たせる
 	send = 1
@@ -369,10 +370,10 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 		time.sleep(1)
 		if receive == str(1):
 			break
-		if receive == str(4):
+		if receive == str(4) or i == 99:
 			return 100,0
 		if i % 10 == 9:
-			motor.move(30,-30,0.1)
+			run_following_EM1.move_default(ROTATE_PWR,-ROTATE_PWR,0.1)
 	send = 0
 	time.sleep(2.8)
 
@@ -418,19 +419,19 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 
 		stuck_count += 1
 
-	motor.motor_stop(1)
+	run_following_EM1.motor_stop_default(1)
 
 	return distance_to_dest, isReach_dest
 
 
 def test(lat,lon,q):
-	global send
 	global receive
 	global synchro
+	global send
 	synchro = 0
 	#target
-	lat_test = (lat + 35.9242984) / 2
-	lon_test = (lon + 139.9124802) /2
+	lat_test = (lat + 35.9242707) / 2
+	lon_test = (lon + 139.9124209) / 2
 
 	#const
 	LOOP_NUM = 5
@@ -483,7 +484,7 @@ def main(lat,lon):
 
 if __name__ == "__main__":
 	#setup
-	motor.setup()
+	run_following_EM1.setup()
 	bmx055.bmx055_setup()
 	#mode3.mode3_change()
 	

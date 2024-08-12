@@ -7,7 +7,7 @@ import time
 
 #src
 import bmx055
-import motor
+import run_following_EM1
 import stuck
 
 
@@ -61,7 +61,7 @@ def magdata_matrix(l, r, n):
         consecutive_small_changes = 0
 
         for _ in range(n - 1):
-            motor.motor_continue(l, r)
+            run_following_EM1.motor_continue_default(l, r)
             magx, magy, magz = get_data()
             print(magx, magy)
 
@@ -81,7 +81,7 @@ def magdata_matrix(l, r, n):
                 [[magx, magy, magz]]), axis=0)
             time.sleep(0.03)
 
-        motor.deceleration(l, r)
+        run_following_EM1.deceleration_default(l, r)
     except KeyboardInterrupt:
         print('Interrupt')
 
@@ -179,6 +179,6 @@ def angle(magx, magy, magx_off=0, magy_off=0):
 
 if __name__ == "__main__":
     n = int(input("motor？"))
-    motor.setup()
+    run_following_EM1.setup()
     bmx055.bmx055_setup()
     magx_off, magy_off = cal(n,-n,40)

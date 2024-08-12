@@ -4,7 +4,7 @@
 import time
 
 #src
-import motor
+import run_following_EM1
 import calibration
 import bmx055
 import gps
@@ -72,16 +72,16 @@ def get_theta_dest(target_azimuth, magx_off, magy_off):
 
 
 def setup():
-	motor.setup()
+	run_following_EM1.setup()
 	bmx055.bmx055_setup()
 	mode3.mode3_change()
 
 
 def run_calibration():
-	magx_off, magy_off = calibration.cal(30,-30,40) 
+	magx_off, magy_off = calibration.cal(ROTATE_PWR,-ROTATE_PWR,40) 
 	while magx_off == 0 and magy_off == 0:
-		motor.motor_move(50, 50, 1)
-		magx_off, magy_off = calibration.cal(30,-30,40) 
+		run_following_EM1.motor_move_default(50, 50, 1)
+		magx_off, magy_off = calibration.cal(ROTATE_PWR,-ROTATE_PWR,40) 
 
 	return magx_off, magy_off
 
@@ -105,9 +105,9 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_dest, lon_dest)
 
 		if error_theta < -15:
-			motor.move(25,-25,0.1)
+			run_following_EM1.move_default(25,-25,0.1)
 		elif error_theta > 15:
-			motor.move(-25,25,0.1)
+			run_following_EM1.move_default(-25,25,0.1)
 		else:
 			break
 
@@ -123,23 +123,23 @@ def run(lat_test, lon_test):
 	#cal
 	magx_off, magy_off = run_calibration()
 
-	#adjust direction
-	adjust_direction(magx_off, magy_off, lat_test, lon_test)
-	error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
-
 	#init
 	t_start = time.time()
 
 	#move
 	while time.time() - t_start < T_CAL:
-		motor.move(20,20,2)
-		stuck.ue_jug()
+		#adjust direction
 		adjust_direction(magx_off, magy_off, lat_test, lon_test)
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
 
+		#check
 		if direction < THD_DIRECTION:
 			isReach_dest = 1
 			break
+
+		#run
+		run_following_EM1.move_default(RUN_STRAIGHT_L,RUN_STRAIGHT_R,2)
+		stuck.ue_jug()
 
 	return isReach_dest
 

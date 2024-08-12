@@ -78,9 +78,8 @@ def detect():
 		if time.time() - time_start > LAND_TIMEOUT:
 			print("Acc Timeout")
 			break
-	
-	lat,lon = gps.location()
-	return lat,lon
+	lat, lon = gps.location()
+	return lat, lon
 
 
 if __name__ == '__main__':

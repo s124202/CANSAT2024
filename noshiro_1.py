@@ -52,48 +52,58 @@ def mission():
 
 	#-----1_Release_sequence-----#
 	print("-----Start 1_Release_sequence-----")
+	send.log("-----Start 1_Release_sequence-----")
 
 	release.detect()
 
 	print("-----Finish 1_Release_sequence-----")
+	send.log("-----Finish 1_Release_sequence-----")
 	time.sleep(1)
 
 
 	#-----2_Land_sequence-----#
 	print("-----Start 2_Land_sequence-----")
+	send.log("-----Start 2_Land_sequence-----")
 
 	lat,lon = land.detect()
 	blt_adalt.main(102)
 
 	print("-----Finish 2_Land_sequence-----")
+	send.log("-----Finish 2_Land_sequence-----")
 	time.sleep(1)
 
 
 	#-----3_Melt_sequence-----#
 	print("-----Start 3_Melt_sequence-----")
+	send.log("-----Start 3_Melt_sequence-----")
 
 	melt.melt_down(MELT_TIME)
 	blt_adalt.main(103)
 
 	print("-----Finish 3_Melt_sequence-----")
+	send.log("-----Finish 3_Melt_sequence-----")
 	time.sleep(1)
 
 
 	#-----4_Avoid_sequence-----#
 	print("-----Start 4_Avoid_sequence-----")
+	send.log("-----Start 4_Avoid_sequence-----")
 
 	para_avoidance.para_adalt_main()
 
 	print("-----Finish 4_Avoid_sequence-----")
+	send.log("-----Finish 4_Avoid_sequence-----")
 	time.sleep(1)
 	
 
 	#-----5_first_follow_sequence-----#
 	print("-----Start 5_first_follow_sequence-----")
+	send.log("-----Start 5_first_follow_sequence-----")
 
 	check = run_pid_EM1.main(lat,lon)
 
 	print("-----Finish 5_first_follow_sequence-----")
+	send.log("-----Finish 5_first_follow_sequence-----")
 	time.sleep(1)
 	
 	if check == 1:
@@ -105,10 +115,12 @@ def mission():
 	if isReach_dest == 0:
 		#-----6_second_follow_sequence-----#
 		print("-----Start 6_second_follow_sequence-----")
+		send.log("-----Start 6_second_follow_sequence-----")
 	
 		check = run_following_EM1.main()
 	
 		print("-----Finish 6_second_follow_sequence-----")
+		send.log("-----Finish 6_second_follow_sequence-----")
 		time.sleep(1)
 	
 		if check == 1:
@@ -116,12 +128,13 @@ def mission():
 			while isReach_dest == 0:
 				isReach_dest = run.run(RUN_LAT,RUN_LON)
 				print("Raw Gas: ", sgp.raw)
-	
+
 
 
 	while True:
 		#-----6_Goal_sequence-----#
 		print("-----Start 6_Goal_sequence-----")
+		send.log("-----Start 6_Goal_sequence-----")
 		re_count = 1
 
 		while isReach_goal == 0:
@@ -132,24 +145,29 @@ def mission():
 				break
 
 		print("-----Finish 6_Goal_sequence-----")
+		send.log("-----Finish 6_Goal_sequence-----")
 		time.sleep(1)
 		if isReach_goal == 1:
 			break
-		
+
 		#-----6_Run_sequence-----#
 		print("-----Start extra_Run_sequence-----")
+		send.log("-----Start extra_Run_sequence-----")
 
 		while isReach_dest == 0:
 			isReach_dest = run.run(RUN_LAT,RUN_LON)
 			print("Raw Gas: ", sgp.raw)
 
 		print("-----Finish extra_Run_sequence-----")
+		send.log("-----Finish extra_Run_sequence-----")
 		time.sleep(1)
 
 
 
 
 if __name__ == '__main__':
+	send.log("-----Start VOC_program-----")
+
 	try:
 		print("####-----Start setup-----#####")
 		setup()
@@ -163,3 +181,6 @@ if __name__ == '__main__':
 
 	except KeyboardInterrupt:
 		print("####-----Keyboard interrupt-----####")
+
+	finally:
+		send.log("-----Finish VOC_program-----")

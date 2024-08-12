@@ -66,7 +66,7 @@ def blt_child():
 	receive = "0"
 	synchro = 0
 
-	bd_addr = "B8:27:EB:B3:DE:30" # サーバー側のデバイスアドレスを入力
+	bd_addr = BLT_ADRESS # サーバー側のデバイスアドレスを入力
 
 	port = 1
 

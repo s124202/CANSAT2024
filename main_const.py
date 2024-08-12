@@ -36,13 +36,7 @@ RUN_STRAIGHT_R = 20
 RUN_STRAIGHT_L = 25
 RUN_CAL = 30
 ROTATE_PWR = 20
-<<<<<<< HEAD
 THD_RED_RATIO = 20 #画面を占める赤色の割合の閾値
-=======
-
-#画像認識
-THD_RED_RATIO = 25 #画面を占める赤色の割合の閾値
->>>>>>> c29b81157dcb864b5652bac418a08029cb533835
 
 #目標地点
 RUN_LAT  = 35.924366

@@ -109,23 +109,28 @@ def para_adalt():
 
 	purple_area = 0
 
-	purple_area = purple_detection.detect_para()
-	print(f'purple_area : {purple_area}')
+	try:
+		purple_area = purple_detection.detect_para()
+		print(f'purple_area : {purple_area}')
 
-	while True:
-			if PARA_THD_COVERED < purple_area:
-				print("Parachute on top")
-				time.sleep(PARA_SLEEP)
-				run_following_EM2.motor_move_default(RUN_STRAIGHT_L, RUN_STRAIGHT_R, 3)
-			else:
-				break
+		while True:
+				if PARA_THD_COVERED < purple_area:
+					print("Parachute on top")
+					time.sleep(PARA_SLEEP)
+					run_following_EM2.motor_move_default(RUN_STRAIGHT_L, RUN_STRAIGHT_R, 3)
+				else:
+					break
 
-	if purple_area > 100:
-		print("Move Backward")
-		run_following_EM2.move_default(-RUN_STRAIGHT_L, -RUN_STRAIGHT_R, 3)
+		if purple_area > 100:
+			print("Move Backward")
+			run_following_EM2.move_default(-RUN_STRAIGHT_L, -RUN_STRAIGHT_R, 3)
 
-	else:
-		print("Move Forward")
+		else:
+			print("Move Forward")
+			run_following_EM2.move_default(RUN_STRAIGHT_L, RUN_STRAIGHT_R, 3) 
+	
+	except:
+		print("Camera died")
 		run_following_EM2.move_default(RUN_STRAIGHT_L, RUN_STRAIGHT_R, 3) 
 	
 	#子機のパラ回避待ち
@@ -171,23 +176,29 @@ def para_child():
 
 	purple_area = 0
 
-	purple_area = purple_detection.detect_para()
-	print(f'purple_area : {purple_area}')
+	try:
+		purple_area = purple_detection.detect_para()
+		print(f'purple_area : {purple_area}')
 
-	while True:
-			if PARA_THD_COVERED < purple_area:
-				print("Parachute on top")
-				time.sleep(PARA_SLEEP)
-				run_following_EM2.motor_move_default(RUN_STRAIGHT_L, RUN_STRAIGHT_R, 3)
-			else:
-				break
+		while True:
+				if PARA_THD_COVERED < purple_area:
+					print("Parachute on top")
+					time.sleep(PARA_SLEEP)
+					run_following_EM2.motor_move_default(RUN_STRAIGHT_L, RUN_STRAIGHT_R, 3)
+				else:
+					break
 
-	if purple_area > 100:
-		print("Move Backward")
-		run_following_EM2.move_default(-RUN_STRAIGHT_L, -RUN_STRAIGHT_R, 3)
-	else:
-		print("Move Forward")
-		run_following_EM2.move_default(RUN_STRAIGHT_L, RUN_STRAIGHT_R, 3)
+		if purple_area > 100:
+			print("Move Backward")
+			run_following_EM2.move_default(-RUN_STRAIGHT_L, -RUN_STRAIGHT_R, 3)
+
+		else:
+			print("Move Forward")
+			run_following_EM2.move_default(RUN_STRAIGHT_L, RUN_STRAIGHT_R, 3) 
+	
+	except:
+		print("Camera died")
+		run_following_EM2.move_default(RUN_STRAIGHT_L, RUN_STRAIGHT_R, 3) 
 
 	#親機に終了報告
 	send = 1

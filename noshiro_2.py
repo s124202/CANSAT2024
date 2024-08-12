@@ -94,7 +94,9 @@ def mission():
 		#自律誘導
 		while isReach_dest == 0:
 			isReach_dest = run.run(RUN_LAT,RUN_LON)
-			
+			temp,pres,hum,alt = bme280.bme280_read()
+			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
+
 	if isReach_dest == 0:
 		#-----6_second_follow_sequence-----#
 		print("-----Start 6_second_follow_sequence-----")
@@ -108,7 +110,9 @@ def mission():
 			#自律誘導
 			while isReach_dest == 0:
 				isReach_dest = run.run(RUN_LAT,RUN_LON)
-	
+				temp,pres,hum,alt = bme280.bme280_read()
+				print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
+
 
 
 	while True:

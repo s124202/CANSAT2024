@@ -32,11 +32,11 @@ def main(re_count):
 		###------ゴールが真正面にないときの処理------###
 		###-----目標角度を少しずらす-----###
 		elif angle == 1:
-			run_following_EM2.motor_move_default(-ROTATE_PWR, ROTATE_PWR, 0.15)
+			run_following_EM2.motor_move_default(-ROTATE_PWR, ROTATE_PWR, 0.13)
 			run_following_EM2.motor_stop_default(0.5)
 
 		elif angle == 3:
-			run_following_EM2.motor_move_default(ROTATE_PWR, -ROTATE_PWR, 0.15)
+			run_following_EM2.motor_move_default(ROTATE_PWR, -ROTATE_PWR, 0.13)
 			run_following_EM2.motor_stop_default(0.5)
 
 		re_count = 1

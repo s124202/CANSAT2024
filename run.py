@@ -2,6 +2,7 @@
 
 #standard
 import time
+import csv
 
 #src
 import run_following_EM1
@@ -142,6 +143,35 @@ def run(lat_test, lon_test):
 		stuck.ue_jug()
 
 	return isReach_dest
+
+def run_csv(lat_test, lon_test, writer):
+	#const
+	isReach_dest = 0
+
+	#cal
+	magx_off, magy_off = run_calibration()
+
+	#init
+	t_start = time.time()
+
+	#move
+	while time.time() - t_start < T_CAL:
+		#adjust direction
+		adjust_direction(magx_off, magy_off, lat_test, lon_test)
+		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_test, lon_test)
+		writer.writerows([[lat_now, lon_now, error_theta]])
+
+		#check
+		if direction < THD_DIRECTION:
+			isReach_dest = 1
+			break
+
+		#run
+		run_following_EM1.move_default(RUN_STRAIGHT_L,RUN_STRAIGHT_R,2)
+		stuck.ue_jug()
+
+	return isReach_dest
+
 
 def main(lat_test, lon_test):
 	#const

@@ -4,6 +4,7 @@
 import time
 import board
 import adafruit_sgp40
+import csv
 
 #src
 import bme280
@@ -108,10 +109,16 @@ def mission():
 	
 	if check == 1:
 		#自律誘導
+		#init
+		filename = "run_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+		f = open(filename,"w")
+		writer = csv.writer(f)
+
 		while isReach_dest == 0:
-			isReach_dest = run.run(RUN_LAT,RUN_LON)
+			#isReach_dest = run.run(RUN_LAT,RUN_LON)
+			isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
 			print("Raw Gas: ", sgp.raw)
-			
+
 	if isReach_dest == 0:
 		#-----6_second_follow_sequence-----#
 		print("-----Start 6_second_follow_sequence-----")
@@ -125,8 +132,14 @@ def mission():
 	
 		if check == 1:
 			#自律誘導
+			#init
+			filename = "run_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+			f = open(filename,"w")
+			writer = csv.writer(f)
+
 			while isReach_dest == 0:
-				isReach_dest = run.run(RUN_LAT,RUN_LON)
+				#isReach_dest = run.run(RUN_LAT,RUN_LON)
+				isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
 				print("Raw Gas: ", sgp.raw)
 
 
@@ -154,8 +167,14 @@ def mission():
 		print("-----Start extra_Run_sequence-----")
 		send.log("-----Start extra_Run_sequence-----")
 
+		#init
+		filename = "run_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+		f = open(filename,"w")
+		writer = csv.writer(f)
+
 		while isReach_dest == 0:
-			isReach_dest = run.run(RUN_LAT,RUN_LON)
+			#isReach_dest = run.run(RUN_LAT,RUN_LON)
+			isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
 			print("Raw Gas: ", sgp.raw)
 
 		print("-----Finish extra_Run_sequence-----")

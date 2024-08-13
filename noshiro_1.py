@@ -120,6 +120,7 @@ def mission():
 			#isReach_dest = run.run(RUN_LAT,RUN_LON)
 			isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
 			print("Raw Gas: ", sgp.raw)
+			writer.writerows([[sgp.raw]])
 		
 		f.close()
 
@@ -145,6 +146,7 @@ def mission():
 				#isReach_dest = run.run(RUN_LAT,RUN_LON)
 				isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
 				print("Raw Gas: ", sgp.raw)
+				writer.writerows([[sgp.raw]])
 			
 			f.close()
 
@@ -182,6 +184,7 @@ def mission():
 			#isReach_dest = run.run(RUN_LAT,RUN_LON)
 			isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
 			print("Raw Gas: ", sgp.raw)
+			writer.writerows([[sgp.raw]])
 		
 		f.close()
 

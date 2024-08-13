@@ -2,6 +2,7 @@
 
 #standard
 import time
+import csv
 
 #src
 import bme280
@@ -48,7 +49,8 @@ def mission():
 	print("-----Start 1_Release_sequence-----")
 	send.log("-----Start 1_Release_sequence-----")
 
-	release.detect()
+	#release.detect()
+	release.detect_csv()
 
 	print("-----Finish 1_Release_sequence-----")
 	send.log("-----Finish 1_Release_sequence-----")
@@ -59,7 +61,8 @@ def mission():
 	print("-----Start 2_Land_sequence-----")
 	send.log("-----Start 2_Land_sequence-----")
 
-	land.detect()
+	#land.detect()
+	land.detect_csv()
 	blt_child.main(102)
 
 	print("-----Finish 2_Land_sequence-----")
@@ -102,10 +105,18 @@ def mission():
 	
 	if check == 1:
 		#自律誘導
+		#init
+		filename = "run_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+		f = open(filename,"w")
+		writer = csv.writer(f)
+
 		while isReach_dest == 0:
-			isReach_dest = run.run(RUN_LAT,RUN_LON)
+			#isReach_dest = run.run(RUN_LAT,RUN_LON)
+			isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
 			temp,pres,hum,alt = bme280.bme280_read()
 			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
+		
+		f.close()
 
 	if isReach_dest == 0:
 		#-----6_second_follow_sequence-----#
@@ -120,11 +131,18 @@ def mission():
 	
 		if check == 1:
 			#自律誘導
+			#init
+			filename = "run_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+			f = open(filename,"w")
+			writer = csv.writer(f)
+
 			while isReach_dest == 0:
-				isReach_dest = run.run(RUN_LAT,RUN_LON)
+				#isReach_dest = run.run(RUN_LAT,RUN_LON)
+				isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
 				temp,pres,hum,alt = bme280.bme280_read()
 				print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
 
+			f.close()
 
 
 	while True:
@@ -150,10 +168,18 @@ def mission():
 		print("-----Start extra_Run_sequence-----")
 		send.log("-----Start extra_Run_sequence-----")
 
+		#init
+		filename = "run_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+		f = open(filename,"w")
+		writer = csv.writer(f)
+
 		while isReach_dest == 0:
-			isReach_dest = run.run(RUN_LAT,RUN_LON)
+			#isReach_dest = run.run(RUN_LAT,RUN_LON)
+			isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
 			temp,pres,hum,alt = bme280.bme280_read()
 			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
+
+		f.close()
 
 		print("-----Finish extra_Run_sequence-----")
 		send.log("-----Finish extra_Run_sequence-----")

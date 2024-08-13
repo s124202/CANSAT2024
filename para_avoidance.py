@@ -123,7 +123,7 @@ def para_adalt():
 
 		if purple_area > 100:
 			print("Move Backward")
-			run_following_EM2.move_default(-30, -30, 1)
+			run_following_EM2.move_default(-40, -40, 1.5)
 
 		else:
 			print("Move Forward")

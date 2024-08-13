@@ -55,7 +55,8 @@ def mission():
 	print("-----Start 1_Release_sequence-----")
 	send.log("-----Start 1_Release_sequence-----")
 
-	release.detect()
+	#release.detect()
+	release.detect_csv()
 
 	print("-----Finish 1_Release_sequence-----")
 	send.log("-----Finish 1_Release_sequence-----")

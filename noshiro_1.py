@@ -118,6 +118,8 @@ def mission():
 			#isReach_dest = run.run(RUN_LAT,RUN_LON)
 			isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
 			print("Raw Gas: ", sgp.raw)
+		
+		f.close()
 
 	if isReach_dest == 0:
 		#-----6_second_follow_sequence-----#
@@ -141,6 +143,8 @@ def mission():
 				#isReach_dest = run.run(RUN_LAT,RUN_LON)
 				isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
 				print("Raw Gas: ", sgp.raw)
+			
+			f.close()
 
 
 
@@ -176,6 +180,8 @@ def mission():
 			#isReach_dest = run.run(RUN_LAT,RUN_LON)
 			isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
 			print("Raw Gas: ", sgp.raw)
+		
+		f.close()
 
 		print("-----Finish extra_Run_sequence-----")
 		send.log("-----Finish extra_Run_sequence-----")

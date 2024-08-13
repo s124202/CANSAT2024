@@ -1,8 +1,10 @@
 import bluetooth
 import time
 
+from main_const import *
+
 def main(send):
-    bd_addr = "B8:27:EB:B3:DE:30" # サーバー側のデバイスアドレスを入力
+    bd_addr = BLT_ADRESS # サーバー側のデバイスアドレスを入力
     port = 1
     timeout = 0 
 
@@ -20,16 +22,12 @@ def main(send):
             print("try again")
             time.sleep(1)
             if i == 9:
-                timeout = 1
-                break
+                print("blt connect timeout")
+                return
             pass
-    if timeout == 1:
-        print("blt connect timeout")
 
-    for i in range(10):
+    for i in range(5):
         try:
-            if timeout == 1:
-                break
             time.sleep(1)
             sock.send(str(send))
             data = sock.recv(1024)

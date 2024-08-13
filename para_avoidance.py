@@ -25,7 +25,7 @@ def blt_adalt():
 			port = 1
 			server_sock.bind(("",port))
 			server_sock.listen(1)
-			client_sock.settimeout(30)
+			server_sock.settimeout(10)
 			client_sock,address = server_sock.accept()
 			client_sock.settimeout(10)
 			print("Accepted connection from ",address)
@@ -66,7 +66,7 @@ def blt_child():
 	receive = "0"
 	synchro = 0
 
-	bd_addr = "B8:27:EB:B3:DE:30" # サーバー側のデバイスアドレスを入力
+	bd_addr = BLT_ADRESS # サーバー側のデバイスアドレスを入力
 
 	port = 1
 

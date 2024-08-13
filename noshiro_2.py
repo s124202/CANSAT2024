@@ -141,6 +141,7 @@ def mission():
 				isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
 				temp,pres,hum,alt = bme280.bme280_read()
 				print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
+				writer.writerows([[temp, pres, hum, alt]])
 
 			f.close()
 

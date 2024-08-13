@@ -14,7 +14,7 @@ import gps
 from main_const import *
 
 
-def detect():
+def detect_csv():
 	#-----press_check-----#
 	#init(csv)
 	filename = "land_press_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
@@ -99,7 +99,7 @@ def detect():
 	lat, lon = gps.location()
 	return lat, lon
 
-def detect_csv():
+def detect():
 	#-----press_check-----#
 	#init
 	time_start = time.time()

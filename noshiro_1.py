@@ -67,7 +67,8 @@ def mission():
 	print("-----Start 2_Land_sequence-----")
 	send.log("-----Start 2_Land_sequence-----")
 
-	lat,lon = land.detect()
+	#lat,lon = land.detect()
+	lat,lon = land.detect_csv()
 	blt_adalt.main(102)
 
 	print("-----Finish 2_Land_sequence-----")

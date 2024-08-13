@@ -41,16 +41,16 @@ def detect():
 			break
 
 def detect_csv():
+	#init(csv)
+	filename = "release_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	f = open(filename,"w")
+	writer = csv.writer(f)
+
     #init
 	time_start = time.time()
 	press_count = 0
 	press_array = [0]
 	press_array.append(bme280.bme280_read()[1])
-
-	#init(csv)
-	filename = "release_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
-	f = open(filename,"w")
-	writer = csv.writer(f)
 
     #detect
 	while True:
@@ -69,13 +69,13 @@ def detect_csv():
 
 
 		if press_count == RELEASE_JUDGE_COUNT:
-			f.close()
 			break
 
 		if time.time() - time_start > RELEASE_TIMEOUT:
 			print("Release Timeout")
-			f.close()
 			break
+	
+	f.close()
 
 
 if __name__ == "__main__":

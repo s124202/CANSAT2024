@@ -7,8 +7,9 @@ import time
 import bluetooth
 import threading
 from queue import Queue
-#import board
-#import adafruit_sgp40
+import board
+import adafruit_sgp40
+import csv
 
 #src
 import gps
@@ -430,13 +431,18 @@ def test(lat,lon,q):
 	lon_test = (lon + RUN_LON) / 2
 
 	#setup
-	#i2c = board.I2C() 
-	#sgp = adafruit_sgp40.SGP40(i2c)
+	i2c = board.I2C() 
+	sgp = adafruit_sgp40.SGP40(i2c)
+
+	filename = "raw_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	f = open(filename,"w")
+	writer = csv.writer(f)
 
 	#main
 	while True:
 		distance_to_dest, isReach_dest = drive(lat_dest=lat_test, lon_dest=lon_test, thd_distance=PID_THD_DISTANCE_DEST, stack_distance=PID_STUCK_JUDGE_THD_DISTANCE, t_cal=PID_T_CAL, loop_num=PID_LOOP_NUM)
-		#print("Raw Gas: ", sgp.raw)
+		print("Raw Gas: ", sgp.raw)
+		writer.writerows([[sgp.raw]])
 
 		#check
 		if receive == str(4):

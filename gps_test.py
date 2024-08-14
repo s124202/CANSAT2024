@@ -18,7 +18,9 @@ if __name__ == "__main__":
     mode3.mode3_change()
 
     #standard
-    lat_dest, lon_dest = gps.med()
+    #lat_dest, lon_dest = gps.med()
+    lat_dest = 40.142276
+    lon_dest = 139.987388
 
     #init
     count = 0

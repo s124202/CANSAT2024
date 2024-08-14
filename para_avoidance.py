@@ -50,10 +50,13 @@ def blt_adalt():
 			server_sock.close()
 
 			print("try reconnect")
-		except KeyboardInterrupt:
+		except:
 			print("finish")
-			client_sock.close()
-			server_sock.close()
+			try:
+				server_sock.close()
+				client_sock.close()
+			except:
+				pass
 			break
 		if synchro == 1:
 			break

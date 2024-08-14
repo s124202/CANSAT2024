@@ -315,14 +315,40 @@ def main_detect(q):
 
 	lose = 0
 	old_center = [320,0]
+
+	camera_count = 0
 	# カメラのキャプチャ
-	cap = cv2.VideoCapture(0)
+	try:
+		cap = cv2.VideoCapture(0)
+	except:
+		send = 4
+		time.sleep(3)
+		q.put(1)
+		print("switch to autonomy")
+		synchro = 1
+		return
+
 
 	while(cap.isOpened()):
 		# フレームを取得
-		ret, frame = cap.read()
-		frame = cv2.resize(frame, (640,320))
-		frame = cv2.rotate(frame, cv2.ROTATE_180)
+		try:
+			ret, frame = cap.read()
+			frame = cv2.resize(frame, (640,320))
+			frame = cv2.rotate(frame, cv2.ROTATE_180)
+			camera_count = 0
+		except:
+			camera_count += 1
+			if camera_count == 30:
+				send = 4
+				time.sleep(3)
+				cap.release()
+				cv2.destroyAllWindows()
+				q.put(1)
+				print("switch to autonomy")
+				synchro = 1
+				return
+		continue
+
 
 		if frame is None:
 			print("frame is None")

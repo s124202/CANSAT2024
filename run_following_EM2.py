@@ -224,7 +224,6 @@ def move():
 	synchro = 0
 
 	while True:
-		count = 0
 		if synchro == 1:
 			break
 		if send != 0 or receive != str(0):

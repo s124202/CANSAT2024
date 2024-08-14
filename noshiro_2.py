@@ -7,7 +7,6 @@ import csv
 #src
 import bme280
 import bmx055
-import motor
 
 #seq
 import release
@@ -42,8 +41,6 @@ def mission():
 	isReach_goal = 0
 	re_count = 1
 
-	#clock setup
-	t_start = time.time()
 
 	#-----1_Release_sequence-----#
 	print("-----Start 1_Release_sequence-----")

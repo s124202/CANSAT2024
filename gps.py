@@ -233,6 +233,7 @@ def location(reset_time=60):
 
 			if time.time() - time_start > reset_time:
 				print("timeout_gps")
+				lat,lon = 0.0,0.0
 				break
 	except KeyboardInterrupt:
 		print("\r\nKeyboard Intruppted at location")

@@ -41,7 +41,6 @@ def mission():
 	#const
 	isReach_dest = 0
 	isReach_goal = 0
-	re_count = 1
 
 	#setup_voc
 	i2c = board.I2C() 

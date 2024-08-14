@@ -224,7 +224,6 @@ def move():
 	synchro = 0
 
 	while True:
-		count = 0
 		if synchro == 1:
 			break
 		if send != 0 or receive != str(0):
@@ -296,12 +295,12 @@ def discovery(cap):
 			motor_stop()
 			time.sleep(2)
 			continue
-		elif center[0] < 100:
-			motor_move_default(ROTATE_PWR,-ROTATE_PWR,0.1)
-			motor_stop()
-		elif center[0] > 540:
-			motor_move_default(-ROTATE_PWR,ROTATE_PWR,0.1)
-			motor_stop()
+		# elif center[0] < 100:
+		# 	motor_move_default(ROTATE_PWR,-ROTATE_PWR,0.1)
+		# 	motor_stop()
+		# elif center[0] > 540:
+		# 	motor_move_default(-ROTATE_PWR,ROTATE_PWR,0.1)
+		# 	motor_stop()
 		return
 
 
@@ -316,14 +315,40 @@ def main_detect(q):
 
 	lose = 0
 	old_center = [320,0]
+
+	camera_count = 0
 	# カメラのキャプチャ
-	cap = cv2.VideoCapture(0)
+	try:
+		cap = cv2.VideoCapture(0)
+	except:
+		send = 4
+		time.sleep(3)
+		q.put(1)
+		print("switch to autonomy")
+		synchro = 1
+		return
+
 
 	while(cap.isOpened()):
 		# フレームを取得
-		ret, frame = cap.read()
-		frame = cv2.resize(frame, (640,320))
-		frame = cv2.rotate(frame, cv2.ROTATE_180)
+		try:
+			ret, frame = cap.read()
+			frame = cv2.resize(frame, (640,320))
+			frame = cv2.rotate(frame, cv2.ROTATE_180)
+			camera_count = 0
+		except:
+			camera_count += 1
+			if camera_count == 30:
+				send = 4
+				time.sleep(3)
+				cap.release()
+				cv2.destroyAllWindows()
+				q.put(1)
+				print("switch to autonomy")
+				synchro = 1
+				return
+		continue
+
 
 		if frame is None:
 			print("frame is None")

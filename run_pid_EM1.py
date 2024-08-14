@@ -352,13 +352,13 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 	send = 1
 
 	#cal
-	magx_off, magy_off = calibration.cal(40,-40,60) 
+	magx_off, magy_off = calibration.cal(RUN_CAL,-RUN_CAL,60) 
 	# while magx_off == 0 and magy_off == 0:
 	# 	motor.motor_move(80, -75, 1)
 	# 	magx_off, magy_off = calibration.cal(40,40,60) 
 
 	#get param(mag)
-	lat_old, lon_old = gps.location()
+	#lat_old, lon_old = gps.location()
 
 	#子機の発見待ち
 	send = 2

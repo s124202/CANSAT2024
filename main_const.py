@@ -49,8 +49,8 @@ ROTATE_PWR = 30
 THD_RED_RATIO = 20 #画面を占める赤色の割合の閾値
 
 #目標地点
-RUN_LAT  = 35.924366
-RUN_LON = 139.912469
+RUN_LAT  = 40.142282
+RUN_LON = 139.987399
 
 #Bluetoothアドレス
 BLT_ADRESS = "B8:27:EB:B3:DE:30" #親機のアドレス

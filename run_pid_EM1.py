@@ -429,19 +429,13 @@ def test(lat,lon,q):
 	lat_test = (lat + RUN_LAT) / 2
 	lon_test = (lon + RUN_LON) / 2
 
-	#const
-	LOOP_NUM = 5
-	THD_DISTANCE_DEST = 5
-	T_CAL = 30
-	STUCK_JUDGE_THD_DISTANCE = 1.0
-
 	#setup
 	#i2c = board.I2C() 
 	#sgp = adafruit_sgp40.SGP40(i2c)
 
 	#main
 	while True:
-		distance_to_dest, isReach_dest = drive(lat_dest=lat_test, lon_dest=lon_test, thd_distance=THD_DISTANCE_DEST, stack_distance=STUCK_JUDGE_THD_DISTANCE, t_cal=T_CAL, loop_num=LOOP_NUM)
+		distance_to_dest, isReach_dest = drive(lat_dest=lat_test, lon_dest=lon_test, thd_distance=PID_THD_DISTANCE_DEST, stack_distance=PID_STUCK_JUDGE_THD_DISTANCE, t_cal=PID_T_CAL, loop_num=PID_LOOP_NUM)
 		#print("Raw Gas: ", sgp.raw)
 
 		#check

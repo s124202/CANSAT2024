@@ -2,7 +2,6 @@
 
 #standard
 import time
-import csv
 
 #src
 import run_following_EM1

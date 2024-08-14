@@ -34,6 +34,11 @@ def main(send):
         client_sock.close()
         server_sock.close()
     except:
+        try:
+            server_sock.close()
+            client_sock.close()
+        except:
+            pass
         print("blt connect timeout")
 
 if __name__ == "__main__":

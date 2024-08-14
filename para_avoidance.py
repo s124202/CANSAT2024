@@ -78,7 +78,7 @@ def blt_child():
 			break
 		except:
 			print("try again")
-			time.sleep(3)
+			time.sleep(1)
 			pass
 
 	while True:
@@ -136,14 +136,12 @@ def para_adalt():
 	#子機のパラ回避待ち
 	send = 1
 	time_start = time.time()
-	time_timeout = 120
 	while True:
 		confirm = receive
-		print(confirm)
 		if confirm == str(1):
 			print("child para avoid finish")
 			break
-		elif time.time() - time_start > time_timeout:
+		elif time.time() - time_start > PARA_BLT_TIMEOUT:
 			print("partner timeout")
 			break
 		else:
@@ -160,14 +158,12 @@ def para_child():
 
 	#親機のパラ回避待ち
 	time_start = time.time()
-	time_timeout = 120
 	while True:
 		confirm = receive
-		print(confirm)
 		if confirm == str(1):
 			print("start para avoid")
 			break
-		elif time.time() - time_start > time_timeout:
+		elif time.time() - time_start > PARA_BLT_TIMEOUT:
 			print("partner timeout")
 			break
 		else:

@@ -217,10 +217,7 @@ def med(reset_time=60):
 #print無し
 #GPS取得したらすぐにfloatでlat,lon送信
 #60sec_timeout
-def location(reset_time=60):
-	#init
-	time_start = time.time()
-
+def location():
 	#main
 	try:
 		open_gps()
@@ -231,10 +228,6 @@ def location(reset_time=60):
 
 			time.sleep(1)
 
-			if time.time() - time_start > reset_time:
-				print("timeout_gps")
-				lat,lon = 0.0,0.0
-				break
 	except KeyboardInterrupt:
 		print("\r\nKeyboard Intruppted at location")
 	except:

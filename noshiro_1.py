@@ -9,7 +9,6 @@ import csv
 #src
 import bme280
 import bmx055
-import motor
 
 #seq
 import release

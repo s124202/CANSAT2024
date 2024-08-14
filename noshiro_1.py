@@ -198,7 +198,7 @@ if __name__ == '__main__':
 		setup()
 		print("####-----Finish setup-----####")
 
-		time.sleep(1)
+		time.sleep(FIRST_TIME_SLEEP)
 
 		print("####-----Start mission-----####")
 		mission()

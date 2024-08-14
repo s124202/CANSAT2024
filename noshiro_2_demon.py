@@ -41,16 +41,16 @@ def mission():
 	isReach_goal = 0
 
 
-	#-----1_Release_sequence-----#
-	print("-----Start 1_Release_sequence-----")
-	send.log("-----Start 1_Release_sequence-----")
+	# #-----1_Release_sequence-----#
+	# print("-----Start 1_Release_sequence-----")
+	# send.log("-----Start 1_Release_sequence-----")
 
-	#release.detect()
-	release.detect_csv()
+	# #release.detect()
+	# release.detect_csv()
 
-	print("-----Finish 1_Release_sequence-----")
-	send.log("-----Finish 1_Release_sequence-----")
-	time.sleep(1)
+	# print("-----Finish 1_Release_sequence-----")
+	# send.log("-----Finish 1_Release_sequence-----")
+	# time.sleep(1)
 
 
 	#-----2_Land_sequence-----#
@@ -188,14 +188,14 @@ def mission():
 
 
 if __name__ == '__main__':
-	send.log("-----Start CO2_program-----")
+	send.log("-----Start CO2_program demon-----")
 
 	try:
 		print("####-----Start setup-----#####")
 		setup()
 		print("####-----Finish setup-----####")
 
-		time.sleep(FIRST_TIME_SLEEP)
+		time.sleep(1)
 
 		print("####-----Start mission-----####")
 		mission()
@@ -205,4 +205,4 @@ if __name__ == '__main__':
 		print("####-----Keyboard interrupt-----####")
 
 	finally:
-		send.log("-----Finish CO2_program-----")
+		send.log("-----Finish CO2_program demon-----")

@@ -7,8 +7,7 @@ import time
 import bluetooth
 import threading
 from queue import Queue
-#import board
-#import adafruit_sgp40
+import csv
 
 #src
 import gps
@@ -18,10 +17,6 @@ import run_following_EM2
 import calibration
 import gps_navigate
 #import stuck
-
-#send
-#import send.mode3 as mode3
-#import send.send_11 as send
 
 from main_const import *
 
@@ -350,7 +345,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 		if receive == str(4) or i == 99:
 			return 100,0
 		time.sleep(1)
-		if i % 10 == 9:
+		if i % 15 == 14:
 			run_following_EM2.move_default(ROTATE_PWR,-ROTATE_PWR,0.1)
 
 	#子機を待たせる
@@ -363,7 +358,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 	# 	magx_off, magy_off = calibration.cal(40,40,60) 
 
 	#get param(mag)
-	lat_old, lon_old = gps.location()
+	#lat_old, lon_old = gps.location()
 
 	#子機の発見待ち
 	send = 2
@@ -374,7 +369,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 			break
 		if receive == str(4) or i == 99:
 			return 100,0
-		if i % 10 == 9:
+		if i % 15 == 14:
 			run_following_EM2.move_default(ROTATE_PWR,-ROTATE_PWR,0.1)
 	send = 0
 	time.sleep(2.8)
@@ -435,20 +430,16 @@ def test(q):
 	lat_test = RUN_LAT
 	lon_test = RUN_LON
 
-	#const
-	LOOP_NUM = 5
-	THD_DISTANCE_DEST = 5
-	T_CAL = 30
-	STUCK_JUDGE_THD_DISTANCE = 1.0
-
-	#setup
-	#i2c = board.I2C() 
-	#sgp = adafruit_sgp40.SGP40(i2c)
+	filename = "bme280_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	f = open(filename,"w")
+	writer = csv.writer(f)
 
 	#main
 	while True:
-		distance_to_dest, isReach_dest = drive(lat_dest=lat_test, lon_dest=lon_test, thd_distance=THD_DISTANCE_DEST, stack_distance=STUCK_JUDGE_THD_DISTANCE, t_cal=T_CAL, loop_num=LOOP_NUM)
-		#print("Raw Gas: ", sgp.raw)
+		distance_to_dest, isReach_dest = drive(lat_dest=lat_test, lon_dest=lon_test, thd_distance=PID_THD_DISTANCE_DEST, stack_distance=PID_STUCK_JUDGE_THD_DISTANCE, t_cal=PID_T_CAL, loop_num=PID_LOOP_NUM)
+		temp,pres,hum,alt = bme280.bme280_read()
+		print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
+		writer.writerows([[temp, pres, hum, alt]])
 
 		#check
 		if receive == str(4):

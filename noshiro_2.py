@@ -116,7 +116,7 @@ def mission():
 		
 		f.close()
 
-	if isReach_dest == 0:
+	else:
 		#-----6_second_follow_sequence-----#
 		print("-----Start 6_second_follow_sequence-----")
 		send.log("-----Start 6_second_follow_sequence-----")

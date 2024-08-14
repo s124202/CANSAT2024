@@ -296,12 +296,12 @@ def discovery(cap):
 			motor_stop()
 			time.sleep(2)
 			continue
-		elif center[0] < 100:
-			motor_move_default(ROTATE_PWR,-ROTATE_PWR,0.1)
-			motor_stop()
-		elif center[0] > 540:
-			motor_move_default(-ROTATE_PWR,ROTATE_PWR,0.1)
-			motor_stop()
+		# elif center[0] < 100:
+		# 	motor_move_default(ROTATE_PWR,-ROTATE_PWR,0.1)
+		# 	motor_stop()
+		# elif center[0] > 540:
+		# 	motor_move_default(-ROTATE_PWR,ROTATE_PWR,0.1)
+		# 	motor_stop()
 		return
 
 

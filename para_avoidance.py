@@ -70,7 +70,7 @@ def blt_child():
 
 	port = 1
 
-	for _ in range (15):
+	for _ in range (10):
 		try:
 			sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 			sock.connect((bd_addr, port))
@@ -78,7 +78,7 @@ def blt_child():
 			break
 		except:
 			print("try again")
-			time.sleep(3)
+			time.sleep(1)
 			pass
 
 	while True:

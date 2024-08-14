@@ -39,7 +39,6 @@ def mission():
 	#const
 	isReach_dest = 0
 	isReach_goal = 0
-	re_count = 1
 
 
 	#-----1_Release_sequence-----#

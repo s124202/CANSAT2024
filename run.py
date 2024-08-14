@@ -2,7 +2,6 @@
 
 #standard
 import time
-import csv
 
 #src
 import run_following_EM2
@@ -80,9 +79,9 @@ def setup():
 
 def run_calibration():
 	magx_off, magy_off = calibration.cal(RUN_CAL,-RUN_CAL,60) 
-	while magx_off == 0 and magy_off == 0:
-		run_following_EM2.motor_move_default(RUN_STRAIGHT_L + 30, RUN_STRAIGHT_R + 30, 1)
-		magx_off, magy_off = calibration.cal(RUN_CAL,-RUN_CAL,60) 
+	# while magx_off == 0 and magy_off == 0:
+	# 	run_following_EM2.motor_move_default(RUN_STRAIGHT_L + 30, RUN_STRAIGHT_R + 30, 1)
+	# 	magx_off, magy_off = calibration.cal(RUN_CAL,-RUN_CAL,60) 
 
 	return magx_off, magy_off
 

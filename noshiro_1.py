@@ -47,9 +47,6 @@ def mission():
 	i2c = board.I2C() 
 	sgp = adafruit_sgp40.SGP40(i2c)
 
-	#clock setup
-	t_start = time.time()
-
 	#-----1_Release_sequence-----#
 	print("-----Start 1_Release_sequence-----")
 	send.log("-----Start 1_Release_sequence-----")

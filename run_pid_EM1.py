@@ -13,15 +13,11 @@ from queue import Queue
 #src
 import gps
 import bmx055
-import bme280
 import run_following_EM1
 import calibration
 import gps_navigate
 #import stuck
 
-#send
-#import send.mode3 as mode3
-#import send.send_11 as send
 
 from main_const import *
 

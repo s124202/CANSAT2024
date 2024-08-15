@@ -98,15 +98,15 @@ def get_param(magx_off, magy_off, lat_dest, lon_dest):
 
 def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 	#init
-	t_out = 30
+	t_out = 10
 	t_start = time.time()
 
 	while time.time() - t_start < t_out:
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_dest, lon_dest)
 
-		if error_theta < -15:
+		if error_theta < -25:
 			run_following_EM2.move_default(ROTATE_PWR, -ROTATE_PWR, 0.1)
-		elif error_theta > 15:
+		elif error_theta > 25:
 			run_following_EM2.move_default(-ROTATE_PWR, ROTATE_PWR, 0.1)
 		else:
 			break

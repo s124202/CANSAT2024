@@ -1,111 +1,30 @@
-#2024/07/30 生川
-
-#standard
+import serial
 import time
-import bluetooth
-import threading
 
-#src
-import motor
-import stuck
+# シリアルポートの設定
+port = "/dev/serial0"  # ラズベリーパイのシリアルポート
+baudrate = 9600
 
-#send
-#import send.mode3 as mode3
+# シリアルポートを開く
+ser = serial.Serial(port, baudrate, timeout=1)
 
-def blt():
-	global send
-	global receive
-	global synchro
+def parse_gps(data):
+    if data[0:6] == b'$GPGGA':
+        s = data.decode('utf-8')
+        parts = s.split(',')
+        if len(parts) > 5:
+            lat = float(parts[2])
+            lon = float(parts[4])
+            return lat, lon
+    return None, None
 
-	send = 1
-	receive = "0"
-	synchro = 0
-	
-	try:
-		server_sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-		port = 1
-		server_sock.bind(("",port))
-		server_sock.listen(1)
-		client_sock,address = server_sock.accept()
-		client_sock.settimeout(10)
-		print("Accepted connection from ",address)
-		
-		while True:
-			if synchro == 1:
-				print("synchro")
-				break
-			try:
-				data = client_sock.recv(1024)
-				receive = data.decode()
-				print(receive)
-				time.sleep(1)
-				client_sock.send(str(send))
-			except KeyboardInterrupt:
-				print("finish")
-				break
-			except bluetooth.btcommon.BluetoothError as err:
-				print("close")
-				break
-		client_sock.close()
-		server_sock.close()
-		
-	except KeyboardInterrupt:
-		print("finish")
-		client_sock.close()
-		server_sock.close()
-
-def main():
-	global send
-	global receive
-	global synchro
-	
-	send = 1
-	receive = "0"
-
-	#main
-	try:
-		for i in range(3):
-			
-			#stuck
-			stuck.ue_jug()
-
-			#cal(2sec)
-			motor.move(30,-30,2)
-			time.sleep(3)
-
-			#adjust direction(3.6sec)
-			for _ in range(3):
-				motor.move(30,-30,0.1)
-				time.sleep(0.5)
-				motor.move(-30,30,0.1)
-				time.sleep(0.5)
-			
-			#子機の発見待ち
-			send = 2
-			time.sleep(1)
-			while (receive != str(1)):
-				time.sleep(1)
-			send = 0
-			time.sleep(2)
-
-			#move(2sec)
-			motor.motor_move(15,13,2.5)
-			send = 1
-			motor.move(15,13,0.5)
-			time.sleep(3)
-
-	except KeyboardInterrupt:
-		print("interrupt!")
-
-
-if __name__ == "__main__":
-	thread1 = threading.Thread(target = blt)
-	thread2 = threading.Thread(target = main)
-
-	motor.setup()
-	
-	thread1.start()
-	thread2.start()
-
-	thread1.join()
-	thread2.join()
+try:
+    while True:
+        data = ser.readline()
+        lat, lon = parse_gps(data)
+        if lat and lon:
+            print(f"Latitude: {lat}, Longitude: {lon}")
+        time.sleep(1)
+except KeyboardInterrupt:
+    ser.close()
+    print("プログラムを終了しました。")

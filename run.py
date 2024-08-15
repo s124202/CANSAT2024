@@ -98,20 +98,20 @@ def get_param(magx_off, magy_off, lat_dest, lon_dest):
 
 def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 	#init
-	t_out = 10
+	t_out = 15
 	t_start = time.time()
 
 	while time.time() - t_start < t_out:
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_dest, lon_dest)
 
 		if error_theta < -25:
-			run_following_EM2.move_default(ROTATE_PWR, -ROTATE_PWR, 0.1)
+			run_following_EM2.move_default(ROTATE_PWR, -ROTATE_PWR, 0.2)
 		elif error_theta > 25:
-			run_following_EM2.move_default(-ROTATE_PWR, ROTATE_PWR, 0.1)
+			run_following_EM2.move_default(-ROTATE_PWR, ROTATE_PWR, 0.2)
 		else:
 			break
 
-		time.sleep(0.3)
+		time.sleep(0.5)
 
 	print("finish adjust")
 
@@ -153,6 +153,10 @@ def run_csv(lat_test, lon_test, writer):
 	#init
 	t_start = time.time()
 
+	#stuck_init
+	stuck_count = 1
+	lat_old, lon_old = gps.location()
+
 	#move
 	while time.time() - t_start < T_CAL:
 		#adjust direction
@@ -167,7 +171,21 @@ def run_csv(lat_test, lon_test, writer):
 
 		#run
 		run_following_EM2.move_default(RUN_STRAIGHT_L,RUN_STRAIGHT_R,2)
-		stuck.ue_jug()
+
+		#stuck check
+		if stuck_count % 10 == 0:
+			#yoko check
+			yoko_count = stuck.yoko_jug()
+			stuck.ue_jug()
+			if yoko_count > 0:
+				break
+
+			if stuck.stuck_jug(lat_old, lon_old, lat_now, lon_old, thd=STUCK_JUDGE_THD_DISTANCE):
+				pass
+			else:
+				stuck.stuck_avoid()
+			
+			lat_old, lon_old = gps.location()
 
 	return isReach_dest
 

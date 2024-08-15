@@ -2,7 +2,7 @@ import serial
 import time
 
 # シリアルポートの設定
-port = "/dev/serial0"  # ラズベリーパイのシリアルポート
+port = "/dev/serial1"  # ラズベリーパイのシリアルポート
 baudrate = 9600
 
 # シリアルポートを開く

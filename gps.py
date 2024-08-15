@@ -168,7 +168,6 @@ def close_gps():
 # 		print(traceback.format_exc())
 # 		return data_string
 def main():
-	data_string = ""
 	try:
 		open_gps()
 		while True:

@@ -105,13 +105,13 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 		error_theta, direction, lat_now, lon_now = get_param(magx_off, magy_off, lat_dest, lon_dest)
 
 		if error_theta < -25:
-			run_following_EM1.move_default(ROTATE_PWR,-ROTATE_PWR,0.1)
+			run_following_EM1.move_default(ROTATE_PWR,-ROTATE_PWR,0.2)
 		elif error_theta > 25:
-			run_following_EM1.move_default(-ROTATE_PWR,ROTATE_PWR,0.1)
+			run_following_EM1.move_default(-ROTATE_PWR,ROTATE_PWR,0.2)
 		else:
 			break
 
-		time.sleep(0.3)
+		time.sleep(0.5)
 
 	print("finish adjust")
 

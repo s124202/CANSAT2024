@@ -347,7 +347,7 @@ def main_detect(q):
 				print("switch to autonomy")
 				synchro = 1
 				return
-		continue
+			continue
 
 
 		if frame is None:

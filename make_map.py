@@ -7,7 +7,7 @@ import gps_navigate
 
 #input
 data = []
-with open('co2_data.csv', mode='r') as file:
+with open('run_data_sample.csv', mode='r') as file:
     csv_reader = csv.DictReader(file)
     for row in csv_reader:
         data.append({
@@ -17,8 +17,8 @@ with open('co2_data.csv', mode='r') as file:
         })
 
 #fixed point
-start = {"latitude": 35.924377, "longitude": 139.912343}
-goal = {"latitude": 35.9243193, "longitude": 139.9124873}
+start = {"latitude": 40.14251, "longitude": 139.987153}
+goal = {"latitude": 40.142282, "longitude": 139.987399}
 
 #list
 latitudes = [point["latitude"] for point in data]
@@ -44,7 +44,7 @@ plt.figure(figsize=(10, 6))
 plt.plot(latitudes, longitudes, marker='o', linestyle='-', color='blue')
 
 # 矢印を追加
-plt.quiver(latitudes, longitudes, u, v, angles='xy', scale_units='xy', scale=20000, color='red')
+plt.quiver(latitudes, longitudes, u, v, angles='xy', scale_units='xy', scale=50000, color='red')
 
 # ゴール地点をプロット
 plt.scatter(goal["latitude"], goal["longitude"], color='green', marker='x', s=100, label='Goal')
@@ -54,8 +54,8 @@ plt.scatter(start["latitude"], start["longitude"], color='green', marker='x', s=
 plt.text(start["latitude"], start["longitude"], 'START', fontsize=12, ha='left', color='green')
 
 # 各地点に距離を表示
-for i, (lat, lon, dist) in enumerate(zip(latitudes, longitudes, distances)):
-    plt.text(lat, lon, f'{dist:.4f}', fontsize=12, ha='right')
+# for i, (lat, lon, dist) in enumerate(zip(latitudes, longitudes, distances)):
+#     plt.text(lat, lon, f'{dist:.4f}', fontsize=12, ha='right')
 
 # グラフのラベルを設定
 plt.xlabel('lat')

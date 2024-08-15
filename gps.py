@@ -143,30 +143,42 @@ def close_gps():
 
 
 #無限にGPS取得
+# def main():
+# 	data_string = ""
+# 	try:
+# 		open_gps()
+# 		while True:
+# 			utc, lat, lon, sHeight, gHeight = read_gps()
+# 			if utc == -1.0:
+# 				if lat == -1.0:
+# 					print("Reading gps Error")
+# 				else:
+# 					print("Status V")
+
+# 			else:
+# 				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
+# 				data_string = f"utc:{utc}\nlat:{lat}\nlon:{lon}\nsHeight: {sHeight}\ngHeight: {gHeight}"
+# 			time.sleep(1)
+# 	except KeyboardInterrupt:
+# 		close_gps()
+# 		print("\r\nKeyboard Intruppted, Serial Closed")
+# 		return data_string
+# 	except:
+# 		close_gps()
+# 		print(traceback.format_exc())
+# 		return data_string
 def main():
 	data_string = ""
 	try:
 		open_gps()
 		while True:
 			utc, lat, lon, sHeight, gHeight = read_gps()
-			if utc == -1.0:
-				if lat == -1.0:
-					print("Reading gps Error")
-				else:
-					print("Status V")
-
-			else:
-				print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
-				data_string = f"utc:{utc}\nlat:{lat}\nlon:{lon}\nsHeight: {sHeight}\ngHeight: {gHeight}"
+			print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
 			time.sleep(1)
 	except KeyboardInterrupt:
 		close_gps()
-		print("\r\nKeyboard Intruppted, Serial Closed")
-		return data_string
 	except:
 		close_gps()
-		print(traceback.format_exc())
-		return data_string
 
 
 #GPSを20回取得したら中央値をfloatでlat,lon送信

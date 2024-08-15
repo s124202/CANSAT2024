@@ -173,7 +173,7 @@ def main():
 		while True:
 			utc, lat, lon, sHeight, gHeight = read_gps()
 			print("utc:" + str(utc) + "\t" + "lat:" + str(lat) + "\t" + "lon:" + str(lon) + "\t" + "sHeight: " + str(sHeight) + "\t" + "gHeight: " + str(gHeight))
-			time.sleep(1)
+			time.sleep(5)
 	except KeyboardInterrupt:
 		close_gps()
 	except:

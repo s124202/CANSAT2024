@@ -34,11 +34,11 @@ def ue_jug():
             print(f'下だよ{ue_count}')
             print(f'acc: {z}')
             if ue_count >= 2 and ue_count < 4:
-                run_following_EM2.move_default(40, 40, 0.08)
+                run_following_EM2.move_default(10, 10, 0.08)
             elif ue_count >= 4 and ue_count < 6:
-                run_following_EM2.move_default(70, 70, 0.08)
+                run_following_EM2.move_default(10, 10, 0.08)
             elif ue_count >= 6 and ue_count < 8:
-                run_following_EM2.move_default(100, 100, 0.5)
+                run_following_EM2.move_default(10, 10, 0.5)
             else:
                 run_following_EM2.move_default(12, 12, 1)
             time.sleep(2)
@@ -96,39 +96,39 @@ def random(a, b, k):
 
 def stuck_avoid_move(x):
     if x == 0:
-        run_following_EM2.move_default(-100, -100, 2)
+        run_following_EM2.move_default(-10, -10, 2)
         time.sleep(1)
-        run_following_EM2.move_default(-60, -60, 5)
+        run_following_EM2.move_default(-10, -10, 5)
         time.sleep(1)
     elif x == 1:
-        run_following_EM2.move_default(40, -40, 1)
+        run_following_EM2.move_default(10, -10, 1)
         time.sleep(1)
-        run_following_EM2.move_default(80, 80, 5)
+        run_following_EM2.move_default(10, 10, 5)
         time.sleep(1)
     elif x == 2:
-        run_following_EM2.move_default(-100, 100, 2)
+        run_following_EM2.move_default(-10, 10, 2)
         time.sleep(1)
-        run_following_EM2.move_default(80, 80, 5)
+        run_following_EM2.move_default(10, 10, 5)
         time.sleep(1)
     elif x == 3:
-        run_following_EM2.move_default(100, -100, 2)
+        run_following_EM2.move_default(10, -10, 2)
         time.sleep(1)
-        run_following_EM2.move_default(80, 80, 5)
+        run_following_EM2.move_default(10, 10, 5)
         time.sleep(1)
     elif x == 4:
-        run_following_EM2.move_default(40, -40, 1)
+        run_following_EM2.move_default(10, -10, 1)
         time.sleep(1)
-        run_following_EM2.move_default(-80, -80, 5)
+        run_following_EM2.move_default(-10, -10, 5)
         time.sleep(1)
     elif x == 5:
-        run_following_EM2.move_default(40, -40, 1)
+        run_following_EM2.move_default(10, -10, 1)
         time.sleep(1)
-        run_following_EM2.move_default(-80, -80, 5)
+        run_following_EM2.move_default(-10, -10, 5)
         time.sleep(1)
     elif x == 6:
-        run_following_EM2.move_default(100, -100, 3)
+        run_following_EM2.move_default(10, -10, 3)
         time.sleep(1)
-        run_following_EM2.move_default(80, 80, 3)
+        run_following_EM2.move_default(10, 10, 3)
         time.sleep(1)
 
 def stuck_avoid():

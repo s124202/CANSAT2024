@@ -173,7 +173,7 @@ def run_csv(lat_test, lon_test, writer):
 		run_following_EM2.move_default(RUN_STRAIGHT_L,RUN_STRAIGHT_R,2)
 
 		#stuck check
-		if stuck_count % 10 == 0:
+		if stuck_count % 5 == 0:
 			#yoko check
 			yoko_count = stuck.yoko_jug()
 			stuck.ue_jug()
@@ -186,6 +186,8 @@ def run_csv(lat_test, lon_test, writer):
 				stuck.stuck_avoid()
 			
 			lat_old, lon_old = gps.location()
+
+		stuck_count += 1
 
 	return isReach_dest
 

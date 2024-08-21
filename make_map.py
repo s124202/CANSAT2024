@@ -7,7 +7,7 @@ import gps_navigate
 
 #input
 data = []
-with open('run_data_sample.csv', mode='r') as file:
+with open('run_data_0816.csv', mode='r') as file:
     csv_reader = csv.DictReader(file)
     for row in csv_reader:
         data.append({
@@ -17,7 +17,7 @@ with open('run_data_sample.csv', mode='r') as file:
         })
 
 #fixed point
-start = {"latitude": 40.14251, "longitude": 139.987153}
+start = {"latitude": 40.141782, "longitude": 139.986828}
 goal = {"latitude": 40.142282, "longitude": 139.987399}
 
 #list
@@ -54,8 +54,8 @@ plt.scatter(start["latitude"], start["longitude"], color='green', marker='x', s=
 plt.text(start["latitude"], start["longitude"], 'START', fontsize=12, ha='left', color='green')
 
 # 各地点に距離を表示
-# for i, (lat, lon, dist) in enumerate(zip(latitudes, longitudes, distances)):
-#     plt.text(lat, lon, f'{dist:.4f}', fontsize=12, ha='right')
+for i, (lat, lon, dist) in enumerate(zip(latitudes, longitudes, distances)):
+    plt.text(lat, lon, f'{dist:.4f}', fontsize=12, ha='right')
 
 # グラフのラベルを設定
 plt.xlabel('lat')

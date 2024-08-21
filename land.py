@@ -96,7 +96,7 @@ def detect_csv():
 
 	f.close()
 
-	lat, lon = gps.location()
+	lat, lon = 40,139
 	return lat, lon
 
 def detect():

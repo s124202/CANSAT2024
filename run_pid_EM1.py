@@ -424,7 +424,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 	return distance_to_dest, isReach_dest
 
 
-def test(lat,lon,q):
+def test(lat=40,lon=139,q):
 	global receive
 	global synchro
 	global send

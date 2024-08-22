@@ -8,7 +8,7 @@ def main(send):
     port = 1
     timeout = 0 
 
-    for i in range(10):
+    for i in range(30):
         try:
             sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
             sock.connect((bd_addr, port))
@@ -20,7 +20,7 @@ def main(send):
             break
         except:
             print("try again")
-            time.sleep(1)
+            time.sleep(29)
             if i == 9:
                 print("blt connect timeout")
                 return

@@ -424,7 +424,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 	return distance_to_dest, isReach_dest
 
 
-def test(lat=40,lon=139,q):
+def test(lat,lon,q):
 	global receive
 	global synchro
 	global send
@@ -493,5 +493,5 @@ if __name__ == "__main__":
 	bmx055.bmx055_setup()
 	#mode3.mode3_change()
 	
-	a = main()
+	a = main(40,139)
 	print(a)

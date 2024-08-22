@@ -20,8 +20,8 @@ def main(send):
             break
         except:
             print("try again")
-            time.sleep(29)
-            if i == 9:
+            time.sleep(2)
+            if i == 29:
                 print("blt connect timeout")
                 return
             pass

@@ -54,4 +54,4 @@ RUN_LAT  = 40.142282
 RUN_LON = 139.987399
 
 #Bluetoothアドレス
-BLT_ADRESS = "B8:27:EB:89:70:30" #親機のアドレス
+BLT_ADRESS = "B8:27:EB:A9:5B:64" #親機のアドレス

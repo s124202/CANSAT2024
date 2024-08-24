@@ -8,8 +8,8 @@ import src.gps as gps
 import src.gps_navigate as gps_navigate
 
 #send
-import src.send.mode3 as mode3
-import src.send.send_11 as send_11
+import send.mode3 as mode3
+import send.send_11 as send_11
 
 
 #無限にGPS取得してログを送る

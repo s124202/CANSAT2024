@@ -3,6 +3,7 @@
 #standard
 import time
 import csv
+import math
 
 #src
 import bme280
@@ -23,9 +24,6 @@ import run_following_EM2
 import send.mode3 as mode3
 import send.send_11 as send
 
-#const
-from main_const import *
-
 
 def setup():
 	mode3.mode3_change()
@@ -37,27 +35,140 @@ def setup():
 
 def mission():
 	#const
+	t_start = time.time()
+	seq_num = 1
 	isReach_dest = 0
 	isReach_goal = 0
 
+	#main
+	while True:
+		#----------1_Release_sequence----------#
+		if seq_num == 1:
+			#send
+			print("-----Start 1_Release_sequence-----")
+			send.log("-----Start 1_Release_sequence-----")
 
-	#-----1_Release_sequence-----#
-	print("-----Start 1_Release_sequence-----")
-	send.log("-----Start 1_Release_sequence-----")
+			#init(csv)
+			filename = "log/release_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+			f = open(filename,"w")
+			writer = csv.writer(f)
 
-	#release.detect()
-	release.detect_csv()
+			#init(press)
+			time_start = time.time()
+			press_count = 0
+			press_array = [0]
+			press_array.append(bme280.bme280_read()[1])
 
-	print("-----Finish 1_Release_sequence-----")
-	send.log("-----Finish 1_Release_sequence-----")
-	time.sleep(1)
+			#detect
+			while time.time() - time_start < RELEASE_TIMEOUT:
+				press_array, press_count = release.press(press_array, press_count)
+
+				print("press:", press_array, "count:", press_count)
+				writer.writerows([[time.time() - t_start,press_array[0],press_array[1],press_count]])
+				send.log(str(press_count))
+
+				if press_count == RELEASE_JUDGE_COUNT:
+					break
+
+			else:
+				print("-----Release Timeout-----")
+				send.log("-----Release Timeout-----")
+
+			#finish
+			f.close()
+			seq_num = 2
+
+			#send
+			print("-----Finish 1_Release_sequence-----")
+			send.log("-----Finish 1_Release_sequence-----")
+
+		time.sleep(1)
+
+		#----------2_Land_sequence----------#
+		if seq_num == 2:
+			#send
+			print("-----Start 2_Land_sequence-----")
+			send.log("-----Start 2_Land_sequence-----")
+
+			#-----press_check-----#
+			#send
+			print("----Start 2_1_PressCheck----")
+			send.log("----Start 2_1_PressCheck----")
+
+			#init(csv)
+			filename = "log/land_press_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+			f = open(filename,"w")
+			writer = csv.writer(f)
+
+			#init(press)
+			time_start = time.time()
+			press_count = 0
+			press_array = [0]
+			press_array.append(bme280.bme280_read()[1])
+
+			#detect
+			while time.time() - time_start < LAND_TIMEOUT:
+				press_array, press_count = land.press(press_array, press_count)
+
+				print("press:", press_array, "count:", press_count)
+				writer.writerows([[time.time() - t_start,press_array[0],press_array[1],press_count]])
+				send.log(str(press_count))
+
+				if press_count == LAND_JUDGE_COUNT:
+					break
+
+			else:
+				print("-----Land Press Timeout-----")
+				send.log("-----Land Press Timeout-----")
+
+			#finish(csv)
+			f.close()
+
+			#send
+			print("----Finish 2_1_PressCheck----")
+			send.log("----Finish 2_1_PressCheck----")
 
 
-	#-----2_Land_sequence-----#
-	print("-----Start 2_Land_sequence-----")
-	send.log("-----Start 2_Land_sequence-----")
+			#-----acc_check-----#
+			#send
+			print("----Start 2_2_AccCheck----")
+			send.log("----Start 2_2_AccCheck----")
 
-	#land.detect()
+			#init(csv)
+			filename = "log/land_acc_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+			f = open(filename,"w")
+			writer = csv.writer(f)
+
+			#init(press)
+			time_start = time.time()
+			acc_count = 0
+			acc_array = [0]
+			bmxData = bmx055.bmx055_read()
+			acc_abs = math.sqrt(bmxData[0]**2 + bmxData[1]**2 + bmxData[2]**2)
+			acc_array.append(acc_abs)
+
+			#detect
+			while time.time() - time_start < LAND_TIMEOUT:
+				acc_array, acc_count = land.acceleration(acc_array, acc_count)
+
+				print("acc:", acc_array, "count:", acc_count)
+				writer.writerows([[time.time() - t_start,acc_array[0],acc_array[1],acc_count]])
+				send.log(str(acc_count))
+
+				if acc_count == LAND_JUDGE_COUNT:
+					break
+
+			else:
+				print("-----Land Acc Timeout-----")
+				send.log("-----Land Acc Timeout-----")
+
+			#finish(csv)
+			f.close()
+
+			#send
+			print("----Start 2_2_AccCheck----")
+			send.log("----Start 2_2_AccCheck----")
+
 	land.detect_csv()
 	blt_child.main(102)
 
@@ -185,17 +296,36 @@ def mission():
 		time.sleep(1)
 
 
+def delay_time(sleep):
+	for i in len(sleep):
+		print("cycle:", i)
+		time.sleep(1)
+
+		if i % 10 == 0:
+			send.log(str(i))
 
 
 if __name__ == '__main__':
+	#const
+	FIRST_TIME_SLEEP = 10
+
+	RELEASE_TIMEOUT = 10
+	RELEASE_JUDGE_COUNT = 3
+
+	LAND_TIMEOUT = 120
+	LAND_JUDGE_COUNT = 3
+
+
 	send.log("-----Start CO2_program-----")
 
 	try:
-		print("####-----Start setup-----#####")
+		print("####-----Start setup-----####")
 		setup()
 		print("####-----Finish setup-----####")
 
-		time.sleep(FIRST_TIME_SLEEP)
+		print("####-----Start sleep-----####")
+		delay_time(FIRST_TIME_SLEEP)
+		print("####-----Finish sleep-----####")
 
 		print("####-----Start mission-----####")
 		mission()

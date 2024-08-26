@@ -7,7 +7,7 @@ import csv
 
 #src
 import bme280
-import bmx055
+import main.bmx055 as bmx055
 
 #const
 from main_const import *

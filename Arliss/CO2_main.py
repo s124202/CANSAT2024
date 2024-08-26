@@ -280,19 +280,7 @@ def mission():
 			print("-----Start 7_gps_run_sequence-----")
 			send.log("-----Start 7_gps_run_sequence-----")
 
-			#init
-			filename = "run_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
-			f = open(filename,"w")
-			writer = csv.writer(f)
-
-			while isReach_dest == 0:
-				#isReach_dest = run.run(RUN_LAT,RUN_LON)
-				isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
-				temp,pres,hum,alt = bme280.bme280_read()
-				print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
-				writer.writerows([[temp, pres, hum, alt]])
-
-			f.close()
+			
 
 			#send
 			print("-----Finish 7_gps_run_sequence-----")
@@ -330,10 +318,7 @@ def mission():
 def delay_time(sleep):
 	for i in range(sleep):
 		print("cycle:", i)
-		time.sleep(1)
-
-		if i % 10 == 0:
-			send.log(str(i))
+		send.log(str(i))
 
 
 if __name__ == '__main__':

@@ -24,6 +24,8 @@ import run_following_EM2
 import send.mode3 as mode3
 import send.send_11 as send
 
+from main_const import *
+
 
 def setup():
 	mode3.mode3_change()
@@ -82,7 +84,8 @@ def mission():
 			print("-----Finish 1_Release_sequence-----")
 			send.log("-----Finish 1_Release_sequence-----")
 
-		time.sleep(1)
+			time.sleep(1)
+
 
 		#----------2_Land_sequence----------#
 		if seq_num == 2:
@@ -187,7 +190,8 @@ def mission():
 			print("-----Finish 2_Land_sequence-----")
 			send.log("-----Finish 2_Land_sequence-----")
 
-		time.sleep(1)
+			time.sleep(1)
+
 
 		#----------3_Melt_sequence----------#
 		if seq_num == 3:
@@ -215,114 +219,112 @@ def mission():
 			print("-----Finish 3_Melt_sequence-----")
 			send.log("-----Finish 3_Melt_sequence-----")
 
-		time.sleep(1)
+			time.sleep(1)
 
 
-	#-----4_Avoid_sequence-----#
-	# print("-----Start 4_Avoid_sequence-----")
-	# send.log("-----Start 4_Avoid_sequence-----")
+		#----------4_Avoid_sequence----------#
+		if seq_num == 4:
+			#send
+			print("-----Start 4_Avoid_sequence-----")
+			send.log("-----Start 4_Avoid_sequence-----")
 
-	# para_avoidance.para_child_main()
+			para_avoidance.para_child_main()
+			seq_num = 5
 
-	# print("-----Finish 4_Avoid_sequence-----")
-	# send.log("-----Finish 4_Avoid_sequence-----")
-	# time.sleep(1)
-	
+			#send
+			print("-----Finish 4_Avoid_sequence-----")
+			send.log("-----Finish 4_Avoid_sequence-----")
 
-	# #-----5_first_follow_sequence-----#
-	# print("-----Start 5_first_follow_sequence-----")
-	# send.log("-----Start 5_first_follow_sequence-----")
-
-	# check = run_following_EM2.main()
-
-	# print("-----Finish 5_first_follow_sequence-----")
-	# send.log("-----Finish 5_first_follow_sequence-----")
-	# time.sleep(1)
-	
-	# if check == 1:
-	# 	#自律誘導
-	# 	#init
-	# 	filename = "run_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
-	# 	f = open(filename,"w")
-	# 	writer = csv.writer(f)
-
-	# 	while isReach_dest == 0:
-	# 		#isReach_dest = run.run(RUN_LAT,RUN_LON)
-	# 		isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
-	# 		temp,pres,hum,alt = bme280.bme280_read()
-	# 		print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
-	# 		writer.writerows([[temp, pres, hum, alt]])
-		
-	# 	f.close()
-
-	# else:
-	# 	#-----6_second_follow_sequence-----#
-	# 	print("-----Start 6_second_follow_sequence-----")
-	# 	send.log("-----Start 6_second_follow_sequence-----")
-	
-	# 	check = run_pid_EM2.main()
-	
-	# 	print("-----Finish 6_second_follow_sequence-----")
-	# 	send.log("-----Finish 6_second_follow_sequence-----")
-	# 	time.sleep(1)
-	
-	# 	if check == 1:
-	# 		#自律誘導
-	# 		#init
-	# 		filename = "run_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
-	# 		f = open(filename,"w")
-	# 		writer = csv.writer(f)
-
-	# 		while isReach_dest == 0:
-	# 			#isReach_dest = run.run(RUN_LAT,RUN_LON)
-	# 			isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
-	# 			temp,pres,hum,alt = bme280.bme280_read()
-	# 			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
-	# 			writer.writerows([[temp, pres, hum, alt]])
-
-	# 		f.close()
+			time.sleep(1)
 
 
-	# while True:
-	# 	#-----6_Goal_sequence-----#
-	# 	print("-----Start 6_Goal_sequence-----")
-	# 	send.log("-----Start 6_Goal_sequence-----")
-	# 	re_count = 1
+		#----------5_first_follow_sequence----------#
+		if seq_num == 5:
+			#send
+			print("-----Start 5_first_follow_sequence-----")
+			send.log("-----Start 5_first_follow_sequence-----")
 
-	# 	while isReach_goal == 0:
-	# 		isReach_goal, re_count = goal_detection.main(re_count)
-	# 		print("count:", re_count)
+			check = run_following_EM2.main()
+			if check == 1:
+				seq_num = 7
+			else:
+				seq_num = 6
 
-	# 		if re_count == 20 or re_count == 0:
-	# 			break
+			print("-----Finish 5_first_follow_sequence-----")
+			send.log("-----Finish 5_first_follow_sequence-----")
 
-	# 	print("-----Finish 6_Goal_sequence-----")
-	# 	send.log("-----Finish 6_Goal_sequence-----")
-	# 	time.sleep(1)
-	# 	if isReach_goal == 1:
-	# 		break
-		
-	# 	#-----6_Run_sequence-----#
-	# 	print("-----Start extra_Run_sequence-----")
-	# 	send.log("-----Start extra_Run_sequence-----")
+			time.sleep(1)
 
-	# 	#init
-	# 	filename = "run_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
-	# 	f = open(filename,"w")
-	# 	writer = csv.writer(f)
 
-	# 	while isReach_dest == 0:
-	# 		#isReach_dest = run.run(RUN_LAT,RUN_LON)
-	# 		isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
-	# 		temp,pres,hum,alt = bme280.bme280_read()
-	# 		print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
-	# 		writer.writerows([[temp, pres, hum, alt]])
+		#---------6_second_follow_sequence----------#
+		if seq_num == 6:
+			#send
+			print("-----Start 6_second_follow_sequence-----")
+			send.log("-----Start 6_second_follow_sequence-----")
 
-	# 	f.close()
+			check = run_pid_EM2.main()
+			if check == 1:
+				seq_num = 7
+			else:
+				seq_num = 8
 
-	# 	print("-----Finish extra_Run_sequence-----")
-	# 	send.log("-----Finish extra_Run_sequence-----")
-	# 	time.sleep(1)
+			print("-----Finish 6_second_follow_sequence-----")
+			send.log("-----Finish 6_second_follow_sequence-----")
+
+			time.sleep(1)
+
+
+		#---------7_gps_run_sequence----------#
+		if seq_num == 7:
+			#send
+			print("-----Start 7_gps_run_sequence-----")
+			send.log("-----Start 7_gps_run_sequence-----")
+
+			#init
+			filename = "run_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+			f = open(filename,"w")
+			writer = csv.writer(f)
+
+			while isReach_dest == 0:
+				#isReach_dest = run.run(RUN_LAT,RUN_LON)
+				isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
+				temp,pres,hum,alt = bme280.bme280_read()
+				print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
+				writer.writerows([[temp, pres, hum, alt]])
+
+			f.close()
+
+			#send
+			print("-----Finish 7_gps_run_sequence-----")
+			send.log("-----Finish 7_gps_run_sequence-----")
+
+			time.sleep(1)
+
+
+		#----------8_Goal_sequence----------#
+		if seq_num == 8:
+			#send
+			print("-----Start 8_Goal_sequence-----")
+			send.log("-----Start 8_Goal_sequence-----")
+
+			re_count = 1
+
+			while isReach_goal == 0:
+				isReach_goal, re_count = goal_detection.main(re_count)
+				print("count:", re_count)
+
+				if re_count == 20 or re_count == 0:
+					break
+
+			print("-----Finish 6_Goal_sequence-----")
+			send.log("-----Finish 6_Goal_sequence-----")
+
+			time.sleep(1)
+
+		if isReach_goal == 1:
+			break
+		else:
+			seq_num = 7
 
 
 def delay_time(sleep):
@@ -335,18 +337,6 @@ def delay_time(sleep):
 
 
 if __name__ == '__main__':
-	#const
-	FIRST_TIME_SLEEP = 20
-
-	RELEASE_TIMEOUT = 20
-	RELEASE_JUDGE_COUNT = 3
-
-	LAND_TIMEOUT = 120
-	LAND_JUDGE_COUNT = 3
-
-	MELT_TIME = 5
-
-
 	send.log("-----Start CO2_program-----")
 
 	try:
@@ -354,9 +344,11 @@ if __name__ == '__main__':
 		setup()
 		print("####-----Finish setup-----####")
 
+
 		print("####-----Start sleep-----####")
 		delay_time(FIRST_TIME_SLEEP)
 		print("####-----Finish sleep-----####")
+
 
 		print("####-----Start mission-----####")
 		mission()

@@ -68,8 +68,8 @@ def send_log(result=None):
             with open('ascii_data.txt', 'rb') as f:
                 payload = payload + f.read()
 
-        print("serial port:")
-        print(args.serial_port)
+        #print("serial port:")
+        #print(args.serial_port)
         print("周波数：")
         print(920.6 + int(args.target_channel) * 0.2)
 

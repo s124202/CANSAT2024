@@ -84,7 +84,7 @@ def send_log(result=None):
                     break
             ser.write(payload)
             ser.flush()
-            print("SENT")
+            #print("SENT")
 
     else:
         print("INVALID")

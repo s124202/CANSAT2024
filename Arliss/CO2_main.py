@@ -197,6 +197,11 @@ def mission():
 
 			melt.melt_down(MELT_TIME)
 
+			#-----blt_connect-----#
+			#send
+			print("----blt connect waiting...----")
+			send.log("----blt connect waiting...----")
+
 			#connect
 			blt_child.main(103)
 			if situation == 1:

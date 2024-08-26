@@ -73,10 +73,10 @@ def send_log(result=None):
         print("周波数：")
         print(920.6 + int(args.target_channel) * 0.2)
 
-        print("send data hex dump:")
+        #print("send data hex dump:")
         #hexdump.hexdump(payload, result='print')
 
-        print(payload)
+        print("send:", result)
 
         with serial.Serial(args.serial_port, int(args.baud), timeout=None) as ser:
             while True:

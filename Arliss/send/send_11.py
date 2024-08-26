@@ -70,8 +70,7 @@ def send_log(result=None):
 
         #print("serial port:")
         #print(args.serial_port)
-        print("周波数：")
-        print(920.6 + int(args.target_channel) * 0.2)
+        print("周波数：", 920.6 + int(args.target_channel) * 0.2)
 
         #print("send data hex dump:")
         #hexdump.hexdump(payload, result='print')

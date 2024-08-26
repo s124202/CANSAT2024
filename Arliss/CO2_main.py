@@ -321,7 +321,7 @@ def mission():
 
 
 def delay_time(sleep):
-	for i in len(sleep):
+	for i in range(sleep):
 		print("cycle:", i)
 		time.sleep(1)
 

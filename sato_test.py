@@ -1,6 +1,5 @@
 import purple_detection
 import time
-#aaa
 
 PARA_THD_COVERED = 30000
 PARA_TIMEOUT = 60

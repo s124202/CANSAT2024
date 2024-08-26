@@ -23,7 +23,7 @@ def main(send):
             time.sleep(2)
             if i == 29:
                 print("blt connect timeout")
-                return
+                return 0
             pass
 
     for i in range(5):
@@ -43,6 +43,8 @@ def main(send):
             print("close")
             break
     sock.close()
+
+    return 1
 
 
 if __name__ == "__main__":

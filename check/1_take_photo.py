@@ -44,7 +44,7 @@ if __name__ == "__main__":
 	try:
 		path_all_photo = 'take_photo/'
 		photoname = Capture(path_all_photo)
-		print(photoName)
+		print(photoname)
 	except KeyboardInterrupt:
 		print('stop')
 	except:

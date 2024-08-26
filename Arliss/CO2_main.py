@@ -336,9 +336,9 @@ def delay_time(sleep):
 
 if __name__ == '__main__':
 	#const
-	FIRST_TIME_SLEEP = 10
+	FIRST_TIME_SLEEP = 20
 
-	RELEASE_TIMEOUT = 10
+	RELEASE_TIMEOUT = 20
 	RELEASE_JUDGE_COUNT = 3
 
 	LAND_TIMEOUT = 120

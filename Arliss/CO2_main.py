@@ -169,7 +169,6 @@ def mission():
 			print("----Start 2_2_AccCheck----")
 			send.log("----Start 2_2_AccCheck----")
 
-	land.detect_csv()
 	blt_child.main(102)
 
 	print("-----Finish 2_Land_sequence-----")

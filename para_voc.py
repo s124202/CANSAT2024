@@ -238,7 +238,7 @@ def para_adalt():
 			purple_area = purple_detection.detect_para()
 			print(f'purple_area : {purple_area}')
 			if purple_area > 100:
-				motor.motor_move(30, -30, 0.25)
+				motor.motor_move(-30, 30, 0.25)
 				motor.motor_stop(0.5)
 
 				time.sleep(1)

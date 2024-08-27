@@ -3,6 +3,7 @@
 
 import purple_detection
 import run_following_EM1
+import stuck
 from main_const import *
 
 import bluetooth
@@ -113,6 +114,8 @@ def para_adalt():
 
 	purple_area = 0
 
+	stuck.ue_jug()
+
 	try:
 		purple_area = purple_detection.detect_para()
 		print(f'purple_area : {purple_area}')
@@ -176,6 +179,8 @@ def para_child():
 		time.sleep(3)
 
 	purple_area = 0
+
+	stuck.ue_jug()
 
 	try:
 		purple_area = purple_detection.detect_para()

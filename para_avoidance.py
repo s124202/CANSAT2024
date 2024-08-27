@@ -12,7 +12,7 @@ import straight
 
 def main_PID():
 	PARA_THD_COVERED = 300000
-	PARA_TIMEOUT = 300
+	PARA_SLEEP = 300
 	LAT_DEST = 35.924582
 	LON_DEST = 139.911343
 
@@ -27,7 +27,7 @@ def main_PID():
 	while True:
 		if PARA_THD_COVERED < purple_area:
 			print("Parachute on top")
-			time.sleep(PARA_TIMEOUT)
+			time.sleep(PARA_SLEEP)
 			straight(motor_pwr = 70, move_time = 2)
 		else:
 			break
@@ -156,7 +156,7 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 
 def main():
 	PARA_THD_COVERED = 300000
-	PARA_TIMEOUT = 300
+	PARA_SLEEP = 300
 	LAT_DEST = 35.9243193
 	LON_DEST = 139.9124873
 
@@ -171,7 +171,7 @@ def main():
 		while True:
 			if PARA_THD_COVERED < purple_area:
 				print("Parachute on top")
-				time.sleep(PARA_TIMEOUT)
+				time.sleep(PARA_SLEEP)
 				motor.motor_move(70, 70, 3)
 			else:
 				break

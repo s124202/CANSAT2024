@@ -212,6 +212,7 @@ def main():
 		motor.motor_move(30, 30, 2)
 	
 	except:
+		print("Camera died")
 		motor.motor_move(40, 40, 4)
 
 if __name__ == '__main__':

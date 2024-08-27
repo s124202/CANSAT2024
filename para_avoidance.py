@@ -5,34 +5,34 @@ import gps
 import motor
 import bmx055
 import PID
-import red_detection
+import purple_detection
 import gps_navigate
 import stuck
 import straight
 
-def main():
+def main_PID():
 	PARA_THD_COVERED = 300000
 	PARA_TIMEOUT = 300
 	LAT_DEST = 35.924582
 	LON_DEST = 139.911343
 
-	red_area = 0
+	purple_area = 0
 	goal_azimuth = 0
 
 	stuck.ue_jug()
 
-	red_area = red_detection.detect_para()
-	print(f'red_area : {red_area}')
+	purple_area = purple_detection.detect_para()
+	print(f'purple_area : {purple_area}')
 
 	while True:
-		if PARA_THD_COVERED < red_area:
+		if PARA_THD_COVERED < purple_area:
 			print("Parachute on top")
 			time.sleep(PARA_TIMEOUT)
 			straight(motor_pwr = 70, move_time = 2)
 		else:
 			break
 
-	if red_area > 100:
+	if purple_area > 100:
 		print("Move Backwward")
 		straight(motor_pwr = -40, move_time = 2)
 		#motor.motor_stop(0.2)
@@ -50,9 +50,9 @@ def main():
 		goal_azimuth = goal_info['azimuth1']
 		theta_array = [0]*5
 		PID.PID_adjust_direction(target_azimuth=goal_azimuth, magx_off=magx_off, magy_off=magy_off, theta_array=theta_array)
-		red_area = red_detection.detect_para()
-		print(f'red_area : {red_area}')
-		if red_area > 0:
+		purple_area = purple_detection.detect_para()
+		print(f'purple_area : {purple_area}')
+		if purple_area > 0:
 			motor(30, -30, 0.3)
 			motor.motor_stop(0.5)
 			straight(motor_pwr = 30, move_time = 7)
@@ -62,101 +62,7 @@ def main():
 	print("Last Move Forwward")
 	straight(motor_pwr = 30, move_time = 5)
 
-#PID直進が使えないとき
-def main2():
-	PARA_THD_COVERED = 300000
-	PARA_TIMEOUT = 300
 
-	red_area = 0
-
-	stuck.ue_jug()
-
-	red_area = red_detection.detect_para()
-	print(f'red_area : {red_area}')
-
-	while True:
-		if PARA_THD_COVERED < red_area:
-			print("Parachute on top")
-			time.sleep(PARA_TIMEOUT)
-			motor.move(70, 70, 2)
-		else:
-			break
-	
-	if red_area > 100:
-		print("Move Backwward")
-		motor.move(-40, -40, 2)
-		#motor.motor_stop(0.2)
-
-	else:
-		print("Move Forward")
-		motor.move(40, 40, 2)
-		#motor.motor_stop(0.2)
-	
-	while True:
-		red_area = red_detection.detect_para()
-		print(f'red_area : {red_area}')
-		if red_area > 0:
-			motor.motor_move(30, -30, 0.3)
-			motor.motor_stop(0.5)
-		else:
-			motor.move(30, 30, 8)
-			break
-	
-	print("Last Move Forwward")
-	motor.motor_move(30, 30, 5)
-
-#ちょっとPID
-def main3():
-	PARA_THD_COVERED = 300000
-	PARA_TIMEOUT = 300
-	LAT_DEST = 35.924582
-	LON_DEST = 139.911343
-
-	red_area = 0
-	goal_azimuth = 0
-
-	stuck.ue_jug()
-
-	red_area = red_detection.detect_para()
-	print(f'red_area : {red_area}')
-
-	while True:
-		if PARA_THD_COVERED < red_area:
-			print("Parachute on top")
-			time.sleep(PARA_TIMEOUT)
-			motor.motor_move(70, 70, 2)
-		else:
-			break
-
-	if red_area > 100:
-		print("Move Backwward")
-		motor.motor_move(-30, -34, 2)
-		#motor.motor_stop(0.2)
-
-	else:
-		print("Move Forward")
-		motor.motor_move(30, 34, 2)
-		#motor.motor_stop(0.2)
-	
-	while True:
-		print('Starting Calibration')
-		magx_off, magy_off = calibration.cal(30, 34, 30)
-		lat_now, lon_now = gps.location()
-		goal_info = gps_navigate.vincenty_inverse(lat_now, lon_now, lat2 = LAT_DEST, lon2 = LON_DEST)
-		goal_azimuth = goal_info['azimuth1']
-		theta_array = [0]*5
-		PID.PID_adjust_direction(target_azimuth=goal_azimuth, magx_off=magx_off, magy_off=magy_off, theta_array=theta_array)
-		red_area = red_detection.detect_para()
-		print(f'red_area : {red_area}')
-		if red_area > 0:
-			motor(30, -34, 0.3)
-			motor.motor_stop(0.5)
-		else:
-			motor.motor_move(30, 34, 5)
-			break
-	
-	print("Last Move Forwward")
-	motor.motor_move(30, 34, 5)
 
 
 
@@ -248,119 +154,65 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 
 	print("finish adjust")
 
-#黄色ローバー（EM）
-def main4():
+def main():
 	PARA_THD_COVERED = 300000
 	PARA_TIMEOUT = 300
 	LAT_DEST = 35.9243193
 	LON_DEST = 139.9124873
 
-	red_area = 0
+	purple_area = 0
 
 	stuck.ue_jug()
 
-	red_area = red_detection.detect_para()
-	print(f'red_area : {red_area}')
+	try:
+		purple_area = purple_detection.detect_para()
+		print(f'purple_area : {purple_area}')
 
-	while True:
-		if PARA_THD_COVERED < red_area:
-			print("Parachute on top")
-			time.sleep(PARA_TIMEOUT)
-			motor.motor_move(55, 50, 3)
+		while True:
+			if PARA_THD_COVERED < purple_area:
+				print("Parachute on top")
+				time.sleep(PARA_TIMEOUT)
+				motor.motor_move(70, 70, 3)
+			else:
+				break
+
+		if purple_area > 100:
+			print("Move Backwward")
+			motor.motor_move(-30, -30, 2)
+			motor.motor_stop(0.2)
+
 		else:
-			break
+			print("Move Forward")
+			motor.motor_move(30, 30, 2)
+			motor.motor_stop(0.2)
 
-	if red_area > 100:
-		print("Move Backwward")
-		motor.motor_move(-34, -30, 2)
-		motor.motor_stop(0.2)
+		time.sleep(3)
+		stuck.ue_jug()
 
-	else:
-		print("Move Forward")
-		motor.motor_move(34, 30, 2)
-		motor.motor_stop(0.2)
+		while True:
+			print('Starting Calibration')
+			magx_off, magy_off = run_calibration()
+			adjust_direction(magx_off, magy_off, lat_dest = LAT_DEST, lon_dest = LON_DEST)
+			purple_area = purple_detection.detect_para()
+			print(f'purple_area : {purple_area}')
+			if purple_area > 100:
+				motor.motor_move(30, -30, 0.25)
+				motor.motor_stop(0.5)
+
+				time.sleep(1)
+
+				motor.motor_move(30, 30, 1)
+
+				time.sleep(1)
+				stuck.ue_jug()
+			else:
+				break
+			
+		print("Last Move Forwward")
+		motor.motor_move(30, 30, 2)
 	
-	time.sleep(3)
-	stuck.ue_jug()
-
-	while True:
-		print('Starting Calibration')
-		magx_off, magy_off = run_calibration()
-		adjust_direction(magx_off, magy_off, lat_dest = LAT_DEST, lon_dest = LON_DEST)
-		red_area = red_detection.detect_para()
-		print(f'red_area : {red_area}')
-		if red_area > 100:
-			motor.motor_move(30, -30, 0.25)
-			motor.motor_stop(0.5)
-
-			time.sleep(1)
-
-			motor.motor_move(34, 30, 1)
-
-			time.sleep(1)
-			stuck.ue_jug()
-		else:
-			break
-	
-	print("Last Move Forwward")
-	motor.motor_move(34, 30, 2)
-
-#青色ローバー（EM）
-def main5():
-	PARA_THD_COVERED = 300000
-	PARA_TIMEOUT = 300
-	LAT_DEST = 35.9243193
-	LON_DEST = 139.9124873
-
-	red_area = 0
-
-	stuck.ue_jug()
-
-	red_area = red_detection.detect_para()
-	print(f'red_area : {red_area}')
-
-	while True:
-		if PARA_THD_COVERED < red_area:
-			print("Parachute on top")
-			time.sleep(PARA_TIMEOUT)
-			motor.motor_move(46, 40, 3)
-		else:
-			break
-
-	if red_area > 100:
-		print("Move Backwward")
-		motor.motor_move(-33, -27, 1)
-		motor.motor_stop(0.2)
-
-	else:
-		print("Move Forward")
-		motor.motor_move(33, 27, 1)
-		motor.motor_stop(0.2)
-	
-	time.sleep(3)
-	stuck.ue_jug()
-
-	while True:
-		print('Starting Calibration')
-		magx_off, magy_off = run_calibration()
-		adjust_direction(magx_off, magy_off, lat_dest = LAT_DEST, lon_dest = LON_DEST)
-		red_area = red_detection.detect_para()
-		print(f'red_area : {red_area}')
-		if red_area > 100:
-			motor.motor_move(24, -24, 0.25)
-			motor.motor_stop(0.5)
-
-			time.sleep(1)
-
-			motor.motor_move(33, 29, 1)
-
-			time.sleep(1)
-			stuck.ue_jug()
-		else:
-			break
-	
-	print("Last Move Forwward")
-	motor.motor_move(33, 27, 2)
+	except:
+		motor.motor_move(40, 40, 4)
 
 if __name__ == '__main__':
 	gps.open_gps()
@@ -371,6 +223,6 @@ if __name__ == '__main__':
 
 	print("Para Avoid Start")
 	
-	main4()
+	main()
 
 	print("#####-----Parachute Avoid Sequence: Finish-----#####")

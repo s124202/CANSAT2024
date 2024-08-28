@@ -173,9 +173,12 @@ def stuck_avoid():
 if __name__ == '__main__':
     motor.setup()
     bmx055.bmx055_setup()
-    yoko_jug()
+    yoko_count = yoko_jug()
     ue_jug()
-    while 1:
-        a = int(input('出力入力しろ'))
-        b = float(input('時間入力しろ'))
-        motor.move(a, a, b)
+
+    # while 1:
+    #     a = int(input('出力入力しろ'))
+    #     b = float(input('時間入力しろ'))
+    #     motor.move(a, a, b)
+
+    stuck_avoid()

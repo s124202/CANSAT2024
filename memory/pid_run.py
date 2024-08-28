@@ -242,18 +242,18 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
     #const
     Kp = 2
     Kd = 0.5
-    Ki_ = 0.1
+    Ki = 0
 
-    count = 0
+    #count = 0
 
 
     #main
     for _ in range(loop_num): #1秒間の間に20回ループが回る
 
-        if count < 10:
-            Ki = 0
-        else:
-            Ki = Ki_
+        # if count < 10:
+        #     Ki = 0
+        # else:
+        #     Ki = Ki_
 
         #get theta
         error_theta = get_theta_dest(target_azimuth, magx_off, magy_off)
@@ -267,16 +267,16 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         m = max(m, -5)
 
         #param
-        s_r = 70
-        s_l = 65
+        s_r = 40
+        s_l = 40
         pwr_l = -m + s_l
         pwr_r = m + s_r
 
         #move
-        motor.motor_move(pwr_l, pwr_r, 0.02)
-        time.sleep(0.08)
+        motor.motor_move(pwr_l, pwr_r, 0.1)
+        time.sleep(0.1)
 
-        count += 1
+        #count += 1
 
 
 def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loop_num: int):
@@ -305,9 +305,9 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
 
     #cal
     magx_off, magy_off = calibration.cal(40,-40,60) 
-    while magx_off == 0 and magy_off == 0:
-        motor.motor_move(80, 75, 3)
-        magx_off, magy_off = calibration.cal(40,-40,60) 
+    # while magx_off == 0 and magy_off == 0:
+    #     motor.motor_move(80, 75, 3)
+    #     magx_off, magy_off = calibration.cal(40,-40,60) 
 
     #get param(azimuth,distance)
     lat_now,lon_now = gps.location()
@@ -337,9 +337,10 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
         direction = gps_navigate.vincenty_inverse(lat_now, lon_now, lat_dest, lon_dest)
         distance_to_dest, target_azimuth = direction["distance"], direction["azimuth1"]
         print("distance = ", distance_to_dest, "arg = ", target_azimuth)
+        send_11.log("lat:" + str(lat_now) + "," + "lon:" + str(lon_now) + "," + "distance:" + str(distance_to_dest))
 
         #stuck check
-        if stuck_count % 10 == 0:
+        if stuck_count % 5 == 0:
             #yoko check
             yoko_count = stuck.yoko_jug()
             if yoko_count > 0:
@@ -375,8 +376,8 @@ if __name__ == "__main__":
     lon_test = 139.912433
 
     #const
-    LOOP_NUM = 20
-    THD_DISTANCE_DEST = 3
+    LOOP_NUM = 5
+    THD_DISTANCE_DEST = 5
     T_CAL = 60
     STUCK_JUDGE_THD_DISTANCE = 1
 
@@ -400,4 +401,4 @@ if __name__ == "__main__":
             break
         else:
             print("not Goal", "distance=",distance_to_dest)
-            send_11.log("distance=" + str(distance_to_dest))
+            send_11.log("not goal" + "," + "distance=" + str(distance_to_dest))

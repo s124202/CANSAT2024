@@ -68,13 +68,13 @@ def send_log(result=None):
             with open('ascii_data.txt', 'rb') as f:
                 payload = payload + f.read()
 
-        print("serial port:")
-        print(args.serial_port)
-        print("周波数：")
-        print(920.6 + int(args.target_channel) * 0.2)
+        # print("serial port:")
+        # print(args.serial_port)
+        print("周波数：", 920.6 + int(args.target_channel) * 0.2)
+        print("send:", result)
 
-        print("send data hex dump:")
-        hexdump.hexdump(payload, result='print')
+        # print("send data hex dump:")
+        # hexdump.hexdump(payload, result='print')
 
         with serial.Serial(args.serial_port, int(args.baud), timeout=None) as ser:
             while True:
@@ -82,7 +82,7 @@ def send_log(result=None):
                     break
             ser.write(payload)
             ser.flush()
-            print("SENT")
+            # print("SENT")
 
     else:
         print("INVALID")

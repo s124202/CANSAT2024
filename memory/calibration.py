@@ -57,8 +57,8 @@ def magdata_matrix(l, r, n):
         stuck.ue_jug()
         magx, magy, magz = get_data()
         magdata = np.array([[magx, magy, magz]])
-        prev_magx, prev_magy = magx, magy
-        consecutive_small_changes = 0
+        # prev_magx, prev_magy = magx, magy
+        # consecutive_small_changes = 0
 
         for _ in range(n - 1):
             motor.motor_continue(l, r)
@@ -66,15 +66,15 @@ def magdata_matrix(l, r, n):
             print(magx, magy)
 
             # --- Check for small changes ---#
-            if abs(magx - prev_magx) <= 5 and abs(magy - prev_magy) <= 5:
-                consecutive_small_changes += 1
-            else:
-                consecutive_small_changes = 0
+            # if abs(magx - prev_magx) <= 5 and abs(magy - prev_magy) <= 5:
+            #     consecutive_small_changes += 1
+            # else:
+            #     consecutive_small_changes = 0
 
-            if consecutive_small_changes >= 10:
-                return np.zeros((n, 3))
+            # if consecutive_small_changes >= 10:
+            #     return np.zeros((n, 3))
             
-            prev_magx, prev_magy = magx, magy
+            # prev_magx, prev_magy = magx, magy
 
             # --- multi dimension matrix ---#
             magdata = np.append(magdata, np.array(

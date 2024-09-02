@@ -44,6 +44,7 @@ def test():
     #target
     mode3.mode3_change()
     lat_target,lon_target = gps.location()
+    print("lat:" + str(lat_target) + "\t" + "lon:" + str(lon_target))
     send_11.log("target address")
     send_11.log(str(lat_target) + "," + str(lon_target))
 

@@ -66,9 +66,9 @@ def yoko_jug():
             print(f'横だよ{yoko_count}')
             print(f'abs(acc): {x}')
             if yoko_count % 2 == 0:
-                motor.move(15, 0, 3)
+                motor.move(15, -15, 3)
             else:
-                motor.move(0, 15, 3)
+                motor.move(-15, 15, 3)
             time.sleep(1)
             yoko_count += 1
     

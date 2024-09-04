@@ -157,8 +157,8 @@ def adjust_direction(magx_off, magy_off, lat_dest, lon_dest):
 def main():
 	PARA_THD_COVERED = 300000
 	PARA_SLEEP = 300
-	LAT_DEST = 35.9243193
-	LON_DEST = 139.9124873
+	LAT_DEST = 35.92518
+	LON_DEST = 139.91219
 
 	purple_area = 0
 
@@ -178,12 +178,12 @@ def main():
 
 		if purple_area > 100:
 			print("Move Backwward")
-			motor.motor_move(-30, -30, 2)
+			motor.motor_move(-30, -40, 2)
 			motor.motor_stop(0.2)
 
 		else:
 			print("Move Forward")
-			motor.motor_move(30, 30, 2)
+			motor.motor_move(30, 40, 2)
 			motor.motor_stop(0.2)
 
 		time.sleep(3)
@@ -196,12 +196,12 @@ def main():
 			purple_area = purple_detection.detect_para()
 			print(f'purple_area : {purple_area}')
 			if purple_area > 100:
-				motor.motor_move(30, -30, 0.25)
+				motor.motor_move(30, -30, 0.2)
 				motor.motor_stop(0.5)
 
 				time.sleep(1)
 
-				motor.motor_move(30, 30, 1)
+				motor.motor_move(30, 40, 1)
 
 				time.sleep(1)
 				stuck.ue_jug()
@@ -209,7 +209,7 @@ def main():
 				break
 			
 		print("Last Move Forwward")
-		motor.motor_move(30, 30, 2)
+		motor.motor_move(30, 40, 2)
 	
 	except:
 		print("Camera died")

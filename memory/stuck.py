@@ -75,7 +75,7 @@ def yoko_jug():
     return yoko_count
 
 
-def stuck_jug(lat1, lon1, lat2, lon2, thd=1.0):
+def stuck_jug(lat1, lon1, lat2, lon2, thd=5.0):
     data_stuck = gps_navigate.vincenty_inverse(lat1, lon1, lat2, lon2)
     if data_stuck['distance'] <= thd:
         print(str(data_stuck['distance']) + '-----stucked')

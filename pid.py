@@ -280,10 +280,10 @@ if __name__ == "__main__":
     lon_test = 139.912433
 
     #const
-    LOOP_NUM = 5
-    THD_DISTANCE_DEST = 5
-    T_CAL = 60
-    STUCK_JUDGE_THD_DISTANCE = 3
+    # LOOP_NUM = 5
+    # THD_DISTANCE_DEST = 5
+    # T_CAL = 60
+    # STUCK_JUDGE_THD_DISTANCE = 3
 
     #init
     theta_differential_array = []

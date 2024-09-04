@@ -269,9 +269,9 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         #param
         s_r = 40
         s_l = 40
-        pwr_l = -m + s_l
-        pwr_r = m + s_r
-        print("pwr_l:", pwr_l, "per_r:", pwr_r)
+        pwr_l = m + s_l
+        pwr_r = -m + s_r
+        print("pwr_l:", pwr_l, "pwr_r:", pwr_r)
 
         #move
         motor.motor_move(pwr_l, pwr_r, 0.1)

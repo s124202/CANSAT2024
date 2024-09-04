@@ -42,7 +42,7 @@ def detect():
 
 def detect_csv():
 	#init(csv)
-	filename = "release_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	filename = "log/release_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 	f = open(filename,"w")
 	writer = csv.writer(f)
 

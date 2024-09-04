@@ -380,7 +380,7 @@ if __name__ == "__main__":
     LOOP_NUM = 5
     THD_DISTANCE_DEST = 5
     T_CAL = 60
-    STUCK_JUDGE_THD_DISTANCE = 1
+    STUCK_JUDGE_THD_DISTANCE = 3
 
     #init
     theta_differential_array = []

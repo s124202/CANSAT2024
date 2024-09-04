@@ -3,6 +3,7 @@
 
 import purple_detection
 import run_following_EM1
+import stuck
 from main_const import *
 
 import bluetooth
@@ -70,7 +71,7 @@ def blt_child():
 	receive = "0"
 	synchro = 0
 
-	bd_addr = "B8:27:EB:B3:DE:30" # サーバー側のデバイスアドレスを入力
+	bd_addr = "B8:27:EB:18:5E:B5" # サーバー側のデバイスアドレスを入力
 
 	port = 1
 
@@ -113,6 +114,8 @@ def para_adalt():
 
 	purple_area = 0
 
+	stuck.ue_jug()
+
 	try:
 		purple_area = purple_detection.detect_para()
 		print(f'purple_area : {purple_area}')
@@ -121,21 +124,21 @@ def para_adalt():
 				if PARA_THD_COVERED < purple_area:
 					print("Parachute on top")
 					time.sleep(PARA_SLEEP)
-					run_following_EM1.motor_move_default(100, 100, 3)
+					run_following_EM1.motor_move_default(20, 20, 2)
 				else:
 					break
 
 		if purple_area > 100:
 			print("Move Backward")
-			run_following_EM1.move_default(-80, -80, 3)
+			run_following_EM1.move_default(-20, -20, 2)
 
 		else:
 			print("Move Forward")
-			run_following_EM1.move_default(80, 80, 3) 
+			run_following_EM1.move_default(20, 20, 2) 
 	
 	except:
 		print("Camera died")
-		run_following_EM1.move_default(80, 80, 3)
+		run_following_EM1.move_default(20, 20, 2)
 
 	
 	#子機のパラ回避待ち
@@ -177,6 +180,8 @@ def para_child():
 
 	purple_area = 0
 
+	stuck.ue_jug()
+
 	try:
 		purple_area = purple_detection.detect_para()
 		print(f'purple_area : {purple_area}')
@@ -185,21 +190,21 @@ def para_child():
 				if PARA_THD_COVERED < purple_area:
 					print("Parachute on top")
 					time.sleep(PARA_SLEEP)
-					run_following_EM1.motor_move_default(100, 100, 3)
+					run_following_EM1.motor_move_default(20, 20, 2)
 				else:
 					break
 
 		if purple_area > 100:
 			print("Move Backward")
-			run_following_EM1.move_default(-80, -80, 3)
+			run_following_EM1.move_default(-20, -20, 2)
 
 		else:
 			print("Move Forward")
-			run_following_EM1.move_default(80, 80, 3) 
+			run_following_EM1.move_default(20, 20, 2) 
 	
 	except:
 		print("Camera died")
-		run_following_EM1.move_default(80, 80, 3)
+		run_following_EM1.move_default(20, 20, 2)
 
 	#親機に終了報告
 	send = 1

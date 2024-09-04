@@ -349,7 +349,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 			return 100,0
 		time.sleep(1)
 		if i % 15 == 14:
-			run_following_EM1.move_default(ROTATE_PWR,-ROTATE_PWR,0.1)
+			run_following_EM1.move_default(ROTATE_PWR,-ROTATE_PWR,0.2)
 
 	#子機を待たせる
 	send = 1
@@ -373,7 +373,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 		if receive == str(4) or i == 99:
 			return 100,0
 		if i % 15 == 14:
-			run_following_EM1.move_default(ROTATE_PWR,-ROTATE_PWR,0.1)
+			run_following_EM1.move_default(ROTATE_PWR,-ROTATE_PWR,0.2)
 	send = 0
 	time.sleep(2.8)
 
@@ -434,8 +434,8 @@ def test(lat,lon,q):
 	lon_test = (lon + RUN_LON) / 2
 
 	#setup
-	i2c = board.I2C() 
-	sgp = adafruit_sgp40.SGP40(i2c)
+	# i2c = board.I2C() 
+	# sgp = adafruit_sgp40.SGP40(i2c)
 
 	filename = "raw_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 	f = open(filename,"w")
@@ -444,8 +444,8 @@ def test(lat,lon,q):
 	#main
 	while True:
 		distance_to_dest, isReach_dest = drive(lat_dest=lat_test, lon_dest=lon_test, thd_distance=PID_THD_DISTANCE_DEST, stack_distance=PID_STUCK_JUDGE_THD_DISTANCE, t_cal=PID_T_CAL, loop_num=PID_LOOP_NUM)
-		print("Raw Gas: ", sgp.raw)
-		writer.writerows([[sgp.raw]])
+		# print("Raw Gas: ", sgp.raw)
+		# writer.writerows([[sgp.raw]])
 
 		#check
 		if receive == str(4):
@@ -493,5 +493,5 @@ if __name__ == "__main__":
 	bmx055.bmx055_setup()
 	#mode3.mode3_change()
 	
-	a = main()
+	a = main(40,139)
 	print(a)

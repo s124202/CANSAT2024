@@ -43,8 +43,8 @@ def mission():
 	isReach_goal = 0
 
 	#setup_voc
-	i2c = board.I2C() 
-	sgp = adafruit_sgp40.SGP40(i2c)
+	#i2c = board.I2C() 
+	#sgp = adafruit_sgp40.SGP40(i2c)
 
 	#-----1_Release_sequence-----#
 	print("-----Start 1_Release_sequence-----")
@@ -114,8 +114,8 @@ def mission():
 		while isReach_dest == 0:
 			#isReach_dest = run.run(RUN_LAT,RUN_LON)
 			isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
-			print("Raw Gas: ", sgp.raw)
-			writer.writerows([[sgp.raw]])
+			# print("Raw Gas: ", sgp.raw)
+			# writer.writerows([[sgp.raw]])
 		
 		f.close()
 
@@ -140,8 +140,8 @@ def mission():
 			while isReach_dest == 0:
 				#isReach_dest = run.run(RUN_LAT,RUN_LON)
 				isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
-				print("Raw Gas: ", sgp.raw)
-				writer.writerows([[sgp.raw]])
+				# print("Raw Gas: ", sgp.raw)
+				# writer.writerows([[sgp.raw]])
 			
 			f.close()
 
@@ -178,8 +178,8 @@ def mission():
 		while isReach_dest == 0:
 			#isReach_dest = run.run(RUN_LAT,RUN_LON)
 			isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
-			print("Raw Gas: ", sgp.raw)
-			writer.writerows([[sgp.raw]])
+			# print("Raw Gas: ", sgp.raw)
+			# writer.writerows([[sgp.raw]])
 		
 		f.close()
 

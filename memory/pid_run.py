@@ -248,7 +248,7 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 
 
     #main
-    for _ in range(loop_num): #1秒間の間に20回ループが回る
+    for _ in range(loop_num):
 
         # if count < 10:
         #     Ki = 0

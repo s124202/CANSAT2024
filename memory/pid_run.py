@@ -267,8 +267,8 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         m = max(m, -5)
 
         #param
-        s_r = 40
-        s_l = 40
+        s_r = 50
+        s_l = 50
         pwr_l = m + s_l
         pwr_r = -m + s_r
         print("pwr_l:", pwr_l, "pwr_r:", pwr_r)
@@ -351,6 +351,7 @@ def drive(lon_dest :float, lat_dest: float, thd_distance: int, t_cal: float, loo
                 pass
             else:
                 stuck.stuck_avoid()
+            stuck.ue_jug()
             lat_old, lon_old = gps.location()
 
         #run

@@ -20,6 +20,7 @@ import goal_detection
 import blt_adalt
 import run_pid_EM1
 import run_following_EM1
+import pid
 
 #send
 import send.mode3 as mode3
@@ -107,17 +108,20 @@ def mission():
 	if check == 1:
 		#自律誘導
 		#init
-		filename = "run_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+		filename = "log/run_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 		f = open(filename,"w")
 		writer = csv.writer(f)
+		filename2 = "log/run_data2_" + time.strftime("%m%d-%H%M%S") + ".csv"
+		f2 = open(filename2,"w")
+		writer2 = csv.writer(f2)
 
 		while isReach_dest == 0:
-			#isReach_dest = run.run(RUN_LAT,RUN_LON)
-			isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
+			isReach_dest = pid.drive(RUN_LAT,RUN_LON, writer)
 			# print("Raw Gas: ", sgp.raw)
-			# writer.writerows([[sgp.raw]])
-		
+			# writer2.writerows([[sgp.raw]])
+
 		f.close()
+		f2.close()
 
 	else:
 		#-----6_second_follow_sequence-----#
@@ -133,17 +137,20 @@ def mission():
 		if check == 1:
 			#自律誘導
 			#init
-			filename = "run_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+			filename = "log/run_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 			f = open(filename,"w")
 			writer = csv.writer(f)
+			filename2 = "log/run_data2_" + time.strftime("%m%d-%H%M%S") + ".csv"
+			f2 = open(filename2,"w")
+			writer2 = csv.writer(f2)
 
 			while isReach_dest == 0:
-				#isReach_dest = run.run(RUN_LAT,RUN_LON)
-				isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
+				isReach_dest = pid.drive(RUN_LAT,RUN_LON, writer)
 				# print("Raw Gas: ", sgp.raw)
-				# writer.writerows([[sgp.raw]])
-			
+				# writer2.writerows([[sgp.raw]])
+
 			f.close()
+			f2.close()
 
 
 
@@ -170,18 +177,22 @@ def mission():
 		print("-----Start extra_Run_sequence-----")
 		send.log("-----Start extra_Run_sequence-----")
 
+		#自律誘導
 		#init
-		filename = "run_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+		filename = "log/run_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 		f = open(filename,"w")
 		writer = csv.writer(f)
+		filename2 = "log/run_data2_" + time.strftime("%m%d-%H%M%S") + ".csv"
+		f2 = open(filename2,"w")
+		writer2 = csv.writer(f2)
 
 		while isReach_dest == 0:
-			#isReach_dest = run.run(RUN_LAT,RUN_LON)
-			isReach_dest = run.run_csv(RUN_LAT,RUN_LON, writer)
+			isReach_dest = pid.drive(RUN_LAT,RUN_LON, writer)
 			# print("Raw Gas: ", sgp.raw)
-			# writer.writerows([[sgp.raw]])
-		
+			# writer2.writerows([[sgp.raw]])
+
 		f.close()
+		f2.close()
 
 		print("-----Finish extra_Run_sequence-----")
 		send.log("-----Finish extra_Run_sequence-----")

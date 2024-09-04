@@ -17,7 +17,7 @@ from main_const import *
 def detect_csv():
 	#-----press_check-----#
 	#init(csv)
-	filename = "land_press_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	filename = "log/land_press_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 	f = open(filename,"w")
 	writer = csv.writer(f)
 
@@ -56,7 +56,7 @@ def detect_csv():
 
 	#-----acc_check-----#
 	#init(csv)
-	filename = "land_acc_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	filename = "log/land_acc_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 	f = open(filename,"w")
 	writer = csv.writer(f)
 

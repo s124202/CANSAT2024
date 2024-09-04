@@ -270,7 +270,7 @@ def drive(lon_dest, lat_dest, writer):
 
     run_following_EM2.motor_stop_default(1)
 
-    return lat_now, lon_now, distance_to_dest, rover_azimuth, isReach_dest
+    return isReach_dest
 
 
 if __name__ == "__main__":
@@ -296,7 +296,7 @@ if __name__ == "__main__":
 
     #main
     while True:
-        lat_now, lon_now, distance_to_dest, rover_azimuth, isReach_dest = drive(lon_dest=lon_test, lat_dest=lat_test, thd_distance=THD_DISTANCE_DEST, t_cal=T_CAL, loop_num=LOOP_NUM)
+        lat_now, lon_now, distance_to_dest, rover_azimuth, isReach_dest = drive(lon_dest=lon_test, lat_dest=lat_test)
 
         #check
         if isReach_dest == 1:

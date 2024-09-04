@@ -199,11 +199,11 @@ def main():
 				motor.motor_move(30, -30, 0.2)
 				motor.motor_stop(0.5)
 
-				time.sleep(1)
+				time.sleep(2)
 
 				motor.motor_move(30, 40, 1)
 
-				time.sleep(1)
+				time.sleep(2)
 				stuck.ue_jug()
 			else:
 				break

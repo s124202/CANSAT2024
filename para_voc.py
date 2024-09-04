@@ -194,8 +194,8 @@ def blt_child():
 def para_adalt():
 	PARA_THD_COVERED = 300000
 	PARA_SLEEP = 300
-	LAT_DEST = 35.9243193
-	LON_DEST = 139.9124873
+	LAT_DEST = 35.92518
+	LON_DEST = 139.91219
 	PARA_BLT_TIMEOUT = 45
 
 	global send
@@ -220,12 +220,12 @@ def para_adalt():
 
 		if purple_area > 100:
 			print("Move Backward")
-			motor.motor_move(-30, -30, 2)
+			motor.motor_move(-30, -40, 2)
 			motor.motor_stop(0.2)
 
 		else:
 			print("Move Forward")
-			motor.motor_move(30, 30, 2)
+			motor.motor_move(30, 40, 2)
 			motor.motor_stop(0.2)
 
 		time.sleep(3)
@@ -238,20 +238,20 @@ def para_adalt():
 			purple_area = purple_detection.detect_para()
 			print(f'purple_area : {purple_area}')
 			if purple_area > 100:
-				motor.motor_move(-30, 30, 0.25)
+				motor.motor_move(-30, 30, 0.2)
 				motor.motor_stop(0.5)
 
-				time.sleep(1)
+				time.sleep(2)
 
-				motor.motor_move(30, 30, 1)
+				motor.motor_move(30, 40, 1)
 
-				time.sleep(1)
+				time.sleep(2)
 				stuck.ue_jug()
 			else:
 				break
 			
 		print("Last Move Forwward")
-		motor.motor_move(30, 30, 2)
+		motor.motor_move(30, 40, 2)
 
 		#子機のパラ回避待ち
 		send = 1
@@ -271,7 +271,7 @@ def para_adalt():
 	
 	except:
 		print("Camera died")
-		motor.motor_move(40, 40, 4)
+		motor.motor_move(40, 50, 4)
 
 		#子機のパラ回避待ち
 		send = 1
@@ -293,8 +293,8 @@ def para_adalt():
 def para_child():
 	PARA_THD_COVERED = 300000
 	PARA_SLEEP = 300
-	LAT_DEST = 35.9243193
-	LON_DEST = 139.9124873
+	LAT_DEST = 35.92518
+	LON_DEST = 139.91219
 	PARA_BLT_TIMEOUT = 45
 
 	global send
@@ -333,12 +333,12 @@ def para_child():
 
 		if purple_area > 100:
 			print("Move Backward")
-			motor.motor_move(-30, -30, 2)
+			motor.motor_move(-30, -40, 2)
 			motor.motor_stop(0.2)
 
 		else:
 			print("Move Forward")
-			motor.motor_move(30, 30, 2)
+			motor.motor_move(30, 40, 2)
 			motor.motor_stop(0.2)
 
 		time.sleep(3)
@@ -351,20 +351,20 @@ def para_child():
 			purple_area = purple_detection.detect_para()
 			print(f'purple_area : {purple_area}')
 			if purple_area > 100:
-				motor.motor_move(30, -30, 0.25)
+				motor.motor_move(30, -30, 0.2)
 				motor.motor_stop(0.5)
 
-				time.sleep(1)
+				time.sleep(2)
 
-				motor.motor_move(30, 30, 1)
+				motor.motor_move(30, 40, 1)
 
-				time.sleep(1)
+				time.sleep(2)
 				stuck.ue_jug()
 			else:
 				break
 			
 		print("Last Move Forwward")
-		motor.motor_move(30, 30, 2)
+		motor.motor_move(30, 40, 2)
 
 		#親機に終了報告
 		send = 1
@@ -373,7 +373,7 @@ def para_child():
 
 	except:
 		print("Camera died")
-		motor.motor_move(40, 40, 4)
+		motor.motor_move(40, 50, 4)
 
 		#親機に終了報告
 		send = 1

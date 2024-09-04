@@ -66,16 +66,16 @@ def yoko_jug():
             print(f'横だよ{yoko_count}')
             print(f'abs(acc): {x}')
             if yoko_count % 2 == 0:
-                run_following_EM2.move_default(10, 0, 3)
+                run_following_EM2.move_default(20, -20, 3)
             else:
-                run_following_EM2.move_default(0, 10, 3)
+                run_following_EM2.move_default(-20, 20, 3)
             time.sleep(1)
             yoko_count += 1
     
     return yoko_count
 
 
-def stuck_jug(lat1, lon1, lat2, lon2, thd=1.0):
+def stuck_jug(lat1, lon1, lat2, lon2, thd=3.0):
     data_stuck = gps_navigate.vincenty_inverse(lat1, lon1, lat2, lon2)
     if data_stuck['distance'] <= thd:
         print(str(data_stuck['distance']) + '-----stucked')
@@ -171,11 +171,12 @@ def stuck_avoid():
 
 
 if __name__ == '__main__':
+    #setup
     run_following_EM2.setup()
     bmx055.bmx055_setup()
-    yoko_jug()
+
+    #test
+    yoko_count = yoko_jug()
     ue_jug()
-    while 1:
-        a = int(input('出力入力しろ'))
-        b = float(input('時間入力しろ'))
-        run_following_EM2.move_default(a, a, b)
+    stuck_avoid()
+    ue_jug()

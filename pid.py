@@ -225,6 +225,8 @@ def drive(lon_dest, lat_dest, writer):
     #     motor.motor_move(80, 75, 3)
     #     magx_off, magy_off = calibration.cal(40,-40,60) 
 
+    lat_old, lon_old = gps.location()
+
     #init(time)
     theta_array = [0]*5
     t_run_start = time.time()
@@ -249,7 +251,7 @@ def drive(lon_dest, lat_dest, writer):
             if yoko_count > 0:
                 break
 
-            if stuck.stuck_jug(lat_old, lon_old, lat_now, lon_old, thd=STUCK_JUDGE_THD_DISTANCE):
+            if stuck.stuck_jug(lat_old, lon_old, lat_now, lon_now, thd=STUCK_JUDGE_THD_DISTANCE):
                 pass
             else:
                 stuck.stuck_avoid()

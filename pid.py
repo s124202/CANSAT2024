@@ -108,7 +108,7 @@ def integral_control(Ki, theta_array: list):
 
 
 #D
-def differential_control(Kd, theta_array: list):
+def differential_control(Kd, theta_array: list,theta_differential_array = []):
     #D制御
 
     #thetaの微分処理

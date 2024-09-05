@@ -251,7 +251,7 @@ def drive(lon_dest, lat_dest, writer):
             if yoko_count > 0:
                 break
 
-            if stuck.stuck_jug(lat_old, lon_old, lat_now, lon_old, thd=STUCK_JUDGE_THD_DISTANCE):
+            if stuck.stuck_jug(lat_old, lon_old, lat_now, lon_now, thd=STUCK_JUDGE_THD_DISTANCE):
                 pass
             else:
                 stuck.stuck_avoid()

@@ -44,8 +44,8 @@ def mission():
 	isReach_goal = 0
 
 	#setup_voc
-	#i2c = board.I2C() 
-	#sgp = adafruit_sgp40.SGP40(i2c)
+	i2c = board.I2C() 
+	sgp = adafruit_sgp40.SGP40(i2c)
 	
 	#-----2_Land_sequence-----#
 	print("-----Start 2_Land_sequence-----")
@@ -105,8 +105,8 @@ def mission():
 
 		while isReach_dest == 0:
 			isReach_dest = pid.drive(RUN_LAT,RUN_LON, writer)
-			# print("Raw Gas: ", sgp.raw)
-			# writer2.writerows([[sgp.raw]])
+			print("Raw Gas: ", sgp.raw)
+			writer2.writerows([[sgp.raw]])
 
 		f.close()
 		f2.close()
@@ -134,8 +134,8 @@ def mission():
 
 			while isReach_dest == 0:
 				isReach_dest = pid.drive(RUN_LAT,RUN_LON, writer)
-				# print("Raw Gas: ", sgp.raw)
-				# writer2.writerows([[sgp.raw]])
+				print("Raw Gas: ", sgp.raw)
+				writer2.writerows([[sgp.raw]])
 
 			f.close()
 			f2.close()
@@ -176,8 +176,8 @@ def mission():
 
 		while isReach_dest == 0:
 			isReach_dest = pid.drive(RUN_LAT,RUN_LON, writer)
-			# print("Raw Gas: ", sgp.raw)
-			# writer2.writerows([[sgp.raw]])
+			print("Raw Gas: ", sgp.raw)
+			writer2.writerows([[sgp.raw]])
 
 		f.close()
 		f2.close()

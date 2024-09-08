@@ -16,7 +16,9 @@ import bme280
 import run_following_EM2
 import calibration
 import gps_navigate
-#import stuck
+import stuck
+
+import send.send_11 as send_11
 
 from main_const import *
 
@@ -274,21 +276,13 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 	global receive
 
 	#const
-	Kp = 3
+	Kp = 2
 	Kd = 0.5
-	Ki_ = 0
-
-	count = 0
+	Ki = 0
 
 
 	#main
 	for _ in range(loop_num): #1秒間の間に20回ループが回る
-
-		if count < 10:
-			Ki = 0
-		else:
-			Ki = Ki_
-
 		#get theta
 		error_theta = get_theta_dest(target_azimuth, magx_off, magy_off)
 		print("error_theta = ", error_theta)
@@ -307,17 +301,15 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 		pwr_r = m + s_r
 
 		#move
-		run_following_EM2.motor_move_default(pwr_l, pwr_r, 1)
+		run_following_EM2.motor_move_default(pwr_l, pwr_r, 0.1)
 		time.sleep(0.1)
 
 		if receive == str(10):
 			print("wait")
 			break
 
-		count += 1
 
-
-def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: float, t_cal: float, loop_num: int):
+def drive(writer, lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: float, t_cal: float, loop_num: int):
 	'''  
 	Parameters
 	----------
@@ -361,7 +353,7 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 	# 	magx_off, magy_off = calibration.cal(40,40,60) 
 
 	#get param(mag)
-	#lat_old, lon_old = gps.location()
+	lat_old, lon_old = gps.location()
 
 	#子機の発見待ち
 	send = 2
@@ -392,20 +384,27 @@ def drive(lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: f
 		lat_now, lon_now = gps.location()
 		direction = gps_navigate.vincenty_inverse(lat_now, lon_now, lat_dest, lon_dest)
 		distance_to_dest, target_azimuth = direction["distance"], direction["azimuth1"]
+		error_theta = get_theta_dest(target_azimuth, magx_off, magy_off)
 		print("distance = ", distance_to_dest, "arg = ", target_azimuth)
+		writer.writerows([[lat_now, lon_now, error_theta]])
+
 
 		#stuck check
-		#if stuck_count % 10 == 0:
-		#    #yoko check
-		#    yoko_count = stuck.yoko_jug()
-		#    if yoko_count > 0:
-		#        break
+		if stuck_count % 30 == 0:
+			#yoko check
+			yoko_count = stuck.yoko_jug()
+			stuck.ue_jug()
+			if yoko_count > 0:
+				break
 
-		#    if stuck.stuck_jug(lat_old, lon_old, lat_now, lon_old, thd=stack_distance):
-		#        pass
-		#    else:
-		#        stuck.stuck_avoid()
-		#    lat_old, lon_old = gps.location()
+			if stuck.stuck_jug(lat_old, lon_old, lat_now, lon_old, thd=stack_distance):
+				pass
+			else:
+				stuck.stuck_avoid()
+				stuck.ue_jug()
+
+			send_11.log("lat:" + str(lat_now) + "," + "lon:" + str(lon_now) + "," + "distance:" + str(distance_to_dest))
+			lat_old, lon_old = gps.location()
 
 		#run
 		if distance_to_dest > thd_distance:
@@ -433,16 +432,19 @@ def test(q):
 	lat_test = RUN_LAT
 	lon_test = RUN_LON
 
-	filename = "bme280_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	filename = "following_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 	f = open(filename,"w")
 	writer = csv.writer(f)
+	filename2 = "bme280_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	f2 = open(filename2,"w")
+	writer2 = csv.writer(f2)
 
 	#main
 	while True:
-		distance_to_dest, isReach_dest = drive(lat_dest=lat_test, lon_dest=lon_test, thd_distance=PID_THD_DISTANCE_DEST, stack_distance=PID_STUCK_JUDGE_THD_DISTANCE, t_cal=PID_T_CAL, loop_num=PID_LOOP_NUM)
+		distance_to_dest, isReach_dest = drive(writer, lat_dest=lat_test, lon_dest=lon_test, thd_distance=PID_THD_DISTANCE_DEST, stack_distance=PID_STUCK_JUDGE_THD_DISTANCE, t_cal=PID_T_CAL, loop_num=PID_LOOP_NUM)
 		temp,pres,hum,alt = bme280.bme280_read()
 		print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
-		writer.writerows([[temp, pres, hum, alt]])
+		writer2.writerows([[temp, pres, hum, alt]])
 
 		#check
 		if receive == str(4):

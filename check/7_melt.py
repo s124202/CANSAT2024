@@ -22,4 +22,4 @@ def melt_down(t_melt = 3.0):
 
 
 if __name__ == "__main__":
-	melt_down(t_melt = 3.0)
+	melt_down(t_melt = 2.0)

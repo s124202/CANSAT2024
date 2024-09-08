@@ -240,11 +240,10 @@ def drive(lon_dest, lat_dest, writer):
         distance_to_dest, target_azimuth = direction["distance"], direction["azimuth1"]
         error_theta = get_theta_dest(target_azimuth, magx_off, magy_off)
         print("distance = ", distance_to_dest, "arg = ", target_azimuth)
-        send.log("lat:" + str(lat_now) + "," + "lon:" + str(lon_now) + "," + "distance:" + str(distance_to_dest))
         writer.writerows([[lat_now, lon_now, error_theta]])
 
         #stuck check
-        if stuck_count % 5 == 0:
+        if stuck_count % 30 == 0:
             #yoko check
             yoko_count = stuck.yoko_jug()
             stuck.ue_jug()
@@ -257,6 +256,7 @@ def drive(lon_dest, lat_dest, writer):
                 stuck.stuck_avoid()
                 stuck.ue_jug()
 
+            send.log("lat:" + str(lat_now) + "," + "lon:" + str(lon_now) + "," + "distance:" + str(distance_to_dest))
             lat_old, lon_old = gps.location()
 
         #run

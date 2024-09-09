@@ -103,7 +103,7 @@ def mission():
 		writer2 = csv.writer(f2)
 
 		while isReach_dest == 0:
-			isReach_dest = pid.drive(RUN_LAT,RUN_LON, writer)
+			isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
 			temp,pres,hum,alt = bme280.bme280_read()
 			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
 			writer2.writerows([[temp, pres, hum, alt]])
@@ -133,7 +133,7 @@ def mission():
 			writer2 = csv.writer(f2)
 
 			while isReach_dest == 0:
-				isReach_dest = pid.drive(RUN_LAT,RUN_LON, writer)
+				isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
 				temp,pres,hum,alt = bme280.bme280_read()
 				print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
 				writer2.writerows([[temp, pres, hum, alt]])
@@ -175,7 +175,7 @@ def mission():
 		writer2 = csv.writer(f2)
 
 		while isReach_dest == 0:
-			isReach_dest = pid.drive(RUN_LAT,RUN_LON, writer)
+			isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
 			temp,pres,hum,alt = bme280.bme280_read()
 			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
 			writer2.writerows([[temp, pres, hum, alt]])

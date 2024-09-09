@@ -63,8 +63,8 @@ def mission():
 	print("-----Start 3_Melt_sequence-----")
 	send.log("-----Start 3_Melt_sequence-----")
 
+	blt_child.main(103,150)
 	melt.melt_down(MELT_TIME)
-	blt_child.main(103,15)
 
 	print("-----Finish 3_Melt_sequence-----")
 	send.log("-----Finish 3_Melt_sequence-----")

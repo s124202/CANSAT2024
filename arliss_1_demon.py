@@ -64,7 +64,7 @@ def mission():
 
 	#lat,lon = land.detect()
 	lat,lon = land.detect_csv()
-	blt_adalt.main(102)
+	blt_adalt.main(102,300)
 
 	print("-----Finish 2_Land_sequence-----")
 	#send.log("-----Finish 2_Land_sequence-----")
@@ -76,7 +76,7 @@ def mission():
 	#send.log("-----Start 3_Melt_sequence-----")
 
 	melt.melt_down(MELT_TIME)
-	blt_adalt.main(103)
+	blt_adalt.main(103,30)
 
 	print("-----Finish 3_Melt_sequence-----")
 	#send.log("-----Finish 3_Melt_sequence-----")

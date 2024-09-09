@@ -1,13 +1,13 @@
 import bluetooth
 import time
 
-def main(send): 
+def main(send,timeout=60): 
     try:
         server_sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
         port = 1
         server_sock.bind(("",port))
         server_sock.listen(1)
-        server_sock.settimeout(60)
+        server_sock.settimeout(timeout)
         client_sock,address = server_sock.accept()
         client_sock.settimeout(10)
         print("Accepted connection from ",address)

@@ -109,7 +109,7 @@ def mission():
 		writer2 = csv.writer(f2)
 
 		while isReach_dest == 0:
-			isReach_dest = pid.drive(RUN_LAT,RUN_LON, writer)
+			isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
 			print("Raw Gas: ", sgp.raw)
 			writer2.writerows([[sgp.raw]])
 
@@ -138,7 +138,7 @@ def mission():
 			writer2 = csv.writer(f2)
 
 			while isReach_dest == 0:
-				isReach_dest = pid.drive(RUN_LAT,RUN_LON, writer)
+				isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
 				print("Raw Gas: ", sgp.raw)
 				writer2.writerows([[sgp.raw]])
 
@@ -180,7 +180,7 @@ def mission():
 		writer2 = csv.writer(f2)
 
 		while isReach_dest == 0:
-			isReach_dest = pid.drive(RUN_LAT,RUN_LON, writer)
+			isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
 			print("Raw Gas: ", sgp.raw)
 			writer2.writerows([[sgp.raw]])
 

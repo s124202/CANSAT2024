@@ -54,9 +54,9 @@ def mission():
 	send.log("-----Finish 2_Land_sequence-----")
 	time.sleep(1)
 
-	for _ in range(300):
-		lat_new, lon_new = gps.location()
-		send.log("lat:" + str(lat_new) + "lon:" + str(lon_new))
+	# for _ in range(300):
+	# 	lat_new, lon_new = gps.location()
+	# 	send.log("lat:" + str(lat_new) + "lon:" + str(lon_new))
 
 
 	#-----3_Melt_sequence-----#

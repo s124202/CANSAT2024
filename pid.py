@@ -10,8 +10,8 @@ import gps_navigate
 import stuck
 
 #send
-import send.mode3 as mode3
-import send.send_10 as send
+#import send.mode3 as mode3
+#import send.send_10 as send
 
 #const
 from main_const import *
@@ -256,7 +256,7 @@ def drive(lon_dest, lat_dest, writer):
                 stuck.stuck_avoid()
                 stuck.ue_jug()
 
-            send.log("lat:" + str(lat_now) + "," + "lon:" + str(lon_now) + "," + "distance:" + str(distance_to_dest))
+            #send.log("lat:" + str(lat_now) + "," + "lon:" + str(lon_now) + "," + "distance:" + str(distance_to_dest))
             lat_old, lon_old = gps.location()
 
         #run
@@ -293,7 +293,7 @@ if __name__ == "__main__":
     #setup
     run_following_EM1.setup()
     bmx055.bmx055_setup()
-    mode3.mode3_change()
+    #mode3.mode3_change()
 
 
     #main
@@ -303,8 +303,8 @@ if __name__ == "__main__":
         #check
         if isReach_dest == 1:
             print('end gps running')
-            send.log("end gps running")
+            #send.log("end gps running")
             break
         else:
             print("not Goal", "distance=",distance_to_dest)
-            send.log("not goal" + "," + "distance=" + str(distance_to_dest))
+            #send.log("not goal" + "," + "distance=" + str(distance_to_dest))

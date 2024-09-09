@@ -3,12 +3,11 @@ import time
 
 from main_const import *
 
-def main(send):
+def main(send,timeout_count=30):
     bd_addr = BLT_ADRESS # サーバー側のデバイスアドレスを入力
     port = 1
-    timeout = 0 
 
-    for i in range(30):
+    for i in range(timeout_count):
         try:
             sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
             sock.connect((bd_addr, port))
@@ -21,7 +20,7 @@ def main(send):
         except:
             print("try again")
             time.sleep(2)
-            if i == 29:
+            if i == timeout_count - 1:
                 print("blt connect timeout")
                 return
             pass

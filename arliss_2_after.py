@@ -48,7 +48,7 @@ def mission():
 
 	#land.detect()
 	land.detect_csv()
-	blt_child.main(102)
+	blt_child.main(102,150)
 
 	print("-----Finish 2_Land_sequence-----")
 	send.log("-----Finish 2_Land_sequence-----")
@@ -64,7 +64,7 @@ def mission():
 	send.log("-----Start 3_Melt_sequence-----")
 
 	melt.melt_down(MELT_TIME)
-	blt_child.main(103)
+	blt_child.main(103,15)
 
 	print("-----Finish 3_Melt_sequence-----")
 	send.log("-----Finish 3_Melt_sequence-----")

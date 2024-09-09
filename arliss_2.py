@@ -19,6 +19,7 @@ import blt_child
 import run_pid_EM2
 import run_following_EM2
 import pid
+import gps
 
 #send
 import send.mode3 as mode3
@@ -65,6 +66,10 @@ def mission():
 	print("-----Finish 2_Land_sequence-----")
 	send.log("-----Finish 2_Land_sequence-----")
 	time.sleep(1)
+
+	for _ in range(300):
+		lat_new, lon_new = gps.location()
+		send.log("lat:" + str(lat_new) + "lon:" + str(lon_new))
 
 
 	#-----3_Melt_sequence-----#

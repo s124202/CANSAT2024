@@ -217,7 +217,7 @@ def med(reset_time=60):
 #print無し
 #GPS取得したらすぐにfloatでlat,lon送信
 #60sec_timeout
-def location(reset_time=30):
+def location(reset_time=3):
 	time_start = time.time()
 
 	#main

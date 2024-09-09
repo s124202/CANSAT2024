@@ -26,7 +26,7 @@ def main(re_count):
 	elif (0 < area_ratio < THD_RED_RATIO) or (angle > 0):
 		###-----ゴールが真正面にあるときの処理-----###
 		if angle == 2:
-			run_following_EM1.move_default(80, 80, 0.2)
+			run_following_EM1.move_default(60, 60, 0.2)
 
 		###------ゴールが真正面にないときの処理------###
 		###-----目標角度を少しずらす-----###
@@ -43,7 +43,7 @@ def main(re_count):
 	###-----撮像した画像の中にゴールが映っていない場合の処理-----###
 	elif area_ratio == 0:
 		print('Lost Goal')
-		run_following_EM1.motor_move_default(90, -90, 0.1)
+		run_following_EM1.motor_move_default(60, -60, 0.1)
 		run_following_EM1.motor_stop_default(0.5)
 		re_count += 1
 	

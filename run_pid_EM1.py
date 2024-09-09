@@ -19,7 +19,7 @@ import board
 import adafruit_sgp40
 import stuck
 
-import send.send_10 as send_10
+#import send.send_10 as send_10
 
 from main_const import *
 
@@ -401,7 +401,7 @@ def drive(writer, lat_dest: float, lon_dest :float, thd_distance: int, stack_dis
 				stuck.stuck_avoid()
 				stuck.ue_jug()
 
-			send_10.log("lat:" + str(lat_now) + "," + "lon:" + str(lon_now) + "," + "distance:" + str(distance_to_dest))
+			#send_10.log("lat:" + str(lat_now) + "," + "lon:" + str(lon_now) + "," + "distance:" + str(distance_to_dest))
 			lat_old, lon_old = gps.location()
 
 		#run

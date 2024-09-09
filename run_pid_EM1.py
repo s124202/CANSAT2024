@@ -19,7 +19,7 @@ import board
 import adafruit_sgp40
 import stuck
 
-#import send.send_10 as send_10
+import send.send_10 as send_10
 
 from main_const import *
 
@@ -401,7 +401,7 @@ def drive(writer, lat_dest: float, lon_dest :float, thd_distance: int, stack_dis
 				stuck.stuck_avoid()
 				stuck.ue_jug()
 
-			#send_10.log("lat:" + str(lat_now) + "," + "lon:" + str(lon_now) + "," + "distance:" + str(distance_to_dest))
+			send_10.log("lat:" + str(lat_now) + "," + "lon:" + str(lon_now) + "," + "distance:" + str(distance_to_dest))
 			lat_old, lon_old = gps.location()
 
 		#run
@@ -470,7 +470,7 @@ def test(lat,lon,q):
 			return
 		else:
 			print("not Goal", "distance=",distance_to_dest)
-			#send.log("distance=" + str(distance_to_dest))
+			send.log("distance=" + str(distance_to_dest))
 
 def main(lat,lon):
 	q = Queue()
@@ -491,7 +491,7 @@ if __name__ == "__main__":
 	#setup
 	run_following_EM1.setup()
 	bmx055.bmx055_setup()
-	#mode3.mode3_change()
+	mode3.mode3_change()
 	
 	a = main(40,139)
 	print(a)

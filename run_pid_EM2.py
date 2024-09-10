@@ -390,7 +390,7 @@ def drive(writer, lat_dest: float, lon_dest :float, thd_distance: int, stack_dis
 
 
 		#stuck check
-		if stuck_count % 30 == 0:
+		if stuck_count % 5 == 0:
 			#yoko check
 			yoko_count = stuck.yoko_jug()
 			stuck.ue_jug()

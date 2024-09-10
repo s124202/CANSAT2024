@@ -461,7 +461,7 @@ def test(q):
 
 		if isReach_dest == 1:
 			print('end gps running')
-			#send.log("end gps running")
+			send_11.log("end gps running")
 			q.put(0)
 			send = 5
 			time.sleep(3)
@@ -469,7 +469,7 @@ def test(q):
 			return
 		else:
 			print("not Goal", "distance=",distance_to_dest)
-			#send.log("distance=" + str(distance_to_dest))
+			send_11.log("distance=" + str(distance_to_dest))
 
 def main():
 	q = Queue()

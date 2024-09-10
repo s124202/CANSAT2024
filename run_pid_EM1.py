@@ -462,7 +462,7 @@ def test(lat,lon,q):
 
 		if isReach_dest == 1:
 			print('end gps running')
-			#send.log("end gps running")
+			send_10.log("end gps running")
 			q.put(0)
 			send = 5
 			time.sleep(3)

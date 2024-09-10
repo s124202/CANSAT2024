@@ -69,7 +69,7 @@ def mission():
 	print("-----Start 3_Melt_sequence-----")
 	send.log("-----Start 3_Melt_sequence-----")
 
-	blt_adalt.main(103,300)
+	blt_adalt.main(103,30)
 	melt.melt_down(MELT_TIME)
 
 	print("-----Finish 3_Melt_sequence-----")

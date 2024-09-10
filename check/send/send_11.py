@@ -25,8 +25,8 @@ def get_args():
     parser.add_argument("-p", "--payload_length")
     parser.add_argument("-a", "--ascii_text")
     parser.add_argument("-f", "--fixed_mode", action="store_true", default=True)
-    parser.add_argument("--target_address", default="11")
-    parser.add_argument("--target_channel", default="0")
+    parser.add_argument("--target_address", default="10")
+    parser.add_argument("--target_channel", default="2")
 
     args = parser.parse_args()
 

@@ -7,7 +7,7 @@ def detect_purple(img):
 	hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
 	# 紫色のHSVの値域
-	hsv_min = np.array([110,180,30])
+	hsv_min = np.array([110,170,0])
 	hsv_max = np.array([140,255,255])
 	mask = cv2.inRange(hsv, hsv_min, hsv_max)
 

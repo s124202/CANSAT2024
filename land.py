@@ -96,7 +96,7 @@ def detect_csv():
 
 	f.close()
 
-	lat, lon = 40,139
+	lat, lon = gps.location()
 	return lat, lon
 
 def detect():
@@ -164,7 +164,7 @@ def detect():
 		if time.time() - time_start > LAND_TIMEOUT:
 			print("Acc Timeout")
 			break
-	lat, lon = 40,139
+	lat, lon = gps.location()
 	return lat, lon
 
 

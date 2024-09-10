@@ -243,7 +243,7 @@ def drive(lon_dest, lat_dest, writer):
         writer.writerows([[lat_now, lon_now, error_theta]])
 
         #stuck check
-        if stuck_count % 30 == 0:
+        if stuck_count % 5 == 0:
             #yoko check
             yoko_count = stuck.yoko_jug()
             stuck.ue_jug()

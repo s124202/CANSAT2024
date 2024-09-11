@@ -180,8 +180,8 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         m = PID_control(error_theta, theta_array, Kp, Ki, Kd)
 
         #limit m
-        m = min(m, 5)
-        m = max(m, -5)
+        m = min(m, 10)
+        m = max(m, -10)
 
         #param
         s_r = RUN_STRAIGHT_R

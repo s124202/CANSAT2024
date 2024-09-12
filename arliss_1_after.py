@@ -110,7 +110,7 @@ def mission():
 
 		try:
 			while isReach_dest == 0:
-				isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
+				isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer, f)
 				print("Raw Gas: ", sgp.raw)
 				writer2.writerows([[sgp.raw]])
 				f2.flush()
@@ -142,7 +142,7 @@ def mission():
 
 			try:
 				while isReach_dest == 0:
-					isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
+					isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer, f)
 					print("Raw Gas: ", sgp.raw)
 					writer2.writerows([[sgp.raw]])
 					f2.flush()
@@ -187,7 +187,7 @@ def mission():
 
 		try:
 			while isReach_dest == 0:
-				isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
+				isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer, f)
 				print("Raw Gas: ", sgp.raw)
 				writer2.writerows([[sgp.raw]])
 				f2.flush()

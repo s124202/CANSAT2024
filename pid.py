@@ -195,7 +195,7 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
         time.sleep(0.1)
 
 
-def drive(lon_dest, lat_dest, writer):
+def drive(lon_dest, lat_dest, writer, f):
     '''  
     Parameters
     ----------
@@ -241,6 +241,7 @@ def drive(lon_dest, lat_dest, writer):
         error_theta = get_theta_dest(target_azimuth, magx_off, magy_off)
         print("distance = ", distance_to_dest, "arg = ", target_azimuth)
         writer.writerows([[lat_now, lon_now, error_theta]])
+        f.flush()
 
         #stuck check
         if stuck_count % 5 == 0:

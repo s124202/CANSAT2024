@@ -104,17 +104,20 @@ def mission():
 		filename = "log/run_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 		f = open(filename,"w")
 		writer = csv.writer(f)
-		filename2 = "log/run_data2_" + time.strftime("%m%d-%H%M%S") + ".csv"
+		filename2 = "log/run_data_raw_" + time.strftime("%m%d-%H%M%S") + ".csv"
 		f2 = open(filename2,"w")
 		writer2 = csv.writer(f2)
 
-		while isReach_dest == 0:
-			isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
-			print("Raw Gas: ", sgp.raw)
-			writer2.writerows([[sgp.raw]])
+		try:
+			while isReach_dest == 0:
+				isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
+				print("Raw Gas: ", sgp.raw)
+				writer2.writerows([[sgp.raw]])
+				f.flush()
 
-		f.close()
-		f2.close()
+		finally:
+			f.close()
+			f2.close()
 
 	else:
 		#-----6_second_follow_sequence-----#
@@ -137,13 +140,16 @@ def mission():
 			f2 = open(filename2,"w")
 			writer2 = csv.writer(f2)
 
-			while isReach_dest == 0:
-				isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
-				print("Raw Gas: ", sgp.raw)
-				writer2.writerows([[sgp.raw]])
+			try:
+				while isReach_dest == 0:
+					isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
+					print("Raw Gas: ", sgp.raw)
+					writer2.writerows([[sgp.raw]])
+					f.flush()
 
-			f.close()
-			f2.close()
+			finally:
+				f.close()
+				f2.close()
 
 
 
@@ -179,13 +185,16 @@ def mission():
 		f2 = open(filename2,"w")
 		writer2 = csv.writer(f2)
 
-		while isReach_dest == 0:
-			isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
-			print("Raw Gas: ", sgp.raw)
-			writer2.writerows([[sgp.raw]])
+		try:
+			while isReach_dest == 0:
+				isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
+				print("Raw Gas: ", sgp.raw)
+				writer2.writerows([[sgp.raw]])
+				f.flush()
 
-		f.close()
-		f2.close()
+		finally:
+			f.close()
+			f2.close()
 
 		print("-----Finish extra_Run_sequence-----")
 		send.log("-----Finish extra_Run_sequence-----")

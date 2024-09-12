@@ -309,7 +309,7 @@ def PID_run(target_azimuth: float, magx_off: float, magy_off: float, theta_array
 			break
 
 
-def drive(writer, lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: float, t_cal: float, loop_num: int):
+def drive(f, writer, lat_dest: float, lon_dest :float, thd_distance: int, stack_distance: float, t_cal: float, loop_num: int):
 	'''  
 	Parameters
 	----------
@@ -387,6 +387,7 @@ def drive(writer, lat_dest: float, lon_dest :float, thd_distance: int, stack_dis
 		error_theta = get_theta_dest(target_azimuth, magx_off, magy_off)
 		print("distance = ", distance_to_dest, "arg = ", target_azimuth)
 		writer.writerows([[lat_now, lon_now, error_theta]])
+		f.flush()
 
 
 		#stuck check
@@ -441,22 +442,27 @@ def test(q):
 
 	#main
 	while True:
-		distance_to_dest, isReach_dest = drive(writer, lat_dest=lat_test, lon_dest=lon_test, thd_distance=PID_THD_DISTANCE_DEST, stack_distance=PID_STUCK_JUDGE_THD_DISTANCE, t_cal=PID_T_CAL, loop_num=PID_LOOP_NUM)
+		distance_to_dest, isReach_dest = drive(f, writer, lat_dest=lat_test, lon_dest=lon_test, thd_distance=PID_THD_DISTANCE_DEST, stack_distance=PID_STUCK_JUDGE_THD_DISTANCE, t_cal=PID_T_CAL, loop_num=PID_LOOP_NUM)
 		temp,pres,hum,alt = bme280.bme280_read()
 		print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
 		writer2.writerows([[temp, pres, hum, alt]])
+		f2.flush()
 
 		#check
 		if receive == str(4):
 			q.put(1)
 			print("switch to autonomy")
 			synchro = 1
+			f.close()
+			f2.close()
 			return
 		
 		if  distance_to_dest == 100 and isReach_dest == 0:
 			q.put(1)
 			print("switch to autonomy")
 			synchro = 1
+			f.close()
+			f2.close()
 			return
 
 		if isReach_dest == 1:
@@ -466,6 +472,8 @@ def test(q):
 			send = 5
 			time.sleep(3)
 			synchro = 1
+			f.close()
+			f2.close()
 			return
 		else:
 			print("not Goal", "distance=",distance_to_dest)

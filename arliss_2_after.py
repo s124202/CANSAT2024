@@ -102,14 +102,17 @@ def mission():
 		f2 = open(filename2,"w")
 		writer2 = csv.writer(f2)
 
-		while isReach_dest == 0:
-			isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
-			temp,pres,hum,alt = bme280.bme280_read()
-			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
-			writer2.writerows([[temp, pres, hum, alt]])
+		try:
+			while isReach_dest == 0:
+				isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer, f)
+				temp,pres,hum,alt = bme280.bme280_read()
+				print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
+				writer2.writerows([[temp, pres, hum, alt]])
+				f2.flush()
 
-		f.close()
-		f2.close()
+		finally:
+			f.close()
+			f2.close()
 
 	else:
 		#-----6_second_follow_sequence-----#
@@ -132,14 +135,17 @@ def mission():
 			f2 = open(filename2,"w")
 			writer2 = csv.writer(f2)
 
-			while isReach_dest == 0:
-				isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
-				temp,pres,hum,alt = bme280.bme280_read()
-				print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
-				writer2.writerows([[temp, pres, hum, alt]])
+			try:
+				while isReach_dest == 0:
+					isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer, f)
+					temp,pres,hum,alt = bme280.bme280_read()
+					print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
+					writer2.writerows([[temp, pres, hum, alt]])
+					f2.flush()
 
-			f.close()
-			f2.close()
+			finally:
+				f.close()
+				f2.close()
 
 
 	while True:
@@ -174,14 +180,17 @@ def mission():
 		f2 = open(filename2,"w")
 		writer2 = csv.writer(f2)
 
-		while isReach_dest == 0:
-			isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
-			temp,pres,hum,alt = bme280.bme280_read()
-			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
-			writer2.writerows([[temp, pres, hum, alt]])
+		try:
+			while isReach_dest == 0:
+				isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer, f)
+				temp,pres,hum,alt = bme280.bme280_read()
+				print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
+				writer2.writerows([[temp, pres, hum, alt]])
+				f2.flush()
 
-		f.close()
-		f2.close()
+		finally:
+			f.close()
+			f2.close()
 
 		print("-----Finish extra_Run_sequence-----")
 		send.log("-----Finish extra_Run_sequence-----")

@@ -11,11 +11,13 @@ def detect_csv():
 
     while True:
         try:
-        
+
                 print(i)
                 writer.writerows(i)
                 f.flush()
                 i += 1
-    
+
         finally:
             f.close()
+
+detect_csv()

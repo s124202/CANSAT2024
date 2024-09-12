@@ -113,7 +113,7 @@ def mission():
 				isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
 				print("Raw Gas: ", sgp.raw)
 				writer2.writerows([[sgp.raw]])
-				f.flush()
+				f2.flush()
 
 		finally:
 			f.close()
@@ -145,7 +145,7 @@ def mission():
 					isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
 					print("Raw Gas: ", sgp.raw)
 					writer2.writerows([[sgp.raw]])
-					f.flush()
+					f2.flush()
 
 			finally:
 				f.close()
@@ -190,7 +190,7 @@ def mission():
 				isReach_dest = pid.drive(RUN_LON, RUN_LAT, writer)
 				print("Raw Gas: ", sgp.raw)
 				writer2.writerows([[sgp.raw]])
-				f.flush()
+				f2.flush()
 
 		finally:
 			f.close()

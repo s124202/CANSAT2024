@@ -433,10 +433,10 @@ def test(q):
 	lat_test = RUN_LAT
 	lon_test = RUN_LON
 
-	filename = "following_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	filename = "log/following_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 	f = open(filename,"w")
 	writer = csv.writer(f)
-	filename2 = "bme280_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	filename2 = "log/bme280_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 	f2 = open(filename2,"w")
 	writer2 = csv.writer(f2)
 

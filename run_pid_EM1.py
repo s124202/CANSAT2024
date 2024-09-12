@@ -340,7 +340,7 @@ def drive(writer, lat_dest: float, lon_dest :float, thd_distance: int, stack_dis
 			return 100,0
 		time.sleep(1)
 		if i % 15 == 14:
-			run_following_EM1.move_default(ROTATE_PWR,-ROTATE_PWR,0.2)
+			run_following_EM1.move_default(ROTATE_PWR,-ROTATE_PWR,0.06)
 
 	#子機を待たせる
 	send = 1
@@ -364,7 +364,7 @@ def drive(writer, lat_dest: float, lon_dest :float, thd_distance: int, stack_dis
 		if receive == str(4) or i == 99:
 			return 100,0
 		if i % 15 == 14:
-			run_following_EM1.move_default(ROTATE_PWR,-ROTATE_PWR,0.2)
+			run_following_EM1.move_default(ROTATE_PWR,-ROTATE_PWR,0.06)
 	send = 0
 	time.sleep(2.8)
 

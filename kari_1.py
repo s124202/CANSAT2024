@@ -9,13 +9,13 @@ def detect_csv():
 
     i = 1
 
-    try:
-        while True:
-
-            print(i)
-            writer.writerows(i)
-            f.flush()
-            i += 1
-
-    finally:
-        f.close()
+    while True:
+        try:
+        
+                print(i)
+                writer.writerows(i)
+                f.flush()
+                i += 1
+    
+        finally:
+            f.close()

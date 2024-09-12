@@ -53,29 +53,32 @@ def detect_csv():
 	press_array.append(bme280.bme280_read()[1])
 
     #detect
-	while True:
-		press_array.pop(0)
-		time.sleep(RELEASE_JUDGE_TIME)
-		press_array.append(bme280.bme280_read()[1])
+	try:
+		while True:
+			press_array.pop(0)
+			time.sleep(RELEASE_JUDGE_TIME)
+			press_array.append(bme280.bme280_read()[1])
 
-		delta_press = press_array[1] - press_array[0]
-		if delta_press > RELEASE_PRESS_THD:
-			press_count += 1
-		else:
-			press_count = 0
+			delta_press = press_array[1] - press_array[0]
+			if delta_press > RELEASE_PRESS_THD:
+				press_count += 1
+			else:
+				press_count = 0
 
-		print("press:", press_array, "count:", press_count)
-		writer.writerows([[press_array,press_count]])
+			print("press:", press_array, "count:", press_count)
+			writer.writerows([[press_array,press_count]])
+			f.flush()
 
 
-		if press_count == RELEASE_JUDGE_COUNT:
-			break
+			if press_count == RELEASE_JUDGE_COUNT:
+				break
 
-		if time.time() - time_start > RELEASE_TIMEOUT:
-			print("Release Timeout")
-			break
-	
-	f.close()
+			if time.time() - time_start > RELEASE_TIMEOUT:
+				print("Release Timeout")
+				break
+
+	finally:
+		f.close()
 
 
 if __name__ == "__main__":

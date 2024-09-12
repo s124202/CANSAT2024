@@ -6,6 +6,7 @@ import numpy as np
 import threading
 from queue import Queue
 import bluetooth
+import stuck
 
 from main_const import *
 
@@ -15,7 +16,7 @@ def setup():
 	"""
 	global motor_r, motor_l
 	Rpin1, Rpin2 = 16, 26
-	Lpin1, Lpin2 = 23, 18
+	Lpin1, Lpin2 = 18, 23
 	motor_r = Motor(Rpin1, Rpin2)
 	motor_l = Motor(Lpin1, Lpin2)
 
@@ -279,6 +280,7 @@ def discovery(cap):
 			return
 
 		# フレームを取得
+		stuck.ue_jug()
 		for _ in range(5):
 			ret, frame = cap.read()
 		frame = cv2.resize(frame, (640,320))
@@ -291,7 +293,7 @@ def discovery(cap):
 		center, size = get_largest_red_object(mask)
 
 		if center is None:
-			motor_move_default(ROTATE_PWR,-ROTATE_PWR,0.06)
+			motor_move_default(ROTATE_PWR,-ROTATE_PWR,0.08)
 			motor_stop()
 			time.sleep(2)
 			continue

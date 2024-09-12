@@ -43,7 +43,7 @@ def main(re_count):
 	###-----撮像した画像の中にゴールが映っていない場合の処理-----###
 	elif area_ratio == 0:
 		print('Lost Goal')
-		run_following_EM1.motor_move_default(60, -60, 0.06)
+		run_following_EM1.motor_move_default(60, -60, 0.08)
 		run_following_EM1.motor_stop_default(0.5)
 		re_count += 1
 	

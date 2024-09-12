@@ -220,7 +220,7 @@ def drive(lon_dest, lat_dest, writer, f):
     stuck_count = 1
 
     #cal
-    magx_off, magy_off = calibration.cal(40,-40,60) 
+    magx_off, magy_off = calibration.cal(RUN_CAL,-RUN_CAL,60) 
     # while magx_off == 0 and magy_off == 0:
     #     motor.motor_move(80, 75, 3)
     #     magx_off, magy_off = calibration.cal(40,-40,60) 

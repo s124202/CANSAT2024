@@ -109,7 +109,7 @@ def detect_csv():
 
 			print("press:", press_array, "count:", press_count)
 			writer.writerows([[press_array,press_count]])
-			f.flush()
+			#f.flush()
 
 
 			if press_count == LAND_JUDGE_COUNT:
@@ -154,7 +154,7 @@ def detect_csv():
 
 			print("acc:", acc_array, "count:", acc_count)
 			writer.writerows([[acc_array,acc_count]])
-			f.flush()
+			#f.flush()
 
 
 			if acc_count == LAND_JUDGE_COUNT:

@@ -6,6 +6,7 @@ import numpy as np
 import threading
 from queue import Queue
 import bluetooth
+import stuck
 
 from main_const import *
 
@@ -277,7 +278,7 @@ def discovery(cap):
 			send = 4
 			time.sleep(2)
 			return
-
+		stuck.ue_jug()
 		# フレームを取得
 		for _ in range(5):
 			ret, frame = cap.read()
@@ -291,7 +292,7 @@ def discovery(cap):
 		center, size = get_largest_red_object(mask)
 
 		if center is None:
-			motor_move_default(ROTATE_PWR,-ROTATE_PWR,0.1)
+			motor_move_default(ROTATE_PWR,-ROTATE_PWR,0.07)
 			motor_stop()
 			time.sleep(2)
 			continue
@@ -370,7 +371,7 @@ def main_detect(q):
 		
 		#-100 ~ 100 の範囲で設定
 		mp = (int(center[0]) - 320) / 3.2   
-		mp = mp / 22
+		mp = mp / 10
 
 		md = (center[0] - old_center[0]) / 100
 

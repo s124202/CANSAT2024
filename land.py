@@ -83,10 +83,9 @@ def detect():
 def detect_csv():
 	#-----press_check-----#
 	#init(csv)
-	filename = "log/land_press_data" + ".csv"
+	filename = "log/land_press_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 	f = open(filename,"w")
 	writer = csv.writer(f)
-	f.close()
 
 	#init
 	time_start = time.time()
@@ -98,8 +97,6 @@ def detect_csv():
 	#detect
 	try:
 		while True:
-			f = open(filename,"a")
-			writer = csv.writer(f)
 			press_array.pop(0)
 			time.sleep(LAND_JUDGE_TIME)
 			press_array.append(bme280.bme280_read()[1])
@@ -122,7 +119,6 @@ def detect_csv():
 			if time.time() - time_start > LAND_TIMEOUT:
 				print("Press Timeout")
 				break
-			f.close()
 
 	finally:
 		f.close()

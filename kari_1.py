@@ -13,7 +13,8 @@ def detect_csv():
                 f.flush()
                 i += 1
                 time.sleep(1)
-            except KeyboardInterrupt:
+            except :
+                f.close()
                 print("Process interrupted")
                 break
 

@@ -435,10 +435,10 @@ def test(lat,lon,q):
 	i2c = board.I2C() 
 	sgp = adafruit_sgp40.SGP40(i2c)
 
-	filename = "following_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	filename = "log/following_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 	f = open(filename,"w")
 	writer = csv.writer(f)
-	filename2 = "raw_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
+	filename2 = "log/raw_data_" + time.strftime("%m%d-%H%M%S") + ".csv"
 	f2 = open(filename2,"w")
 	writer2 = csv.writer(f2)
 

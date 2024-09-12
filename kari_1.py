@@ -14,7 +14,6 @@ with open(filename, mode='w', newline='') as file:
         while True:
             timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
             writer.writerow([timestamp, number])
-            file.seek(0, 2)  # ファイルポインタをファイルの末尾に移動
             file.flush()  # バッファをクリアして即座に書き込む
             print(f'{timestamp}: {number}')
             number += 1

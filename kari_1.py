@@ -12,6 +12,7 @@ def detect_csv():
                 writer.writerow([i])
                 f.flush()
                 i += 1
+                time.sleep(1)
             except KeyboardInterrupt:
                 print("Process interrupted")
                 break

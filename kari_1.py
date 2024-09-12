@@ -13,7 +13,7 @@ def detect_csv():
         try:
 
                 print(i)
-                writer.writerows([i])
+                writer.writerows([[i]])
                 f.flush()
                 i += 1
 

@@ -170,4 +170,11 @@ def detect_csv():
 
 
 if __name__ == '__main__':
+<<<<<<< HEAD
 	detect()
+=======
+	bme280.bme280_setup()
+	bme280.bme280_calib_param()
+	bmx055.bmx055_setup()
+	detect_csv()
+>>>>>>> 86847e3aad09f35616c87d38c841d6e879f27651

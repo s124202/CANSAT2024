@@ -1,3 +1,5 @@
+#佐藤のテスト用
+
 import purple_detection
 import time
 

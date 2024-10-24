@@ -1,5 +1,3 @@
-#2024/08/07 生川
-
 #standard
 import time
 

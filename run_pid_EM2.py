@@ -1,7 +1,3 @@
-#2024/07/29 生川
-#VOC基盤 両モーター回転逆で作成　2024/07/26
-#CO2基盤 右モーター回転逆で作成　2024/07/29
-
 #standard
 import time
 import bluetooth

@@ -1,5 +1,3 @@
-#2024/07/11 生川
-
 #standard
 import time
 import pigpio

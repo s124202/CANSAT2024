@@ -1,5 +1,3 @@
-#2024/08/07 生川
-
 #src
 import run_following_EM1
 import red_detection

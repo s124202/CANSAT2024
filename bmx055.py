@@ -1,5 +1,3 @@
-#2024/07/08 shoji
-
 from smbus import SMBus
 import time
 import csv

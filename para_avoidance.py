@@ -1,6 +1,3 @@
-#2024/07/10　sato
-#2024/07/10　shoji
-
 import purple_detection
 import run_following_EM1
 import stuck

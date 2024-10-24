@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 #2024/07/11 生川
 
+=======
+>>>>>>> 85536d0a5a4e3dc5efbf38102dfdde3499b133ba
 from gpiozero import Motor
 import time
 
@@ -19,6 +22,11 @@ def motor_move(strength_l, strength_r, t_moving):
 	strength_l、strength_rは-1~1で表す。負の値だったら後ろ走行。
 	必ずmotor_stop()セットで用いる。めんどくさかったら下にあるmotor()を使用
 	"""
+<<<<<<< HEAD
+=======
+	global motor_r, motor_l
+	
+>>>>>>> 85536d0a5a4e3dc5efbf38102dfdde3499b133ba
 	strength_l = strength_l / 100
 	strength_r = strength_r / 100
 	# 前進するときのみスタック判定
@@ -57,7 +65,11 @@ def deceleration(strength_l, strength_r):
 	for i in range(10):
 		coefficient_power = 10 - i
 		coefficient_power /= 10
+<<<<<<< HEAD
 		motor_move(strength_l * coefficient_power, strength_r * coefficient_power, 0.1)
+=======
+		motor_move(strength_l * coefficient_power, strength_r * coefficient_power, 0.2)
+>>>>>>> 85536d0a5a4e3dc5efbf38102dfdde3499b133ba
 		if i == 9:
 			motor_stop(0.1)
 
@@ -104,6 +116,25 @@ def motor_test(strength_l=10, strength_r=10, t_moving=10):
 	else:
 		deceleration(strength_l, strength_r)
 
+<<<<<<< HEAD
+=======
+def test():
+	setup()
+	try:
+		while True:
+			#l = float(input('左の出力は？'))
+			#r = float(input('右の出力は？'))
+			#t = float(input('移動時間は？'))
+			l = 10
+			r = 10
+			t = 30
+			move(l,r,t)
+	except KeyboardInterrupt:
+		print("\r\n")
+	except Exception as e:
+		print(e)
+
+>>>>>>> 85536d0a5a4e3dc5efbf38102dfdde3499b133ba
 if __name__ == '__main__':
 	setup()
 	try:

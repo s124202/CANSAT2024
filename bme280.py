@@ -167,17 +167,28 @@ def bme280_csv():
 	writer = csv.writer(f)
 
 	try:
+<<<<<<< HEAD
 		for i in range(500):
 			temp,pres,hum,alt = bme280_read()
 			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
 			writer.writerows([[time.time(),pres]])
 			time.sleep(0.8)
+=======
+		for i in range(300):
+			temp,pres,hum,alt = bme280_read()
+			print("temp:" + str(temp) + "\t" + "pres:" + str(pres) + "\t" + "hum:" + str(hum) + "\t" + "alt: " + str(alt))
+			writer.writerows([[time.time(),pres]])
+			time.sleep(0.1)
+>>>>>>> 85536d0a5a4e3dc5efbf38102dfdde3499b133ba
 	except KeyboardInterrupt:
 		print("\r\n")
 		f.close()
 	except Exception as e:
 		print(e)
+<<<<<<< HEAD
 		f.close()
+=======
+>>>>>>> 85536d0a5a4e3dc5efbf38102dfdde3499b133ba
 	
 if __name__ == '__main__':
 	#bme280_setup()
